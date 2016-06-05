@@ -36,9 +36,20 @@
                 <MenuItem Header="Delete" InputGestureText="DEL"/>
                 <MenuItem Header="Select All" InputGestureText="Ctrl + A"/>
             </MenuItem>
-            <MenuItem Header="Search"></MenuItem>
-            <MenuItem Header="Settings"></MenuItem>
-            <MenuItem Header="Window"></MenuItem>
+            <MenuItem Header="Search">
+                <MenuItem Header="Find..." InputGestureText="Ctrl + F"/>
+                <MenuItem Header="Find Next" InputGestureText="F3"/>
+                <MenuItem Header="Find Previous" InputGestureText="Shift + F3"/>
+                <MenuItem Header="Replace..." InputGestureText="Ctrl + H"/>
+            </MenuItem>
+            <MenuItem Header="Settings">
+                <MenuItem Header="Preferences..."/>
+                <MenuItem Header="Theme">
+                    <MenuItem Header="Default"/>
+                    <MenuItem Header="Dark"/>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Window"/>
         </Menu>
     </DockPanel>
 </Window>
