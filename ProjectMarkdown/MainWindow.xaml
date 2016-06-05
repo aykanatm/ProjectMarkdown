@@ -1,0 +1,44 @@
+﻿<Window x:Class="ProjectMarkdown.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectMarkdown"
+        mc:Ignorable="d"
+        Title="" Height="350" Width="525">
+    <DockPanel LastChildFill="True" >
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="New" InputGestureText="Ctrl + N"/>
+                <MenuItem Header="Open" InputGestureText="Ctrl + O"/>
+                <MenuItem Header="Open Containing Folder"/>
+                <MenuItem Header="Save" InputGestureText="Ctrl + S"/>
+                <MenuItem Header="Save All" InputGestureText="Ctrl + Shift + S"/>
+                <MenuItem Header="Save As..." InputGestureText="Ctrl + Alt + S"/>
+                <MenuItem Header="Save Copy As..."/>
+                <MenuItem Header="Close">
+                    <MenuItem Header="All" InputGestureText="Ctrl + Shift + W"></MenuItem>
+                    <MenuItem Header="Active Document" InputGestureText="Ctrl + W"></MenuItem>
+                    <MenuItem Header="All but Active Document" InputGestureText="Ctrl + Alt + W"></MenuItem>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Print" InputGestureText="Ctrl + P"/>
+                <Separator/>
+                <MenuItem Header="Exit" InputGestureText="Alt + F4"/>
+            </MenuItem>
+            <MenuItem Header="Edit">
+                <MenuItem Header="Undo" InputGestureText="Ctrl + Z"/>
+                <MenuItem Header="Redo" InputGestureText="Ctrl + Y"/>
+                <Separator/>
+                <MenuItem Header="Cut" InputGestureText="Ctrl + X"/>
+                <MenuItem Header="Copy" InputGestureText="Ctrl + C"/>
+                <MenuItem Header="Paste" InputGestureText="Ctrl + V"/>
+                <MenuItem Header="Delete" InputGestureText="DEL"/>
+                <MenuItem Header="Select All" InputGestureText="Ctrl + A"/>
+            </MenuItem>
+            <MenuItem Header="Search"></MenuItem>
+            <MenuItem Header="Settings"></MenuItem>
+            <MenuItem Header="Window"></MenuItem>
+        </Menu>
+    </DockPanel>
+</Window>
