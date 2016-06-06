@@ -3,10 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:ProjectMarkdown"
         xmlns:viewModels="clr-namespace:ProjectMarkdown.ViewModels"
+        xmlns:attachedProperties="clr-namespace:ProjectMarkdown.AttachedProperties"
         mc:Ignorable="d"
-        Title="{Binding CurrentDocumentPath}" Height="350" Width="1000">
+        Title="{Binding CurrentDocumentPath, Mode=OneWay}" Height="350" Width="1000">
     <Window.DataContext>
         <viewModels:MainWindowViewModel/>
     </Window.DataContext>
@@ -63,7 +65,7 @@
                 <Button>
                     <TextBlock Text="Open"></TextBlock>
                 </Button>
-                <Button>
+                <Button Command="{Binding SaveDocumentCommand}">
                     <TextBlock Text="Save"></TextBlock>
                 </Button>
                 <Button>
@@ -110,10 +112,10 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="5">
-                        <RichTextBox AcceptsReturn="True" AcceptsTab="True"/>
+                        <xctk:RichTextBox AcceptsReturn="True" AcceptsTab="True" Text="{Binding CurrentText, Mode=TwoWay}"/>
                     </ScrollViewer>
                     <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="5">
-                        <WebBrowser/>
+                        <WebBrowser attachedProperties:BrowserBehaviour.Html="{Binding CurrentHtml, Mode=OneWay}"/>
                     </ScrollViewer>
                 </Grid>
             </TabItem>
