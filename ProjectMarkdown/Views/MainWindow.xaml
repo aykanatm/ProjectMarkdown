@@ -4,8 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectMarkdown"
+        xmlns:viewModels="clr-namespace:ProjectMarkdown.ViewModels"
         mc:Ignorable="d"
-        Title="" Height="350" Width="1000">
+        Title="{Binding CurrentDocumentPath}" Height="350" Width="1000">
+    <Window.DataContext>
+        <viewModels:MainWindowViewModel/>
+    </Window.DataContext>
     <DockPanel LastChildFill="True" >
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
@@ -116,3 +120,4 @@
         </TabControl>
     </DockPanel>
 </Window>
+
