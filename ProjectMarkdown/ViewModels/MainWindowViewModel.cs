@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
+using Awesomium.Core;
 using ProjectMarkdown.Annotations;
 
 namespace ProjectMarkdown.ViewModels
@@ -17,7 +19,7 @@ namespace ProjectMarkdown.ViewModels
     {
         private string _currentDocumentPath;
         private string _currentText;
-        private string _currentHtml;
+        private Uri _currentSource;
 
         public string CurrentDocumentPath
         {
@@ -41,17 +43,17 @@ namespace ProjectMarkdown.ViewModels
             }
         }
 
-        public string CurrentHtml
+        public Uri CurrentSource
         {
-            get { return _currentHtml; }
+            get { return _currentSource; }
             set
             {
-                if (value == _currentHtml) return;
-                _currentHtml = value;
-                OnPropertyChanged(nameof(CurrentHtml));
+                if (value == _currentSource) return;
+                _currentSource = value;
+                OnPropertyChanged(nameof(CurrentSource));
             }
         }
-
+        
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ICommand SaveDocumentCommand { get; set; }
@@ -62,10 +64,7 @@ namespace ProjectMarkdown.ViewModels
             {
                 return;
             }
-            using (var sr = new StreamReader("Example.html"))
-            {
-                CurrentHtml = sr.ReadToEnd();
-            }
+            
             LoadCommands();
             CurrentDocumentPath = "Untitled.md";
         }
@@ -77,10 +76,7 @@ namespace ProjectMarkdown.ViewModels
 
         public void SaveDocument(object obj)
         {
-            using (var sr = new StreamReader("Example.html"))
-            {
-                CurrentHtml = sr.ReadToEnd();
-            }
+            CurrentSource = (AppDomain.CurrentDomain.BaseDirectory + "Example.html").ToUri();
         }
 
         public bool CanSaveDocument(object obj)
