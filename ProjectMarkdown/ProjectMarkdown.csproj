@@ -135,13 +135,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Converters\" />
     <Folder Include="Model\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Styles\github-markdown.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectMarkdown.MarkdownLibrary\ProjectMarkdown.MarkdownLibrary.csproj">
+      <Project>{2dbe7815-5fe7-47fe-aeb4-e94a0eaca941}</Project>
+      <Name>ProjectMarkdown.MarkdownLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
