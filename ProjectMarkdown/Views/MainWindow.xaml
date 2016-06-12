@@ -115,7 +115,11 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="5">
-                        <xctk:RichTextBox AcceptsReturn="True" AcceptsTab="True" Text="{Binding CurrentText, Mode=TwoWay}"/>
+                        <xctk:RichTextBox AcceptsReturn="True" AcceptsTab="True" Text="{Binding CurrentText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <xctk:RichTextBox.TextFormatter>
+                                <xctk:PlainTextFormatter></xctk:PlainTextFormatter>
+                            </xctk:RichTextBox.TextFormatter>
+                        </xctk:RichTextBox>
                     </ScrollViewer>
                     <awe:WebDialogsLayer Grid.Column="1" Margin="5">
                         <awe:WebControl Source="{Binding CurrentSource}"/>
