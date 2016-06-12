@@ -12,6 +12,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using Awesomium.Core;
 using ProjectMarkdown.Annotations;
+using ProjectMarkdown.MarkdownLibrary;
 
 namespace ProjectMarkdown.ViewModels
 {
@@ -67,6 +68,27 @@ namespace ProjectMarkdown.ViewModels
             
             LoadCommands();
             CurrentDocumentPath = "Untitled.md";
+
+            
+
+            using (var sr = new StreamReader("MarkdownTest.txt"))
+            {
+                string line;
+                do
+                {
+                    line = sr.ReadLine();
+                    CurrentText += line + "\r\n";
+                } while (line != null);
+            }
+
+            var mp = new MarkdownParser();
+            var html = mp.Parse(CurrentText);
+            using (var sw = new StreamWriter("MarkdownResult.html"))
+            {
+                sw.Write(html);
+            }
+
+            CurrentSource = (AppDomain.CurrentDomain.BaseDirectory + "MarkdownResult.html").ToUri();
         }
 
         private void LoadCommands()
@@ -76,7 +98,7 @@ namespace ProjectMarkdown.ViewModels
 
         public void SaveDocument(object obj)
         {
-            CurrentSource = (AppDomain.CurrentDomain.BaseDirectory + "Example.html").ToUri();
+            
         }
 
         public bool CanSaveDocument(object obj)
