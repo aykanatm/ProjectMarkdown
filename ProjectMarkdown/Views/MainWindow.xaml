@@ -8,7 +8,6 @@
         xmlns:data="http://schemas.awesomium.com/winfx/data"
         xmlns:local="clr-namespace:ProjectMarkdown"
         xmlns:viewModels="clr-namespace:ProjectMarkdown.ViewModels"
-        xmlns:attachedProperties="clr-namespace:ProjectMarkdown.AttachedProperties"
         xmlns:core="clr-namespace:Awesomium.Core;assembly=Awesomium.Core"
         mc:Ignorable="d"
         Title="{Binding CurrentDocumentPath, Mode=OneWay}" Height="350" Width="1000"
