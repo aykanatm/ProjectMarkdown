@@ -4,3 +4,6 @@ ProjectMarkdown/obj/
 ProjectMarkdown/ProjectMarkdown.csproj.user
 ProjectMarkdown.sln.DotSettings
 packages/Unofficial.Awesomium.Complete.1.7.4.2/Unofficial.Awesomium.Complete.1.7.4.2.nupkg
+ProjectMarkdown.MarkdownLibrary/obj/
+ProjectMarkdown.MarkdownLibrary/bin/
+ProjectMarkdown.sln.DotSettings.user
