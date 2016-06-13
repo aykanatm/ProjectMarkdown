@@ -15,7 +15,7 @@ namespace ProjectMarkdown.MarkdownLibrary.HtmlComponents
             Javascript,Python,NoHighlight
         }
 
-        private Highlight _highlight;
+        private readonly Highlight _highlight;
 
         public BlockCode(string text, Highlight highlight) : base(TagTypes.BlockCode)
         {
@@ -27,9 +27,9 @@ namespace ProjectMarkdown.MarkdownLibrary.HtmlComponents
         {
             switch (_highlight)
             {
-                case Highlight.NoHighlight: return "<pre=\"no-highlight\"><code>" + _text + "</code></pre>";
-                case Highlight.Python: return "<pre=\"highlight highlight-source-python\"><code>" + _text + "</code></pre>";
-                case Highlight.Javascript: return "<pre=\"highlight highlight-source-js\"><code>" + _text + "</code></pre>";
+                case Highlight.NoHighlight: return "<div>\r\n<pre lang=\"no-highlight\">\r\n<code>" + _text + "\r\n</code>\r\n</pre>\r\n</div>\r\n";
+                case Highlight.Python: return "<div class=\"highlight highlight-source-python\">\r\n<pre>\r\n<code>" + _text + "</code>\r\n</pre>\r\n</div>\r\n";
+                case Highlight.Javascript: return "<div class=\"highlight highlight-source-js\">\r\n<pre>\r\n<code>" + _text + "</code>\r\n</pre>\r\n</div>\r\n";
                 default:
                     return string.Empty;
             }
