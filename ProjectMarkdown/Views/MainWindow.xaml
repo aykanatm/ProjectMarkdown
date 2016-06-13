@@ -122,7 +122,7 @@
                         </xctk:RichTextBox>
                     </ScrollViewer>
                     <awe:WebDialogsLayer Grid.Column="1" Margin="5">
-                        <awe:WebControl Source="{Binding CurrentSource}"/>
+                        <awe:WebControl Source="{Binding CurrentSource, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </awe:WebDialogsLayer>
                 </Grid>
             </TabItem>
