@@ -98,7 +98,17 @@ namespace ProjectMarkdown.ViewModels
 
         public void SaveDocument(object obj)
         {
-            
+            var mp = new MarkdownParser();
+            var html = mp.Parse(CurrentText);
+            using (var sw = new StreamWriter("MarkdownResult.html"))
+            {
+                sw.Write(html);
+            }
+            // Since Source property does not update when the same uri is called, we have to load some fake uri before we call the actual uri as a workaround
+            // https://github.com/awesomium/awesomium-pub/issues/52
+            // Will fix this when 1.7.5 is released
+            CurrentSource = "SomeFakeUri".ToUri();
+            CurrentSource = (AppDomain.CurrentDomain.BaseDirectory + "MarkdownResult.html").ToUri();
         }
 
         public bool CanSaveDocument(object obj)
