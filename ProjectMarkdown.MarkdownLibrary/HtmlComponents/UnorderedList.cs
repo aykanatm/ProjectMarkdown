@@ -11,7 +11,7 @@ namespace ProjectMarkdown.MarkdownLibrary.HtmlComponents
         public int Count { get; private set; }
         private readonly List<ListItem> _items;
 
-        public UnorderedList(List<ListItem> items) : base(TagTypes.UnorderedList)
+        public UnorderedList(List<ListItem> items) : base(null, TagTypes.UnorderedList)
         {
             _items = items;
             Count = _items.Count;

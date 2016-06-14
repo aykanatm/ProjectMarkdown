@@ -2,22 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ProjectMarkdown.MarkdownLibrary.HtmlComponents
 {
-    public class InlineCode : HtmlComponent
+    public class StrikeThrough : HtmlComponent
     {
-        public InlineCode(string text) : base(text, TagTypes.InlineCode)
+        public StrikeThrough(string text) : base(text, TagTypes.StrikeThrough)
         {
             
         }
 
         public override string ToString()
         {
-            Text = Regex.Replace(Text, "<.*?>", string.Empty);
-            return "<code>" + Text + "</code>";
+            return "<del>" + Text + "</del>";
         }
     }
 }

@@ -8,16 +8,14 @@ namespace ProjectMarkdown.MarkdownLibrary.HtmlComponents
 {
     public class Blockquote : HtmlComponent
     {
-        private readonly string _text;
-
-        public Blockquote(string text) : base(TagTypes.BlockCode)
+        public Blockquote(string text) : base(text, TagTypes.BlockCode)
         {
-            _text = text;
+            
         }
 
         public override string ToString()
         {
-            return "<blockquote>" + _text + "</blockquote>";
+            return "<blockquote><p>" + Text + "</p></blockquote>";
         }
     }
 }

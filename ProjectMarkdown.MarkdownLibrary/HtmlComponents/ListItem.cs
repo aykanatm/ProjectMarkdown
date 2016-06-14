@@ -8,16 +8,14 @@ namespace ProjectMarkdown.MarkdownLibrary.HtmlComponents
 {
     public class ListItem : HtmlComponent
     {
-        private readonly string _text;
-
-        public ListItem(string text) : base(TagTypes.ListItem)
+        public ListItem(string text) : base(text, TagTypes.ListItem)
         {
-            _text = text;
+            
         }
 
         public override string ToString()
         {
-            return "<li>" + _text + "</li>";
+            return "<li>" + Text + "</li>";
         }
     }
 }

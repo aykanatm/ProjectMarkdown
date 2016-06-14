@@ -8,7 +8,7 @@ namespace ProjectMarkdown.MarkdownLibrary.HtmlComponents
 {
     public class HtmlDocument
     {
-        private List<HtmlComponent> _components;
+        private readonly List<HtmlComponent> _components;
 
         public HtmlDocument(List<HtmlComponent> components)
         {

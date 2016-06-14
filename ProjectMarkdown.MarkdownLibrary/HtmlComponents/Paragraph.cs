@@ -8,16 +8,14 @@ namespace ProjectMarkdown.MarkdownLibrary.HtmlComponents
 {
     public class Paragraph : HtmlComponent
     {
-        private readonly string _text;
-
-        public Paragraph(string text) : base(TagTypes.Paragraph)
+        public Paragraph(string text) : base(text, TagTypes.Paragraph)
         {
-            _text = text;
+            
         }
 
         public override string ToString()
         {
-            return "<p>" + _text + "</p>";
+            return "<p>" + Text + "</p>";
         }
     }
 }

@@ -6,17 +6,27 @@ using System.Threading.Tasks;
 
 namespace ProjectMarkdown.MarkdownLibrary.HtmlComponents
 {
-    public class HtmlComponent
+    public abstract class HtmlComponent
     {
+        protected string Text;
+
         public enum TagTypes
         {
-            Paragraph, Header, Link, Bold, Italic, UnorderedList, OrderedList, ListItem, Image, InlineCode, BlockCode
+            Paragraph, Header, Link, Bold, Italic, UnorderedList, OrderedList, ListItem, Image, InlineCode, BlockCode, StrikeThrough
         }
 
         public TagTypes TagType { get; private set; }
 
-        protected HtmlComponent(TagTypes tagType)
+        protected HtmlComponent(string text, TagTypes tagType)
         {
+            Text = text;
+            if (Text != null)
+            {
+                if (this is Header)
+                {
+                    Text = text.Replace("&", "&amp").Replace("<", "&lt").Replace(">", "&gt");
+                }
+            }
             TagType = tagType;
         }
     }

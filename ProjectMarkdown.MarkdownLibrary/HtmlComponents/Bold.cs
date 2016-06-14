@@ -8,16 +8,14 @@ namespace ProjectMarkdown.MarkdownLibrary.HtmlComponents
 {
     public class Bold : HtmlComponent
     {
-        private readonly string _text;
-
-        public Bold(string text) : base(TagTypes.Bold)
+        public Bold(string text) : base(text, TagTypes.Bold)
         {
-            _text = text;
+            
         }
 
         public override string ToString()
         {
-            return "<b>" + _text + "</b>";
+            return "<b>" + Text + "</b>";
         }
     }
 }

@@ -8,16 +8,14 @@ namespace ProjectMarkdown.MarkdownLibrary.HtmlComponents
 {
     public class Italic : HtmlComponent
     {
-        private readonly string _text;
-
-        public Italic(string text) : base(TagTypes.Italic)
+        public Italic(string text) : base(text, TagTypes.Italic)
         {
-            _text = text;
+            
         }
 
         public override string ToString()
         {
-            return "<i>" + _text + "</i>";
+            return "<i>" + Text + "</i>";
         }
     }
 }
