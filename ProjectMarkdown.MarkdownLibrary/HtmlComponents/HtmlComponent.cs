@@ -12,7 +12,7 @@ namespace ProjectMarkdown.MarkdownLibrary.HtmlComponents
 
         public enum TagTypes
         {
-            Paragraph, Header, Link, Bold, Italic, UnorderedList, OrderedList, ListItem, Image, InlineCode, BlockCode, StrikeThrough
+            Paragraph, Header, Link, Bold, Italic, ListItem, Image, InlineCode, BlockCode, StrikeThrough, HorizontalRule, List
         }
 
         public TagTypes TagType { get; private set; }
