@@ -45,17 +45,17 @@
     <Compile Include="HtmlComponents\Blockquote.cs" />
     <Compile Include="HtmlComponents\Bold.cs" />
     <Compile Include="HtmlComponents\Header.cs" />
+    <Compile Include="HtmlComponents\HorizontalRule.cs" />
     <Compile Include="HtmlComponents\HtmlComponent.cs" />
     <Compile Include="HtmlComponents\HtmlDocument.cs" />
     <Compile Include="HtmlComponents\Image.cs" />
     <Compile Include="HtmlComponents\InlineCode.cs" />
     <Compile Include="HtmlComponents\Italic.cs" />
     <Compile Include="HtmlComponents\Link.cs" />
+    <Compile Include="HtmlComponents\List.cs" />
     <Compile Include="HtmlComponents\ListItem.cs" />
-    <Compile Include="HtmlComponents\OrderedList.cs" />
     <Compile Include="HtmlComponents\Paragraph.cs" />
     <Compile Include="HtmlComponents\StrikeThrough.cs" />
-    <Compile Include="HtmlComponents\UnorderedList.cs" />
     <Compile Include="MarkdownParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
