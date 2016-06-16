@@ -125,7 +125,8 @@ namespace ProjectMarkdown.MarkdownLibrary
                         .ConvertPairedMarkdownToHtml("~~",PairedMarkdownTags.StrikeThrough)
                         .ConvertPairedMarkdownToHtml("`", PairedMarkdownTags.InlineCode)
                         .GenerateInlineImages()
-                        .GenerateHtmlLinks();
+                        .GenerateHtmlLinks()
+                        .GenerateAutomaticLinks();
                     
                     htmlComponents.Add(new Paragraph(currentLine));
                 }

@@ -61,6 +61,31 @@ namespace ProjectMarkdown.MarkdownLibrary.ExtensionMethods
             return output;
         }
 
+        public static string GenerateAutomaticLinks(this string input)
+        {
+            string output = string.Empty;
+
+            var words = input.Split(' ');
+            for (int i = 0; i < words.Length; i++)
+            {
+                if (Regex.IsMatch(words[i], "^http://"))
+                {
+                    words[i] = new Link(words[i], words[i]).ToString();
+                }
+                if (i != words.Length - 1)
+                {
+                    output += words[i] + " ";
+                }
+                else
+                {
+                    output += words[i];
+                }
+                
+            }
+
+            return output;
+        }
+
         private static string ConvertToLink(Match match)
         {
             var linkText = new string(match.ToString().SkipWhile(s => s != '[').Skip(1).TakeWhile(s => s != ']').ToArray()).Trim();
