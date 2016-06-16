@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,7 +9,29 @@ namespace ProjectMarkdown.MarkdownLibrary.HtmlComponents
 {
     public class List : HtmlComponent
     {
-        public int Count { get; private set; }
+        private int _count;
+        public int Count
+        {
+            get
+            {
+                int totalItemCount = 0;
+                foreach (var item in _items)
+                {
+                    if (item is ListItem)
+                    {
+                        totalItemCount += 1;
+                    }
+                    else
+                    {
+                        var list = (List) item;
+                        totalItemCount += list.Count;
+                    }
+                }
+                return totalItemCount;
+            }
+            private set { _count = value; }
+        }
+
         private readonly List<HtmlComponent> _items;
 
         public enum ListTypes
