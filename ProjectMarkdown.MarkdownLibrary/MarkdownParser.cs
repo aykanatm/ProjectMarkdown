@@ -109,6 +109,11 @@ namespace ProjectMarkdown.MarkdownLibrary
                     var imageUrl = new string(currentLine.SkipWhile(s => s != '(').Skip(1).TakeWhile(s => s != ')').ToArray()).Trim();
                     htmlComponents.Add(new Image(imageUrl, imageAltText));
                 }
+                else if (currentLine.StartsWith("[!["))
+                {
+                    htmlComponents.Add(new RawHtml(currentLine.GenerateInlineImages()
+                                                              .GenerateHtmlLinks()));
+                }
                 else
                 {
                     // Code should be the last because it strips all html tags from its content
@@ -119,6 +124,7 @@ namespace ProjectMarkdown.MarkdownLibrary
                         .ConvertPairedMarkdownToHtml("_", PairedMarkdownTags.Italic)
                         .ConvertPairedMarkdownToHtml("~~",PairedMarkdownTags.StrikeThrough)
                         .ConvertPairedMarkdownToHtml("`", PairedMarkdownTags.InlineCode)
+                        .GenerateInlineImages()
                         .GenerateHtmlLinks();
                     
                     htmlComponents.Add(new Paragraph(currentLine));
@@ -188,10 +194,6 @@ namespace ProjectMarkdown.MarkdownLibrary
                     {
                         break;
                     }
-                    //if (string.IsNullOrEmpty(lines[currentIndex]))
-                    //{
-                    //    break;
-                    //}
                 }
             }
             else
@@ -208,13 +210,8 @@ namespace ProjectMarkdown.MarkdownLibrary
                     {
                         break;
                     }
-                    //if (string.IsNullOrEmpty(lines[currentIndex]))
-                    //{
-                    //    break;
-                    //}
                 }
             }
-            
 
             return itemList;
         }
