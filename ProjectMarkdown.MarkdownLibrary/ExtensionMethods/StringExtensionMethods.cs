@@ -42,7 +42,7 @@ namespace ProjectMarkdown.MarkdownLibrary.ExtensionMethods
             return output;
         }
 
-        public static string GenerateImages(this string input)
+        public static string GenerateInlineImages(this string input)
         {
             var output = Regex.Replace(input, @"!\[.*?\]\(.*?\)", new MatchEvaluator(ConvertToImage));
             return output;
