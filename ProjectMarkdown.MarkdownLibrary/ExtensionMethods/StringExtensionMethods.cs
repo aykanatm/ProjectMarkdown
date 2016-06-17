@@ -1,15 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using ProjectMarkdown.MarkdownLibrary.HtmlComponents;
 
 namespace ProjectMarkdown.MarkdownLibrary.ExtensionMethods
 {
     public static class StringExtensionMethods
     {
+        public static string ConvertMarkdownToHtml(this string input)
+        {
+            // Code should be the last because it strips all html tags from its content
+            return input.ConvertPairedMarkdownToHtml("**", MarkdownParser.PairedMarkdownTags.Bold)
+                .ConvertPairedMarkdownToHtml("__", MarkdownParser.PairedMarkdownTags.Bold)
+                .ConvertPairedMarkdownToHtml("*", MarkdownParser.PairedMarkdownTags.Italic)
+                .ConvertPairedMarkdownToHtml("_", MarkdownParser.PairedMarkdownTags.Italic)
+                .ConvertPairedMarkdownToHtml("~~", MarkdownParser.PairedMarkdownTags.StrikeThrough)
+                .ConvertPairedMarkdownToHtml("`", MarkdownParser.PairedMarkdownTags.InlineCode)
+                .GenerateInlineImages()
+                .GenerateHtmlLinks()
+                .GenerateAutomaticLinks();
+        }
         public static string ConvertPairedMarkdownToHtml(this string input, string markdownTag, MarkdownParser.PairedMarkdownTags tag)
         {
             string output = string.Empty;
@@ -80,9 +90,7 @@ namespace ProjectMarkdown.MarkdownLibrary.ExtensionMethods
                 {
                     output += words[i];
                 }
-                
             }
-
             return output;
         }
 
