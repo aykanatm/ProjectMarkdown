@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ProjectMarkdown.MarkdownLibrary.HtmlComponents
+﻿namespace ProjectMarkdown.MarkdownLibrary.HtmlComponents
 {
     public abstract class HtmlComponent
     {
@@ -12,7 +6,7 @@ namespace ProjectMarkdown.MarkdownLibrary.HtmlComponents
 
         public enum TagTypes
         {
-            Paragraph, Header, Link, Bold, Italic, ListItem, Image, InlineCode, BlockCode, StrikeThrough, HorizontalRule, List, RawHtml
+            Paragraph, Header, Link, Bold, Italic, ListItem, Image, InlineCode, BlockCode, StrikeThrough, HorizontalRule, List, RawHtml, Table
         }
 
         public TagTypes TagType { get; private set; }
