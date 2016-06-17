@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using ProjectMarkdown.MarkdownLibrary.ExtensionMethods;
 using ProjectMarkdown.MarkdownLibrary.HtmlComponents;
 
@@ -66,11 +62,6 @@ namespace ProjectMarkdown.MarkdownLibrary
                     htmlComponents.Add(new Blockquote(bqo.Text));
                     i += bqo.NbLines;
                 }
-                else if (currentLine.StartsWith("***") || currentLine.StartsWith("---") ||
-                         currentLine.StartsWith("***") || currentLine.StartsWith("___"))
-                {
-                    htmlComponents.Add(new HorizontalRule());
-                }
                 else if (currentLine.StartsWith("- ") || currentLine.StartsWith("* ") || currentLine.StartsWith("+ "))
                 {
                     var unorderedList = new List(GetListItems(i, lines, isCallerSublist:false), List.ListTypes.Unordered);
@@ -114,20 +105,42 @@ namespace ProjectMarkdown.MarkdownLibrary
                     htmlComponents.Add(new RawHtml(currentLine.GenerateInlineImages()
                                                               .GenerateHtmlLinks()));
                 }
+                else if (Regex.IsMatch(currentLine,".\\|."))
+                {
+                    if (i + 1 < lines.Length)
+                    {
+                        var nextLine = lines[i + 1];
+                        if (Regex.IsMatch(nextLine,"[---]*\\|[---]*"))
+                        {
+                            var headers = currentLine.Split('|').Where(h => h != "").ToArray();
+                            for (int j = 0; j < headers.Length; j++)
+                            {
+                                headers[j] = headers[j].Trim();
+                            }
+                            var table = new Table(headers, lines, i);
+                            htmlComponents.Add(table);
+                            i += table.RowCount;
+                        }
+                        else
+                        {
+                            currentLine = currentLine.ConvertMarkdownToHtml();
+                            htmlComponents.Add(new Paragraph(currentLine));
+                        }
+                    }
+                    else
+                    {
+                        currentLine = currentLine.ConvertMarkdownToHtml();
+                        htmlComponents.Add(new Paragraph(currentLine));
+                    }
+                }
+                else if (currentLine.StartsWith("***") || currentLine.StartsWith("---") ||
+                         currentLine.StartsWith("***") || currentLine.StartsWith("___"))
+                {
+                    htmlComponents.Add(new HorizontalRule());
+                }
                 else
                 {
-                    // Code should be the last because it strips all html tags from its content
-                    
-                    currentLine = currentLine.ConvertPairedMarkdownToHtml("**", PairedMarkdownTags.Bold)
-                        .ConvertPairedMarkdownToHtml("__", PairedMarkdownTags.Bold)
-                        .ConvertPairedMarkdownToHtml("*",PairedMarkdownTags.Italic)
-                        .ConvertPairedMarkdownToHtml("_", PairedMarkdownTags.Italic)
-                        .ConvertPairedMarkdownToHtml("~~",PairedMarkdownTags.StrikeThrough)
-                        .ConvertPairedMarkdownToHtml("`", PairedMarkdownTags.InlineCode)
-                        .GenerateInlineImages()
-                        .GenerateHtmlLinks()
-                        .GenerateAutomaticLinks();
-                    
+                    currentLine = currentLine.ConvertMarkdownToHtml();
                     htmlComponents.Add(new Paragraph(currentLine));
                 }
             }
