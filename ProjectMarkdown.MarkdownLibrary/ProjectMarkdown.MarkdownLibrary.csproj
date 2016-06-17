@@ -57,6 +57,7 @@
     <Compile Include="HtmlComponents\Paragraph.cs" />
     <Compile Include="HtmlComponents\RawHtml.cs" />
     <Compile Include="HtmlComponents\StrikeThrough.cs" />
+    <Compile Include="HtmlComponents\Table.cs" />
     <Compile Include="MarkdownParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
