@@ -62,47 +62,47 @@
         </Menu>
         <ToolBarTray DockPanel.Dock="Top" Height="30">
             <ToolBar>
-                <Button>
-                    <TextBlock Text="New"></TextBlock>
+                <Button Name="BtnNewDocument">
+                    <Image Source="../Images/new.png" Height="24" Width="24"></Image>
                 </Button>
-                <Button>
-                    <TextBlock Text="Open"></TextBlock>
+                <Button Name="BtnOpenDocument">
+                    <Image Source="../Images/open.png" Height="24" Width="24"></Image>
                 </Button>
-                <Button Command="{Binding SaveDocumentCommand}">
-                    <TextBlock Text="Save"></TextBlock>
+                <Button Name="BtnSaveDocument" Command="{Binding SaveDocumentCommand}">
+                    <Image Source="../Images/save.png" Height="24" Width="24"></Image>
                 </Button>
-                <Button>
+                <Button Name="BtnSaveAllDocuments">
                     <TextBlock Text="Save All"></TextBlock>
                 </Button>
-                <Button>
-                    <TextBlock Text="Close"></TextBlock>
+                <Button Name="BtnCloseDocument">
+                    <Image Source="../Images/close.png" Height="24" Width="24"></Image>
                 </Button>
-                <Button>
+                <Button Name="BtnCloseAllDocuments">
                     <TextBlock Text="Close All"></TextBlock>
                 </Button>
-                <Button>
-                    <TextBlock Text="Print"></TextBlock>
+                <Button Name="BtnPrintDocument">
+                    <Image Source="../Images/print.png" Height="24" Width="24"></Image>
                 </Button>
-                <Button>
-                    <TextBlock Text="Cut"></TextBlock>
+                <Button Name="BtnCut">
+                    <Image Source="../Images/cut.png" Height="24" Width="24"></Image>
                 </Button>
-                <Button>
-                    <TextBlock Text="Copy"></TextBlock>
+                <Button Name="BtnCopy">
+                    <Image Source="../Images/copy.png" Height="24" Width="24"></Image>
                 </Button>
-                <Button>
-                    <TextBlock Text="Paste"></TextBlock>
+                <Button Name="BtnPaste">
+                    <Image Source="../Images/paste.png" Height="24" Width="24"></Image>
                 </Button>
-                <Button>
-                    <TextBlock Text="Undo"></TextBlock>
+                <Button Name="BtnUndo">
+                    <Image Source="../Images/undo.png" Height="24" Width="24"></Image>
                 </Button>
-                <Button>
-                    <TextBlock Text="Redo"></TextBlock>
+                <Button Name="BtnRedo">
+                    <Image Source="../Images/redo.png" Height="24" Width="24"></Image>
                 </Button>
-                <Button>
-                    <TextBlock Text="Find"></TextBlock>
+                <Button Name="BtnFind">
+                    <Image Source="../Images/find.png" Height="24" Width="24"></Image>
                 </Button>
-                <Button>
-                    <TextBlock Text="Replace"></TextBlock>
+                <Button Name="BtnFindReplace">
+                    <Image Source="../Images/findreplace.png" Height="24" Width="24"></Image>
                 </Button>
             </ToolBar>
         </ToolBarTray>
