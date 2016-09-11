@@ -3,12 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:awe="http://schemas.awesomium.com/winfx"
         xmlns:data="http://schemas.awesomium.com/winfx/data"
         xmlns:local="clr-namespace:ProjectMarkdown"
         xmlns:viewModels="clr-namespace:ProjectMarkdown.ViewModels"
         xmlns:core="clr-namespace:Awesomium.Core;assembly=Awesomium.Core"
+        xmlns:shbox="clr-namespace:AurelienRibon;assembly=AurelienRibon.Ui.SyntaxHighlightBox"
+        xmlns:syntaxHighlightBox="clr-namespace:AurelienRibon.Ui.SyntaxHighlightBox;assembly=AurelienRibon.Ui.SyntaxHighlightBox"
         mc:Ignorable="d"
         Title="{Binding CurrentDocumentPath, Mode=OneWay}" Height="350" Width="1000"
         Name="MWindow">
@@ -115,11 +116,7 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="5">
-                        <xctk:RichTextBox AcceptsReturn="True" AcceptsTab="True" Text="{Binding CurrentText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            <xctk:RichTextBox.TextFormatter>
-                                <xctk:PlainTextFormatter></xctk:PlainTextFormatter>
-                            </xctk:RichTextBox.TextFormatter>
-                        </xctk:RichTextBox>
+                        <syntaxHighlightBox:SyntaxHighlightBox IsLineNumbersMarginVisible="True" x:Name="shbox"  Text="{Binding CurrentText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </ScrollViewer>
                     <awe:WebDialogsLayer Grid.Column="1" Margin="5">
                         <awe:WebControl Source="{Binding CurrentSource, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
