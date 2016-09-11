@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
+using AurelienRibon.Ui.SyntaxHighlightBox;
 using Awesomium.Core;
 using ProjectMarkdown.Annotations;
 using ProjectMarkdown.MarkdownLibrary;

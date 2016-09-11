@@ -38,9 +38,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AurelienRibon.Ui.SyntaxHighlightBox">
-      <HintPath>..\..\..\..\Desktop\Dev Resources\C# Libraries\AurelienRibon.Ui.SyntaxHighlightBox 2.0.1\AurelienRibon.Ui.SyntaxHighlightBox.dll</HintPath>
-    </Reference>
     <Reference Include="Awesomium.Core, Version=1.7.4.2, Culture=neutral, PublicKeyToken=e1a0d7c8071a5214, processorArchitecture=x86">
       <HintPath>..\packages\Unofficial.Awesomium.Complete.1.7.4.2\lib\Awesomium.Core.dll</HintPath>
       <Private>True</Private>
@@ -135,6 +132,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Desktop\Dev Resources\C# Libraries\syntaxhighlightbox-18a16149c7b1\syntaxhighlightbox_18a16149c7b1\AurelienRibon.Ui.SyntaxHighlightBox\AurelienRibon.Ui.SyntaxHighlightBox.csproj">
+      <Project>{10a9ecd3-ae1e-494d-9a27-8a32dd581759}</Project>
+      <Name>AurelienRibon.Ui.SyntaxHighlightBox</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectMarkdown.MarkdownLibrary\ProjectMarkdown.MarkdownLibrary.csproj">
       <Project>{2dbe7815-5fe7-47fe-aeb4-e94a0eaca941}</Project>
       <Name>ProjectMarkdown.MarkdownLibrary</Name>

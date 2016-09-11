@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using AurelienRibon.Ui.SyntaxHighlightBox;
 
 namespace ProjectMarkdown
 {
@@ -10,6 +11,7 @@ namespace ProjectMarkdown
         public MainWindow()
         {
             InitializeComponent();
+            shbox.CurrentHighlighter = HighlighterManager.Instance.Highlighters["MarkdownSyntax"];
         }
     }
 }
