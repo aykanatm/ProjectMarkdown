@@ -117,9 +117,6 @@
     <None Include="SyntaxConfig\MarkdownSyntax.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SyntaxConfig\VHDL.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <Resource Include="Images\new.png" />
     <Resource Include="Images\save.png" />
     <Resource Include="Images\copy.png" />
