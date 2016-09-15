@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectMarkdown", "ProjectM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectMarkdown.MarkdownLibrary", "ProjectMarkdown.MarkdownLibrary\ProjectMarkdown.MarkdownLibrary.csproj", "{2DBE7815-5FE7-47FE-AEB4-E94A0EACA941}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AurelienRibon.Ui.SyntaxHighlightBox", "..\..\..\Desktop\Dev Resources\C# Libraries\syntaxhighlightbox-18a16149c7b1\syntaxhighlightbox_18a16149c7b1\AurelienRibon.Ui.SyntaxHighlightBox\AurelienRibon.Ui.SyntaxHighlightBox.csproj", "{10A9ECD3-AE1E-494D-9A27-8A32DD581759}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfCodeTextbox", "WpfCodeTextbox\WpfCodeTextbox.csproj", "{8C658909-637A-4FAA-90EC-155CF24B0CE5}"
 EndProject
 Global
@@ -25,10 +23,6 @@ Global
 		{2DBE7815-5FE7-47FE-AEB4-E94A0EACA941}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DBE7815-5FE7-47FE-AEB4-E94A0EACA941}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DBE7815-5FE7-47FE-AEB4-E94A0EACA941}.Release|Any CPU.Build.0 = Release|Any CPU
-		{10A9ECD3-AE1E-494D-9A27-8A32DD581759}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{10A9ECD3-AE1E-494D-9A27-8A32DD581759}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{10A9ECD3-AE1E-494D-9A27-8A32DD581759}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{10A9ECD3-AE1E-494D-9A27-8A32DD581759}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8C658909-637A-4FAA-90EC-155CF24B0CE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8C658909-637A-4FAA-90EC-155CF24B0CE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C658909-637A-4FAA-90EC-155CF24B0CE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
