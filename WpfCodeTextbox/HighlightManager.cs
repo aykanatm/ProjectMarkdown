@@ -18,7 +18,7 @@ namespace WpfCodeTextbox
         public HighlightManager(string xmlDirectoryPath)
         {
             Highlighters = new Dictionary<string, IHighlighter>();
-            var schemaResource = Application.GetResourceStream(new Uri("pack://application:,,,/AurelienRibon.Ui.SyntaxHighlightBox;component/resources/syntax.xsd"));
+            var schemaResource = Application.GetResourceStream(new Uri("pack://application:,,,/WpfCodeTextbox;component/resources/syntax.xsd"));
             if (schemaResource != null)
             {
                 var schemaStream = schemaResource.Stream;
