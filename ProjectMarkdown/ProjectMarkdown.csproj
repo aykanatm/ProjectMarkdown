@@ -114,6 +114,12 @@
     <Folder Include="Model\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="SyntaxConfig\MarkdownSyntax.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SyntaxConfig\VHDL.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Resource Include="Images\new.png" />
     <Resource Include="Images\save.png" />
     <Resource Include="Images\copy.png" />
@@ -132,13 +138,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Desktop\Dev Resources\C# Libraries\syntaxhighlightbox-18a16149c7b1\syntaxhighlightbox_18a16149c7b1\AurelienRibon.Ui.SyntaxHighlightBox\AurelienRibon.Ui.SyntaxHighlightBox.csproj">
-      <Project>{10a9ecd3-ae1e-494d-9a27-8a32dd581759}</Project>
-      <Name>AurelienRibon.Ui.SyntaxHighlightBox</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectMarkdown.MarkdownLibrary\ProjectMarkdown.MarkdownLibrary.csproj">
       <Project>{2dbe7815-5fe7-47fe-aeb4-e94a0eaca941}</Project>
       <Name>ProjectMarkdown.MarkdownLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WpfCodeTextbox\WpfCodeTextbox.csproj">
+      <Project>{8c658909-637a-4faa-90ec-155cf24b0ce5}</Project>
+      <Name>WpfCodeTextbox</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
