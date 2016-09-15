@@ -1,5 +1,6 @@
-﻿using System.Windows;
-using AurelienRibon.Ui.SyntaxHighlightBox;
+﻿using System;
+using System.Windows;
+using WpfCodeTextbox;
 
 namespace ProjectMarkdown
 {
@@ -11,7 +12,8 @@ namespace ProjectMarkdown
         public MainWindow()
         {
             InitializeComponent();
-            shbox.CurrentHighlighter = HighlighterManager.Instance.Highlighters["MarkdownSyntax"];
+            var manager = new HighlightManager(AppDomain.CurrentDomain.BaseDirectory + "SyntaxConfig");
+            codeTextBox.CurrentHighlighter = manager.Highlighters["MarkdownSyntax"];
         }
     }
 }

@@ -8,8 +8,7 @@
         xmlns:local="clr-namespace:ProjectMarkdown"
         xmlns:viewModels="clr-namespace:ProjectMarkdown.ViewModels"
         xmlns:core="clr-namespace:Awesomium.Core;assembly=Awesomium.Core"
-        xmlns:shbox="clr-namespace:AurelienRibon;assembly=AurelienRibon.Ui.SyntaxHighlightBox"
-        xmlns:syntaxHighlightBox="clr-namespace:AurelienRibon.Ui.SyntaxHighlightBox;assembly=AurelienRibon.Ui.SyntaxHighlightBox"
+        xmlns:codeTextBox="clr-namespace:WpfCodeTextbox;assembly=WpfCodeTextbox"
         mc:Ignorable="d"
         Title="{Binding CurrentDocumentPath, Mode=OneWay}" Height="350" Width="1000"
         Name="MWindow">
@@ -116,7 +115,7 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="5">
-                        <syntaxHighlightBox:SyntaxHighlightBox IsLineNumbersMarginVisible="True" x:Name="shbox"  Text="{Binding CurrentText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <codeTextBox:CodeTextbox IsLineNumbersMarginVisible="True" x:Name="codeTextBox"  Text="{Binding CurrentText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </ScrollViewer>
                     <awe:WebDialogsLayer Grid.Column="1" Margin="5">
                         <awe:WebControl Source="{Binding CurrentSource, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
