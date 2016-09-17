@@ -11,6 +11,7 @@ namespace WpfCodeTextbox
 {
     public partial class CodeTextbox : TextBox
     {
+        private HighlightManager _manager;
         // --------------------------------------------------------------------
         // Attributes
         // --------------------------------------------------------------------
@@ -63,6 +64,10 @@ namespace WpfCodeTextbox
             _blocks = new List<InnerTextBlock>();
 
             Loaded += (s, e) => {
+                // Set the highlighter
+                _manager = new HighlightManager(CurrentSyntaxDirectory);
+                CurrentHighlighter = _manager.Highlighters[CurrentHighlighterString];
+
                 _renderCanvas = (DrawingControl)Template.FindName("PART_RenderCanvas", this);
                 _lineNumbersCanvas = (DrawingControl)Template.FindName("PART_LineNumbersCanvas", this);
                 _scrollViewer = (ScrollViewer)Template.FindName("PART_ContentHost", this);
@@ -377,14 +382,33 @@ namespace WpfCodeTextbox
         // Dependency Properties
         // -----------------------------------------------------------
 
-        public static readonly DependencyProperty IsLineNumbersMarginVisibleProperty = DependencyProperty.Register(
-            "IsLineNumbersMarginVisible", typeof(bool), typeof(CodeTextbox), new PropertyMetadata(true));
+        public static readonly DependencyProperty IsLineNumbersMarginVisibleProperty = 
+            DependencyProperty.Register("IsLineNumbersMarginVisible", typeof(bool), typeof(CodeTextbox), new PropertyMetadata(true));
 
         public bool IsLineNumbersMarginVisible
         {
             get { return (bool)GetValue(IsLineNumbersMarginVisibleProperty); }
             set { SetValue(IsLineNumbersMarginVisibleProperty, value); }
         }
+
+        public static readonly DependencyProperty CurrentHighligterStringProperty = 
+            DependencyProperty.RegisterAttached("CurrentHighlighterString", typeof(string), typeof(CodeTextbox));
+
+        public string CurrentHighlighterString
+        {
+            get { return (string)GetValue(CurrentHighligterStringProperty); }
+            set{ SetValue(CurrentHighligterStringProperty, value);}
+        }
+
+        public static readonly DependencyProperty CurrentSyntaxDirectoryProperty =
+            DependencyProperty.RegisterAttached("CurrentSyntaxDirectory", typeof(string), typeof(CodeTextbox));
+
+        public string CurrentSyntaxDirectory
+        {
+            get { return (string) GetValue(CurrentSyntaxDirectoryProperty); }
+            set { SetValue(CurrentSyntaxDirectoryProperty, AppDomain.CurrentDomain.BaseDirectory + value);}
+        }
+        
 
         // -----------------------------------------------------------
         // Classes

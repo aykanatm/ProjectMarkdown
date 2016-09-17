@@ -12,8 +12,6 @@ namespace ProjectMarkdown.Views
         public MainWindow()
         {
             InitializeComponent();
-            var manager = new HighlightManager(AppDomain.CurrentDomain.BaseDirectory + "SyntaxConfig");
-            codeTextBox.CurrentHighlighter = manager.Highlighters["MarkdownSyntax"];
         }
     }
 }
