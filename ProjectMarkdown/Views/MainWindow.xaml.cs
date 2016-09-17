@@ -2,7 +2,7 @@
 using System.Windows;
 using WpfCodeTextbox;
 
-namespace ProjectMarkdown
+namespace ProjectMarkdown.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
