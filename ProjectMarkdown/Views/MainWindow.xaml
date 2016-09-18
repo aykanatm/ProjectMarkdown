@@ -115,7 +115,7 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="5">
-                        <codeTextBox:CodeTextbox IsLineNumbersMarginVisible="True" x:Name="codeTextBox"  Text="{Binding CurrentText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CurrentSyntaxDirectory="SyntaxConfig" CurrentHighlighterString="MarkdownSyntax"/>
+                        <codeTextBox:CodeTextbox IsLineNumbersMarginVisible="True" Text="{Binding CurrentText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CurrentSyntaxDirectory="SyntaxConfig" CurrentHighlighterString="MarkdownSyntax"/>
                     </ScrollViewer>
                     <awe:WebDialogsLayer Grid.Column="1" Margin="5">
                         <awe:WebControl Source="{Binding CurrentSource, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
