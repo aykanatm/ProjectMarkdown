@@ -67,7 +67,7 @@ namespace WpfCodeTextbox
             // REGEX RULES
             foreach (var rule in _regexRules)
             {
-                var regexRgx = new Regex(rule.Expression);
+                var regexRgx = new Regex(@rule.Expression);
                 foreach (Match m in regexRgx.Matches(text.Text))
                 {
                     text.SetForegroundBrush(rule.Options.Foreground, m.Index, m.Length);

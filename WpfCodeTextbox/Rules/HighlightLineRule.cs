@@ -15,7 +15,7 @@ namespace WpfCodeTextbox.Rules
                 var element = rule.Element("LineStart");
                 if (element != null)
                 {
-                    LineStart = element.Value.Trim();
+                    LineStart = element.Value;
                     Options = new RuleOptions(rule);
                 }
                 else
