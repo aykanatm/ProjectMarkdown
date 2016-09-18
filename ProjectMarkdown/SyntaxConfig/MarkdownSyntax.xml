@@ -14,16 +14,64 @@
 	</HighlightWordsRule>
 
 	<!-- Line rules will highlight the LineStart token as well as the rest of the line -->
-	<HighlightLineRule name="Comments">
-		<LineStart>//</LineStart>
-		<IgnoreCase>false</IgnoreCase>
-		<Foreground>#00FF00</Foreground>
-		<FontWeight>Normal</FontWeight>
-		<FontStyle>Normal</FontStyle>
-	</HighlightLineRule>
+  <HighlightLineRule name="h1">
+    <LineStart># </LineStart>
+    <IgnoreCase>false</IgnoreCase>
+    <Foreground>#0000FF</Foreground>
+    <FontWeight>Bold</FontWeight>
+    <FontStyle>Normal</FontStyle>
+  </HighlightLineRule>
+  
+  <HighlightLineRule name="h2">
+    <LineStart>## </LineStart>
+    <IgnoreCase>false</IgnoreCase>
+    <Foreground>#0000FF</Foreground>
+    <FontWeight>Bold</FontWeight>
+    <FontStyle>Normal</FontStyle>
+  </HighlightLineRule>
+  
+  <HighlightLineRule name="h3">
+    <LineStart>### </LineStart>
+    <IgnoreCase>false</IgnoreCase>
+    <Foreground>#0000FF</Foreground>
+    <FontWeight>Bold</FontWeight>
+    <FontStyle>Normal</FontStyle>
+  </HighlightLineRule>
 
-  <HighlightLineRule name="Comments">
-    <LineStart>#</LineStart>
+  <HighlightLineRule name="h4">
+    <LineStart>#### </LineStart>
+    <IgnoreCase>false</IgnoreCase>
+    <Foreground>#0000FF</Foreground>
+    <FontWeight>Bold</FontWeight>
+    <FontStyle>Normal</FontStyle>
+  </HighlightLineRule>
+
+  <HighlightLineRule name="h5">
+    <LineStart>##### </LineStart>
+    <IgnoreCase>false</IgnoreCase>
+    <Foreground>#0000FF</Foreground>
+    <FontWeight>Bold</FontWeight>
+    <FontStyle>Normal</FontStyle>
+  </HighlightLineRule>
+
+  <HighlightLineRule name="h6">
+    <LineStart>###### </LineStart>
+    <IgnoreCase>false</IgnoreCase>
+    <Foreground>#0000FF</Foreground>
+    <FontWeight>Bold</FontWeight>
+    <FontStyle>Normal</FontStyle>
+  </HighlightLineRule>
+  
+  <HighlightLineRule name="hr1">
+    <LineStart>***</LineStart>
+    <IgnoreCase>false</IgnoreCase>
+    <Foreground>#0000FF</Foreground>
+    <FontWeight>Bold</FontWeight>
+    <FontStyle>Normal</FontStyle>
+  </HighlightLineRule>
+  
+  <HighlightLineRule name="hr2">
+    <LineStart>---</LineStart>
     <IgnoreCase>false</IgnoreCase>
     <Foreground>#0000FF</Foreground>
     <FontWeight>Bold</FontWeight>
@@ -31,12 +79,116 @@
   </HighlightLineRule>
 
 	<!-- Advanced rules use a regular expression to find what they must highlight -->
-	<!-- Do not overuse them, as they have a great computer time cost --> 
-	<AdvancedHighlightRule name="Numbers">
-		<Expression>\b([0-9]+)\b</Expression>
+  <AdvancedHighlightRule name="quote">
+		<Expression>>\s(.*?)\n</Expression>
 		<IgnoreCase>false</IgnoreCase>
-		<Foreground>#F68A1B</Foreground>
-		<FontWeight>Normal</FontWeight>
+		<Foreground>#5a9900</Foreground>
+		<FontWeight>Bold</FontWeight>
 		<FontStyle>Normal</FontStyle>
 	</AdvancedHighlightRule>
+	<AdvancedHighlightRule name="OrderedList">
+		<Expression>\d+\.\s</Expression>
+		<IgnoreCase>false</IgnoreCase>
+		<Foreground>#0000FF</Foreground>
+		<FontWeight>Bold</FontWeight>
+		<FontStyle>Normal</FontStyle>
+	</AdvancedHighlightRule>
+  <AdvancedHighlightRule name="UnorderedList">
+	  <Expression>\-\s</Expression>
+	  <IgnoreCase>false</IgnoreCase>
+	  <Foreground>#0000FF</Foreground>
+	  <FontWeight>Bold</FontWeight>
+	  <FontStyle>Normal</FontStyle>
+  </AdvancedHighlightRule>
+  <AdvancedHighlightRule name="UnorderedList">
+	  <Expression>\*\s</Expression>
+	  <IgnoreCase>false</IgnoreCase>
+	  <Foreground>#0000FF</Foreground>
+	  <FontWeight>Bold</FontWeight>
+	  <FontStyle>Normal</FontStyle>
+  </AdvancedHighlightRule>
+  <AdvancedHighlightRule name="UnorderedList">
+	  <Expression>\+\s</Expression>
+	  <IgnoreCase>false</IgnoreCase>
+	  <Foreground>#0000FF</Foreground>
+	  <FontWeight>Bold</FontWeight>
+	  <FontStyle>Normal</FontStyle>
+  </AdvancedHighlightRule>
+  <AdvancedHighlightRule name="scratch">
+	  <Expression>~~(.*?)~~</Expression>
+	  <IgnoreCase>false</IgnoreCase>
+	  <Foreground>#0085ca</Foreground>
+	  <FontWeight>Normal</FontWeight>
+	  <FontStyle>Normal</FontStyle>
+  </AdvancedHighlightRule>
+  <AdvancedHighlightRule name="bold1">
+	  <Expression>\*\*(.*?)\*\*</Expression>
+	  <IgnoreCase>false</IgnoreCase>
+	  <Foreground>#0085ca</Foreground>
+	  <FontWeight>Bold</FontWeight>
+	  <FontStyle>Normal</FontStyle>
+  </AdvancedHighlightRule>
+  <AdvancedHighlightRule name="bold2">
+	  <Expression>__(.*?)__</Expression>
+	  <IgnoreCase>false</IgnoreCase>
+	  <Foreground>#0085ca</Foreground>
+	  <FontWeight>Bold</FontWeight>
+	  <FontStyle>Normal</FontStyle>
+  </AdvancedHighlightRule>
+  <AdvancedHighlightRule name="italic1">
+	  <Expression>\*(.*?)\*</Expression>
+	  <IgnoreCase>false</IgnoreCase>
+	  <Foreground>#0085ca</Foreground>
+	  <FontWeight>Normal</FontWeight>
+	  <FontStyle>Italic</FontStyle>
+  </AdvancedHighlightRule>
+  <AdvancedHighlightRule name="italic2">
+	  <Expression>_(.*?)_</Expression>
+	  <IgnoreCase>false</IgnoreCase>
+	  <Foreground>#0085ca</Foreground>
+	  <FontWeight>Normal</FontWeight>
+	  <FontStyle>Italic</FontStyle>
+  </AdvancedHighlightRule>
+  <AdvancedHighlightRule name="blockCode">
+	  <Expression>(```)((?:.|\n)*)(```)</Expression>
+	  <IgnoreCase>false</IgnoreCase>
+	  <Foreground>#da7b00</Foreground>
+	  <FontWeight>Normal</FontWeight>
+	  <FontStyle>Normal</FontStyle>
+  </AdvancedHighlightRule>
+  <AdvancedHighlightRule name="inlineCode">
+	  <Expression>`(.*?)`</Expression>
+	  <IgnoreCase>false</IgnoreCase>
+	  <Foreground>#da7b00</Foreground>
+	  <FontWeight>Normal</FontWeight>
+	  <FontStyle>Normal</FontStyle>
+  </AdvancedHighlightRule>
+  <AdvancedHighlightRule name="link">
+	  <Expression>\(http(.*?)\)</Expression>
+	  <IgnoreCase>false</IgnoreCase>
+	  <Foreground>#0000FF</Foreground>
+	  <FontWeight>Normal</FontWeight>
+	  <FontStyle>Normal</FontStyle>
+  </AdvancedHighlightRule>
+  <AdvancedHighlightRule name="autoLink">
+	  <Expression>(http://)(.*?)\s</Expression>
+	  <IgnoreCase>false</IgnoreCase>
+	  <Foreground>#0000FF</Foreground>
+	  <FontWeight>Normal</FontWeight>
+	  <FontStyle>Normal</FontStyle>
+  </AdvancedHighlightRule>
+  <AdvancedHighlightRule name="autoLink">
+	  <Expression>(https://)(.*?)\s</Expression>
+	  <IgnoreCase>false</IgnoreCase>
+	  <Foreground>#0000FF</Foreground>
+	  <FontWeight>Normal</FontWeight>
+	  <FontStyle>Normal</FontStyle>
+  </AdvancedHighlightRule>
+  <AdvancedHighlightRule name="altText">
+    <Expression>(\[)(.*?)(\])</Expression>
+    <IgnoreCase>false</IgnoreCase>
+    <Foreground>#0043b1</Foreground>
+    <FontWeight>Normal</FontWeight>
+    <FontStyle>Normal</FontStyle>
+  </AdvancedHighlightRule>
 </Syntax>
