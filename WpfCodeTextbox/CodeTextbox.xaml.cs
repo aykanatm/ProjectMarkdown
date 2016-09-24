@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using System.Windows;
@@ -397,7 +398,13 @@ namespace WpfCodeTextbox
         public string CurrentHighlighterString
         {
             get { return (string)GetValue(CurrentHighligterStringProperty); }
-            set{ SetValue(CurrentHighligterStringProperty, value);}
+            set
+            {
+                if (!DesignerProperties.GetIsInDesignMode(this))
+                {
+                    SetValue(CurrentHighligterStringProperty, value);
+                }
+            }
         }
 
         public static readonly DependencyProperty CurrentSyntaxDirectoryProperty =
@@ -406,7 +413,13 @@ namespace WpfCodeTextbox
         public string CurrentSyntaxDirectory
         {
             get { return (string) GetValue(CurrentSyntaxDirectoryProperty); }
-            set { SetValue(CurrentSyntaxDirectoryProperty, AppDomain.CurrentDomain.BaseDirectory + value);}
+            set
+            {
+                if (!DesignerProperties.GetIsInDesignMode(this))
+                {
+                    SetValue(CurrentSyntaxDirectoryProperty, AppDomain.CurrentDomain.BaseDirectory + value);
+                }
+            }
         }
         
 
