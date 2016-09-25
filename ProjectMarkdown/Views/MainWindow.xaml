@@ -9,19 +9,25 @@
         xmlns:viewModels="clr-namespace:ProjectMarkdown.ViewModels"
         xmlns:core="clr-namespace:Awesomium.Core;assembly=Awesomium.Core"
         xmlns:codeTextBox="clr-namespace:WpfCodeTextbox;assembly=WpfCodeTextbox"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Title="{Binding CurrentDocumentPath, Mode=OneWay}" Height="350" Width="1000"
         Name="MWindow">
     <Window.DataContext>
         <viewModels:MainWindowViewModel/>
     </Window.DataContext>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closed">
+            <i:InvokeCommandAction Command="{Binding MainWindowClosingEventCommand}"></i:InvokeCommandAction>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <DockPanel LastChildFill="True" >
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
-                <MenuItem Header="New" InputGestureText="Ctrl + N"/>
+                <MenuItem Header="New" InputGestureText="Ctrl + N" Command="{Binding CreateNewDocumentCommand}"/>
                 <MenuItem Header="Open" InputGestureText="Ctrl + O"/>
                 <MenuItem Header="Open Containing Folder"/>
-                <MenuItem Header="Save" InputGestureText="Ctrl + S"/>
+                <MenuItem Header="Save" InputGestureText="Ctrl + S" Command="{Binding SaveDocumentCommand}"/>
                 <MenuItem Header="Save All" InputGestureText="Ctrl + Shift + S"/>
                 <MenuItem Header="Save As..." InputGestureText="Ctrl + Alt + S"/>
                 <MenuItem Header="Save Copy As..."/>
@@ -68,7 +74,7 @@
                 <Button Name="BtnOpenDocument">
                     <Image Source="../Images/open.png" Height="24" Width="24"></Image>
                 </Button>
-                <Button Name="BtnSaveDocument" Command="{Binding SaveDocumentCommand}">
+                <Button Name="BtnSaveDocument">
                     <Image Source="../Images/save.png" Height="24" Width="24"></Image>
                 </Button>
                 <Button Name="BtnSaveAllDocuments">
@@ -108,7 +114,7 @@
         </ToolBarTray>
         <StatusBar DockPanel.Dock="Bottom" VerticalAlignment="Bottom" Height="30"/>
         <TabControl TabStripPlacement="Top" Margin="5">
-            <TabItem Header="Untitled.md">
+            <TabItem Header="{Binding CurrentFileName}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
@@ -125,4 +131,6 @@
         </TabControl>
     </DockPanel>
 </Window>
+
+
 
