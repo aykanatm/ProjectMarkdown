@@ -11,7 +11,7 @@
         xmlns:codeTextBox="clr-namespace:WpfCodeTextbox;assembly=WpfCodeTextbox"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Title="{Binding CurrentDocumentPath, Mode=OneWay}" Height="350" Width="1000"
+        Title="{Binding CurrentDocument.Header, Mode=OneWay}" Height="350" Width="1000"
         Name="MWindow">
     <Window.DataContext>
         <viewModels:MainWindowViewModel/>
@@ -113,21 +113,28 @@
             </ToolBar>
         </ToolBarTray>
         <StatusBar DockPanel.Dock="Bottom" VerticalAlignment="Bottom" Height="30"/>
-        <TabControl TabStripPlacement="Top" Margin="5">
-            <TabItem Header="{Binding CurrentFileName}">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="5">
-                        <codeTextBox:CodeTextbox IsLineNumbersMarginVisible="True" Text="{Binding CurrentText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CurrentSyntaxDirectory="SyntaxConfig" CurrentHighlighterString="MarkdownSyntax"/>
-                    </ScrollViewer>
-                    <awe:WebDialogsLayer Grid.Column="1" Margin="5">
-                        <awe:WebControl Source="{Binding CurrentSource, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                    </awe:WebDialogsLayer>
-                </Grid>
-            </TabItem>
+        <TabControl TabStripPlacement="Top" Margin="5" ItemsSource="{Binding Documents}" SelectedItem="{Binding CurrentDocument, Mode=TwoWay}">
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Header}"></TextBlock>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="5">
+                            <codeTextBox:CodeTextbox IsLineNumbersMarginVisible="True" Text="{Binding MarkdownText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CurrentSyntaxDirectory="SyntaxConfig" CurrentHighlighterString="MarkdownSyntax"/>
+                        </ScrollViewer>
+                        <awe:WebDialogsLayer Grid.Column="1" Margin="5">
+                            <awe:WebControl Source="{Binding Source, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </awe:WebDialogsLayer>
+                    </Grid>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
         </TabControl>
     </DockPanel>
 </Window>
