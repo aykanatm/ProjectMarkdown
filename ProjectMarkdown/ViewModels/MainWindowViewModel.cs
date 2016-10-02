@@ -12,6 +12,7 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
 using Awesomium.Core;
+using Microsoft.Win32;
 using ProjectMarkdown.Annotations;
 using ProjectMarkdown.MarkdownLibrary;
 using ProjectMarkdown.Model;
@@ -61,29 +62,6 @@ namespace ProjectMarkdown.ViewModels
             
             LoadCommands();
             Documents = new ObservableCollection<DocumentModel>();
-            
-            //CurrentDocumentPath = "Untitled.md";
-
-            //using (var sr = new StreamReader("MarkdownTest.txt"))
-            //{
-            //    string line;
-            //    do
-            //    {
-            //        line = sr.ReadLine();
-            //        CurrentText += line + "\r\n";
-            //    } while (line != null);
-            //}
-
-            //var mp = new MarkdownParser();
-            //var html = mp.Parse(CurrentText);
-            //using (var sw = new StreamWriter("MarkdownResult.html"))
-            //{
-            //    sw.Write(html);
-            //}
-
-            //CurrentSource = (AppDomain.CurrentDomain.BaseDirectory + "MarkdownResult.html").ToUri();
-            //CurrentSource = (AppDomain.CurrentDomain.BaseDirectory + "Empty").ToUri();
-            //CurrentFileName = "Untitled.md";
         }
 
         private void LoadCommands()
@@ -122,22 +100,63 @@ namespace ProjectMarkdown.ViewModels
 
         public void SaveDocument(object obj)
         {
-            //var mp = new MarkdownParser();
-            //var html = mp.Parse(CurrentText);
-            //using (var sw = new StreamWriter(_currentHtmlFilePath))
-            //{
-            //    sw.Write(html);
-            //}
-            //// Since Source property does not update when the same uri is called, we have to load some fake uri before we call the actual uri as a workaround
-            //// https://github.com/awesomium/awesomium-pub/issues/52
-            //// Will fix this when 1.7.5 is released
-            //CurrentSource = "SomeFakeUri".ToUri();
-            //CurrentSource = _currentHtmlFilePath.ToUri();
+            if (CurrentDocument != null)
+            {
+                var mp = new MarkdownParser();
+                var html = mp.Parse(CurrentDocument.MarkdownText);
+                var saveDialog = new SaveFileDialog
+                {
+                    CreatePrompt = true,
+                    OverwritePrompt = true,
+                    Filter = "Markdown File | *.md"
+                };
+                var result = saveDialog.ShowDialog();
+                if (result != null)
+                {
+                    if (result == true)
+                    {
+                        var markdownFileName = saveDialog.FileName;
+                        var htmlFileName = saveDialog.FileName + ".html";
+                        using (var sw = new StreamWriter(markdownFileName))
+                        {
+                            sw.Write(CurrentDocument.MarkdownText);
+                        }
+                        using (var sw = new StreamWriter(htmlFileName))
+                        {
+                            sw.Write(html);
+                        }
+
+                        var cssFilePath = AppDomain.CurrentDomain.BaseDirectory + "Styles\\github-markdown.css";
+                        var fileInfo = new FileInfo(markdownFileName);
+                        var parentDirectoryPath = fileInfo.DirectoryName;
+
+                        if (!Directory.Exists(parentDirectoryPath + "\\Styles"))
+                        {
+                            Directory.CreateDirectory(parentDirectoryPath + "\\Styles");
+                        }
+
+                        if (!File.Exists(parentDirectoryPath + "\\Styles\\github-markdown.css"))
+                        {
+                            File.Copy(cssFilePath, parentDirectoryPath + "\\Styles\\github-markdown.css");
+                        }
+
+                        // Since Source property does not update when the same uri is called, we have to load some fake uri before we call the actual uri as a workaround
+                        // https://github.com/awesomium/awesomium-pub/issues/52
+                        // Will fix this when 1.7.5 is released
+                        CurrentDocument.Source = "SomeFakeUri".ToUri();
+                        CurrentDocument.Source = htmlFileName.ToUri();
+                    }
+                }
+            }
         }
 
         public bool CanSaveDocument(object obj)
         {
-            return true;
+            if (CurrentDocument != null)
+            {
+                return true;
+            }
+            return false;
         }
 
         // EVENTS

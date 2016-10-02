@@ -16,7 +16,6 @@ namespace ProjectMarkdown.Model
         private string _markdownText;
         private Uri _source;
 
-
         public string Header
         {
             get { return _header; }
@@ -49,6 +48,9 @@ namespace ProjectMarkdown.Model
                 OnPropertyChanged(nameof(Source));
             }
         }
+
+        public string MarkdownPath { get; set; }
+        public string HtmlPath { get; set; }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
