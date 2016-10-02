@@ -25,7 +25,7 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
                 <MenuItem Header="New" InputGestureText="Ctrl + N" Command="{Binding CreateNewDocumentCommand}"/>
-                <MenuItem Header="Open" InputGestureText="Ctrl + O"/>
+                <MenuItem Header="Open" InputGestureText="Ctrl + O" Command="{Binding OpenDocumentCommand}"/>
                 <MenuItem Header="Open Containing Folder"/>
                 <MenuItem Header="Save" InputGestureText="Ctrl + S" Command="{Binding SaveDocumentCommand}"/>
                 <MenuItem Header="Save All" InputGestureText="Ctrl + Shift + S"/>

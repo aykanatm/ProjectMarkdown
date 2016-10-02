@@ -48,8 +48,10 @@ namespace ProjectMarkdown.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ICommand SaveDocumentCommand { get; set; }
         public ICommand CreateNewDocumentCommand { get; set; }
+        public ICommand SaveDocumentCommand { get; set; }
+        public ICommand OpenDocumentCommand { get; set; }
+        
         // Events
         public ICommand MainWindowClosingEventCommand { get; set; }
 
@@ -66,8 +68,9 @@ namespace ProjectMarkdown.ViewModels
 
         private void LoadCommands()
         {
-            SaveDocumentCommand = new RelayCommand(SaveDocument, CanSaveDocument);
             CreateNewDocumentCommand = new RelayCommand(CreateNewDocument, CanCreateNewDocument);
+            SaveDocumentCommand = new RelayCommand(SaveDocument, CanSaveDocument);
+            OpenDocumentCommand = new RelayCommand(OpenDocument, CanOpenDocument);
             // Events
             MainWindowClosingEventCommand = new RelayCommand(MainWindowClosingEvent, CanMainWindowClosingEvent);
         }
@@ -92,6 +95,7 @@ namespace ProjectMarkdown.ViewModels
             }
             var document = new DocumentModel(documentFileName);
             Documents.Add(document);
+            CurrentDocument = document;
         }
         public bool CanCreateNewDocument(object obj)
         {
@@ -100,7 +104,7 @@ namespace ProjectMarkdown.ViewModels
 
         public void SaveDocument(object obj)
         {
-            if (CurrentDocument != null)
+            if (string.IsNullOrEmpty(CurrentDocument.MarkdownPath))
             {
                 var mp = new MarkdownParser();
                 var html = mp.Parse(CurrentDocument.MarkdownText);
@@ -148,6 +152,10 @@ namespace ProjectMarkdown.ViewModels
                     }
                 }
             }
+            else
+            {
+                // Save without the dialog
+            }
         }
 
         public bool CanSaveDocument(object obj)
@@ -157,6 +165,50 @@ namespace ProjectMarkdown.ViewModels
                 return true;
             }
             return false;
+        }
+
+        public void OpenDocument(object obj)
+        {
+            var openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Markdown File | *.md";
+            var result = openFileDialog.ShowDialog();
+            
+            if (result != null)
+            {
+                if (result == true)
+                {
+                    var displayFileName = openFileDialog.SafeFileName;
+                    var markdownFileName = openFileDialog.FileName;
+                    var htmlFileName = openFileDialog.FileName + ".html";
+
+                    var document = new DocumentModel(displayFileName);
+                    using (var sr = new StreamReader(markdownFileName))
+                    {
+                        document.MarkdownText = sr.ReadToEnd();
+                    }
+
+                    document.MarkdownPath = markdownFileName;
+
+                    if (File.Exists(htmlFileName))
+                    {
+                        document.HtmlPath = htmlFileName;
+                        document.Source = htmlFileName.ToUri();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Unable to retrive the HTML component of the markdown document.",
+                            "Unable to retrive the HTML component", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
+                    Documents.Add(document);
+                    CurrentDocument = document;
+                }
+            }
+        }
+
+        public bool CanOpenDocument(object obj)
+        {
+            return true;
         }
 
         // EVENTS
