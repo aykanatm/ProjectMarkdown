@@ -186,6 +186,11 @@ namespace ProjectMarkdown.MarkdownLibrary
             {
                 while (true)
                 {
+                    if (currentIndex >= lines.Length)
+                    {
+                        break;
+                    }
+
                     if (lines[currentIndex].StartsWith("- ") || lines[currentIndex].StartsWith("* ") ||
                         lines[currentIndex].StartsWith("+ ") || Regex.IsMatch(lines[currentIndex], @"^\d+\. "))
                     {
@@ -194,13 +199,13 @@ namespace ProjectMarkdown.MarkdownLibrary
                     }
                     else if (lines[currentIndex].StartsWith("  - ") || lines[currentIndex].StartsWith("  * ") || lines[currentIndex].StartsWith("  + "))
                     {
-                        var list = new List(GetListItems(currentIndex, lines, isCallerSublist:true), List.ListTypes.Unordered);
+                        var list = new List(GetListItems(currentIndex, lines, isCallerSublist: true), List.ListTypes.Unordered);
                         itemList.Add(list);
                         currentIndex += list.Count;
                     }
                     else if (Regex.IsMatch(lines[currentIndex], @"^\s{2}\d+\. "))
                     {
-                        var list = new List(GetListItems(currentIndex, lines, isCallerSublist:true), List.ListTypes.Ordered);
+                        var list = new List(GetListItems(currentIndex, lines, isCallerSublist: true), List.ListTypes.Ordered);
                         itemList.Add(list);
                         currentIndex += list.Count;
                     }
