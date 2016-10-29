@@ -12,54 +12,52 @@ namespace ProjectMarkdown.Model
 {
     public class DocumentModel : INotifyPropertyChanged
     {
-        private string _header;
-        private string _markdownText;
-        private Uri _source;
-
-        public string Header
+        public DocumentMetadata Metadata
         {
-            get { return _header; }
+            get { return _metadata; }
             set
             {
-                if (value == _header) return;
-                _header = value;
-                OnPropertyChanged(nameof(Header));
+                if (Equals(value, _metadata)) return;
+                _metadata = value;
+                OnPropertyChanged(nameof(Metadata));
             }
         }
 
-        public string MarkdownText
+        public DocumentMarkdown Markdown
         {
-            get { return _markdownText; }
+            get { return _markdown; }
             set
             {
-                if (value == _markdownText) return;
-                _markdownText = value;
-                OnPropertyChanged(nameof(MarkdownText));
+                if (Equals(value, _markdown)) return;
+                _markdown = value;
+                OnPropertyChanged(nameof(Markdown));
             }
         }
 
-        public Uri Source
+        public DocumentHtml Html
         {
-            get { return _source; }
+            get { return _html; }
             set
             {
-                if (Equals(value, _source)) return;
-                _source = value;
-                OnPropertyChanged(nameof(Source));
+                if (Equals(value, _html)) return;
+                _html = value;
+                OnPropertyChanged(nameof(Html));
             }
         }
 
-        public string MarkdownPath { get; set; }
-        public string HtmlPath { get; set; }
+        
+        private DocumentMetadata _metadata;
+        private DocumentMarkdown _markdown;
+        private DocumentHtml _html;
 
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public DocumentModel(string documentName)
         {
-            Header = documentName;
-            MarkdownText = "";
-            Source = "".ToUri();
+            Metadata = new DocumentMetadata(documentName);
+            Markdown = new DocumentMarkdown("");
+            Html = new DocumentHtml("".ToUri());
         }
 
         [NotifyPropertyChangedInvocator]
