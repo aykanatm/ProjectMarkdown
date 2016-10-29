@@ -52,6 +52,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Expression\Blend\.NETFramework\v4.5\Libraries\System.Windows.Interactivity.dll</HintPath>
@@ -82,9 +84,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Model\DocumentHtml.cs" />
+    <Compile Include="Model\DocumentMarkdown.cs" />
+    <Compile Include="Model\DocumentMetadata.cs" />
     <Compile Include="Model\DocumentModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="Services\DocumentSaver.cs" />
+    <Compile Include="Services\SaveResult.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -142,6 +149,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\MyLibrary\CustomIO\CustomIO.csproj">
+      <Project>{b293dcb5-00ed-4f92-9baf-16ed6dd524db}</Project>
+      <Name>CustomIO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectMarkdown.MarkdownLibrary\ProjectMarkdown.MarkdownLibrary.csproj">
       <Project>{2dbe7815-5fe7-47fe-aeb4-e94a0eaca941}</Project>
       <Name>ProjectMarkdown.MarkdownLibrary</Name>
