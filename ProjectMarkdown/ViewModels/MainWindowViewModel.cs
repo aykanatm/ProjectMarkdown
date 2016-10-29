@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
@@ -16,6 +17,7 @@ using Microsoft.Win32;
 using ProjectMarkdown.Annotations;
 using ProjectMarkdown.MarkdownLibrary;
 using ProjectMarkdown.Model;
+using ProjectMarkdown.Services;
 
 namespace ProjectMarkdown.ViewModels
 {
@@ -82,7 +84,7 @@ namespace ProjectMarkdown.ViewModels
             bool fileNameFound = false;
             while (!fileNameFound)
             {
-                var checkForDuplicateFileName = Documents.FirstOrDefault(d => d.Header == documentFileName);
+                var checkForDuplicateFileName = Documents.FirstOrDefault(d => d.Metadata.FileName == documentFileName);
                 if (checkForDuplicateFileName == null)
                 {
                     fileNameFound = true;
@@ -104,60 +106,20 @@ namespace ProjectMarkdown.ViewModels
 
         public void SaveDocument(object obj)
         {
-            if (string.IsNullOrEmpty(CurrentDocument.MarkdownPath))
-            {
-                var mp = new MarkdownParser();
-                var html = mp.Parse(CurrentDocument.MarkdownText);
-                var saveDialog = new SaveFileDialog
-                {
-                    CreatePrompt = true,
-                    OverwritePrompt = true,
-                    Filter = "Markdown File | *.md"
-                };
-                var result = saveDialog.ShowDialog();
-                if (result != null)
-                {
-                    if (result == true)
-                    {
-                        var markdownFileName = saveDialog.FileName;
-                        var htmlFileName = saveDialog.FileName + ".html";
-                        using (var sw = new StreamWriter(markdownFileName))
-                        {
-                            sw.Write(CurrentDocument.MarkdownText);
-                        }
-                        using (var sw = new StreamWriter(htmlFileName))
-                        {
-                            sw.Write(html);
-                        }
+            var documentSaver = new DocumentSaver();
+            var result = documentSaver.Save(CurrentDocument);
 
-                        var cssFilePath = AppDomain.CurrentDomain.BaseDirectory + "Styles\\github-markdown.css";
-                        var fileInfo = new FileInfo(markdownFileName);
-                        var parentDirectoryPath = fileInfo.DirectoryName;
-
-                        if (!Directory.Exists(parentDirectoryPath + "\\Styles"))
-                        {
-                            Directory.CreateDirectory(parentDirectoryPath + "\\Styles");
-                        }
-
-                        if (!File.Exists(parentDirectoryPath + "\\Styles\\github-markdown.css"))
-                        {
-                            File.Copy(cssFilePath, parentDirectoryPath + "\\Styles\\github-markdown.css");
-                        }
-
-                        // Since Source property does not update when the same uri is called, we have to load some fake uri before we call the actual uri as a workaround
-                        // https://github.com/awesomium/awesomium-pub/issues/52
-                        // Will fix this when 1.7.5 is released
-                        CurrentDocument.Source = "SomeFakeUri".ToUri();
-                        CurrentDocument.Source = htmlFileName.ToUri();
-                    }
-                }
-            }
-            else
-            {
-                // Save without the dialog
-            }
+            // Since Source property does not update when the same uri is called, we have to load some fake uri before we call the actual uri as a workaround
+            // https://github.com/awesomium/awesomium-pub/issues/52
+            // Will fix this when 1.7.5 is released
+            CurrentDocument.Html.Source = "SomeFakeUri".ToUri();
+            CurrentDocument.Html.Source = result.Source;
+            // Update tab header
+            CurrentDocument.Metadata.FileName = result.FileName;
+            // Delete temp files
+            Thread.Sleep(100);
+            Directory.Delete(result.TempFile, true);
         }
-
         public bool CanSaveDocument(object obj)
         {
             if (CurrentDocument != null)
@@ -184,15 +146,15 @@ namespace ProjectMarkdown.ViewModels
                     var document = new DocumentModel(displayFileName);
                     using (var sr = new StreamReader(markdownFileName))
                     {
-                        document.MarkdownText = sr.ReadToEnd();
+                        document.Markdown.Markdown = sr.ReadToEnd();
                     }
 
-                    document.MarkdownPath = markdownFileName;
+                    document.Markdown.MarkdownPath = markdownFileName;
 
                     if (File.Exists(htmlFileName))
                     {
-                        document.HtmlPath = htmlFileName;
-                        document.Source = htmlFileName.ToUri();
+                        document.Html.HtmlPath = htmlFileName;
+                        document.Html.Source = htmlFileName.ToUri();
                     }
                     else
                     {

@@ -116,7 +116,7 @@
         <TabControl TabStripPlacement="Top" Margin="5" ItemsSource="{Binding Documents}" SelectedItem="{Binding CurrentDocument, Mode=TwoWay}">
             <TabControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Header}"></TextBlock>
+                    <TextBlock Text="{Binding Metadata.FileName}"></TextBlock>
                 </DataTemplate>
             </TabControl.ItemTemplate>
             <TabControl.ContentTemplate>
@@ -127,10 +127,10 @@
                             <ColumnDefinition Width="*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="5">
-                            <codeTextBox:CodeTextbox IsLineNumbersMarginVisible="True" Text="{Binding MarkdownText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CurrentSyntaxDirectory="SyntaxConfig" CurrentHighlighterString="MarkdownSyntax"/>
+                            <codeTextBox:CodeTextbox IsLineNumbersMarginVisible="True" Text="{Binding Markdown.Markdown, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CurrentSyntaxDirectory="SyntaxConfig" CurrentHighlighterString="MarkdownSyntax"/>
                         </ScrollViewer>
                         <awe:WebDialogsLayer Grid.Column="1" Margin="5">
-                            <awe:WebControl Source="{Binding Source, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <awe:WebControl Source="{Binding Html.Source, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </awe:WebDialogsLayer>
                     </Grid>
                 </DataTemplate>
