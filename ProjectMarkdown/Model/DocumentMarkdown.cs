@@ -7,18 +7,6 @@ namespace ProjectMarkdown.Model
     public class DocumentMarkdown : INotifyPropertyChanged
     {
         private string _markdown;
-        private string _markdownPath;
-
-        public string MarkdownPath
-        {
-            get { return _markdownPath; }
-            set
-            {
-                if (value == _markdownPath) return;
-                _markdownPath = value;
-                OnPropertyChanged(nameof(MarkdownPath));
-            }
-        }
 
         public string Markdown
         {

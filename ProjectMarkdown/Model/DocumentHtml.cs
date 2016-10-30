@@ -21,17 +21,6 @@ namespace ProjectMarkdown.Model
             }
         }
 
-        public string HtmlPath
-        {
-            get { return _htmlPath; }
-            set
-            {
-                if (value == _htmlPath) return;
-                _htmlPath = value;
-                OnPropertyChanged(nameof(HtmlPath));
-            }
-        }
-
         public DocumentHtml(Uri source)
         {
             Source = source;
