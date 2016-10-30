@@ -159,39 +159,19 @@ namespace ProjectMarkdown.ViewModels
 
         public void OpenDocument(object obj)
         {
+            
             var openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Markdown File | *.md";
+            openFileDialog.Filter = "Markdown File | *.pmd";
             var result = openFileDialog.ShowDialog();
             
             if (result != null)
             {
                 if (result == true)
                 {
-                    var displayFileName = openFileDialog.SafeFileName;
-                    var markdownFileName = openFileDialog.FileName;
-                    var htmlFileName = openFileDialog.FileName + ".html";
-
-                    var document = new DocumentModel(displayFileName);
-                    using (var sr = new StreamReader(markdownFileName))
-                    {
-                        document.Markdown.Markdown = sr.ReadToEnd();
-                    }
-
-                    document.Markdown.MarkdownPath = markdownFileName;
-
-                    if (File.Exists(htmlFileName))
-                    {
-                        document.Html.HtmlPath = htmlFileName;
-                        document.Html.Source = htmlFileName.ToUri();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Unable to retrive the HTML component of the markdown document.",
-                            "Unable to retrive the HTML component", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-
-                    Documents.Add(document);
-                    CurrentDocument = document;
+                    var documentLoader = new DocumentLoader();
+                    var currentDocument = documentLoader.Load(openFileDialog.FileName);
+                    Documents.Add(currentDocument);
+                    CurrentDocument = currentDocument;
                 }
             }
         }
