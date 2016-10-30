@@ -47,6 +47,8 @@ namespace ProjectMarkdown.ViewModels
         public ICommand SaveDocumentCommand { get; set; }
         public ICommand SaveAsDocumentCommand { get; set; }
         public ICommand OpenDocumentCommand { get; set; }
+        public ICommand ExportMarkdownCommand { get; set; }
+        public ICommand ExportHtmlCommand { get; set; }
         
         // Events
         public ICommand MainWindowClosingEventCommand { get; set; }
@@ -64,10 +66,13 @@ namespace ProjectMarkdown.ViewModels
 
         private void LoadCommands()
         {
+            // File
             CreateNewDocumentCommand = new RelayCommand(CreateNewDocument, CanCreateNewDocument);
             SaveDocumentCommand = new RelayCommand(SaveDocument, CanSaveDocument);
             SaveAsDocumentCommand = new RelayCommand(SaveAsDocument, CanSaveAsDocument);
             OpenDocumentCommand = new RelayCommand(OpenDocument, CanOpenDocument);
+            ExportHtmlCommand = new RelayCommand(ExportHtml, CanExportHtml);
+            ExportMarkdownCommand = new RelayCommand(ExportMarkdown, CanExportMarkdown);
             // Events
             MainWindowClosingEventCommand = new RelayCommand(MainWindowClosingEvent, CanMainWindowClosingEvent);
         }
@@ -159,26 +164,48 @@ namespace ProjectMarkdown.ViewModels
 
         public void OpenDocument(object obj)
         {
-            
-            var openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Markdown File | *.pmd";
-            var result = openFileDialog.ShowDialog();
-            
-            if (result != null)
+            var documentLoader = new DocumentLoader();
+            var currentDocument = documentLoader.Load();
+            if (currentDocument != null)
             {
-                if (result == true)
-                {
-                    var documentLoader = new DocumentLoader();
-                    var currentDocument = documentLoader.Load(openFileDialog.FileName);
-                    Documents.Add(currentDocument);
-                    CurrentDocument = currentDocument;
-                }
+                Documents.Add(currentDocument);
+                CurrentDocument = currentDocument;
             }
         }
 
         public bool CanOpenDocument(object obj)
         {
             return true;
+        }
+
+        public void ExportMarkdown(object obj)
+        {
+            var documentExporter = new DocumentExporter();
+            documentExporter.ExportMarkdown(CurrentDocument);
+        }
+
+        public bool CanExportMarkdown(object obj)
+        {
+            if (CurrentDocument != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public void ExportHtml(object obj)
+        {
+            var documentExporter = new DocumentExporter();
+            documentExporter.ExportHtml(CurrentDocument);
+        }
+
+        public bool CanExportHtml(object obj)
+        {
+            if (CurrentDocument != null)
+            {
+                return true;
+            }
+            return false;
         }
 
         // EVENTS

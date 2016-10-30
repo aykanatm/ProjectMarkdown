@@ -30,7 +30,10 @@
                 <MenuItem Header="Save" InputGestureText="Ctrl + S" Command="{Binding SaveDocumentCommand}"/>
                 <MenuItem Header="Save All" InputGestureText="Ctrl + Shift + S"/>
                 <MenuItem Header="Save As..." InputGestureText="Ctrl + Alt + S" Command="{Binding SaveAsDocumentCommand}"/>
-                <MenuItem Header="Save Copy As..."/>
+                <MenuItem Header="Export">
+                    <MenuItem Header="Markdown" Command="{Binding ExportMarkdownCommand}"></MenuItem>
+                    <MenuItem Header="Html" Command="{Binding ExportHtmlCommand}"></MenuItem>
+                </MenuItem>
                 <MenuItem Header="Close">
                     <MenuItem Header="All" InputGestureText="Ctrl + Shift + W"></MenuItem>
                     <MenuItem Header="Active Document" InputGestureText="Ctrl + W"></MenuItem>
