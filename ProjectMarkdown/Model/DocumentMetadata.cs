@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using ProjectMarkdown.Annotations;
 
 namespace ProjectMarkdown.Model
@@ -14,9 +10,8 @@ namespace ProjectMarkdown.Model
     {
         private string _fileName;
         private string _author;
-        private string _password;
-        private bool _isPasswordProtected;
         private bool _isNew;
+        private string _filePath;
 
         public string Author
         {
@@ -48,6 +43,17 @@ namespace ProjectMarkdown.Model
                 if (value == _isNew) return;
                 _isNew = value;
                 OnPropertyChanged(nameof(IsNew));
+            }
+        }
+
+        public string FilePath
+        {
+            get { return _filePath; }
+            set
+            {
+                if (value == _filePath) return;
+                _filePath = value;
+                OnPropertyChanged(nameof(FilePath));
             }
         }
 

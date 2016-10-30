@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Documents;
 using System.Windows.Input;
 using Awesomium.Core;
 using Microsoft.Win32;
 using ProjectMarkdown.Annotations;
-using ProjectMarkdown.MarkdownLibrary;
 using ProjectMarkdown.Model;
 using ProjectMarkdown.Services;
 
@@ -52,6 +45,7 @@ namespace ProjectMarkdown.ViewModels
 
         public ICommand CreateNewDocumentCommand { get; set; }
         public ICommand SaveDocumentCommand { get; set; }
+        public ICommand SaveAsDocumentCommand { get; set; }
         public ICommand OpenDocumentCommand { get; set; }
         
         // Events
@@ -72,6 +66,7 @@ namespace ProjectMarkdown.ViewModels
         {
             CreateNewDocumentCommand = new RelayCommand(CreateNewDocument, CanCreateNewDocument);
             SaveDocumentCommand = new RelayCommand(SaveDocument, CanSaveDocument);
+            SaveAsDocumentCommand = new RelayCommand(SaveAsDocument, CanSaveAsDocument);
             OpenDocumentCommand = new RelayCommand(OpenDocument, CanOpenDocument);
             // Events
             MainWindowClosingEventCommand = new RelayCommand(MainWindowClosingEvent, CanMainWindowClosingEvent);
@@ -106,8 +101,40 @@ namespace ProjectMarkdown.ViewModels
 
         public void SaveDocument(object obj)
         {
+            if (CurrentDocument.Metadata.IsNew)
+            {
+                SaveAsDocument(obj);
+            }
+            else
+            {
+                var documentSaver = new DocumentSaver();
+                var result = documentSaver.Save(CurrentDocument);
+
+                // Since Source property does not update when the same uri is called, we have to load some fake uri before we call the actual uri as a workaround
+                // https://github.com/awesomium/awesomium-pub/issues/52
+                // Will fix this when 1.7.5 is released
+                CurrentDocument.Html.Source = "SomeFakeUri".ToUri();
+                CurrentDocument.Html.Source = result.Source;
+                // Update tab header
+                CurrentDocument.Metadata.FileName = result.FileName;
+                // Delete temp files
+                Thread.Sleep(100);
+                Directory.Delete(result.TempFile, true);
+            }
+        }
+        public bool CanSaveDocument(object obj)
+        {
+            if (CurrentDocument != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public void SaveAsDocument(object obj)
+        {
             var documentSaver = new DocumentSaver();
-            var result = documentSaver.Save(CurrentDocument);
+            var result = documentSaver.SaveAs(CurrentDocument);
 
             // Since Source property does not update when the same uri is called, we have to load some fake uri before we call the actual uri as a workaround
             // https://github.com/awesomium/awesomium-pub/issues/52
@@ -120,7 +147,8 @@ namespace ProjectMarkdown.ViewModels
             Thread.Sleep(100);
             Directory.Delete(result.TempFile, true);
         }
-        public bool CanSaveDocument(object obj)
+
+        public bool CanSaveAsDocument(object obj)
         {
             if (CurrentDocument != null)
             {
