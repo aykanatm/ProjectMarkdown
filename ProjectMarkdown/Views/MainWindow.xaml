@@ -29,7 +29,7 @@
                 <MenuItem Header="Open Containing Folder"/>
                 <MenuItem Header="Save" InputGestureText="Ctrl + S" Command="{Binding SaveDocumentCommand}"/>
                 <MenuItem Header="Save All" InputGestureText="Ctrl + Shift + S"/>
-                <MenuItem Header="Save As..." InputGestureText="Ctrl + Alt + S"/>
+                <MenuItem Header="Save As..." InputGestureText="Ctrl + Alt + S" Command="{Binding SaveAsDocumentCommand}"/>
                 <MenuItem Header="Save Copy As..."/>
                 <MenuItem Header="Close">
                     <MenuItem Header="All" InputGestureText="Ctrl + Shift + W"></MenuItem>
