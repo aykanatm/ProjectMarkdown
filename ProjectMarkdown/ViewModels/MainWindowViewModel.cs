@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -49,6 +50,7 @@ namespace ProjectMarkdown.ViewModels
         public ICommand OpenDocumentCommand { get; set; }
         public ICommand ExportMarkdownCommand { get; set; }
         public ICommand ExportHtmlCommand { get; set; }
+        public ICommand ExportPdfCommand { get; set; }
         
         // Events
         public ICommand MainWindowClosingEventCommand { get; set; }
@@ -73,6 +75,7 @@ namespace ProjectMarkdown.ViewModels
             OpenDocumentCommand = new RelayCommand(OpenDocument, CanOpenDocument);
             ExportHtmlCommand = new RelayCommand(ExportHtml, CanExportHtml);
             ExportMarkdownCommand = new RelayCommand(ExportMarkdown, CanExportMarkdown);
+            ExportPdfCommand = new RelayCommand(ExportPdf, CanExportPdf);
             // Events
             MainWindowClosingEventCommand = new RelayCommand(MainWindowClosingEvent, CanMainWindowClosingEvent);
         }
@@ -112,8 +115,15 @@ namespace ProjectMarkdown.ViewModels
             }
             else
             {
+                string css;
+                var cssPath = AppDomain.CurrentDomain.BaseDirectory + "Styles\\github-markdown.css";
+                using (var sr = new StreamReader(cssPath))
+                {
+                    css = sr.ReadToEnd();
+                }
+
                 var documentSaver = new DocumentSaver();
-                var result = documentSaver.Save(CurrentDocument);
+                var result = documentSaver.Save(CurrentDocument, css);
 
                 // Since Source property does not update when the same uri is called, we have to load some fake uri before we call the actual uri as a workaround
                 // https://github.com/awesomium/awesomium-pub/issues/52
@@ -138,8 +148,15 @@ namespace ProjectMarkdown.ViewModels
 
         public void SaveAsDocument(object obj)
         {
+            string css;
+            var cssPath = AppDomain.CurrentDomain.BaseDirectory + "Styles\\github-markdown.css";
+            using (var sr = new StreamReader(cssPath))
+            {
+                css = sr.ReadToEnd();
+            }
+
             var documentSaver = new DocumentSaver();
-            var result = documentSaver.SaveAs(CurrentDocument);
+            var result = documentSaver.SaveAs(CurrentDocument, css);
 
             // Since Source property does not update when the same uri is called, we have to load some fake uri before we call the actual uri as a workaround
             // https://github.com/awesomium/awesomium-pub/issues/52
@@ -195,11 +212,40 @@ namespace ProjectMarkdown.ViewModels
 
         public void ExportHtml(object obj)
         {
+            string css;
+            var cssPath = AppDomain.CurrentDomain.BaseDirectory + "Styles\\github-markdown.css";
+            using (var sr = new StreamReader(cssPath))
+            {
+                css = sr.ReadToEnd();
+            }
+
             var documentExporter = new DocumentExporter();
-            documentExporter.ExportHtml(CurrentDocument);
+            documentExporter.ExportHtml(CurrentDocument, css);
         }
 
         public bool CanExportHtml(object obj)
+        {
+            if (CurrentDocument != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public void ExportPdf(object obj)
+        {
+            string css;
+            var cssPath = AppDomain.CurrentDomain.BaseDirectory + "Styles\\github-markdown.css";
+            using (var sr = new StreamReader(cssPath))
+            {
+                css = sr.ReadToEnd();
+            }
+
+            var documentExporter = new DocumentExporter();
+            documentExporter.ExportPdf(CurrentDocument, css);
+        }
+
+        public bool CanExportPdf(object obj)
         {
             if (CurrentDocument != null)
             {
