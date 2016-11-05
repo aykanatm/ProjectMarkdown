@@ -18,7 +18,7 @@
             {
                 if (this is Header)
                 {
-                    Text = text.Replace("&", "&amp").Replace("<", "&lt").Replace(">", "&gt");
+                    Text = text.Replace("&", "&amp").Replace("<", "&lt;").Replace(">", "&gt;");
                 }
             }
             TagType = tagType;
