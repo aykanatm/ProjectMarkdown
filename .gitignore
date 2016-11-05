@@ -10,3 +10,5 @@ ProjectMarkdown.sln.DotSettings.user
 WpfCodeTextbox/obj/
 WpfCodeTextbox/bin/
 ProjectMarkdown.HtmlToPdfConverter/
+*.nupkg
+packages/
