@@ -245,3 +245,4 @@ ModelManifest.xml
 .fake/
 FeatureTest/
 *.DotSettings
+*.dll
