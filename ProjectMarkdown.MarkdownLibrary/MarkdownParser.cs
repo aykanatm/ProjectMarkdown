@@ -12,7 +12,7 @@ namespace ProjectMarkdown.MarkdownLibrary
         {
             Bold, Italic, InlineCode, StrikeThrough
         }
-        public string Parse(string markdownString)
+        public string Parse(string markdownString, string style)
         {
             var htmlComponents = new List<HtmlComponent>();
 
@@ -146,7 +146,7 @@ namespace ProjectMarkdown.MarkdownLibrary
             }
             
 
-            var htmlDocument = new HtmlDocument(htmlComponents);
+            var htmlDocument = new HtmlDocument(htmlComponents, style);
 
             return htmlDocument.ToString();
         }

@@ -11,7 +11,7 @@ namespace ProjectMarkdown.Services
 {
     public class DocumentSaver
     {
-        public SaveResult SaveAs(DocumentModel document)
+        public SaveResult SaveAs(DocumentModel document, string style)
         {
             var saveDialog = new SaveFileDialog
             {
@@ -32,7 +32,7 @@ namespace ProjectMarkdown.Services
 
                         var mp = new MarkdownParser();
                         // Generate HTML
-                        var html = mp.Parse(document.Markdown.Markdown);
+                        var html = mp.Parse(document.Markdown.Markdown, style);
 
                         var markdownFileName = saveDialog.SafeFileName + ".md";
                         var markdownFilePath = parentFolder + "\\" + markdownFileName;
@@ -56,17 +56,6 @@ namespace ProjectMarkdown.Services
                         document.Metadata.IsNew = false;
                         var gxs = new GenericXmlSerializer<DocumentMetadata>();
                         gxs.Serialize(document.Metadata, metadataFilePath);
-                        // Generate style
-                        var cssFilePath = AppDomain.CurrentDomain.BaseDirectory + "Styles\\github-markdown.css";
-                        if (!Directory.Exists(parentFolder + "\\Styles"))
-                        {
-                            Directory.CreateDirectory(parentFolder + "\\Styles");
-                        }
-
-                        if (!File.Exists(parentFolder + "\\Styles\\github-markdown.css"))
-                        {
-                            File.Copy(cssFilePath, parentFolder + "\\Styles\\github-markdown.css");
-                        }
                         // Generate the package
                         if (File.Exists(document.Metadata.FilePath))
                         {
@@ -87,7 +76,7 @@ namespace ProjectMarkdown.Services
             return null;
         }
 
-        public SaveResult Save(DocumentModel document)
+        public SaveResult Save(DocumentModel document, string style)
         {
             if (!Directory.Exists(document.Metadata.FilePath + "_temp"))
             {
@@ -95,7 +84,7 @@ namespace ProjectMarkdown.Services
 
                 var mp = new MarkdownParser();
                 // Generate HTML
-                var html = mp.Parse(document.Markdown.Markdown);
+                var html = mp.Parse(document.Markdown.Markdown, style);
 
                 var markdownFileName = document.Metadata.FileName + ".md";
                 var markdownFilePath = parentFolder + "\\" + markdownFileName;
