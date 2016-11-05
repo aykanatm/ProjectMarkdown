@@ -21,24 +21,31 @@ namespace ProjectMarkdown.MarkdownLibrary.HtmlComponents
             currentIndex += 1;
             while (true)
             {
-                if (Regex.IsMatch(lines[currentIndex], ".\\|.") && lines[currentIndex].Contains("---"))
+                if (currentIndex != lines.Length)
                 {
-                    currentIndex += 1;
-                }
-                else if (Regex.IsMatch(lines[currentIndex], ".\\|."))
-                {
-                    var row = "<tr>";
-
-                    var items = lines[currentIndex].Split('|').Where(item => item != "").ToArray();
-                    for (int i = 0; i < items.Length; i++)
+                    if (Regex.IsMatch(lines[currentIndex], ".\\|.") && lines[currentIndex].Contains("---"))
                     {
-                        row += "<th>" + items[i].ConvertMarkdownToHtml() + "</th>";
+                        currentIndex += 1;
                     }
-                    row += "</tr>";
-                    _body += row;
+                    else if (Regex.IsMatch(lines[currentIndex], ".\\|."))
+                    {
+                        var row = "<tr>";
 
-                    RowCount += 1;
-                    currentIndex += 1;
+                        var items = lines[currentIndex].Split('|').Where(item => item != "").ToArray();
+                        for (int i = 0; i < items.Length; i++)
+                        {
+                            row += "<th>" + items[i].ConvertMarkdownToHtml() + "</th>";
+                        }
+                        row += "</tr>";
+                        _body += row;
+
+                        RowCount += 1;
+                        currentIndex += 1;
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
                 else
                 {
