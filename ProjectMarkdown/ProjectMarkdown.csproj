@@ -155,6 +155,10 @@
       <Project>{b293dcb5-00ed-4f92-9baf-16ed6dd524db}</Project>
       <Name>CustomIO</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectMarkdown.HtmlToPdfConverter\ProjectMarkdown.HtmlToPdfConverter.csproj">
+      <Project>{2e70e5aa-dda8-45d8-b569-9a0c21dafdff}</Project>
+      <Name>ProjectMarkdown.HtmlToPdfConverter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectMarkdown.MarkdownLibrary\ProjectMarkdown.MarkdownLibrary.csproj">
       <Project>{2dbe7815-5fe7-47fe-aeb4-e94a0eaca941}</Project>
       <Name>ProjectMarkdown.MarkdownLibrary</Name>

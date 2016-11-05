@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfCodeTextbox", "WpfCodeTe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomIO", "..\MyLibrary\CustomIO\CustomIO.csproj", "{B293DCB5-00ED-4F92-9BAF-16ED6DD524DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectMarkdown.HtmlToPdfConverter", "ProjectMarkdown.HtmlToPdfConverter\ProjectMarkdown.HtmlToPdfConverter.csproj", "{2E70E5AA-DDA8-45D8-B569-9A0C21DAFDFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{B293DCB5-00ED-4F92-9BAF-16ED6DD524DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B293DCB5-00ED-4F92-9BAF-16ED6DD524DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B293DCB5-00ED-4F92-9BAF-16ED6DD524DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E70E5AA-DDA8-45D8-B569-9A0C21DAFDFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E70E5AA-DDA8-45D8-B569-9A0C21DAFDFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E70E5AA-DDA8-45D8-B569-9A0C21DAFDFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E70E5AA-DDA8-45D8-B569-9A0C21DAFDFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
