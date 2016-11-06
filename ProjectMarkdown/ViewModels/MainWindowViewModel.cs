@@ -8,7 +8,6 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using Awesomium.Core;
-using Microsoft.Win32;
 using ProjectMarkdown.Annotations;
 using ProjectMarkdown.Model;
 using ProjectMarkdown.Services;
@@ -51,6 +50,7 @@ namespace ProjectMarkdown.ViewModels
         public ICommand ExportMarkdownCommand { get; set; }
         public ICommand ExportHtmlCommand { get; set; }
         public ICommand ExportPdfCommand { get; set; }
+        public ICommand PrintCommand { get; set; }
         
         // Events
         public ICommand MainWindowClosingEventCommand { get; set; }
@@ -76,6 +76,7 @@ namespace ProjectMarkdown.ViewModels
             ExportHtmlCommand = new RelayCommand(ExportHtml, CanExportHtml);
             ExportMarkdownCommand = new RelayCommand(ExportMarkdown, CanExportMarkdown);
             ExportPdfCommand = new RelayCommand(ExportPdf, CanExportPdf);
+            PrintCommand = new RelayCommand(Print, CanPrint);
             // Events
             MainWindowClosingEventCommand = new RelayCommand(MainWindowClosingEvent, CanMainWindowClosingEvent);
         }
@@ -121,9 +122,8 @@ namespace ProjectMarkdown.ViewModels
                 {
                     css = sr.ReadToEnd();
                 }
-
-                var documentSaver = new DocumentSaver();
-                var result = documentSaver.Save(CurrentDocument, css);
+                
+                var result = DocumentSaver.Save(CurrentDocument, css);
 
                 // Since Source property does not update when the same uri is called, we have to load some fake uri before we call the actual uri as a workaround
                 // https://github.com/awesomium/awesomium-pub/issues/52
@@ -154,9 +154,8 @@ namespace ProjectMarkdown.ViewModels
             {
                 css = sr.ReadToEnd();
             }
-
-            var documentSaver = new DocumentSaver();
-            var result = documentSaver.SaveAs(CurrentDocument, css);
+            
+            var result = DocumentSaver.SaveAs(CurrentDocument, css);
 
             // Since Source property does not update when the same uri is called, we have to load some fake uri before we call the actual uri as a workaround
             // https://github.com/awesomium/awesomium-pub/issues/52
@@ -181,8 +180,7 @@ namespace ProjectMarkdown.ViewModels
 
         public void OpenDocument(object obj)
         {
-            var documentLoader = new DocumentLoader();
-            var currentDocument = documentLoader.Load();
+            var currentDocument = DocumentLoader.Load();
             if (currentDocument != null)
             {
                 Documents.Add(currentDocument);
@@ -197,8 +195,7 @@ namespace ProjectMarkdown.ViewModels
 
         public void ExportMarkdown(object obj)
         {
-            var documentExporter = new DocumentExporter();
-            documentExporter.ExportMarkdown(CurrentDocument);
+            DocumentExporter.ExportMarkdown(CurrentDocument);
         }
 
         public bool CanExportMarkdown(object obj)
@@ -212,15 +209,8 @@ namespace ProjectMarkdown.ViewModels
 
         public void ExportHtml(object obj)
         {
-            string css;
-            var cssPath = AppDomain.CurrentDomain.BaseDirectory + "Styles\\github-markdown.css";
-            using (var sr = new StreamReader(cssPath))
-            {
-                css = sr.ReadToEnd();
-            }
-
-            var documentExporter = new DocumentExporter();
-            documentExporter.ExportHtml(CurrentDocument, css);
+            var css = GetCss();
+            DocumentExporter.ExportHtml(CurrentDocument, css);
         }
 
         public bool CanExportHtml(object obj)
@@ -234,15 +224,8 @@ namespace ProjectMarkdown.ViewModels
 
         public void ExportPdf(object obj)
         {
-            string css;
-            var cssPath = AppDomain.CurrentDomain.BaseDirectory + "Styles\\github-markdown.css";
-            using (var sr = new StreamReader(cssPath))
-            {
-                css = sr.ReadToEnd();
-            }
-
-            var documentExporter = new DocumentExporter();
-            documentExporter.ExportPdf(CurrentDocument, css);
+            var css = GetCss();
+            DocumentExporter.ExportPdf(CurrentDocument, css);
         }
 
         public bool CanExportPdf(object obj)
@@ -254,6 +237,23 @@ namespace ProjectMarkdown.ViewModels
             return false;
         }
 
+        public void Print(object obj)
+        {
+            var css = GetCss();
+            var tempFile = DocumentExporter.ExportPdfTemp(CurrentDocument, css);
+            DocumentPrinter.Print(tempFile);
+            // Delete temp file
+            File.Delete(tempFile);
+        }
+
+        public bool CanPrint(object obj)
+        {
+            if (CurrentDocument != null)
+            {
+                return true;
+            }
+            return false;
+        }
         // EVENTS
         public void MainWindowClosingEvent(object obj)
         {
@@ -263,6 +263,18 @@ namespace ProjectMarkdown.ViewModels
         public bool CanMainWindowClosingEvent(object obj)
         {
             return true;
+        }
+
+        private static string GetCss()
+        {
+            string css;
+            var cssPath = AppDomain.CurrentDomain.BaseDirectory + "Styles\\github-markdown.css";
+            using (var sr = new StreamReader(cssPath))
+            {
+                css = sr.ReadToEnd();
+            }
+
+            return css;
         }
 
         [NotifyPropertyChangedInvocator]

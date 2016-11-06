@@ -41,7 +41,7 @@
                     <MenuItem Header="All but Active Document" InputGestureText="Ctrl + Alt + W"></MenuItem>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="Print" InputGestureText="Ctrl + P"/>
+                <MenuItem Header="Print" InputGestureText="Ctrl + P" Command="{Binding PrintCommand}"/>
                 <Separator/>
                 <MenuItem Header="Exit" InputGestureText="Alt + F4"/>
             </MenuItem>
