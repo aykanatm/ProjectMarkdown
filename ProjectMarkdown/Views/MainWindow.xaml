@@ -26,7 +26,7 @@
             <MenuItem Header="File">
                 <MenuItem Header="New" InputGestureText="Ctrl + N" Command="{Binding CreateNewDocumentCommand}"/>
                 <MenuItem Header="Open" InputGestureText="Ctrl + O" Command="{Binding OpenDocumentCommand}"/>
-                <MenuItem Header="Open Containing Folder"/>
+                <MenuItem Header="Open Containing Folder" Command="{Binding OpenContainingFolderCommand}"/>
                 <MenuItem Header="Save" InputGestureText="Ctrl + S" Command="{Binding SaveDocumentCommand}"/>
                 <MenuItem Header="Save All" InputGestureText="Ctrl + Shift + S"/>
                 <MenuItem Header="Save As..." InputGestureText="Ctrl + Alt + S" Command="{Binding SaveAsDocumentCommand}"/>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -47,6 +48,7 @@ namespace ProjectMarkdown.ViewModels
         public ICommand SaveDocumentCommand { get; set; }
         public ICommand SaveAsDocumentCommand { get; set; }
         public ICommand OpenDocumentCommand { get; set; }
+        public ICommand OpenContainingFolderCommand { get; set; }
         public ICommand ExportMarkdownCommand { get; set; }
         public ICommand ExportHtmlCommand { get; set; }
         public ICommand ExportPdfCommand { get; set; }
@@ -73,6 +75,7 @@ namespace ProjectMarkdown.ViewModels
             SaveDocumentCommand = new RelayCommand(SaveDocument, CanSaveDocument);
             SaveAsDocumentCommand = new RelayCommand(SaveAsDocument, CanSaveAsDocument);
             OpenDocumentCommand = new RelayCommand(OpenDocument, CanOpenDocument);
+            OpenContainingFolderCommand = new RelayCommand(OpenContainingFolder, CanOpenContainingFolder);
             ExportHtmlCommand = new RelayCommand(ExportHtml, CanExportHtml);
             ExportMarkdownCommand = new RelayCommand(ExportMarkdown, CanExportMarkdown);
             ExportPdfCommand = new RelayCommand(ExportPdf, CanExportPdf);
@@ -106,6 +109,21 @@ namespace ProjectMarkdown.ViewModels
         public bool CanCreateNewDocument(object obj)
         {
             return true;
+        }
+
+        public void OpenContainingFolder(object obj)
+        {
+            var parent = Directory.GetParent(CurrentDocument.Metadata.FilePath);
+            Process.Start("explorer.exe", parent.FullName);
+        }
+
+        public bool CanOpenContainingFolder(object obj)
+        {
+            if (CurrentDocument != null)
+            {
+                return true;
+            }
+            return false;
         }
 
         public void SaveDocument(object obj)
