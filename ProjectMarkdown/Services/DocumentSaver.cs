@@ -11,7 +11,7 @@ namespace ProjectMarkdown.Services
 {
     public class DocumentSaver
     {
-        public SaveResult SaveAs(DocumentModel document, string style)
+        public static SaveResult SaveAs(DocumentModel document, string style)
         {
             var saveDialog = new SaveFileDialog
             {
@@ -76,7 +76,7 @@ namespace ProjectMarkdown.Services
             return null;
         }
 
-        public SaveResult Save(DocumentModel document, string style)
+        public static SaveResult Save(DocumentModel document, string style)
         {
             if (!Directory.Exists(document.Metadata.FilePath + "_temp"))
             {

@@ -9,7 +9,7 @@ namespace ProjectMarkdown.Services
 {
     public class DocumentLoader
     {
-        public DocumentModel Load()
+        public static DocumentModel Load()
         {
             var openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Markdown File | *.pmd";

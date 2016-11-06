@@ -8,7 +8,7 @@ namespace ProjectMarkdown.Services
 {
     public class DocumentExporter
     {
-        public void ExportHtml(DocumentModel document, string style)
+        public static void ExportHtml(DocumentModel document, string style)
         {
             var saveDialog = new SaveFileDialog
             {
@@ -31,8 +31,7 @@ namespace ProjectMarkdown.Services
                 }
             }
         }
-
-        public void ExportMarkdown(DocumentModel document)
+        public static void ExportMarkdown(DocumentModel document)
         {
             var saveDialog = new SaveFileDialog
             {
@@ -53,8 +52,7 @@ namespace ProjectMarkdown.Services
                 }
             }
         }
-
-        public void ExportPdf(DocumentModel document, string style)
+        public static void ExportPdf(DocumentModel document, string style)
         {
             var saveDialog = new SaveFileDialog
             {
@@ -74,6 +72,16 @@ namespace ProjectMarkdown.Services
                     converter.Convert(html, saveDialog.FileName);
                 }
             }
+        }
+        public static string ExportPdfTemp(DocumentModel document, string style)
+        {
+            var tempFilePath = AppDomain.CurrentDomain.BaseDirectory + "Temp\\TempPrintPdf.pdf";
+            var mp = new MarkdownParser();
+            var html = mp.Parse(document.Markdown.Markdown, style);
+            var converter = new HtmlToPdfConverter.HtmlToPdfConverter();
+            converter.Convert(html, tempFilePath);
+
+            return tempFilePath;
         }
     }
 }
