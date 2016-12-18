@@ -28,7 +28,7 @@
                 <MenuItem Header="Open" InputGestureText="Ctrl + O" Command="{Binding OpenDocumentCommand}"/>
                 <MenuItem Header="Open Containing Folder" Command="{Binding OpenContainingFolderCommand}"/>
                 <MenuItem Header="Save" InputGestureText="Ctrl + S" Command="{Binding SaveDocumentCommand}"/>
-                <MenuItem Header="Save All" InputGestureText="Ctrl + Shift + S"/>
+                <MenuItem Header="Save All" InputGestureText="Ctrl + Shift + S" Command="{Binding SaveAllDocumentsCommand}"/>
                 <MenuItem Header="Save As..." InputGestureText="Ctrl + Alt + S" Command="{Binding SaveAsDocumentCommand}"/>
                 <MenuItem Header="Export">
                     <MenuItem Header="Markdown" Command="{Binding ExportMarkdownCommand}"></MenuItem>

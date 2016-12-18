@@ -46,6 +46,7 @@ namespace ProjectMarkdown.ViewModels
 
         public ICommand CreateNewDocumentCommand { get; set; }
         public ICommand SaveDocumentCommand { get; set; }
+        public ICommand SaveAllDocumentsCommand { get; set; }
         public ICommand SaveAsDocumentCommand { get; set; }
         public ICommand OpenDocumentCommand { get; set; }
         public ICommand OpenContainingFolderCommand { get; set; }
@@ -73,6 +74,7 @@ namespace ProjectMarkdown.ViewModels
             // File
             CreateNewDocumentCommand = new RelayCommand(CreateNewDocument, CanCreateNewDocument);
             SaveDocumentCommand = new RelayCommand(SaveDocument, CanSaveDocument);
+            SaveAllDocumentsCommand = new RelayCommand(SaveAllDocuments, CanSaveAllDocuments);
             SaveAsDocumentCommand = new RelayCommand(SaveAsDocument, CanSaveAsDocument);
             OpenDocumentCommand = new RelayCommand(OpenDocument, CanOpenDocument);
             OpenContainingFolderCommand = new RelayCommand(OpenContainingFolder, CanOpenContainingFolder);
@@ -164,6 +166,19 @@ namespace ProjectMarkdown.ViewModels
             return false;
         }
 
+        public void SaveAllDocuments(object obj)
+        {
+            
+        }
+
+        public bool CanSaveAllDocuments(object obj)
+        {
+            if (Documents.Any())
+            {
+                return true;
+            }
+            return false;
+        }
         public void SaveAsDocument(object obj)
         {
             string css;

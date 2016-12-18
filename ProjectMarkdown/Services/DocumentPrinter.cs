@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace ProjectMarkdown.Services
 {
@@ -12,6 +13,20 @@ namespace ProjectMarkdown.Services
     {
         public static void Print(string tempFilePath)
         {
+            //var diaglog  = new PrintDialog();
+            //var result = diaglog.ShowDialog();
+            //if (result != null)
+            //{
+            //    if (result == true)
+            //    {
+            //        var printProcess = new Process();
+            //        printProcess.StartInfo.FileName = tempFilePath;
+            //        printProcess.StartInfo.Arguments = diaglog.PrintQueue.Name;
+            //        printProcess.StartInfo.Verb = "Print";
+            //        printProcess.StartInfo.CreateNoWindow = false;
+            //        printProcess.Start();
+            //    }
+            //}
             ProcessStartInfo info = new ProcessStartInfo();
             info.Verb = "print";
             info.FileName = tempFilePath;
