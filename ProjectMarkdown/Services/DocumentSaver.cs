@@ -109,17 +109,7 @@ namespace ProjectMarkdown.Services
                 document.Metadata.IsNew = false;
                 var gxs = new GenericXmlSerializer<DocumentMetadata>();
                 gxs.Serialize(document.Metadata, metadataFilePath);
-                // Generate style
-                var cssFilePath = AppDomain.CurrentDomain.BaseDirectory + "Styles\\github-markdown.css";
-                if (!Directory.Exists(parentFolder + "\\Styles"))
-                {
-                    Directory.CreateDirectory(parentFolder + "\\Styles");
-                }
-
-                if (!File.Exists(parentFolder + "\\Styles\\github-markdown.css"))
-                {
-                    File.Copy(cssFilePath, parentFolder + "\\Styles\\github-markdown.css");
-                }
+                
                 // Generate the package
                 if (File.Exists(document.Metadata.FilePath))
                 {
