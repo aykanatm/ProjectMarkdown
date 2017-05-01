@@ -145,16 +145,7 @@ namespace ProjectMarkdown.ViewModels
                 
                 var result = DocumentSaver.Save(CurrentDocument, css);
 
-                // Since Source property does not update when the same uri is called, we have to load some fake uri before we call the actual uri as a workaround
-                // https://github.com/awesomium/awesomium-pub/issues/52
-                // Will fix this when 1.7.5 is released
-                CurrentDocument.Html.Source = "SomeFakeUri".ToUri();
-                CurrentDocument.Html.Source = result.Source;
-                // Update tab header
-                CurrentDocument.Metadata.FileName = result.FileName;
-                // Delete temp files
-                Thread.Sleep(100);
-                Directory.Delete(result.TempFile, true);
+                RefreshCurrentHtmlView(result);
             }
         }
         public bool CanSaveDocument(object obj)
@@ -190,16 +181,7 @@ namespace ProjectMarkdown.ViewModels
             
             var result = DocumentSaver.SaveAs(CurrentDocument, css);
 
-            // Since Source property does not update when the same uri is called, we have to load some fake uri before we call the actual uri as a workaround
-            // https://github.com/awesomium/awesomium-pub/issues/52
-            // Will fix this when 1.7.5 is released
-            CurrentDocument.Html.Source = "SomeFakeUri".ToUri();
-            CurrentDocument.Html.Source = result.Source;
-            // Update tab header
-            CurrentDocument.Metadata.FileName = result.FileName;
-            // Delete temp files
-            Thread.Sleep(100);
-            Directory.Delete(result.TempFile, true);
+            RefreshCurrentHtmlView(result);
         }
 
         public bool CanSaveAsDocument(object obj)
@@ -218,6 +200,8 @@ namespace ProjectMarkdown.ViewModels
             {
                 Documents.Add(currentDocument);
                 CurrentDocument = currentDocument;
+
+                CurrentDocument.Html.Source = currentDocument.Html.Source;
             }
         }
 
@@ -308,6 +292,20 @@ namespace ProjectMarkdown.ViewModels
             }
 
             return css;
+        }
+
+        private void RefreshCurrentHtmlView(SaveResult result)
+        {
+            // Since Source property does not update when the same uri is called, we have to load some fake uri before we call the actual uri as a workaround
+            // https://github.com/awesomium/awesomium-pub/issues/52
+            // Will fix this when 1.7.5 is released
+            CurrentDocument.Html.Source = "SomeFakeUri".ToUri();
+            CurrentDocument.Html.Source = result.Source;
+            // Update tab header
+            CurrentDocument.Metadata.FileName = result.FileName;
+            // Delete temp files
+            Thread.Sleep(100);
+            Directory.Delete(result.TempFile, true);
         }
 
         [NotifyPropertyChangedInvocator]
