@@ -17,6 +17,7 @@ namespace ProjectMarkdown.Services
             {
                 CreatePrompt = true,
                 OverwritePrompt = true,
+                Title = "Save a PMD file",
                 Filter = "Project Markdown File | *.pmd"
             };
 
