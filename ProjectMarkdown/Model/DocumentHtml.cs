@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Awesomium.Core;
 using ProjectMarkdown.Annotations;
 
 namespace ProjectMarkdown.Model
@@ -15,7 +16,6 @@ namespace ProjectMarkdown.Model
             get { return _source; }
             set
             {
-                if (Equals(value, _source)) return;
                 _source = value;
                 OnPropertyChanged(nameof(Source));
             }

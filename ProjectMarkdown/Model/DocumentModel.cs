@@ -12,7 +12,6 @@ namespace ProjectMarkdown.Model
             get { return _metadata; }
             set
             {
-                if (Equals(value, _metadata)) return;
                 _metadata = value;
                 OnPropertyChanged(nameof(Metadata));
             }
@@ -23,7 +22,6 @@ namespace ProjectMarkdown.Model
             get { return _markdown; }
             set
             {
-                if (Equals(value, _markdown)) return;
                 _markdown = value;
                 OnPropertyChanged(nameof(Markdown));
             }
@@ -34,7 +32,6 @@ namespace ProjectMarkdown.Model
             get { return _html; }
             set
             {
-                if (Equals(value, _html)) return;
                 _html = value;
                 OnPropertyChanged(nameof(Html));
             }

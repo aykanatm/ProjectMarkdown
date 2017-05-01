@@ -13,7 +13,6 @@ namespace ProjectMarkdown.Model
             get { return _markdown; }
             set
             {
-                if (value == _markdown) return;
                 _markdown = value;
                 OnPropertyChanged(nameof(Markdown));
             }

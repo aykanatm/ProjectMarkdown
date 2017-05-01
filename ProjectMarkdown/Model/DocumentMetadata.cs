@@ -18,7 +18,6 @@ namespace ProjectMarkdown.Model
             get { return _author; }
             set
             {
-                if (value == _author) return;
                 _author = value;
                 OnPropertyChanged(nameof(Author));
             }
@@ -29,7 +28,6 @@ namespace ProjectMarkdown.Model
             get { return _fileName; }
             set
             {
-                if (value == _fileName) return;
                 _fileName = value;
                 OnPropertyChanged(nameof(FileName));
             }
@@ -40,7 +38,6 @@ namespace ProjectMarkdown.Model
             get { return _isNew; }
             set
             {
-                if (value == _isNew) return;
                 _isNew = value;
                 OnPropertyChanged(nameof(IsNew));
             }
@@ -51,7 +48,6 @@ namespace ProjectMarkdown.Model
             get { return _filePath; }
             set
             {
-                if (value == _filePath) return;
                 _filePath = value;
                 OnPropertyChanged(nameof(FilePath));
             }
