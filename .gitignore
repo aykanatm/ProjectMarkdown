@@ -246,3 +246,4 @@ ModelManifest.xml
 FeatureTest/
 *.DotSettings
 *.dll
+*.stackdump
