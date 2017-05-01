@@ -12,7 +12,8 @@ namespace ProjectMarkdown.Services
         public static DocumentModel Load()
         {
             var openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Markdown File | *.pmd";
+            openFileDialog.Title = "Open a PMD file";
+            openFileDialog.Filter = "Project Markdown File | *.pmd";
             var result = openFileDialog.ShowDialog();
 
             if (result != null)
