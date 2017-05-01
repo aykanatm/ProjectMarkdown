@@ -199,8 +199,19 @@ namespace ProjectMarkdown.ViewModels
             var currentDocument = DocumentLoader.Load();
             if (currentDocument != null)
             {
-                Documents.Add(currentDocument);
-                CurrentDocument = currentDocument;
+                var documentsWithCurrentFilePath = (from d in Documents
+                                                    where d.Metadata.FilePath == currentDocument.Metadata.FilePath
+                                                    select d);
+                if (documentsWithCurrentFilePath.Any())
+                {
+                    MessageBox.Show("The document '" + currentDocument.Metadata.FilePath + "' is already open.",
+                        "Duplicate File Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    Documents.Add(currentDocument);
+                    CurrentDocument = currentDocument;
+                }
             }
         }
 
