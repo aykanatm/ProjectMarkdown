@@ -10,6 +10,7 @@
         xmlns:core="clr-namespace:Awesomium.Core;assembly=Awesomium.Core"
         xmlns:codeTextBox="clr-namespace:WpfCodeTextbox;assembly=WpfCodeTextbox"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:wpf="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
         mc:Ignorable="d"
         Title="{Binding CurrentDocument.Header, Mode=OneWay}" Height="350" Width="1000"
         Name="MWindow">
@@ -133,9 +134,10 @@
                         <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="5">
                             <codeTextBox:CodeTextbox IsLineNumbersMarginVisible="True" Text="{Binding Markdown.Markdown, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CurrentSyntaxDirectory="SyntaxConfig" CurrentHighlighterString="MarkdownSyntax"/>
                         </ScrollViewer>
-                        <awe:WebDialogsLayer Grid.Column="1" Margin="5">
+                        <wpf:ChromiumWebBrowser Grid.Column="1" Margin="5" Address="{Binding Html.Source, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <!-- <awe:WebDialogsLayer Grid.Column="1" Margin="5">
                             <awe:WebControl Source="{Binding Html.Source, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        </awe:WebDialogsLayer>
+                        </awe:WebDialogsLayer> -->
                     </Grid>
                 </DataTemplate>
             </TabControl.ContentTemplate>
