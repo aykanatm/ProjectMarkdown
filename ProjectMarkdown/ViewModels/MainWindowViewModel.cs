@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Input;
 using Awesomium.Core;
 using ProjectMarkdown.Annotations;
+using ProjectMarkdown.MarkdownLibrary;
 using ProjectMarkdown.Model;
 using ProjectMarkdown.Services;
 
@@ -37,6 +38,8 @@ namespace ProjectMarkdown.ViewModels
             {
                 _currentDocument = value;
                 OnPropertyChanged(nameof(CurrentDocument));
+
+                RefreshCurrentHtmlView();
             }
         }
 
@@ -288,6 +291,26 @@ namespace ProjectMarkdown.ViewModels
             }
 
             return css;
+        }
+
+        private void RefreshCurrentHtmlView()
+        {
+            string css;
+            var cssPath = AppDomain.CurrentDomain.BaseDirectory + "Styles\\github-markdown.css";
+            using (var sr = new StreamReader(cssPath))
+            {
+                css = sr.ReadToEnd();
+            }
+
+            var mp = new MarkdownParser();
+            var html = mp.Parse(_currentDocument.Markdown.Markdown, css);
+            var tempSourceFilePath = AppDomain.CurrentDomain.BaseDirectory + "Temp\\tempsource.html";
+            using (var sw = new StreamWriter(tempSourceFilePath))
+            {
+                sw.Write(html);
+            }
+
+            _currentDocument.Html.Source = tempSourceFilePath.ToUri();
         }
 
         private void RefreshCurrentHtmlView(SaveResult result)
