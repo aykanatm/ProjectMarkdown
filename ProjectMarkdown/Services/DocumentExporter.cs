@@ -14,6 +14,7 @@ namespace ProjectMarkdown.Services
             {
                 CreatePrompt = true,
                 OverwritePrompt = true,
+                Title = "Export HTML",
                 Filter = "Hyper Text Markup Language File | *.html"
             };
 
@@ -37,6 +38,7 @@ namespace ProjectMarkdown.Services
             {
                 CreatePrompt = true,
                 OverwritePrompt = true,
+                Title = "Export MD",
                 Filter = "Markdown File | *.md"
             };
 
@@ -58,6 +60,7 @@ namespace ProjectMarkdown.Services
             {
                 CreatePrompt = true,
                 OverwritePrompt = true,
+                Title = "Export PDF",
                 Filter = "PDF File | *.pdf"
             };
 
