@@ -135,9 +135,6 @@
                             <codeTextBox:CodeTextbox IsLineNumbersMarginVisible="True" Text="{Binding Markdown.Markdown, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CurrentSyntaxDirectory="SyntaxConfig" CurrentHighlighterString="MarkdownSyntax"/>
                         </ScrollViewer>
                         <wpf:ChromiumWebBrowser Grid.Column="1" Margin="5" Address="{Binding Html.Source, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <!-- <awe:WebDialogsLayer Grid.Column="1" Margin="5">
-                            <awe:WebControl Source="{Binding Html.Source, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        </awe:WebDialogsLayer> -->
                     </Grid>
                 </DataTemplate>
             </TabControl.ContentTemplate>
