@@ -137,12 +137,7 @@ namespace ProjectMarkdown.ViewModels
             }
             else
             {
-                string css;
-                var cssPath = AppDomain.CurrentDomain.BaseDirectory + "Styles\\github-markdown.css";
-                using (var sr = new StreamReader(cssPath))
-                {
-                    css = sr.ReadToEnd();
-                }
+                var css = GetCss();
                 
                 var result = DocumentSaver.Save(CurrentDocument, css);
 
@@ -173,12 +168,7 @@ namespace ProjectMarkdown.ViewModels
         }
         public void SaveAsDocument(object obj)
         {
-            string css;
-            var cssPath = AppDomain.CurrentDomain.BaseDirectory + "Styles\\github-markdown.css";
-            using (var sr = new StreamReader(cssPath))
-            {
-                css = sr.ReadToEnd();
-            }
+            var css = GetCss();
             
             var result = DocumentSaver.SaveAs(CurrentDocument, css);
 
@@ -292,7 +282,7 @@ namespace ProjectMarkdown.ViewModels
             return true;
         }
 
-        private static string GetCss()
+        private string GetCss()
         {
             string css;
             var cssPath = AppDomain.CurrentDomain.BaseDirectory + "Styles\\github-markdown.css";
@@ -306,12 +296,7 @@ namespace ProjectMarkdown.ViewModels
 
         private void RefreshCurrentHtmlView()
         {
-            string css;
-            var cssPath = AppDomain.CurrentDomain.BaseDirectory + "Styles\\github-markdown.css";
-            using (var sr = new StreamReader(cssPath))
-            {
-                css = sr.ReadToEnd();
-            }
+            var css = GetCss();
 
             var mp = new MarkdownParser();
             var html = mp.Parse(_currentDocument.Markdown.Markdown, css);
