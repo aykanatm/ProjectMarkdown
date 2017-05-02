@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+﻿using System.Windows.Forms;
+using Spire.Pdf;
+using PrintDialog = System.Windows.Forms.PrintDialog;
 
 namespace ProjectMarkdown.Services
 {
@@ -13,34 +8,32 @@ namespace ProjectMarkdown.Services
     {
         public static void Print(string tempFilePath)
         {
-            //var diaglog  = new PrintDialog();
-            //var result = diaglog.ShowDialog();
-            //if (result != null)
-            //{
-            //    if (result == true)
-            //    {
-            //        var printProcess = new Process();
-            //        printProcess.StartInfo.FileName = tempFilePath;
-            //        printProcess.StartInfo.Arguments = diaglog.PrintQueue.Name;
-            //        printProcess.StartInfo.Verb = "Print";
-            //        printProcess.StartInfo.CreateNoWindow = false;
-            //        printProcess.Start();
-            //    }
-            //}
-            ProcessStartInfo info = new ProcessStartInfo();
-            info.Verb = "print";
-            info.FileName = tempFilePath;
-            info.CreateNoWindow = true;
-            info.WindowStyle = ProcessWindowStyle.Hidden;
+            var pdfDocument = new PdfDocument();
+            pdfDocument.LoadFromFile(tempFilePath);
 
-            Process p = new Process();
-            p.StartInfo = info;
-            p.Start();
+            var printDialog = new PrintDialog
+            {
+                AllowPrintToFile = true,
+                AllowSomePages = true,
+                PrinterSettings =
+                {
+                    MinimumPage = 1,
+                    MaximumPage = pdfDocument.Pages.Count,
+                    FromPage = 1,
+                    ToPage = pdfDocument.Pages.Count
+                }
+            };
 
-            p.WaitForInputIdle();
-            Thread.Sleep(3000);
-            if (false == p.CloseMainWindow())
-                p.Kill();
+            if (printDialog.ShowDialog() == DialogResult.OK)
+            {
+                pdfDocument.PrintFromPage = printDialog.PrinterSettings.FromPage;
+                pdfDocument.PrintToPage = printDialog.PrinterSettings.ToPage;
+                pdfDocument.PrinterName = printDialog.PrinterSettings.PrinterName;
+
+                var printDocument = pdfDocument.PrintDocument;
+                printDialog.Document = printDocument;
+                printDocument.Print();
+            }
         }
     }
 }
