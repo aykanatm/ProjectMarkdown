@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
-using Awesomium.Core;
 using CustomIO;
 using Microsoft.Win32;
+using ProjectMarkdown.ExtensionMethods;
 using ProjectMarkdown.MarkdownLibrary;
 using ProjectMarkdown.Model;
 

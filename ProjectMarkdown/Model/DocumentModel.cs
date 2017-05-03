@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Awesomium.Core;
 using ProjectMarkdown.Annotations;
+using ProjectMarkdown.ExtensionMethods;
 
 namespace ProjectMarkdown.Model
 {
@@ -49,7 +49,8 @@ namespace ProjectMarkdown.Model
         {
             Metadata = new DocumentMetadata(documentName);
             Markdown = new DocumentMarkdown("");
-            Html = new DocumentHtml("".ToUri());
+            // TODO Fix the ToUri() method
+            Html = new DocumentHtml("C:\\".ToUri());
         }
 
         [NotifyPropertyChangedInvocator]

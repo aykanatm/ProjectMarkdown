@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Awesomium.Core;
 using ProjectMarkdown.Annotations;
 
 namespace ProjectMarkdown.Model

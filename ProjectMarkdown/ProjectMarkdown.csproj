@@ -60,15 +60,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Awesomium.Core, Version=1.7.5.0, Culture=neutral, PublicKeyToken=e1a0d7c8071a5214, processorArchitecture=x86">
-      <HintPath>..\packages\Awesomium.NetWrapper.Unofficial.1.7.5.0\lib\Packed\Awesomium.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Awesomium.Windows.Controls, Version=1.7.5.0, Culture=neutral, PublicKeyToken=7a34e179b8b61c39, processorArchitecture=x86">
-      <HintPath>..\packages\Awesomium.NetWrapper.Unofficial.1.7.5.0\lib\Awesomium.Windows.Controls.dll</HintPath>
-    </Reference>
-    <Reference Include="Awesomium.Windows.Forms, Version=1.7.5.0, Culture=neutral, PublicKeyToken=9bd24830fbe304a0, processorArchitecture=x86">
-      <HintPath>..\packages\Awesomium.NetWrapper.Unofficial.1.7.5.0\lib\Awesomium.Windows.Forms.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Expression\Blend\.NETFramework\v4.5\Libraries\Microsoft.Expression.Interactions.dll</HintPath>
@@ -116,6 +107,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ExtensionMethods\StringExtensionMethods.cs" />
     <Compile Include="Model\DocumentHtml.cs" />
     <Compile Include="Model\DocumentMarkdown.cs" />
     <Compile Include="Model\DocumentMetadata.cs" />
