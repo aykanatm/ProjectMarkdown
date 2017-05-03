@@ -3,11 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:awe="http://schemas.awesomium.com/winfx"
-        xmlns:data="http://schemas.awesomium.com/winfx/data"
         xmlns:local="clr-namespace:ProjectMarkdown"
         xmlns:viewModels="clr-namespace:ProjectMarkdown.ViewModels"
-        xmlns:core="clr-namespace:Awesomium.Core;assembly=Awesomium.Core"
         xmlns:codeTextBox="clr-namespace:WpfCodeTextbox;assembly=WpfCodeTextbox"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:wpf="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
@@ -128,13 +125,11 @@
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="5">
-                            <codeTextBox:CodeTextbox IsLineNumbersMarginVisible="True" Text="{Binding Markdown.Markdown, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CurrentSyntaxDirectory="SyntaxConfig" CurrentHighlighterString="MarkdownSyntax"/>
-                        </ScrollViewer>
-                        <wpf:ChromiumWebBrowser Grid.Column="1" Margin="5" Address="{Binding Html.Source, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <codeTextBox:CodeTextbox Grid.Column="0" IsLineNumbersMarginVisible="True" Text="{Binding Markdown.Markdown, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CurrentSyntaxDirectory="SyntaxConfig" CurrentHighlighterString="MarkdownSyntax" Margin="5"/>
+                        <wpf:ChromiumWebBrowser Grid.Column="1" Margin="5" Address="{Binding Html.Source, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ChromiumWebBrowser"/>
                     </Grid>
                 </DataTemplate>
             </TabControl.ContentTemplate>
