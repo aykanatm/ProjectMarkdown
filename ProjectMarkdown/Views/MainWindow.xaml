@@ -114,7 +114,7 @@
             </ToolBar>
         </ToolBarTray>
         <StatusBar DockPanel.Dock="Bottom" VerticalAlignment="Bottom" Height="30"/>
-        <TabControl TabStripPlacement="Top" Margin="5" ItemsSource="{Binding Documents}" SelectedItem="{Binding CurrentDocument, Mode=TwoWay}" Name="TabControl">
+        <TabControl TabStripPlacement="Top" Margin="5" ItemsSource="{Binding Documents}" SelectedItem="{Binding CurrentDocument, Mode=TwoWay}">
             <TabControl.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Metadata.FileName}"></TextBlock>
