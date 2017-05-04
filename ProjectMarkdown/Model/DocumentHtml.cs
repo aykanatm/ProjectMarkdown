@@ -20,6 +20,11 @@ namespace ProjectMarkdown.Model
             }
         }
 
+        public DocumentHtml()
+        {
+            
+        }
+        
         public DocumentHtml(Uri source)
         {
             Source = source;

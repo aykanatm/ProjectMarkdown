@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjectMarkdown.ExtensionMethods
 {
@@ -10,8 +6,14 @@ namespace ProjectMarkdown.ExtensionMethods
     {
         public static Uri ToUri(this string input)
         {
-            var output = new Uri(input);
-            return output;
+            Uri output;
+
+            if (Uri.TryCreate(input, UriKind.RelativeOrAbsolute, out output))
+            {
+                return output;
+            }
+
+            throw new Exception("Unable to create URI from input '" + input + "'");
         }
     }
 }

@@ -49,8 +49,7 @@ namespace ProjectMarkdown.Model
         {
             Metadata = new DocumentMetadata(documentName);
             Markdown = new DocumentMarkdown("");
-            // TODO Fix the ToUri() method
-            Html = new DocumentHtml("C:\\".ToUri());
+            Html = new DocumentHtml();
         }
 
         [NotifyPropertyChangedInvocator]
