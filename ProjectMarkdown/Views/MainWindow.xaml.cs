@@ -1,6 +1,4 @@
-﻿using System;
-using System.Windows;
-using WpfCodeTextbox;
+﻿using System.Windows;
 
 namespace ProjectMarkdown.Views
 {

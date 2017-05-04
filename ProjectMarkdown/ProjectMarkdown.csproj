@@ -60,6 +60,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FastColoredTextBox, Version=2.16.21.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
+      <HintPath>..\packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Expression\Blend\.NETFramework\v4.5\Libraries\Microsoft.Expression.Interactions.dll</HintPath>
@@ -93,6 +96,7 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -107,6 +111,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CustomControls\CodeTextboxHost.cs" />
     <Compile Include="ExtensionMethods\StringExtensionMethods.cs" />
     <Compile Include="Model\DocumentHtml.cs" />
     <Compile Include="Model\DocumentMarkdown.cs" />
@@ -155,7 +160,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="SyntaxConfig\MarkdownSyntax.xml">
+    <None Include="SyntaxConfig\MarkdownSyntaxHighlighting.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Resource Include="Images\new.png" />
@@ -187,10 +192,6 @@
     <ProjectReference Include="..\ProjectMarkdown.MarkdownLibrary\ProjectMarkdown.MarkdownLibrary.csproj">
       <Project>{2dbe7815-5fe7-47fe-aeb4-e94a0eaca941}</Project>
       <Name>ProjectMarkdown.MarkdownLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WpfCodeTextbox\WpfCodeTextbox.csproj">
-      <Project>{8c658909-637a-4faa-90ec-155cf24b0ce5}</Project>
-      <Name>WpfCodeTextbox</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

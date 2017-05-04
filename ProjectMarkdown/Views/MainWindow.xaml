@@ -3,13 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ProjectMarkdown"
         xmlns:viewModels="clr-namespace:ProjectMarkdown.ViewModels"
-        xmlns:codeTextBox="clr-namespace:WpfCodeTextbox;assembly=WpfCodeTextbox"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:wpf="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+        xmlns:customControls="clr-namespace:ProjectMarkdown.CustomControls"
         mc:Ignorable="d"
-        Title="{Binding CurrentDocument.Metadata.FilePath, Mode=OneWay}" Height="350" Width="1000"
+        Title="{Binding CurrentDocument.Metadata.FilePath, Mode=OneWay}" Height="600" Width="800"
         Name="MWindow">
     <Window.DataContext>
         <viewModels:MainWindowViewModel/>
@@ -115,7 +114,7 @@
             </ToolBar>
         </ToolBarTray>
         <StatusBar DockPanel.Dock="Bottom" VerticalAlignment="Bottom" Height="30"/>
-        <TabControl TabStripPlacement="Top" Margin="5" ItemsSource="{Binding Documents}" SelectedItem="{Binding CurrentDocument, Mode=TwoWay}">
+        <TabControl TabStripPlacement="Top" Margin="5" ItemsSource="{Binding Documents}" SelectedItem="{Binding CurrentDocument, Mode=TwoWay}" Name="TabControl">
             <TabControl.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Metadata.FileName}"></TextBlock>
@@ -128,8 +127,15 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
+                        <!--
                         <codeTextBox:CodeTextbox Grid.Column="0" IsLineNumbersMarginVisible="True" Text="{Binding Markdown.Markdown, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CurrentSyntaxDirectory="SyntaxConfig" CurrentHighlighterString="MarkdownSyntax" Margin="5"/>
-                        <wpf:ChromiumWebBrowser Grid.Column="1" Margin="5" Address="{Binding Html.Source, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ChromiumWebBrowser"/>
+                        -->
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0" Margin="5">
+                            <customControls:CodeTextboxHost Text="{Binding Markdown.Markdown, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" WordWrap="True"/>
+                        </Border>
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" Margin="5">
+                            <wpf:ChromiumWebBrowser Address="{Binding Html.Source, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ChromiumWebBrowser"/>    
+                        </Border>
                     </Grid>
                 </DataTemplate>
             </TabControl.ContentTemplate>
