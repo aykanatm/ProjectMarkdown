@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Pechkin;
 
 namespace ProjectMarkdown.HtmlToPdfConverter
@@ -12,8 +8,15 @@ namespace ProjectMarkdown.HtmlToPdfConverter
     {
         public void Convert(string htmlString, string filePath)
         {
-            byte[] pdfBuf = new SimplePechkin(new GlobalConfig()).Convert(htmlString);
-            File.WriteAllBytes(filePath, pdfBuf);
+            try
+            {
+                byte[] pdfBuf = new SimplePechkin(new GlobalConfig()).Convert(htmlString);
+                File.WriteAllBytes(filePath, pdfBuf);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("An error occured while converting HTML to PDF. " + e.Message);
+            }
         }
     }
 }

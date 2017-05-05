@@ -89,25 +89,32 @@ namespace ProjectMarkdown.ViewModels
 
         public void CreateNewDocument(object obj)
         {
-            int documentCount = 1;
-            string documentFileName = "untitled" + documentCount + ".md";
-            bool fileNameFound = false;
-            while (!fileNameFound)
+            try
             {
-                var checkForDuplicateFileName = Documents.FirstOrDefault(d => d.Metadata.FileName == documentFileName);
-                if (checkForDuplicateFileName == null)
+                int documentCount = 1;
+                string documentFileName = "untitled" + documentCount + ".md";
+                bool fileNameFound = false;
+                while (!fileNameFound)
                 {
-                    fileNameFound = true;
+                    var checkForDuplicateFileName = Documents.FirstOrDefault(d => d.Metadata.FileName == documentFileName);
+                    if (checkForDuplicateFileName == null)
+                    {
+                        fileNameFound = true;
+                    }
+                    else
+                    {
+                        documentCount += 1;
+                        documentFileName = "untitled" + documentCount + ".md";
+                    }
                 }
-                else
-                {
-                    documentCount += 1;
-                    documentFileName = "untitled" + documentCount + ".md";
-                }
+                var document = new DocumentModel(documentFileName);
+                Documents.Add(document);
+                CurrentDocument = document;
             }
-            var document = new DocumentModel(documentFileName);
-            Documents.Add(document);
-            CurrentDocument = document;
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "An error occured while creating document", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         public bool CanCreateNewDocument(object obj)
         {
@@ -116,8 +123,15 @@ namespace ProjectMarkdown.ViewModels
 
         public void OpenContainingFolder(object obj)
         {
-            var parent = Directory.GetParent(CurrentDocument.Metadata.FilePath);
-            Process.Start("explorer.exe", parent.FullName);
+            try
+            {
+                var parent = Directory.GetParent(CurrentDocument.Metadata.FilePath);
+                Process.Start("explorer.exe", parent.FullName);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "An error occured while opening the containing folder",MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         public bool CanOpenContainingFolder(object obj)
@@ -131,19 +145,28 @@ namespace ProjectMarkdown.ViewModels
 
         public void SaveDocument(object obj)
         {
-            if (CurrentDocument.Metadata.IsNew)
+            try
             {
-                SaveAsDocument(obj);
-            }
-            else
-            {
-                var css = GetCss();
-                
-                var result = DocumentSaver.Save(CurrentDocument, css);
+                if (CurrentDocument.Metadata.IsNew)
+                {
+                    SaveAsDocument(obj);
+                }
+                else
+                {
+                    var css = GetCss();
 
-                RefreshCurrentHtmlView(result);
+                    var result = DocumentSaver.Save(CurrentDocument, css);
+
+                    RefreshCurrentHtmlView(result);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "An error occured while saving the document", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
+
         public bool CanSaveDocument(object obj)
         {
             if (CurrentDocument != null)
@@ -168,11 +191,18 @@ namespace ProjectMarkdown.ViewModels
         }
         public void SaveAsDocument(object obj)
         {
-            var css = GetCss();
-            
-            var result = DocumentSaver.SaveAs(CurrentDocument, css);
+            try
+            {
+                var css = GetCss();
 
-            RefreshCurrentHtmlView(result);
+                var result = DocumentSaver.SaveAs(CurrentDocument, css);
+
+                RefreshCurrentHtmlView(result);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "An error occured while saving the document", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         public bool CanSaveAsDocument(object obj)
@@ -186,22 +216,30 @@ namespace ProjectMarkdown.ViewModels
 
         public void OpenDocument(object obj)
         {
-            var currentDocument = DocumentLoader.Load();
-            if (currentDocument != null)
+            try
             {
-                var documentsWithCurrentFilePath = (from d in Documents
-                                                    where d.Metadata.FilePath == currentDocument.Metadata.FilePath
-                                                    select d);
-                if (documentsWithCurrentFilePath.Any())
+                var currentDocument = DocumentLoader.Load();
+                if (currentDocument != null)
                 {
-                    MessageBox.Show("The document '" + currentDocument.Metadata.FilePath + "' is already open.",
-                        "Duplicate File Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    var documentsWithCurrentFilePath = (from d in Documents
+                                                        where d.Metadata.FilePath == currentDocument.Metadata.FilePath
+                                                        select d);
+                    if (documentsWithCurrentFilePath.Any())
+                    {
+                        MessageBox.Show("The document '" + currentDocument.Metadata.FilePath + "' is already open.",
+                            "Duplicate File Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else
+                    {
+                        Documents.Add(currentDocument);
+                        CurrentDocument = currentDocument;
+                    }
                 }
-                else
-                {
-                    Documents.Add(currentDocument);
-                    CurrentDocument = currentDocument;
-                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "An error occured while opening document", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
 
@@ -212,7 +250,15 @@ namespace ProjectMarkdown.ViewModels
 
         public void ExportMarkdown(object obj)
         {
-            DocumentExporter.ExportMarkdown(CurrentDocument);
+            try
+            {
+                DocumentExporter.ExportMarkdown(CurrentDocument);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "An error occured while exporting markdown", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
         }
 
         public bool CanExportMarkdown(object obj)
@@ -226,8 +272,16 @@ namespace ProjectMarkdown.ViewModels
 
         public void ExportHtml(object obj)
         {
-            var css = GetCss();
-            DocumentExporter.ExportHtml(CurrentDocument, css);
+            try
+            {
+                var css = GetCss();
+                DocumentExporter.ExportHtml(CurrentDocument, css);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "An error occured while exporting HTML", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
         }
 
         public bool CanExportHtml(object obj)
@@ -241,8 +295,16 @@ namespace ProjectMarkdown.ViewModels
 
         public void ExportPdf(object obj)
         {
-            var css = GetCss();
-            DocumentExporter.ExportPdf(CurrentDocument, css);
+            try
+            {
+                var css = GetCss();
+                DocumentExporter.ExportPdf(CurrentDocument, css);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "An error occured while exporting PDF", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
         }
 
         public bool CanExportPdf(object obj)
@@ -256,11 +318,18 @@ namespace ProjectMarkdown.ViewModels
 
         public void Print(object obj)
         {
-            var css = GetCss();
-            var tempFile = DocumentExporter.ExportPdfTemp(CurrentDocument, css);
-            DocumentPrinter.Print(tempFile);
-            // Delete temp file
-            File.Delete(tempFile);
+            try
+            {
+                var css = GetCss();
+                var tempFile = DocumentExporter.ExportPdfTemp(CurrentDocument, css);
+                DocumentPrinter.Print(tempFile);
+                // Delete temp file
+                File.Delete(tempFile);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "An error occured while printing", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         public bool CanPrint(object obj)
@@ -271,6 +340,7 @@ namespace ProjectMarkdown.ViewModels
             }
             return false;
         }
+
         // EVENTS
         public void MainWindowClosingEvent(object obj)
         {
@@ -284,40 +354,62 @@ namespace ProjectMarkdown.ViewModels
 
         private string GetCss()
         {
-            string css;
-            var cssPath = AppDomain.CurrentDomain.BaseDirectory + "Styles\\github-markdown.css";
-            using (var sr = new StreamReader(cssPath))
+            try
             {
-                css = sr.ReadToEnd();
-            }
+                string css;
+                var cssPath = AppDomain.CurrentDomain.BaseDirectory + "Styles\\github-markdown.css";
+                using (var sr = new StreamReader(cssPath))
+                {
+                    css = sr.ReadToEnd();
+                }
 
-            return css;
+                return css;
+            }
+            catch (Exception e)
+            {
+                
+                throw new Exception("An error occured while retrieving the CSS. " + e.Message);
+            }
         }
 
         private void RefreshCurrentHtmlView()
         {
-            var css = GetCss();
-
-            var mp = new MarkdownParser();
-            var html = mp.Parse(_currentDocument.Markdown.Markdown, css);
-            var tempSourceFilePath = AppDomain.CurrentDomain.BaseDirectory + "Temp\\tempsource.html";
-            using (var sw = new StreamWriter(tempSourceFilePath))
+            try
             {
-                sw.Write(html);
-            }
+                var css = GetCss();
 
-            _currentDocument.Html.Source = tempSourceFilePath.ToUri();
+                var mp = new MarkdownParser();
+                var html = mp.Parse(_currentDocument.Markdown.Markdown, css);
+                var tempSourceFilePath = AppDomain.CurrentDomain.BaseDirectory + "Temp\\tempsource.html";
+                using (var sw = new StreamWriter(tempSourceFilePath))
+                {
+                    sw.Write(html);
+                }
+
+                _currentDocument.Html.Source = tempSourceFilePath.ToUri();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("An error occured while refreshing the HTML view. " + e.Message);
+            }
         }
 
         private void RefreshCurrentHtmlView(SaveResult result)
         {
-            // Update source
-            CurrentDocument.Html.Source = result.Source;
-            // Update tab header
-            CurrentDocument.Metadata.FileName = result.FileName;
-            // Delete temp files
-            Thread.Sleep(100);
-            Directory.Delete(result.TempFile, true);
+            try
+            {
+                // Update source
+                CurrentDocument.Html.Source = result.Source;
+                // Update tab header
+                CurrentDocument.Metadata.FileName = result.FileName;
+                // Delete temp files
+                Thread.Sleep(100);
+                Directory.Delete(result.TempFile, true);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("An error occured while refreshing the HTML view. " + e.Message);
+            }
         }
 
         [NotifyPropertyChangedInvocator]

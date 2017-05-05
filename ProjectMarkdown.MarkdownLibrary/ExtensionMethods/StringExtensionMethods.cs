@@ -20,85 +20,128 @@ namespace ProjectMarkdown.MarkdownLibrary.ExtensionMethods
                 .GenerateHtmlLinks()
                 .GenerateAutomaticLinks();
         }
+
         public static string ConvertPairedMarkdownToHtml(this string input, string markdownTag, MarkdownParser.PairedMarkdownTags tag)
         {
-            string output = string.Empty;
-            var tagSplit = input.Split(new string[] {markdownTag}, StringSplitOptions.None);
-
-            for (int i = 0; i < tagSplit.Length; i++)
+            try
             {
-                if (i != 0 && i != tagSplit.Length - 1)
-                {
-                    if (tag == MarkdownParser.PairedMarkdownTags.Bold)
-                    {
-                        tagSplit[i] = new Bold(tagSplit[i]).ToString();
-                    }
-                    else if (tag == MarkdownParser.PairedMarkdownTags.Italic)
-                    {
-                        tagSplit[i] = new Italic(tagSplit[i]).ToString();
-                    }
-                    else if (tag == MarkdownParser.PairedMarkdownTags.InlineCode)
-                    {
-                        tagSplit[i] = new InlineCode(tagSplit[i]).ToString();
-                    }
-                    else if (tag == MarkdownParser.PairedMarkdownTags.StrikeThrough)
-                    {
-                        tagSplit[i] = new StrikeThrough(tagSplit[i]).ToString();
-                    }
-                }
-                output += tagSplit[i];
-            }
+                string output = string.Empty;
+                var tagSplit = input.Split(new string[] { markdownTag }, StringSplitOptions.None);
 
-            return output;
+                for (int i = 0; i < tagSplit.Length; i++)
+                {
+                    if (i != 0 && i != tagSplit.Length - 1)
+                    {
+                        if (tag == MarkdownParser.PairedMarkdownTags.Bold)
+                        {
+                            tagSplit[i] = new Bold(tagSplit[i]).ToString();
+                        }
+                        else if (tag == MarkdownParser.PairedMarkdownTags.Italic)
+                        {
+                            tagSplit[i] = new Italic(tagSplit[i]).ToString();
+                        }
+                        else if (tag == MarkdownParser.PairedMarkdownTags.InlineCode)
+                        {
+                            tagSplit[i] = new InlineCode(tagSplit[i]).ToString();
+                        }
+                        else if (tag == MarkdownParser.PairedMarkdownTags.StrikeThrough)
+                        {
+                            tagSplit[i] = new StrikeThrough(tagSplit[i]).ToString();
+                        }
+                    }
+                    output += tagSplit[i];
+                }
+
+                return output;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("An error occured while converting paired Markdown to HTML. " + e.Message);
+            }
         }
 
         public static string GenerateInlineImages(this string input)
         {
-            var output = Regex.Replace(input, @"!\[.*?\]\(.*?\)", new MatchEvaluator(ConvertToImage));
-            return output;
+            try
+            {
+                var output = Regex.Replace(input, @"!\[.*?\]\(.*?\)", new MatchEvaluator(ConvertToImage));
+                return output;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("An error occured while generating inline images. " + e.Message);
+            }
         }
 
         private static string ConvertToImage(Match match)
         {
-            var imageAltText = new string(match.ToString().SkipWhile(s => s != '[').Skip(1).TakeWhile(s => s != ']').ToArray()).Trim();
-            var imageUrl = new string(match.ToString().SkipWhile(s => s != '(').Skip(1).TakeWhile(s => s != ')').ToArray()).Trim();
-            return new Image(imageUrl,imageAltText).ToString();
+            try
+            {
+                var imageAltText = new string(match.ToString().SkipWhile(s => s != '[').Skip(1).TakeWhile(s => s != ']').ToArray()).Trim();
+                var imageUrl = new string(match.ToString().SkipWhile(s => s != '(').Skip(1).TakeWhile(s => s != ')').ToArray()).Trim();
+                return new Image(imageUrl, imageAltText).ToString();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("An error occured while converting Markdown to image. " + e.Message);
+            }
         }
 
         public static string GenerateHtmlLinks(this string input)
         {
-            var output = Regex.Replace(input, @"\[.*?\]\(.*?\)", new MatchEvaluator(ConvertToLink));
-            return output;
+            try
+            {
+                var output = Regex.Replace(input, @"\[.*?\]\(.*?\)", new MatchEvaluator(ConvertToLink));
+                return output;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("An error occured while generating HTML links. " + e.Message);
+            }
         }
 
         public static string GenerateAutomaticLinks(this string input)
         {
-            string output = string.Empty;
-
-            var words = input.Split(' ');
-            for (int i = 0; i < words.Length; i++)
+            try
             {
-                if (Regex.IsMatch(words[i], "^http://"))
+                string output = string.Empty;
+
+                var words = input.Split(' ');
+                for (int i = 0; i < words.Length; i++)
                 {
-                    words[i] = new Link(words[i], words[i]).ToString();
+                    if (Regex.IsMatch(words[i], "^http://"))
+                    {
+                        words[i] = new Link(words[i], words[i]).ToString();
+                    }
+                    if (i != words.Length - 1)
+                    {
+                        output += words[i] + " ";
+                    }
+                    else
+                    {
+                        output += words[i];
+                    }
                 }
-                if (i != words.Length - 1)
-                {
-                    output += words[i] + " ";
-                }
-                else
-                {
-                    output += words[i];
-                }
+                return output;
             }
-            return output;
+            catch (Exception e)
+            {
+                throw new Exception("An error occured while generating automatic links. " + e.Message);
+            }
         }
 
         private static string ConvertToLink(Match match)
         {
-            var linkText = new string(match.ToString().SkipWhile(s => s != '[').Skip(1).TakeWhile(s => s != ']').ToArray()).Trim();
-            var urlText = new string(match.ToString().SkipWhile(s => s != '(').Skip(1).TakeWhile(s => s != ')').ToArray()).Trim();
-            return new Link(linkText, urlText).ToString();
+            try
+            {
+                var linkText = new string(match.ToString().SkipWhile(s => s != '[').Skip(1).TakeWhile(s => s != ']').ToArray()).Trim();
+                var urlText = new string(match.ToString().SkipWhile(s => s != '(').Skip(1).TakeWhile(s => s != ')').ToArray()).Trim();
+                return new Link(linkText, urlText).ToString();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("An error occured while converting Markdown to HTML link. " + e.Message);
+            }
         }
     }
 }
