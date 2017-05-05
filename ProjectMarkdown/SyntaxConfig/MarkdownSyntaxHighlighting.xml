@@ -1,20 +1,20 @@
 ﻿<doc>
+  <style name="blockCodes" color="#da7b00"/>
+  <style name="inlineCodes" color="#da7b00" fontStyle="Regular"/>
+  <style name="hr" color="#0000FF" fontStyle="Bold"/>
   <style name="headers" color="#0000FF" fontStyle="Bold"/>
   <style name="quotes" color="#5a9900" fontStyle="Bold"/>
+  <style name="scratches" color="#0085ca" fontStyle="Regular"/>
+  <style name="links" color="#0000FF" fontStyle="Regular"/>
+  <style name="autoLink1" color="#0000FF" fontStyle="Regular"/>
+  <style name="autoLink2" color="#0000FF" fontStyle="Regular"/>
+  <style name="altText" color="#0043b1" fontStyle="Regular"/>
   <style name="orderedLists" color="#0000FF" fontstyle="Bold"/>
   <style name="unorderedLists" color="#0000FF" fontStyle="Bold"/>
   <style name="bold1" color="#0085ca" fontStyle="Bold"/>
   <style name="bold2" color="#0085ca" fontStyle="Bold"/>
   <style name="italic1" color="#0085ca" fontStyle="Italic"/>
   <style name="italic2" color="#0085ca" fontStyle="Italic"/>
-  <style name="blockCodes" color="#da7b00" options="RegexOptions.Multiline | RegexCompiledOption"/>
-  <style name="scratches" color="#0085ca" fontStyle="Regular"/>
-  <style name="inlineCodes" color="#da7b00" fontStyle="Regular"/>
-  <style name="links" color="#0000FF" fontStyle="Regular"/>
-  <style name="autoLink1" color="#0000FF" fontStyle="Regular"/>
-  <style name="autoLink2" color="#0000FF" fontStyle="Regular"/>
-  <style name="altText" color="#0043b1" fontStyle="Regular"/>
-  <style name="hr" color="#0000FF" fontStyle="Bold"/>
   
   <rule style="headers">[#]{1,6}\s(.*)</rule>
   <rule style="quotes">>\s(.*?)\n</rule>
@@ -25,11 +25,11 @@
   <rule style="bold2">__(.*?)__</rule>
   <rule style="italic1">\*(.*?)\*</rule>
   <rule style="italic2">_(.*?)_</rule>
-  <rule style="blockCodes">(```)((?:.|\n)*)(```)</rule>
   <rule style="inlineCodes">`(.*?)`</rule>
   <rule style="links">\(http(.*?)\)</rule>
   <rule style="autoLink1">(http://)(.*?)\s</rule>
   <rule style="autoLink2">(https://)(.*?)\s</rule>
   <rule style="altText">(\[)(.*?)(\])</rule>
   <rule style="hr">(\n|^)(\-|\*){3,}</rule>
+  <rule style="blockCodes">(```)((?:.|\n)*)(```)</rule>
 </doc>
