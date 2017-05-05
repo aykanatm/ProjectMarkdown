@@ -111,10 +111,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Converters\VisibilityConverter.cs" />
     <Compile Include="CustomControls\CodeTextboxHost.cs" />
     <Compile Include="ExtensionMethods\StringExtensionMethods.cs" />
-    <Compile Include="Model\DocumentHtml.cs" />
-    <Compile Include="Model\DocumentMarkdown.cs" />
     <Compile Include="Model\DocumentMetadata.cs" />
     <Compile Include="Model\DocumentModel.cs" />
     <Compile Include="Properties\Annotations.cs" />

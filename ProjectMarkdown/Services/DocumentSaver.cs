@@ -36,7 +36,7 @@ namespace ProjectMarkdown.Services
 
                             var mp = new MarkdownParser();
                             // Generate HTML
-                            var html = mp.Parse(document.Markdown.Markdown, style);
+                            var html = mp.Parse(document.Markdown, style);
 
                             var markdownFileName = saveDialog.SafeFileName + ".md";
                             var markdownFilePath = parentFolder + "\\" + markdownFileName;
@@ -47,7 +47,7 @@ namespace ProjectMarkdown.Services
                             // Generate MD file
                             using (var sw = new StreamWriter(markdownFilePath))
                             {
-                                sw.Write(document.Markdown.Markdown);
+                                sw.Write(document.Markdown);
                             }
                             // Generate HTML file
                             using (var sw = new StreamWriter(htmlFilePath))
@@ -95,7 +95,7 @@ namespace ProjectMarkdown.Services
 
                     var mp = new MarkdownParser();
                     // Generate HTML
-                    var html = mp.Parse(document.Markdown.Markdown, style);
+                    var html = mp.Parse(document.Markdown, style);
 
                     var markdownFileName = document.Metadata.FileName + ".md";
                     var markdownFilePath = parentFolder + "\\" + markdownFileName;
@@ -106,7 +106,7 @@ namespace ProjectMarkdown.Services
                     // Generate MD file
                     using (var sw = new StreamWriter(markdownFilePath))
                     {
-                        sw.Write(document.Markdown.Markdown);
+                        sw.Write(document.Markdown);
                     }
                     // Generate HTML file
                     using (var sw = new StreamWriter(htmlFilePath))

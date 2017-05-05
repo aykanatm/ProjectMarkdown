@@ -116,6 +116,7 @@ namespace ProjectMarkdown.ViewModels
                 // Set current document as "open"
                 ResetDocumentsOpenState();
                 CurrentDocument.IsOpen = true;
+                CurrentDocument.IsSaved = false;
             }
             catch (Exception e)
             {
@@ -164,6 +165,8 @@ namespace ProjectMarkdown.ViewModels
                     var result = DocumentSaver.Save(CurrentDocument, css);
 
                     RefreshCurrentHtmlView(result);
+
+                    CurrentDocument.IsSaved = true;
                 }
             }
             catch (Exception e)
@@ -215,6 +218,8 @@ namespace ProjectMarkdown.ViewModels
                             DeleteTempSaveFile(result);
                         }
                     }
+
+                    document.IsSaved = true;
                 }
             }
             catch (Exception e)
@@ -244,6 +249,7 @@ namespace ProjectMarkdown.ViewModels
                 if (result != null)
                 {
                     RefreshCurrentHtmlView(result);
+                    CurrentDocument.IsSaved = true;
                 }
             }
             catch (Exception e)
@@ -284,6 +290,8 @@ namespace ProjectMarkdown.ViewModels
                         // Set current document as "open"
                         ResetDocumentsOpenState();
                         CurrentDocument.IsOpen = true;
+                        CurrentDocument.IsOpenedFromMenu = true;
+                        CurrentDocument.IsSaved = true;
                     }
                 }
             }
@@ -430,14 +438,14 @@ namespace ProjectMarkdown.ViewModels
                 var css = GetCss();
 
                 var mp = new MarkdownParser();
-                var html = mp.Parse(_currentDocument.Markdown.Markdown, css);
+                var html = mp.Parse(_currentDocument.Markdown, css);
                 var tempSourceFilePath = AppDomain.CurrentDomain.BaseDirectory + "Temp\\tempsource.html";
                 using (var sw = new StreamWriter(tempSourceFilePath))
                 {
                     sw.Write(html);
                 }
 
-                _currentDocument.Html.Source = tempSourceFilePath.ToUri();
+                _currentDocument.Html = tempSourceFilePath.ToUri();
             }
             catch (Exception e)
             {
@@ -450,7 +458,7 @@ namespace ProjectMarkdown.ViewModels
             try
             {
                 // Update source
-                CurrentDocument.Html.Source = result.Source;
+                CurrentDocument.Html = result.Source;
                 // Update tab header
                 CurrentDocument.Metadata.FileName = result.FileName;
                 // Delete temp files

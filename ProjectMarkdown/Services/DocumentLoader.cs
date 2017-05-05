@@ -70,7 +70,7 @@ namespace ProjectMarkdown.Services
                         var documentMetadata = gxs.DeSerializeFromString(currentXml);
 
                         // Get markdown text
-                        var documentMarkdown = new DocumentMarkdown(currentMarkdown);
+                        var documentMarkdown = currentMarkdown;
 
                         // Get source URI
                         var tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + "Temp";
@@ -83,7 +83,7 @@ namespace ProjectMarkdown.Services
                         {
                             sw.Write(currentHtml);
                         }
-                        var documentHtml = new DocumentHtml(new Uri(tempSourceFilePath));
+                        var documentHtml = new Uri(tempSourceFilePath);
 
                         // Generate the model
                         var documentModel = new DocumentModel(documentMetadata.FileName)

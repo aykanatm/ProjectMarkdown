@@ -26,7 +26,7 @@ namespace ProjectMarkdown.Services
                     if (result == true)
                     {
                         var mp = new MarkdownParser();
-                        var html = mp.Parse(document.Markdown.Markdown, style);
+                        var html = mp.Parse(document.Markdown, style);
                         using (var sw = new StreamWriter(saveDialog.FileName))
                         {
                             sw.Write(html);
@@ -59,7 +59,7 @@ namespace ProjectMarkdown.Services
                     {
                         using (var sw = new StreamWriter(saveDialog.FileName))
                         {
-                            sw.Write(document.Markdown.Markdown);
+                            sw.Write(document.Markdown);
                         }
                     }
                 }
@@ -88,7 +88,7 @@ namespace ProjectMarkdown.Services
                     if (result == true)
                     {
                         var mp = new MarkdownParser();
-                        var html = mp.Parse(document.Markdown.Markdown, style);
+                        var html = mp.Parse(document.Markdown, style);
                         var converter = new HtmlToPdfConverter.HtmlToPdfConverter();
                         converter.Convert(html, saveDialog.FileName);
                     }
@@ -105,7 +105,7 @@ namespace ProjectMarkdown.Services
             {
                 var tempFilePath = AppDomain.CurrentDomain.BaseDirectory + "Temp\\TempPrintPdf.pdf";
                 var mp = new MarkdownParser();
-                var html = mp.Parse(document.Markdown.Markdown, style);
+                var html = mp.Parse(document.Markdown, style);
                 var converter = new HtmlToPdfConverter.HtmlToPdfConverter();
                 converter.Convert(html, tempFilePath);
 

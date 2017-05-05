@@ -117,7 +117,14 @@
         <TabControl TabStripPlacement="Top" Margin="5" ItemsSource="{Binding Documents}" SelectedItem="{Binding CurrentDocument, Mode=TwoWay}">
             <TabControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Metadata.FileName}"></TextBlock>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="10" MaxWidth="10" MinWidth="10"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{Binding Metadata.FileName}"/>
+                        <TextBlock Grid.Column="1" Text="*" Visibility="{Binding IsSaved, Converter={StaticResource VisibilityConverter}}"/>
+                    </Grid>
                 </DataTemplate>
             </TabControl.ItemTemplate>
             <TabControl.ContentTemplate>
@@ -127,14 +134,11 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <!--
-                        <codeTextBox:CodeTextbox Grid.Column="0" IsLineNumbersMarginVisible="True" Text="{Binding Markdown.Markdown, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CurrentSyntaxDirectory="SyntaxConfig" CurrentHighlighterString="MarkdownSyntax" Margin="5"/>
-                        -->
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0" Margin="5">
-                            <customControls:CodeTextboxHost Text="{Binding Markdown.Markdown, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" WordWrap="True"/>
+                            <customControls:CodeTextboxHost Text="{Binding Markdown, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" WordWrap="True"/>
                         </Border>
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" Margin="5">
-                            <wpf:ChromiumWebBrowser Address="{Binding Html.Source, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ChromiumWebBrowser"/>    
+                            <wpf:ChromiumWebBrowser Address="{Binding Html, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ChromiumWebBrowser"/>    
                         </Border>
                     </Grid>
                 </DataTemplate>
@@ -142,6 +146,3 @@
         </TabControl>
     </DockPanel>
 </Window>
-
-
-

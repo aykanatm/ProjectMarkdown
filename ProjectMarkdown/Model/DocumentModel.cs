@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using ProjectMarkdown.Annotations;
 
@@ -6,13 +7,25 @@ namespace ProjectMarkdown.Model
 {
     public class DocumentModel : INotifyPropertyChanged
     {
+        public bool IsOpenedFromMenu { get; set; }
+
+        public bool IsSaved
+        {
+            get { return _isSaved; }
+            set
+            {
+                _isSaved = value;
+                OnPropertyChanged(nameof(IsSaved));
+            }
+        }
+
         public bool IsOpen
         {
             get { return _isOpen; }
             set
             {
                 _isOpen = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(IsOpen));
             }
         }
 
@@ -26,17 +39,30 @@ namespace ProjectMarkdown.Model
             }
         }
 
-        public DocumentMarkdown Markdown
+        public string Markdown
         {
             get { return _markdown; }
             set
             {
                 _markdown = value;
+
+                if (IsOpenedFromMenu)
+                {
+                    // This is here to protect IsSaved's value from changing 
+                    // when a document is opened for the first time.
+                    IsOpenedFromMenu = false;
+                }
+                else
+                {
+                    // If the document modified after opening it for the first time
+                    IsSaved = false;
+                }
+
                 OnPropertyChanged(nameof(Markdown));
             }
         }
 
-        public DocumentHtml Html
+        public Uri Html
         {
             get { return _html; }
             set
@@ -48,9 +74,10 @@ namespace ProjectMarkdown.Model
 
         
         private DocumentMetadata _metadata;
-        private DocumentMarkdown _markdown;
-        private DocumentHtml _html;
+        private string _markdown;
+        private Uri _html;
         private bool _isOpen;
+        private bool _isSaved;
 
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -58,8 +85,9 @@ namespace ProjectMarkdown.Model
         public DocumentModel(string documentName)
         {
             Metadata = new DocumentMetadata(documentName);
-            Markdown = new DocumentMarkdown("");
-            Html = new DocumentHtml();
+            // Markdown = "";
+            // Html = new Uri("C:\\");
+            IsSaved = false;
         }
 
         [NotifyPropertyChangedInvocator]
