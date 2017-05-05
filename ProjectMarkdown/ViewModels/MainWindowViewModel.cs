@@ -241,7 +241,10 @@ namespace ProjectMarkdown.ViewModels
 
                 var result = DocumentSaver.SaveAs(CurrentDocument, css);
 
-                RefreshCurrentHtmlView(result);
+                if (result != null)
+                {
+                    RefreshCurrentHtmlView(result);
+                }
             }
             catch (Exception e)
             {
