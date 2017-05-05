@@ -1,12 +1,21 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using ProjectMarkdown.Annotations;
-using ProjectMarkdown.ExtensionMethods;
 
 namespace ProjectMarkdown.Model
 {
     public class DocumentModel : INotifyPropertyChanged
     {
+        public bool IsOpen
+        {
+            get { return _isOpen; }
+            set
+            {
+                _isOpen = value;
+                OnPropertyChanged();
+            }
+        }
+
         public DocumentMetadata Metadata
         {
             get { return _metadata; }
@@ -41,6 +50,7 @@ namespace ProjectMarkdown.Model
         private DocumentMetadata _metadata;
         private DocumentMarkdown _markdown;
         private DocumentHtml _html;
+        private bool _isOpen;
 
 
         public event PropertyChangedEventHandler PropertyChanged;

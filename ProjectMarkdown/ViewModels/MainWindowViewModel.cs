@@ -37,8 +37,10 @@ namespace ProjectMarkdown.ViewModels
             set
             {
                 _currentDocument = value;
-                OnPropertyChanged(nameof(CurrentDocument));
+                ResetDocumentsOpenState();
+                _currentDocument.IsOpen = true;
 
+                OnPropertyChanged(nameof(CurrentDocument));
                 RefreshCurrentHtmlView();
             }
         }
@@ -110,6 +112,10 @@ namespace ProjectMarkdown.ViewModels
                 var document = new DocumentModel(documentFileName);
                 Documents.Add(document);
                 CurrentDocument = document;
+
+                // Set current document as "open"
+                ResetDocumentsOpenState();
+                CurrentDocument.IsOpen = true;
             }
             catch (Exception e)
             {
@@ -178,7 +184,44 @@ namespace ProjectMarkdown.ViewModels
 
         public void SaveAllDocuments(object obj)
         {
-            
+            try
+            {
+                var css = GetCss();
+
+                foreach (var document in Documents)
+                {
+                    if (document.Metadata.IsNew)
+                    {
+                        var result = DocumentSaver.SaveAs(document, css);
+
+                        if (document.IsOpen)
+                        {
+                            RefreshCurrentHtmlView(result);
+                        }
+                        else
+                        {
+                            DeleteTempSaveFile(result);
+                        }
+                    }
+                    else
+                    {
+                        var result = DocumentSaver.Save(document, css);
+                        if (document.IsOpen)
+                        {
+                            RefreshCurrentHtmlView(result);
+                        }
+                        else
+                        {
+                            DeleteTempSaveFile(result);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "An error occured during saving all documents", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
         }
 
         public bool CanSaveAllDocuments(object obj)
@@ -189,6 +232,7 @@ namespace ProjectMarkdown.ViewModels
             }
             return false;
         }
+
         public void SaveAsDocument(object obj)
         {
             try
@@ -233,6 +277,10 @@ namespace ProjectMarkdown.ViewModels
                     {
                         Documents.Add(currentDocument);
                         CurrentDocument = currentDocument;
+
+                        // Set current document as "open"
+                        ResetDocumentsOpenState();
+                        CurrentDocument.IsOpen = true;
                     }
                 }
             }
@@ -403,12 +451,25 @@ namespace ProjectMarkdown.ViewModels
                 // Update tab header
                 CurrentDocument.Metadata.FileName = result.FileName;
                 // Delete temp files
-                Thread.Sleep(100);
-                Directory.Delete(result.TempFile, true);
+                DeleteTempSaveFile(result);
             }
             catch (Exception e)
             {
                 throw new Exception("An error occured while refreshing the HTML view. " + e.Message);
+            }
+        }
+
+        private static void DeleteTempSaveFile(SaveResult result)
+        {
+            Thread.Sleep(100);
+            Directory.Delete(result.TempFile, true);
+        }
+
+        private void ResetDocumentsOpenState()
+        {
+            foreach (var document in Documents)
+            {
+                document.IsOpen = false;
             }
         }
 
