@@ -85,8 +85,8 @@ namespace ProjectMarkdown.Model
         public DocumentModel(string documentName)
         {
             Metadata = new DocumentMetadata(documentName);
-            // Markdown = "";
-            // Html = new Uri("C:\\");
+            Markdown = "";
+            Html = new Uri("C:\\");
             IsSaved = false;
         }
 
