@@ -415,7 +415,7 @@ namespace ProjectMarkdown.ViewModels
 
                 if (notSavedDocuments.Any())
                 {
-                    var result = MessageBox.Show("Do you want to save your documents before exiting the application?", "Documents not saved",
+                    var result = MessageBox.Show("Do you want to save your documents before exiting the application?", "Document not saved warning",
                         MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
 
                     if (result == MessageBoxResult.Yes)
@@ -448,17 +448,33 @@ namespace ProjectMarkdown.ViewModels
         {
             try
             {
-                var documentToRemove = CurrentDocument;
+                var  result = MessageBoxResult.None;
 
-                if (Documents.Count > 1)
+                if (!CurrentDocument.IsSaved)
                 {
-                    CurrentDocument = Documents[Documents.Count - 2];
-                    Documents.Remove(documentToRemove);
+                    result = MessageBox.Show("Do you want to save your document before closing it down?",
+                        "Document not saved warning", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        SaveDocument(obj);
+                    }
                 }
-                else
+
+                if (result != MessageBoxResult.Cancel)
                 {
-                    Documents.Clear();
-                    CurrentDocument = null;
+                    var documentToRemove = CurrentDocument;
+
+                    if (Documents.Count > 1)
+                    {
+                        CurrentDocument = Documents[Documents.Count - 2];
+                        Documents.Remove(documentToRemove);
+                    }
+                    else
+                    {
+                        Documents.Clear();
+                        CurrentDocument = null;
+                    }
                 }
             }
             catch (Exception e)
