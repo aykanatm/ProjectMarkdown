@@ -34,7 +34,7 @@
                 </MenuItem>
                 <MenuItem Header="Close">
                     <MenuItem Header="All" InputGestureText="Ctrl + Shift + W"></MenuItem>
-                    <MenuItem Header="Active Document" InputGestureText="Ctrl + W"></MenuItem>
+                    <MenuItem Header="Active Document" InputGestureText="Ctrl + W" Command="{Binding CloseActiveDocumentCommand}"></MenuItem>
                     <MenuItem Header="All but Active Document" InputGestureText="Ctrl + Alt + W"></MenuItem>
                 </MenuItem>
                 <Separator/>

@@ -37,11 +37,15 @@ namespace ProjectMarkdown.ViewModels
             set
             {
                 _currentDocument = value;
-                ResetDocumentsOpenState();
-                _currentDocument.IsOpen = true;
+                // if value is null, it means the last document is being closed
+                if (value != null)
+                {
+                    _currentDocument.IsOpen = true;
+                    ResetDocumentsOpenState();
+                    RefreshCurrentHtmlView();
+                }
 
                 OnPropertyChanged(nameof(CurrentDocument));
-                RefreshCurrentHtmlView();
             }
         }
 
@@ -58,6 +62,7 @@ namespace ProjectMarkdown.ViewModels
         public ICommand ExportPdfCommand { get; set; }
         public ICommand PrintCommand { get; set; }
         public ICommand ExitCommand { get; set; }
+        public ICommand CloseActiveDocumentCommand { get; set; }
         
         // Events
         public ICommand MainWindowClosingEventCommand { get; set; }
@@ -87,6 +92,7 @@ namespace ProjectMarkdown.ViewModels
             ExportPdfCommand = new RelayCommand(ExportPdf, CanExportPdf);
             PrintCommand = new RelayCommand(Print, CanPrint);
             ExitCommand = new RelayCommand(Exit, CanExit);
+            CloseActiveDocumentCommand = new RelayCommand(CloseActiveDocument, CanCloseActiveDocument);
             // Events
             MainWindowClosingEventCommand = new RelayCommand(MainWindowClosingEvent, CanMainWindowClosingEvent);
         }
@@ -401,33 +407,75 @@ namespace ProjectMarkdown.ViewModels
 
         public void Exit(object obj)
         {
-            var notSavedDocuments = (from d in Documents
-                where d.IsSaved == false
-                select d);
-
-            if (notSavedDocuments.Any())
+            try
             {
-                var result = MessageBox.Show("Do you want to save your documents before exiting the application?", "Documents not saved",
-                    MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
+                var notSavedDocuments = (from d in Documents
+                                         where d.IsSaved == false
+                                         select d);
 
-                if (result == MessageBoxResult.Yes)
+                if (notSavedDocuments.Any())
                 {
-                    SaveAllDocuments(obj);
+                    var result = MessageBox.Show("Do you want to save your documents before exiting the application?", "Documents not saved",
+                        MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        SaveAllDocuments(obj);
+                    }
+                    else if (result == MessageBoxResult.No)
+                    {
+                        Application.Current.Shutdown();
+                    }
                 }
-                else if (result == MessageBoxResult.No)
+                else
                 {
                     Application.Current.Shutdown();
                 }
             }
-            else
+            catch (Exception e)
             {
-                Application.Current.Shutdown();
+                MessageBox.Show(e.Message, "An error occured during application shutdown", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
 
         public bool CanExit(object obj)
         {
             return true;
+        }
+
+        public void CloseActiveDocument(object obj)
+        {
+            try
+            {
+                var documentToRemove = CurrentDocument;
+
+                if (Documents.Count > 1)
+                {
+                    CurrentDocument = Documents[Documents.Count - 2];
+                    Documents.Remove(documentToRemove);
+                }
+                else
+                {
+                    Documents.Clear();
+                    CurrentDocument = null;
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "An error occured during closing of the document", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+        }
+
+        public bool CanCloseActiveDocument(object obj)
+        {
+            if (CurrentDocument != null)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         // EVENTS
