@@ -18,112 +18,120 @@ namespace ProjectMarkdown.MarkdownLibrary
         {
             try
             {
-                var htmlComponents = new List<HtmlComponent>();
-
-                markdownString = markdownString.Replace("\r", "");
-                var lines = markdownString.Split('\n');
-                for (int i = 0; i < lines.Length; i++)
+                if (!string.IsNullOrEmpty(markdownString))
                 {
-                    var currentLine = lines[i];
+                    var htmlComponents = new List<HtmlComponent>();
 
-                    if (currentLine == string.Empty)
+                    markdownString = markdownString.Replace("\r", "");
+                    var lines = markdownString.Split('\n');
+                    for (int i = 0; i < lines.Length; i++)
                     {
-                        // Do nothing
-                    }
-                    else if (currentLine.StartsWith("###### "))
-                    {
-                        currentLine = currentLine.Replace("#", "").Trim();
-                        htmlComponents.Add(new Header(currentLine, Header.HeaderType.H6));
-                    }
-                    else if (currentLine.StartsWith("##### "))
-                    {
-                        currentLine = currentLine.Replace("#", "").Trim();
-                        htmlComponents.Add(new Header(currentLine, Header.HeaderType.H5));
-                    }
-                    else if (currentLine.StartsWith("#### "))
-                    {
-                        currentLine = currentLine.Replace("#", "").Trim();
-                        htmlComponents.Add(new Header(currentLine, Header.HeaderType.H4));
-                    }
-                    else if (currentLine.StartsWith("### "))
-                    {
-                        currentLine = currentLine.Replace("#", "").Trim();
-                        htmlComponents.Add(new Header(currentLine, Header.HeaderType.H3));
-                    }
-                    else if (currentLine.StartsWith("## "))
-                    {
-                        currentLine = currentLine.Replace("#", "").Trim();
-                        htmlComponents.Add(new Header(currentLine, Header.HeaderType.H2));
-                    }
-                    else if (currentLine.StartsWith("# "))
-                    {
-                        currentLine = currentLine.Replace("#", "").Trim();
-                        htmlComponents.Add(new Header(currentLine, Header.HeaderType.H1));
-                    }
-                    else if (currentLine.StartsWith("> "))
-                    {
-                        var bqo = GenerateBlockquote(i, lines);
-                        htmlComponents.Add(new Blockquote(bqo.Text));
-                        i += bqo.NbLines;
-                    }
-                    else if (currentLine.StartsWith("- ") || currentLine.StartsWith("* ") || currentLine.StartsWith("+ "))
-                    {
-                        var unorderedList = new List(GetListItems(i, lines, isCallerSublist: false), List.ListTypes.Unordered);
-                        htmlComponents.Add(unorderedList);
-                        i += unorderedList.Count;
-                    }
-                    else if (Regex.IsMatch(currentLine, @"^\d+\. "))
-                    {
-                        var orderedList = new List(GetListItems(i, lines, isCallerSublist: false), List.ListTypes.Ordered);
-                        htmlComponents.Add(orderedList);
-                        i += orderedList.Count;
-                    }
-                    else if (currentLine.StartsWith("```"))
-                    {
-                        var codeBlock = GetCodeBlock(i, lines);
-                        var language = currentLine.Substring(3);
+                        var currentLine = lines[i];
 
-                        if (language == "javascript")
+                        if (currentLine == string.Empty)
                         {
-                            htmlComponents.Add(new BlockCode(codeBlock.Code, BlockCode.Highlight.Javascript));
+                            // Do nothing
                         }
-                        else if (language == "python")
+                        else if (currentLine.StartsWith("###### "))
                         {
-                            htmlComponents.Add(new BlockCode(codeBlock.Code, BlockCode.Highlight.Python));
+                            currentLine = currentLine.Replace("#", "").Trim();
+                            htmlComponents.Add(new Header(currentLine, Header.HeaderType.H6));
                         }
-                        else
+                        else if (currentLine.StartsWith("##### "))
                         {
-                            htmlComponents.Add(new BlockCode(codeBlock.Code, BlockCode.Highlight.NoHighlight));
+                            currentLine = currentLine.Replace("#", "").Trim();
+                            htmlComponents.Add(new Header(currentLine, Header.HeaderType.H5));
                         }
+                        else if (currentLine.StartsWith("#### "))
+                        {
+                            currentLine = currentLine.Replace("#", "").Trim();
+                            htmlComponents.Add(new Header(currentLine, Header.HeaderType.H4));
+                        }
+                        else if (currentLine.StartsWith("### "))
+                        {
+                            currentLine = currentLine.Replace("#", "").Trim();
+                            htmlComponents.Add(new Header(currentLine, Header.HeaderType.H3));
+                        }
+                        else if (currentLine.StartsWith("## "))
+                        {
+                            currentLine = currentLine.Replace("#", "").Trim();
+                            htmlComponents.Add(new Header(currentLine, Header.HeaderType.H2));
+                        }
+                        else if (currentLine.StartsWith("# "))
+                        {
+                            currentLine = currentLine.Replace("#", "").Trim();
+                            htmlComponents.Add(new Header(currentLine, Header.HeaderType.H1));
+                        }
+                        else if (currentLine.StartsWith("> "))
+                        {
+                            var bqo = GenerateBlockquote(i, lines);
+                            htmlComponents.Add(new Blockquote(bqo.Text));
+                            i += bqo.NbLines;
+                        }
+                        else if (currentLine.StartsWith("- ") || currentLine.StartsWith("* ") || currentLine.StartsWith("+ "))
+                        {
+                            var unorderedList = new List(GetListItems(i, lines, isCallerSublist: false), List.ListTypes.Unordered);
+                            htmlComponents.Add(unorderedList);
+                            i += unorderedList.Count;
+                        }
+                        else if (Regex.IsMatch(currentLine, @"^\d+\. "))
+                        {
+                            var orderedList = new List(GetListItems(i, lines, isCallerSublist: false), List.ListTypes.Ordered);
+                            htmlComponents.Add(orderedList);
+                            i += orderedList.Count;
+                        }
+                        else if (currentLine.StartsWith("```"))
+                        {
+                            var codeBlock = GetCodeBlock(i, lines);
+                            var language = currentLine.Substring(3);
 
-                        i = codeBlock.LastIndex;
-                    }
-                    else if (currentLine.StartsWith("!["))
-                    {
-                        var imageAltText = new string(currentLine.SkipWhile(s => s != '[').Skip(1).TakeWhile(s => s != ']').ToArray()).Trim();
-                        var imageUrl = new string(currentLine.SkipWhile(s => s != '(').Skip(1).TakeWhile(s => s != ')').ToArray()).Trim();
-                        htmlComponents.Add(new Image(imageUrl, imageAltText));
-                    }
-                    else if (currentLine.StartsWith("[!["))
-                    {
-                        htmlComponents.Add(new RawHtml(currentLine.GenerateInlineImages()
-                                                                  .GenerateHtmlLinks()));
-                    }
-                    else if (Regex.IsMatch(currentLine, ".\\|."))
-                    {
-                        if (i + 1 < lines.Length)
-                        {
-                            var nextLine = lines[i + 1];
-                            if (Regex.IsMatch(nextLine, "[---]*\\|[---]*"))
+                            if (language == "javascript")
                             {
-                                var headers = currentLine.Split('|').Where(h => h != "").ToArray();
-                                for (int j = 0; j < headers.Length; j++)
+                                htmlComponents.Add(new BlockCode(codeBlock.Code, BlockCode.Highlight.Javascript));
+                            }
+                            else if (language == "python")
+                            {
+                                htmlComponents.Add(new BlockCode(codeBlock.Code, BlockCode.Highlight.Python));
+                            }
+                            else
+                            {
+                                htmlComponents.Add(new BlockCode(codeBlock.Code, BlockCode.Highlight.NoHighlight));
+                            }
+
+                            i = codeBlock.LastIndex;
+                        }
+                        else if (currentLine.StartsWith("!["))
+                        {
+                            var imageAltText = new string(currentLine.SkipWhile(s => s != '[').Skip(1).TakeWhile(s => s != ']').ToArray()).Trim();
+                            var imageUrl = new string(currentLine.SkipWhile(s => s != '(').Skip(1).TakeWhile(s => s != ')').ToArray()).Trim();
+                            htmlComponents.Add(new Image(imageUrl, imageAltText));
+                        }
+                        else if (currentLine.StartsWith("[!["))
+                        {
+                            htmlComponents.Add(new RawHtml(currentLine.GenerateInlineImages()
+                                                                      .GenerateHtmlLinks()));
+                        }
+                        else if (Regex.IsMatch(currentLine, ".\\|."))
+                        {
+                            if (i + 1 < lines.Length)
+                            {
+                                var nextLine = lines[i + 1];
+                                if (Regex.IsMatch(nextLine, "[---]*\\|[---]*"))
                                 {
-                                    headers[j] = headers[j].Trim();
+                                    var headers = currentLine.Split('|').Where(h => h != "").ToArray();
+                                    for (int j = 0; j < headers.Length; j++)
+                                    {
+                                        headers[j] = headers[j].Trim();
+                                    }
+                                    var table = new Table(headers, lines, i);
+                                    htmlComponents.Add(table);
+                                    i += table.RowCount;
                                 }
-                                var table = new Table(headers, lines, i);
-                                htmlComponents.Add(table);
-                                i += table.RowCount;
+                                else
+                                {
+                                    currentLine = currentLine.ConvertMarkdownToHtml();
+                                    htmlComponents.Add(new Paragraph(currentLine));
+                                }
                             }
                             else
                             {
@@ -131,28 +139,24 @@ namespace ProjectMarkdown.MarkdownLibrary
                                 htmlComponents.Add(new Paragraph(currentLine));
                             }
                         }
+                        else if (currentLine.StartsWith("***") || currentLine.StartsWith("---") ||
+                                 currentLine.StartsWith("***") || currentLine.StartsWith("___"))
+                        {
+                            htmlComponents.Add(new HorizontalRule());
+                        }
                         else
                         {
                             currentLine = currentLine.ConvertMarkdownToHtml();
                             htmlComponents.Add(new Paragraph(currentLine));
                         }
                     }
-                    else if (currentLine.StartsWith("***") || currentLine.StartsWith("---") ||
-                             currentLine.StartsWith("***") || currentLine.StartsWith("___"))
-                    {
-                        htmlComponents.Add(new HorizontalRule());
-                    }
-                    else
-                    {
-                        currentLine = currentLine.ConvertMarkdownToHtml();
-                        htmlComponents.Add(new Paragraph(currentLine));
-                    }
+
+
+                    var htmlDocument = new HtmlDocument(htmlComponents, style);
+
+                    return htmlDocument.ToString();
                 }
-
-
-                var htmlDocument = new HtmlDocument(htmlComponents, style);
-
-                return htmlDocument.ToString();
+                return String.Empty;
             }
             catch (Exception e)
             {
