@@ -40,7 +40,7 @@
                 <Separator/>
                 <MenuItem Header="Print" InputGestureText="Ctrl + P" Command="{Binding PrintCommand}"/>
                 <Separator/>
-                <MenuItem Header="Exit" InputGestureText="Alt + F4"/>
+                <MenuItem Header="Exit" InputGestureText="Alt + F4" Command="{Binding ExitCommand}"/>
             </MenuItem>
             <MenuItem Header="Edit">
                 <MenuItem Header="Undo" InputGestureText="Ctrl + Z"/>

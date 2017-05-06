@@ -57,6 +57,7 @@ namespace ProjectMarkdown.ViewModels
         public ICommand ExportHtmlCommand { get; set; }
         public ICommand ExportPdfCommand { get; set; }
         public ICommand PrintCommand { get; set; }
+        public ICommand ExitCommand { get; set; }
         
         // Events
         public ICommand MainWindowClosingEventCommand { get; set; }
@@ -85,6 +86,7 @@ namespace ProjectMarkdown.ViewModels
             ExportMarkdownCommand = new RelayCommand(ExportMarkdown, CanExportMarkdown);
             ExportPdfCommand = new RelayCommand(ExportPdf, CanExportPdf);
             PrintCommand = new RelayCommand(Print, CanPrint);
+            ExitCommand = new RelayCommand(Exit, CanExit);
             // Events
             MainWindowClosingEventCommand = new RelayCommand(MainWindowClosingEvent, CanMainWindowClosingEvent);
         }
@@ -193,22 +195,19 @@ namespace ProjectMarkdown.ViewModels
 
                 foreach (var document in Documents)
                 {
+                    SaveResult result = null;
+
                     if (document.Metadata.IsNew)
                     {
-                        var result = DocumentSaver.SaveAs(document, css);
-
-                        if (document.IsOpen)
-                        {
-                            RefreshCurrentHtmlView(result);
-                        }
-                        else
-                        {
-                            DeleteTempSaveFile(result);
-                        }
+                        result = DocumentSaver.SaveAs(document, css);
                     }
                     else
                     {
-                        var result = DocumentSaver.Save(document, css);
+                        result = DocumentSaver.Save(document, css);
+                    }
+
+                    if (result != null)
+                    {
                         if (document.IsOpen)
                         {
                             RefreshCurrentHtmlView(result);
@@ -217,9 +216,9 @@ namespace ProjectMarkdown.ViewModels
                         {
                             DeleteTempSaveFile(result);
                         }
-                    }
 
-                    document.IsSaved = true;
+                        document.IsSaved = true;
+                    }
                 }
             }
             catch (Exception e)
@@ -398,6 +397,37 @@ namespace ProjectMarkdown.ViewModels
                 return true;
             }
             return false;
+        }
+
+        public void Exit(object obj)
+        {
+            var notSavedDocuments = (from d in Documents
+                where d.IsSaved == false
+                select d);
+
+            if (notSavedDocuments.Any())
+            {
+                var result = MessageBox.Show("Do you want to save your documents before exiting the application?", "Documents not saved",
+                    MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    SaveAllDocuments(obj);
+                }
+                else if (result == MessageBoxResult.No)
+                {
+                    Application.Current.Shutdown();
+                }
+            }
+            else
+            {
+                Application.Current.Shutdown();
+            }
+        }
+
+        public bool CanExit(object obj)
+        {
+            return true;
         }
 
         // EVENTS
