@@ -4,12 +4,13 @@ using System.IO.Compression;
 using CustomIO;
 using Microsoft.Win32;
 using ProjectMarkdown.Model;
+using ProjectMarkdown.ViewModels;
 
 namespace ProjectMarkdown.Services
 {
     public static class DocumentLoader
     {
-        public static DocumentModel Load()
+        public static DocumentModel Load(MainWindowViewModel mainWindowViewModel)
         {
             try
             {
@@ -86,7 +87,7 @@ namespace ProjectMarkdown.Services
                         var documentHtml = new Uri(tempSourceFilePath);
 
                         // Generate the model
-                        var documentModel = new DocumentModel(documentMetadata.FileName)
+                        var documentModel = new DocumentModel(mainWindowViewModel, documentMetadata.FileName)
                         {
                             Metadata = documentMetadata,
                             Html = documentHtml,

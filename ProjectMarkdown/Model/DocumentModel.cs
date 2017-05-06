@@ -1,7 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Input;
 using ProjectMarkdown.Annotations;
+using ProjectMarkdown.ViewModels;
 
 namespace ProjectMarkdown.Model
 {
@@ -79,15 +82,44 @@ namespace ProjectMarkdown.Model
         private bool _isOpen;
         private bool _isSaved;
 
+        public ICommand CloseDocumentButtonCommand { get; set; }
+
+        private readonly MainWindowViewModel _mainWindowViewModel;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public DocumentModel(string documentName)
+        public DocumentModel(MainWindowViewModel mainWindowViewModel, string documentName)
         {
+            _mainWindowViewModel = mainWindowViewModel;
+
+            LoadCommands();
+
             Metadata = new DocumentMetadata(documentName);
             Markdown = "";
             Html = new Uri("C:\\");
             IsSaved = false;
+        }
+
+        private void LoadCommands()
+        {
+            CloseDocumentButtonCommand = new RelayCommand(CloseDocumentButton, CanCloseDocumentButton);
+        }
+
+        public void CloseDocumentButton(object obj)
+        {
+            try
+            {
+                _mainWindowViewModel.RemoveDocumentFromDocuments(this);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "An error occured while saving the document", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        public bool CanCloseDocumentButton(object obj)
+        {
+            return true;
         }
 
         [NotifyPropertyChangedInvocator]

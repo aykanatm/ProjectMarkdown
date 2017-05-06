@@ -117,7 +117,7 @@ namespace ProjectMarkdown.ViewModels
                         documentFileName = "untitled" + documentCount + ".md";
                     }
                 }
-                var document = new DocumentModel(documentFileName);
+                var document = new DocumentModel(this, documentFileName);
                 Documents.Add(document);
                 CurrentDocument = document;
 
@@ -162,20 +162,7 @@ namespace ProjectMarkdown.ViewModels
         {
             try
             {
-                if (CurrentDocument.Metadata.IsNew)
-                {
-                    SaveAsDocument(obj);
-                }
-                else
-                {
-                    var css = GetCss();
-
-                    var result = DocumentSaver.Save(CurrentDocument, css);
-
-                    RefreshCurrentHtmlView(result);
-
-                    CurrentDocument.IsSaved = true;
-                }
+                CurrentDocument = SaveDocument(CurrentDocument);
             }
             catch (Exception e)
             {
@@ -197,34 +184,9 @@ namespace ProjectMarkdown.ViewModels
         {
             try
             {
-                var css = GetCss();
-
                 foreach (var document in Documents)
                 {
-                    SaveResult result = null;
-
-                    if (document.Metadata.IsNew)
-                    {
-                        result = DocumentSaver.SaveAs(document, css);
-                    }
-                    else
-                    {
-                        result = DocumentSaver.Save(document, css);
-                    }
-
-                    if (result != null)
-                    {
-                        if (document.IsOpen)
-                        {
-                            RefreshCurrentHtmlView(result);
-                        }
-                        else
-                        {
-                            DeleteTempSaveFile(result);
-                        }
-
-                        document.IsSaved = true;
-                    }
+                    SaveDocument(document);
                 }
             }
             catch (Exception e)
@@ -247,15 +209,7 @@ namespace ProjectMarkdown.ViewModels
         {
             try
             {
-                var css = GetCss();
-
-                var result = DocumentSaver.SaveAs(CurrentDocument, css);
-
-                if (result != null)
-                {
-                    RefreshCurrentHtmlView(result);
-                    CurrentDocument.IsSaved = true;
-                }
+                CurrentDocument = SaveAsDocument(CurrentDocument);
             }
             catch (Exception e)
             {
@@ -276,7 +230,7 @@ namespace ProjectMarkdown.ViewModels
         {
             try
             {
-                var currentDocument = DocumentLoader.Load();
+                var currentDocument = DocumentLoader.Load(this);
                 if (currentDocument != null)
                 {
                     var documentsWithCurrentFilePath = (from d in Documents
@@ -448,34 +402,7 @@ namespace ProjectMarkdown.ViewModels
         {
             try
             {
-                var  result = MessageBoxResult.None;
-
-                if (!CurrentDocument.IsSaved)
-                {
-                    result = MessageBox.Show("Do you want to save your document before closing it down?",
-                        "Document not saved warning", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
-
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        SaveDocument(obj);
-                    }
-                }
-
-                if (result != MessageBoxResult.Cancel)
-                {
-                    var documentToRemove = CurrentDocument;
-
-                    if (Documents.Count > 1)
-                    {
-                        CurrentDocument = Documents[Documents.Count - 2];
-                        Documents.Remove(documentToRemove);
-                    }
-                    else
-                    {
-                        Documents.Clear();
-                        CurrentDocument = null;
-                    }
-                }
+                RemoveDocumentFromDocuments(CurrentDocument);
             }
             catch (Exception e)
             {
@@ -568,6 +495,119 @@ namespace ProjectMarkdown.ViewModels
         {
             Thread.Sleep(100);
             Directory.Delete(result.TempFile, true);
+        }
+
+        private DocumentModel SaveAsDocument(DocumentModel document)
+        {
+            try
+            {
+                var css = GetCss();
+
+                var result = DocumentSaver.SaveAs(document, css);
+
+                if (result != null)
+                {
+                    if (document.IsOpen)
+                    {
+                        RefreshCurrentHtmlView(result);
+                    }
+                    else
+                    {
+                        DeleteTempSaveFile(result);
+                    }
+
+                    document.IsSaved = true;
+                }
+
+                return document;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        private DocumentModel SaveDocument(DocumentModel document)
+        {
+            try
+            {
+                if (document.Metadata.IsNew)
+                {
+                    SaveAsDocument(document);
+                }
+                else
+                {
+                    var css = GetCss();
+
+                    var result = DocumentSaver.Save(document, css);
+
+                    if (result != null)
+                    {
+                        if (document.IsOpen)
+                        {
+                            RefreshCurrentHtmlView(result);
+                        }
+                        else
+                        {
+                            DeleteTempSaveFile(result);
+                        }
+
+                        document.IsSaved = true;
+                    }
+                }
+
+                return document;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public void RemoveDocumentFromDocuments(DocumentModel document)
+        {
+            try
+            {
+                var result = MessageBoxResult.None;
+
+                if (!document.IsSaved)
+                {
+                    result = MessageBox.Show("Do you want to save your document before closing it down?",
+                        "Document not saved warning", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        SaveDocument(document);
+                    }
+                }
+
+                if (result != MessageBoxResult.Cancel)
+                {
+                    var documentToRemove = document;
+
+                    if (documentToRemove == CurrentDocument)
+                    {
+                        if (Documents.Count > 1)
+                        {
+                            CurrentDocument = Documents[Documents.Count - 2];
+                            Documents.Remove(documentToRemove);
+                        }
+                        else
+                        {
+                            Documents.Clear();
+                            CurrentDocument = null;
+                        }
+                    }
+                    else
+                    {
+                        Documents.Remove(documentToRemove);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         private void ResetDocumentsOpenState()
