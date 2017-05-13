@@ -63,6 +63,7 @@ namespace ProjectMarkdown.ViewModels
         public ICommand PrintCommand { get; set; }
         public ICommand ExitCommand { get; set; }
         public ICommand CloseActiveDocumentCommand { get; set; }
+        public ICommand CloseAllDocumentsCommand { get; set; }
         
         // Events
         public ICommand MainWindowClosingEventCommand { get; set; }
@@ -93,6 +94,7 @@ namespace ProjectMarkdown.ViewModels
             PrintCommand = new RelayCommand(Print, CanPrint);
             ExitCommand = new RelayCommand(Exit, CanExit);
             CloseActiveDocumentCommand = new RelayCommand(CloseActiveDocument, CanCloseActiveDocument);
+            CloseAllDocumentsCommand = new RelayCommand(CloseAllDocuments, CanCloseAllDocuments);
             // Events
             MainWindowClosingEventCommand = new RelayCommand(MainWindowClosingEvent, CanMainWindowClosingEvent);
         }
@@ -418,6 +420,48 @@ namespace ProjectMarkdown.ViewModels
                 return true;
             }
 
+            return false;
+        }
+
+        public void CloseAllDocuments(object obj)
+        {
+            try
+            {
+                var notSavedDocuments = (from d in Documents
+                                         where d.IsSaved == false
+                                         select d);
+
+                if (notSavedDocuments.Any())
+                {
+                    var result = MessageBox.Show("Do you want to save your documents before closimg all documents?", "Document not saved warning",
+                        MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        SaveAllDocuments(obj);
+                    }
+                    else if (result == MessageBoxResult.No)
+                    {
+                        Documents.Clear();
+                    }
+                }
+                else
+                {
+                    Documents.Clear();
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("An error occured during closing of all documents." + e.Message);
+            }
+        }
+
+        public bool CanCloseAllDocuments(object obj)
+        {
+            if (Documents.Any())
+            {
+                return true;
+            }
             return false;
         }
 

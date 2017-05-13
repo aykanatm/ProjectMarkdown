@@ -33,9 +33,9 @@
                     <MenuItem Header="PDF" Command="{Binding ExportPdfCommand}"></MenuItem>
                 </MenuItem>
                 <MenuItem Header="Close">
-                    <MenuItem Header="All" InputGestureText="Ctrl + Shift + W"></MenuItem>
+                    <MenuItem Header="All" InputGestureText="Ctrl + Shift + W" Command="{Binding CloseAllDocumentsCommand}"></MenuItem>
                     <MenuItem Header="Active Document" InputGestureText="Ctrl + W" Command="{Binding CloseActiveDocumentCommand}"></MenuItem>
-                    <MenuItem Header="All but Active Document" InputGestureText="Ctrl + Alt + W"></MenuItem>
+                    <MenuItem Header="All but Active Document" InputGestureText="Ctrl + Alt + W" Command="{Binding CloseAllButActiveDocumentCommand}"></MenuItem>
                 </MenuItem>
                 <Separator/>
                 <MenuItem Header="Print" InputGestureText="Ctrl + P" Command="{Binding PrintCommand}"/>
