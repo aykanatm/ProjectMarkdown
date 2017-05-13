@@ -64,7 +64,8 @@ namespace ProjectMarkdown.ViewModels
         public ICommand ExitCommand { get; set; }
         public ICommand CloseActiveDocumentCommand { get; set; }
         public ICommand CloseAllDocumentsCommand { get; set; }
-        
+        public ICommand CloseAllButActiveDocumentCommand { get; set; }
+
         // Events
         public ICommand MainWindowClosingEventCommand { get; set; }
 
@@ -95,6 +96,7 @@ namespace ProjectMarkdown.ViewModels
             ExitCommand = new RelayCommand(Exit, CanExit);
             CloseActiveDocumentCommand = new RelayCommand(CloseActiveDocument, CanCloseActiveDocument);
             CloseAllDocumentsCommand = new RelayCommand(CloseAllDocuments, CanCloseAllDocuments);
+            CloseAllButActiveDocumentCommand = new RelayCommand(CloseAllButActiveDocument, CanCloseAllButActiveDocument);
             // Events
             MainWindowClosingEventCommand = new RelayCommand(MainWindowClosingEvent, CanMainWindowClosingEvent);
         }
@@ -459,6 +461,58 @@ namespace ProjectMarkdown.ViewModels
         public bool CanCloseAllDocuments(object obj)
         {
             if (Documents.Any())
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public void CloseAllButActiveDocument(object obj)
+        {
+            var allExceptActiveDocument = (from d in Documents
+                where d != CurrentDocument
+                select d);
+
+            var exceptActiveDocument = allExceptActiveDocument as DocumentModel[] ?? allExceptActiveDocument.ToArray();
+
+            var notSavedDocuments = (from d in exceptActiveDocument
+                where d.IsSaved == false
+                select d);
+
+            var savedDocuments = notSavedDocuments as DocumentModel[] ?? notSavedDocuments.ToArray();
+
+            if (savedDocuments.Any())
+            {
+                var result = MessageBox.Show("Do you want to save your documents before closimg documents?", "Document not saved warning",
+                        MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    foreach (var document in savedDocuments)
+                    {
+                        SaveDocument(document);
+                    }
+                }
+                else if (result == MessageBoxResult.No)
+                {
+                    foreach (var document in exceptActiveDocument)
+                    {
+                        Documents.Remove(document);
+                    }
+                }
+            }
+            else
+            {
+                foreach (var document in exceptActiveDocument)
+                {
+                    Documents.Remove(document);
+                }
+            }
+        }
+
+        public bool CanCloseAllButActiveDocument(object obj)
+        {
+            if (Documents.Any() && CurrentDocument != null)
             {
                 return true;
             }
