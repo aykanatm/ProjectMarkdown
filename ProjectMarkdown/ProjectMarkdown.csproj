@@ -63,6 +63,12 @@
     <Reference Include="FastColoredTextBox, Version=2.16.21.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
       <HintPath>..\packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll</HintPath>
     </Reference>
+    <Reference Include="IOUtils">
+      <HintPath>..\..\MyLibrary\IOUtils\bin\Release\IOUtils.dll</HintPath>
+    </Reference>
+    <Reference Include="LogUtils">
+      <HintPath>..\..\MyLibrary\LogUtils\bin\Release\LogUtils.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Expression\Blend\.NETFramework\v4.5\Libraries\Microsoft.Expression.Interactions.dll</HintPath>
@@ -180,14 +186,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MyLibrary\IOUtils\IOUtils.csproj">
-      <Project>{b293dcb5-00ed-4f92-9baf-16ed6dd524db}</Project>
-      <Name>IOUtils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\MyLibrary\LogUtils\LogUtils.csproj">
-      <Project>{7782d63d-ce8f-40ea-ae2b-6b44d9187e9d}</Project>
-      <Name>LogUtils</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectMarkdown.HtmlToPdfConverter\ProjectMarkdown.HtmlToPdfConverter.csproj">
       <Project>{2e70e5aa-dda8-45d8-b569-9a0c21dafdff}</Project>
       <Name>ProjectMarkdown.HtmlToPdfConverter</Name>
