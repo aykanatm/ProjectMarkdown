@@ -2,6 +2,7 @@
 using System.IO;
 using System.IO.Compression;
 using IOUtils;
+using LogUtils;
 using Microsoft.Win32;
 using ProjectMarkdown.Model;
 using ProjectMarkdown.ViewModels;
@@ -12,6 +13,8 @@ namespace ProjectMarkdown.Services
     {
         public static DocumentModel Load(MainWindowViewModel mainWindowViewModel)
         {
+            Logger.GetInstance().Debug("Load() >>");
+
             try
             {
                 var openFileDialog = new OpenFileDialog();
@@ -93,15 +96,19 @@ namespace ProjectMarkdown.Services
                             Html = documentHtml,
                             Markdown = documentMarkdown
                         };
+
+                        Logger.GetInstance().Debug("<< Load()");
                         return documentModel;
                     }
+
+                    Logger.GetInstance().Debug("<< Load()");
                     return null;
                 }
                 throw new Exception("OpenFileDialog returned null!");
             }
             catch (Exception e)
             {
-                throw new Exception("An error occured while loading the document. " + e.Message);
+                throw e;
             }
         }
     }

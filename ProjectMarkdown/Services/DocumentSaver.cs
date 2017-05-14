@@ -3,6 +3,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Windows;
 using IOUtils;
+using LogUtils;
 using Microsoft.Win32;
 using ProjectMarkdown.ExtensionMethods;
 using ProjectMarkdown.MarkdownLibrary;
@@ -14,6 +15,8 @@ namespace ProjectMarkdown.Services
     {
         public static SaveResult SaveAs(DocumentModel document, string style)
         {
+            Logger.GetInstance().Debug("SaveAs() >>");
+
             try
             {
                 var saveDialog = new SaveFileDialog
@@ -73,20 +76,26 @@ namespace ProjectMarkdown.Services
                                 Source = htmlFilePath.ToUri(),
                                 TempFile = saveDialog.FileName + "_temp"
                             };
+
+                            Logger.GetInstance().Debug("<< SaveAs()");
                             return saveResult;
                         }
                     }
                 }
+
+                Logger.GetInstance().Debug("<< SaveAs()");
                 return null;
             }
             catch (Exception e)
             {
-                throw new Exception("An error occured while saving the document. " + e.Message);
+                throw e;
             }
         }
 
         public static SaveResult Save(DocumentModel document, string style)
         {
+            Logger.GetInstance().Debug("Save() >>");
+
             try
             {
                 if (!Directory.Exists(document.Metadata.FilePath + "_temp"))
@@ -133,15 +142,16 @@ namespace ProjectMarkdown.Services
                         Source = htmlFilePath.ToUri(),
                         TempFile = document.Metadata.FilePath + "_temp"
                     };
+
+                    Logger.GetInstance().Debug("<< Save()");
                     return saveResult;
                 }
-                MessageBox.Show(document.Metadata.FilePath + "_temp directory already exists.",
-                    "Temporary directory already exists", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return null;
+
+                throw new Exception("Temporary directory already exists");
             }
             catch (Exception e)
             {
-                throw new Exception("An error occured while saving document. " + e.Message);
+                throw e;
             }
         }
     }

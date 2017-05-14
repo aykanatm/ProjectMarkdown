@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using LogUtils;
 using Spire.Pdf;
 using PrintDialog = System.Windows.Forms.PrintDialog;
 
@@ -9,6 +10,8 @@ namespace ProjectMarkdown.Services
     {
         public static void Print(string tempFilePath)
         {
+            Logger.GetInstance().Debug("Print() >>");
+
             try
             {
                 var pdfDocument = new PdfDocument();
@@ -40,8 +43,10 @@ namespace ProjectMarkdown.Services
             }
             catch (Exception e)
             {
-                throw new Exception("An error occured while printing the document. " + e.Message);
+                throw e;
             }
+
+            Logger.GetInstance().Debug("<< Print()");
         }
     }
 }

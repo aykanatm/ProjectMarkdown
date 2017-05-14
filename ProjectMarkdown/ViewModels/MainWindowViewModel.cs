@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
+using LogUtils;
 using ProjectMarkdown.Annotations;
 using ProjectMarkdown.ExtensionMethods;
 using ProjectMarkdown.MarkdownLibrary;
@@ -71,6 +72,8 @@ namespace ProjectMarkdown.ViewModels
 
         public MainWindowViewModel()
         {
+            Logger.GetInstance().Debug("MainWindowViewModel() >>");
+
             if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
             {
                 return;
@@ -78,10 +81,14 @@ namespace ProjectMarkdown.ViewModels
             
             LoadCommands();
             Documents = new ObservableCollection<DocumentModel>();
+
+            Logger.GetInstance().Debug("<< MainWindowViewModel()");
         }
 
         private void LoadCommands()
         {
+            Logger.GetInstance().Debug("LoadCommands() >>");
+
             // File
             CreateNewDocumentCommand = new RelayCommand(CreateNewDocument, CanCreateNewDocument);
             SaveDocumentCommand = new RelayCommand(SaveDocument, CanSaveDocument);
@@ -99,10 +106,13 @@ namespace ProjectMarkdown.ViewModels
             CloseAllButActiveDocumentCommand = new RelayCommand(CloseAllButActiveDocument, CanCloseAllButActiveDocument);
             // Events
             MainWindowClosingEventCommand = new RelayCommand(MainWindowClosingEvent, CanMainWindowClosingEvent);
+
+            Logger.GetInstance().Debug("<< LoadCommands()");
         }
 
         public void CreateNewDocument(object obj)
         {
+            Logger.GetInstance().Debug("CreateNewDocument() >>");
             try
             {
                 int documentCount = 1;
@@ -132,8 +142,11 @@ namespace ProjectMarkdown.ViewModels
             }
             catch (Exception e)
             {
+                Logger.GetInstance().Error(e.ToString());
                 MessageBox.Show(e.Message, "An error occured while creating document", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
+            Logger.GetInstance().Debug("<< CreateNewDocument()");
         }
         public bool CanCreateNewDocument(object obj)
         {
@@ -142,6 +155,8 @@ namespace ProjectMarkdown.ViewModels
 
         public void OpenContainingFolder(object obj)
         {
+            Logger.GetInstance().Debug("OpenContainingFolder() >>");
+
             try
             {
                 var parent = Directory.GetParent(CurrentDocument.Metadata.FilePath);
@@ -149,8 +164,11 @@ namespace ProjectMarkdown.ViewModels
             }
             catch (Exception e)
             {
+                Logger.GetInstance().Error(e.ToString());
                 MessageBox.Show(e.Message, "An error occured while opening the containing folder",MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
+            Logger.GetInstance().Debug("<< OpenContainingFolder()");
         }
 
         public bool CanOpenContainingFolder(object obj)
@@ -164,15 +182,20 @@ namespace ProjectMarkdown.ViewModels
 
         public void SaveDocument(object obj)
         {
+            Logger.GetInstance().Debug("SaveDocument() >>");
+
             try
             {
                 CurrentDocument = SaveDocument(CurrentDocument);
             }
             catch (Exception e)
             {
+                Logger.GetInstance().Error(e.ToString());
                 MessageBox.Show(e.Message, "An error occured while saving the document", MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
+
+            Logger.GetInstance().Debug("<< SaveDocument()");
         }
 
         public bool CanSaveDocument(object obj)
@@ -186,6 +209,8 @@ namespace ProjectMarkdown.ViewModels
 
         public void SaveAllDocuments(object obj)
         {
+            Logger.GetInstance().Debug("SaveAllDocuments() >>");
+
             try
             {
                 foreach (var document in Documents)
@@ -195,9 +220,12 @@ namespace ProjectMarkdown.ViewModels
             }
             catch (Exception e)
             {
+                Logger.GetInstance().Error(e.ToString());
                 MessageBox.Show(e.Message, "An error occured during saving all documents", MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
+
+            Logger.GetInstance().Debug("<< SaveAllDocuments()");
         }
 
         public bool CanSaveAllDocuments(object obj)
@@ -211,14 +239,19 @@ namespace ProjectMarkdown.ViewModels
 
         public void SaveAsDocument(object obj)
         {
+            Logger.GetInstance().Debug("SaveAsDocument() >>");
+
             try
             {
                 CurrentDocument = SaveAsDocument(CurrentDocument);
             }
             catch (Exception e)
             {
+                Logger.GetInstance().Error(e.ToString());
                 MessageBox.Show(e.Message, "An error occured while saving the document", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
+            Logger.GetInstance().Debug("<< SaveAsDocument()");
         }
 
         public bool CanSaveAsDocument(object obj)
@@ -232,6 +265,8 @@ namespace ProjectMarkdown.ViewModels
 
         public void OpenDocument(object obj)
         {
+            Logger.GetInstance().Debug("OpenDocument() >>");
+
             try
             {
                 var currentDocument = DocumentLoader.Load(this);
@@ -260,9 +295,12 @@ namespace ProjectMarkdown.ViewModels
             }
             catch (Exception e)
             {
+                Logger.GetInstance().Error(e.ToString());
                 MessageBox.Show(e.Message, "An error occured while opening document", MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
+
+            Logger.GetInstance().Debug("<< OpenDocument()");
         }
 
         public bool CanOpenDocument(object obj)
@@ -272,15 +310,20 @@ namespace ProjectMarkdown.ViewModels
 
         public void ExportMarkdown(object obj)
         {
+            Logger.GetInstance().Debug("ExportMarkdown() >>");
+
             try
             {
                 DocumentExporter.ExportMarkdown(CurrentDocument);
             }
             catch (Exception e)
             {
+                Logger.GetInstance().Error(e.ToString());
                 MessageBox.Show(e.Message, "An error occured while exporting markdown", MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
+
+            Logger.GetInstance().Debug("<< ExportMarkdown()");
         }
 
         public bool CanExportMarkdown(object obj)
@@ -294,6 +337,8 @@ namespace ProjectMarkdown.ViewModels
 
         public void ExportHtml(object obj)
         {
+            Logger.GetInstance().Debug("ExportHtml() >>");
+
             try
             {
                 var css = GetCss();
@@ -301,9 +346,12 @@ namespace ProjectMarkdown.ViewModels
             }
             catch (Exception e)
             {
+                Logger.GetInstance().Error(e.ToString());
                 MessageBox.Show(e.Message, "An error occured while exporting HTML", MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
+
+            Logger.GetInstance().Debug("<< ExportHtml()");
         }
 
         public bool CanExportHtml(object obj)
@@ -317,6 +365,8 @@ namespace ProjectMarkdown.ViewModels
 
         public void ExportPdf(object obj)
         {
+            Logger.GetInstance().Debug("ExportPdf() >>");
+
             try
             {
                 var css = GetCss();
@@ -324,9 +374,12 @@ namespace ProjectMarkdown.ViewModels
             }
             catch (Exception e)
             {
+                Logger.GetInstance().Error(e.ToString());
                 MessageBox.Show(e.Message, "An error occured while exporting PDF", MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
+
+            Logger.GetInstance().Debug("<< ExportPdf()");
         }
 
         public bool CanExportPdf(object obj)
@@ -340,6 +393,8 @@ namespace ProjectMarkdown.ViewModels
 
         public void Print(object obj)
         {
+            Logger.GetInstance().Debug("Print() >>");
+
             try
             {
                 var css = GetCss();
@@ -350,8 +405,11 @@ namespace ProjectMarkdown.ViewModels
             }
             catch (Exception e)
             {
+                Logger.GetInstance().Error(e.ToString());
                 MessageBox.Show(e.Message, "An error occured while printing", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
+            Logger.GetInstance().Debug("<< Print()");
         }
 
         public bool CanPrint(object obj)
@@ -365,6 +423,8 @@ namespace ProjectMarkdown.ViewModels
 
         public void Exit(object obj)
         {
+            Logger.GetInstance().Debug("Exit() >>");
+
             try
             {
                 var notSavedDocuments = (from d in Documents
@@ -392,9 +452,12 @@ namespace ProjectMarkdown.ViewModels
             }
             catch (Exception e)
             {
+                Logger.GetInstance().Error(e.ToString());
                 MessageBox.Show(e.Message, "An error occured during application shutdown", MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
+
+            Logger.GetInstance().Debug("<< Exit()");
         }
 
         public bool CanExit(object obj)
@@ -404,15 +467,20 @@ namespace ProjectMarkdown.ViewModels
 
         public void CloseActiveDocument(object obj)
         {
+            Logger.GetInstance().Debug("CloseActiveDocument() >>");
+
             try
             {
                 RemoveDocumentFromDocuments(CurrentDocument);
             }
             catch (Exception e)
             {
+                Logger.GetInstance().Error(e.ToString());
                 MessageBox.Show(e.Message, "An error occured during closing of the document", MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
+
+            Logger.GetInstance().Debug("<< CloseActiveDocument()");
         }
 
         public bool CanCloseActiveDocument(object obj)
@@ -427,6 +495,8 @@ namespace ProjectMarkdown.ViewModels
 
         public void CloseAllDocuments(object obj)
         {
+            Logger.GetInstance().Debug("CloseAllDocuments() >>");
+
             try
             {
                 var notSavedDocuments = (from d in Documents
@@ -454,8 +524,11 @@ namespace ProjectMarkdown.ViewModels
             }
             catch (Exception e)
             {
+                Logger.GetInstance().Error(e.ToString());
                 MessageBox.Show("An error occured during closing of all documents." + e.Message);
             }
+
+            Logger.GetInstance().Debug("<< CloseAllDocuments()");
         }
 
         public bool CanCloseAllDocuments(object obj)
@@ -469,31 +542,43 @@ namespace ProjectMarkdown.ViewModels
 
         public void CloseAllButActiveDocument(object obj)
         {
-            var allExceptActiveDocument = (from d in Documents
-                where d != CurrentDocument
-                select d);
+            Logger.GetInstance().Debug("CloseAllButActiveDocument() >>");
 
-            var exceptActiveDocument = allExceptActiveDocument as DocumentModel[] ?? allExceptActiveDocument.ToArray();
-
-            var notSavedDocuments = (from d in exceptActiveDocument
-                where d.IsSaved == false
-                select d);
-
-            var savedDocuments = notSavedDocuments as DocumentModel[] ?? notSavedDocuments.ToArray();
-
-            if (savedDocuments.Any())
+            try
             {
-                var result = MessageBox.Show("Do you want to save your documents before closimg documents?", "Document not saved warning",
-                        MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
+                var allExceptActiveDocument = (from d in Documents
+                                               where d != CurrentDocument
+                                               select d);
 
-                if (result == MessageBoxResult.Yes)
+                var exceptActiveDocument = allExceptActiveDocument as DocumentModel[] ?? allExceptActiveDocument.ToArray();
+
+                var notSavedDocuments = (from d in exceptActiveDocument
+                                         where d.IsSaved == false
+                                         select d);
+
+                var savedDocuments = notSavedDocuments as DocumentModel[] ?? notSavedDocuments.ToArray();
+
+                if (savedDocuments.Any())
                 {
-                    foreach (var document in savedDocuments)
+                    var result = MessageBox.Show("Do you want to save your documents before closimg documents?", "Document not saved warning",
+                            MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
+
+                    if (result == MessageBoxResult.Yes)
                     {
-                        SaveDocument(document);
+                        foreach (var document in savedDocuments)
+                        {
+                            SaveDocument(document);
+                        }
+                    }
+                    else if (result == MessageBoxResult.No)
+                    {
+                        foreach (var document in exceptActiveDocument)
+                        {
+                            Documents.Remove(document);
+                        }
                     }
                 }
-                else if (result == MessageBoxResult.No)
+                else
                 {
                     foreach (var document in exceptActiveDocument)
                     {
@@ -501,13 +586,14 @@ namespace ProjectMarkdown.ViewModels
                     }
                 }
             }
-            else
+            catch (Exception e)
             {
-                foreach (var document in exceptActiveDocument)
-                {
-                    Documents.Remove(document);
-                }
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured during closing all but the current document",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
+            Logger.GetInstance().Debug("<< CloseAllButActiveDocument()");
         }
 
         public bool CanCloseAllButActiveDocument(object obj)
@@ -532,6 +618,7 @@ namespace ProjectMarkdown.ViewModels
 
         private string GetCss()
         {
+            Logger.GetInstance().Debug("GetCss() >>");
             try
             {
                 string css;
@@ -541,17 +628,19 @@ namespace ProjectMarkdown.ViewModels
                     css = sr.ReadToEnd();
                 }
 
+                Logger.GetInstance().Debug("<< GetCss()");
                 return css;
             }
             catch (Exception e)
             {
-                
                 throw new Exception("An error occured while retrieving the CSS. " + e.Message);
             }
         }
 
         private void RefreshCurrentHtmlView()
         {
+            Logger.GetInstance().Debug("RefreshCurrentHtmlView() >>");
+
             try
             {
                 var css = GetCss();
@@ -570,10 +659,14 @@ namespace ProjectMarkdown.ViewModels
             {
                 throw new Exception("An error occured while refreshing the HTML view. " + e.Message);
             }
+
+            Logger.GetInstance().Debug("<< RefreshCurrentHtmlView()");
         }
 
         private void RefreshCurrentHtmlView(SaveResult result)
         {
+            Logger.GetInstance().Debug("RefreshCurrentHtmlView() >>");
+
             try
             {
                 // Update source
@@ -587,16 +680,31 @@ namespace ProjectMarkdown.ViewModels
             {
                 throw new Exception("An error occured while refreshing the HTML view. " + e.Message);
             }
+
+            Logger.GetInstance().Debug("<< RefreshCurrentHtmlView()");
         }
 
         private static void DeleteTempSaveFile(SaveResult result)
         {
-            Thread.Sleep(100);
-            Directory.Delete(result.TempFile, true);
+            Logger.GetInstance().Debug("DeleteTempSaveFile() >>");
+
+            try
+            {
+                Thread.Sleep(100);
+                Directory.Delete(result.TempFile, true);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            
+            Logger.GetInstance().Debug("<< DeleteTempSaveFile()");
         }
 
         private DocumentModel SaveAsDocument(DocumentModel document)
         {
+            Logger.GetInstance().Debug("SaveAsDocument() >>");
+
             try
             {
                 var css = GetCss();
@@ -617,6 +725,8 @@ namespace ProjectMarkdown.ViewModels
                     document.IsSaved = true;
                 }
 
+                Logger.GetInstance().Debug("<< SaveAsDocument()");
+
                 return document;
             }
             catch (Exception e)
@@ -627,6 +737,8 @@ namespace ProjectMarkdown.ViewModels
 
         private DocumentModel SaveDocument(DocumentModel document)
         {
+            Logger.GetInstance().Debug("SaveDocument() >>");
+
             try
             {
                 if (document.Metadata.IsNew)
@@ -654,6 +766,7 @@ namespace ProjectMarkdown.ViewModels
                     }
                 }
 
+                Logger.GetInstance().Debug("<< SaveDocument()");
                 return document;
             }
             catch (Exception e)
@@ -664,6 +777,8 @@ namespace ProjectMarkdown.ViewModels
 
         public void RemoveDocumentFromDocuments(DocumentModel document)
         {
+            Logger.GetInstance().Debug("RemoveDocumentFromDocuments() >>");
+
             try
             {
                 var result = MessageBoxResult.None;
@@ -706,14 +821,20 @@ namespace ProjectMarkdown.ViewModels
             {
                 throw e;
             }
+
+            Logger.GetInstance().Debug("<< RemoveDocumentFromDocuments()");
         }
 
         private void ResetDocumentsOpenState()
         {
+            Logger.GetInstance().Debug("ResetDocumentsOpenState() >>");
+
             foreach (var document in Documents)
             {
                 document.IsOpen = false;
             }
+
+            Logger.GetInstance().Debug("<< ResetDocumentsOpenState()");
         }
 
         [NotifyPropertyChangedInvocator]

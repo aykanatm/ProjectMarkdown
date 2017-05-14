@@ -184,6 +184,10 @@
       <Project>{b293dcb5-00ed-4f92-9baf-16ed6dd524db}</Project>
       <Name>IOUtils</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\MyLibrary\LogUtils\LogUtils.csproj">
+      <Project>{7782d63d-ce8f-40ea-ae2b-6b44d9187e9d}</Project>
+      <Name>LogUtils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectMarkdown.HtmlToPdfConverter\ProjectMarkdown.HtmlToPdfConverter.csproj">
       <Project>{2e70e5aa-dda8-45d8-b569-9a0c21dafdff}</Project>
       <Name>ProjectMarkdown.HtmlToPdfConverter</Name>
