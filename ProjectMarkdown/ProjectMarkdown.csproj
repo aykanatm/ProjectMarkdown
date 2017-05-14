@@ -180,9 +180,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MyLibrary\CustomIO\CustomIO.csproj">
+    <ProjectReference Include="..\..\MyLibrary\IOUtils\IOUtils.csproj">
       <Project>{b293dcb5-00ed-4f92-9baf-16ed6dd524db}</Project>
-      <Name>CustomIO</Name>
+      <Name>IOUtils</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectMarkdown.HtmlToPdfConverter\ProjectMarkdown.HtmlToPdfConverter.csproj">
       <Project>{2e70e5aa-dda8-45d8-b569-9a0c21dafdff}</Project>
