@@ -14,6 +14,7 @@ using ProjectMarkdown.ExtensionMethods;
 using ProjectMarkdown.MarkdownLibrary;
 using ProjectMarkdown.Model;
 using ProjectMarkdown.Services;
+using ProjectMarkdown.Windows;
 
 namespace ProjectMarkdown.ViewModels
 {
@@ -52,6 +53,7 @@ namespace ProjectMarkdown.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        // File
         public ICommand CreateNewDocumentCommand { get; set; }
         public ICommand SaveDocumentCommand { get; set; }
         public ICommand SaveAllDocumentsCommand { get; set; }
@@ -66,6 +68,9 @@ namespace ProjectMarkdown.ViewModels
         public ICommand CloseActiveDocumentCommand { get; set; }
         public ICommand CloseAllDocumentsCommand { get; set; }
         public ICommand CloseAllButActiveDocumentCommand { get; set; }
+
+        // Help
+        public ICommand OpenAboutWindowCommand { get; set; }
 
         // Events
         public ICommand MainWindowClosingEventCommand { get; set; }
@@ -104,12 +109,15 @@ namespace ProjectMarkdown.ViewModels
             CloseActiveDocumentCommand = new RelayCommand(CloseActiveDocument, CanCloseActiveDocument);
             CloseAllDocumentsCommand = new RelayCommand(CloseAllDocuments, CanCloseAllDocuments);
             CloseAllButActiveDocumentCommand = new RelayCommand(CloseAllButActiveDocument, CanCloseAllButActiveDocument);
+            // Help
+            OpenAboutWindowCommand = new RelayCommand(OpenAboutWindow, CanOpenAboutWindow);
             // Events
             MainWindowClosingEventCommand = new RelayCommand(MainWindowClosingEvent, CanMainWindowClosingEvent);
 
             Logger.GetInstance().Debug("<< LoadCommands()");
         }
 
+        // FILE
         public void CreateNewDocument(object obj)
         {
             Logger.GetInstance().Debug("CreateNewDocument() >>");
@@ -603,6 +611,18 @@ namespace ProjectMarkdown.ViewModels
                 return true;
             }
             return false;
+        }
+
+        // HELP
+        public bool CanOpenAboutWindow(object obj)
+        {
+            return true;
+        }
+
+        public void OpenAboutWindow(object obj)
+        {
+            var windowFactory = new ProductionWindowFactory();
+            windowFactory.CreateWindow(ProductionWindowFactory.WindowTypes.About);
         }
 
         // EVENTS

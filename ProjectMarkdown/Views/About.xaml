@@ -1,0 +1,46 @@
+﻿<Window x:Class="ProjectMarkdown.Views.About"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectMarkdown.Views"
+        xmlns:viewModels="clr-namespace:ProjectMarkdown.ViewModels"
+        mc:Ignorable="d"
+        Height="300" Width="500"
+        WindowStartupLocation="CenterOwner"
+        WindowStyle="ToolWindow">
+    <Window.DataContext>
+        <viewModels:AboutViewModel/>
+    </Window.DataContext>
+    <DockPanel LastChildFill="True">
+        <Grid DockPanel.Dock="Top" Height="50" MaxHeight="50" MinHeight="50">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50" MaxWidth="50" MinWidth="50"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0"/>
+            <TextBlock Grid.Column="1" Text="{Binding CurrentVersion}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"></TextBlock>
+        </Grid>
+        <Grid DockPanel.Dock="Top" Height="50">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="75" MaxWidth="75" MinWidth="75"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Author:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="5,0,0,0"/>
+            <TextBlock Text="Home Page:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="5,0,0,0"/>
+            <TextBlock Text="License" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="5,0,0,0"/>
+            <TextBlock Text="Murat Aykanat" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,0,0"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,0,0">
+                <Hyperlink NavigateUri="https://github.com/aykanatm/ProjectMarkdown">https://github.com/aykanatm/ProjectMarkdown</Hyperlink>
+            </TextBlock>
+        </Grid>
+        <Grid>
+            <TextBox Text="{Binding LicenseText}"  Margin="5" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" FontSize="9"></TextBox>
+        </Grid>
+    </DockPanel>
+</Window>
