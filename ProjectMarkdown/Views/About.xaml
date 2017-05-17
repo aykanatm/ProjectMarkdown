@@ -6,9 +6,10 @@
         xmlns:local="clr-namespace:ProjectMarkdown.Views"
         xmlns:viewModels="clr-namespace:ProjectMarkdown.ViewModels"
         mc:Ignorable="d"
-        Height="300" Width="500"
+        Height="450" Width="500"
         WindowStartupLocation="CenterOwner"
-        WindowStyle="ToolWindow">
+        WindowStyle="ToolWindow"
+        ResizeMode="NoResize">
     <Window.DataContext>
         <viewModels:AboutViewModel/>
     </Window.DataContext>
@@ -18,7 +19,7 @@
                 <ColumnDefinition Width="50" MaxWidth="50" MinWidth="50"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="0"/>
+            <Image Grid.Column="0" Margin="5"/>
             <TextBlock Grid.Column="1" Text="{Binding CurrentVersion}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"></TextBlock>
         </Grid>
         <Grid DockPanel.Dock="Top" Height="50">
@@ -39,8 +40,36 @@
                 <Hyperlink NavigateUri="https://github.com/aykanatm/ProjectMarkdown">https://github.com/aykanatm/ProjectMarkdown</Hyperlink>
             </TextBlock>
         </Grid>
-        <Grid>
+        <Grid DockPanel.Dock="Top" Height="200">
             <TextBox Text="{Binding LicenseText}"  Margin="5" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" FontSize="9"></TextBox>
         </Grid>
+        <Grid DockPanel.Dock="Top" Height="25" MaxHeight="25" MinHeight="25">
+            <TextBlock Text="Open Source Components / Libraries" VerticalAlignment="Center" Margin="5,0,0,0"/>
+        </Grid>
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="130" MaxWidth="130" MinWidth="130"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition Height="25"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="5,0,0,0">
+                    <Hyperlink NavigateUri="https://github.com/sindresorhus/github-markdown-css">GitHub Markdown CSS</Hyperlink>
+                </TextBlock>
+                <TextBlock Text="Copyright (c) Sindre Sorhus (MIT)" Grid.Row="0" Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="5,0,0,0">
+                    <Hyperlink NavigateUri="https://github.com/PavelTorgashov/FastColoredTextBox">Fast Colored Text Box</Hyperlink>
+                </TextBlock>
+                <TextBlock Text="Copyright (c) Pavel Torgashov" Grid.Row="1" Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="5,0,0,0">
+                    <Hyperlink NavigateUri="https://github.com/cefsharp/CefSharp">CefSharp</Hyperlink>
+                </TextBlock>
+                <TextBlock Text="Copyright © 2010-2017 The CefSharp Authors (BSD)" Grid.Row="2" Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center"></TextBlock>
+            </Grid>
+        </ScrollViewer>
     </DockPanel>
 </Window>
