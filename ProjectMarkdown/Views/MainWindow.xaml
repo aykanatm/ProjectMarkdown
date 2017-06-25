@@ -16,7 +16,7 @@
     </Window.DataContext>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closed">
-            <i:InvokeCommandAction Command="{Binding MainWindowClosingEventCommand}"></i:InvokeCommandAction>
+            <i:InvokeCommandAction Command="{Binding MainWindowClosingEventCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <DockPanel LastChildFill="True" >
@@ -44,8 +44,8 @@
                 <MenuItem Header="Exit" InputGestureText="Alt + F4" Command="{Binding ExitCommand}"/>
             </MenuItem>
             <MenuItem Header="Edit">
-                <MenuItem Header="Undo" InputGestureText="Ctrl + Z"/>
-                <MenuItem Header="Redo" InputGestureText="Ctrl + Y"/>
+                <MenuItem Header="Undo" InputGestureText="Ctrl + Z" Command="{Binding UndoCommand}"/>
+                <MenuItem Header="Redo" InputGestureText="Ctrl + Y" Command="{Binding RedoCommand}"/>
                 <Separator/>
                 <MenuItem Header="Cut" InputGestureText="Ctrl + X"/>
                 <MenuItem Header="Copy" InputGestureText="Ctrl + C"/>
@@ -118,7 +118,7 @@
             </ToolBar>
         </ToolBarTray>
         <StatusBar DockPanel.Dock="Bottom" VerticalAlignment="Bottom" Height="30"/>
-        <TabControl TabStripPlacement="Top" Margin="5" ItemsSource="{Binding Documents}" SelectedItem="{Binding CurrentDocument, Mode=TwoWay}">
+        <TabControl TabStripPlacement="Top" Margin="5" ItemsSource="{Binding Documents}" SelectedItem="{Binding CurrentDocument, Mode=TwoWay}" x:Name="TabDocuments">
             <TabControl.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -143,7 +143,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0" Margin="5">
-                            <customControls:CodeTextboxHost Text="{Binding Markdown, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" WordWrap="True"/>
+                            <customControls:CodeTextboxHost Text="{Binding Markdown, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" WordWrap="True" x:Name="CodeTextboxHost"/>
                         </Border>
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" Margin="5">
                             <wpf:ChromiumWebBrowser Address="{Binding Html, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ChromiumWebBrowser"/>    

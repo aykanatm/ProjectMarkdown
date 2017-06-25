@@ -29,6 +29,18 @@ namespace ProjectMarkdown.CustomControls
                 }
             }), null));
 
+        public string Text
+        {
+            get { return (string)GetValue(TextProperty); }
+            set { SetValue(TextProperty, value); }
+        }
+
+        public bool WordWrap
+        {
+            get { return (bool)GetValue(WordWrapProperty); }
+            set { SetValue(WordWrapProperty, value); }
+        }
+
         public CodeTextboxHost()
         {
             Child = _innerTextbox;
@@ -36,6 +48,7 @@ namespace ProjectMarkdown.CustomControls
             _innerTextbox.DescriptionFile = AppDomain.CurrentDomain.BaseDirectory + "SyntaxConfig\\MarkdownSyntaxHighlighting.xml";
             _innerTextbox.HighlightingRangeType = HighlightingRangeType.AllTextRange;
             _innerTextbox.TextChanged += _innerTextbox_TextChanged;
+            _innerTextbox.ClearUndo();
         }
 
         private void _innerTextbox_TextChanged(object sender, TextChangedEventArgs e)
@@ -43,16 +56,25 @@ namespace ProjectMarkdown.CustomControls
             SetValue(TextProperty, _innerTextbox.Text);
         }
 
-        public string Text
+        public void Undo()
         {
-            get { return (string) GetValue(TextProperty); }
-            set{ SetValue(TextProperty, value);}
+            if (_innerTextbox.UndoEnabled)
+            {
+                _innerTextbox.Undo();
+            }
         }
 
-        public bool WordWrap
+        public void Redo()
         {
-            get { return (bool)GetValue(WordWrapProperty); }
-            set { SetValue(WordWrapProperty, value); }
+            if (_innerTextbox.RedoEnabled)
+            {
+                _innerTextbox.Redo();
+            }
+        }
+
+        public void ClearUndoRedo()
+        {
+            _innerTextbox.ClearUndo();
         }
     }
 }

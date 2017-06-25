@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Input;
 using LogUtils;
 using ProjectMarkdown.Annotations;
+using ProjectMarkdown.CustomControls;
 using ProjectMarkdown.ExtensionMethods;
 using ProjectMarkdown.MarkdownLibrary;
 using ProjectMarkdown.Model;
@@ -69,6 +70,11 @@ namespace ProjectMarkdown.ViewModels
         public ICommand CloseAllDocumentsCommand { get; set; }
         public ICommand CloseAllButActiveDocumentCommand { get; set; }
 
+        // Edit
+
+        public ICommand UndoCommand { get; set; }
+        public ICommand RedoCommand { get; set; }
+
         // Help
         public ICommand OpenAboutWindowCommand { get; set; }
 
@@ -109,6 +115,11 @@ namespace ProjectMarkdown.ViewModels
             CloseActiveDocumentCommand = new RelayCommand(CloseActiveDocument, CanCloseActiveDocument);
             CloseAllDocumentsCommand = new RelayCommand(CloseAllDocuments, CanCloseAllDocuments);
             CloseAllButActiveDocumentCommand = new RelayCommand(CloseAllButActiveDocument, CanCloseAllButActiveDocument);
+
+            // Edit
+            UndoCommand = new RelayCommand(Undo, CanUndo);
+            RedoCommand = new RelayCommand(Redo, CanRedo);
+
             // Help
             OpenAboutWindowCommand = new RelayCommand(OpenAboutWindow, CanOpenAboutWindow);
             // Events
@@ -611,6 +622,38 @@ namespace ProjectMarkdown.ViewModels
                 return true;
             }
             return false;
+        }
+
+        // EDIT
+
+        public bool CanUndo(object obj)
+        {
+            if (CurrentDocument != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public void Undo(object obj)
+        {
+            CodeTextboxManager.GetInstance().Undo(CurrentDocument);
+        }
+
+        public bool CanRedo(object obj)
+        {
+            if (CurrentDocument != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public void Redo(object obj)
+        {
+            CodeTextboxManager.GetInstance().Redo(CurrentDocument);
         }
 
         // HELP
