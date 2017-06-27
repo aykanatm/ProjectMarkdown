@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
+using FastColoredTextBoxNS;
 using ProjectMarkdown.Annotations;
 using ProjectMarkdown.ViewModels;
 
@@ -75,12 +77,33 @@ namespace ProjectMarkdown.Model
             }
         }
 
-        
+        public LimitedStack<UndoableCommand> History
+        {
+            get { return _history; }
+            set
+            {
+                _history = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Stack<UndoableCommand> RedoStack
+        {
+            get { return _redoStack; }
+            set
+            {
+                _redoStack = value;
+                OnPropertyChanged();
+            }
+        }
+
         private DocumentMetadata _metadata;
         private string _markdown;
         private Uri _html;
         private bool _isOpen;
         private bool _isSaved;
+        private LimitedStack<UndoableCommand> _history;
+        private Stack<UndoableCommand> _redoStack;
 
         public ICommand CloseDocumentButtonCommand { get; set; }
 

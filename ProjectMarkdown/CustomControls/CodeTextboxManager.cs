@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
+using FastColoredTextBoxNS;
 using ProjectMarkdown.Model;
 using WPFUtils.ExtensionMethods;
 
@@ -45,6 +47,32 @@ namespace ProjectMarkdown.CustomControls
             {
                 codeTextboxHost.Redo();
             }
+        }
+
+        public LimitedStack<UndoableCommand> GetHistory(DocumentModel document)
+        {
+            var codeTextboxHost = GetCurrentCodeTextbox(document);
+            var history = new LimitedStack<UndoableCommand>(200);
+
+            if (codeTextboxHost != null)
+            {
+                history = codeTextboxHost.GetHistory();
+            }
+
+            return history;
+        }
+
+        public Stack<UndoableCommand> GetRedoStack(DocumentModel document)
+        {
+            var codeTextboxHost = GetCurrentCodeTextbox(document);
+            var redoStack = new Stack<UndoableCommand>();
+
+            if (codeTextboxHost != null)
+            {
+                redoStack = codeTextboxHost.GetRedoStack();
+            }
+
+            return redoStack;
         }
 
         public void ClearUndoRedo(DocumentModel document)

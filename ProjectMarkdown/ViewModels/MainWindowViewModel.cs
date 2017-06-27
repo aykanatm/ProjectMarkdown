@@ -39,6 +39,14 @@ namespace ProjectMarkdown.ViewModels
             get { return _currentDocument; }
             set
             {
+                if (_currentDocument != null)
+                {
+                    _currentDocument.History = CodeTextboxManager.GetInstance().GetHistory(_currentDocument);
+                    Logger.GetInstance().Debug(_currentDocument.Metadata.FileName + ":" + _currentDocument.History.Count);
+                    _currentDocument.RedoStack = CodeTextboxManager.GetInstance().GetRedoStack(_currentDocument);
+                    // CodeTextboxManager.GetInstance().ClearUndoRedo(_currentDocument);
+                }
+
                 _currentDocument = value;
                 // if value is null, it means the last document is being closed
                 if (value != null)
