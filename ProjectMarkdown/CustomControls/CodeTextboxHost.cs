@@ -106,6 +106,8 @@ namespace ProjectMarkdown.CustomControls
         private void _innerTextbox_TextChanged(object sender, TextChangedEventArgs e)
         {
             SetValue(TextProperty, _innerTextbox.Text);
+            History = _innerTextbox.TextSource.Manager.History;
+            RedoStack = _innerTextbox.TextSource.Manager.RedoStack;
         }
 
         public LimitedStack<UndoableCommand> GetHistory()
