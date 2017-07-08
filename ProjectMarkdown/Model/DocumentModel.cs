@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -77,7 +78,7 @@ namespace ProjectMarkdown.Model
             }
         }
 
-        public LimitedStack<UndoableCommand> History
+        public ObservableCollection<UndoableCommand> History
         {
             get { return _history; }
             set
@@ -87,7 +88,7 @@ namespace ProjectMarkdown.Model
             }
         }
 
-        public Stack<UndoableCommand> RedoStack
+        public ObservableCollection<UndoableCommand> RedoStack
         {
             get { return _redoStack; }
             set
@@ -102,8 +103,8 @@ namespace ProjectMarkdown.Model
         private Uri _html;
         private bool _isOpen;
         private bool _isSaved;
-        private LimitedStack<UndoableCommand> _history;
-        private Stack<UndoableCommand> _redoStack;
+        private ObservableCollection<UndoableCommand> _history;
+        private ObservableCollection<UndoableCommand> _redoStack;
 
         public ICommand CloseDocumentButtonCommand { get; set; }
 

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Forms.Integration;
 using FastColoredTextBoxNS;
+using ProjectMarkdown.ExtensionMethods;
 
 namespace ProjectMarkdown.CustomControls
 {
@@ -30,17 +32,16 @@ namespace ProjectMarkdown.CustomControls
                 }
             }), null));
 
-        public static readonly DependencyProperty HistoryProperty = DependencyProperty.Register("History", typeof(LimitedStack<UndoableCommand>), typeof(CodeTextboxHost), new PropertyMetadata(new LimitedStack<UndoableCommand>(200), new PropertyChangedCallback(
+        public static readonly DependencyProperty HistoryProperty = DependencyProperty.Register("History", typeof(ObservableCollection<UndoableCommand>), typeof(CodeTextboxHost), new PropertyMetadata(new ObservableCollection<UndoableCommand>(), new PropertyChangedCallback(
             (d, e) =>
             {
                 var textBoxHost = d as CodeTextboxHost;
                 if (textBoxHost != null && textBoxHost._innerTextbox != null)
                 {
-                    var history = textBoxHost.GetValue(e.Property) as LimitedStack<UndoableCommand>;
+                    var history = textBoxHost.GetValue(e.Property) as ObservableCollection<UndoableCommand>;
                     if (history != null)
                     {
-                        textBoxHost._innerTextbox.TextSource.Manager.History.Clear();
-                        textBoxHost._innerTextbox.TextSource.Manager.History = history;
+                        textBoxHost._innerTextbox.TextSource.Manager.History = history.ToLimitedStack(200);
                         textBoxHost._innerTextbox.OnUndoRedoStateChanged();
                     }
                     else
@@ -50,17 +51,16 @@ namespace ProjectMarkdown.CustomControls
                 }
             }), null));
 
-        public static readonly DependencyProperty RedoStackProperty = DependencyProperty.Register("RedoStack", typeof(Stack<UndoableCommand>), typeof(CodeTextboxHost), new PropertyMetadata(new Stack<UndoableCommand>(), new PropertyChangedCallback(
+        public static readonly DependencyProperty RedoStackProperty = DependencyProperty.Register("RedoStack", typeof(ObservableCollection<UndoableCommand>), typeof(CodeTextboxHost), new PropertyMetadata(new ObservableCollection<UndoableCommand>(), new PropertyChangedCallback(
             (d, e) =>
             {
                 var textBoxHost = d as CodeTextboxHost;
                 if (textBoxHost != null && textBoxHost._innerTextbox != null)
                 {
-                    var redoStack = textBoxHost.GetValue(e.Property) as Stack<UndoableCommand>;
+                    var redoStack = textBoxHost.GetValue(e.Property) as ObservableCollection<UndoableCommand>;
                     if (redoStack != null)
                     {
-                        textBoxHost._innerTextbox.TextSource.Manager.RedoStack.Clear();
-                        textBoxHost._innerTextbox.TextSource.Manager.RedoStack = redoStack;
+                        textBoxHost._innerTextbox.TextSource.Manager.RedoStack = redoStack.ToStack();
                         textBoxHost._innerTextbox.OnUndoRedoStateChanged();
                     }
                     else
@@ -70,15 +70,15 @@ namespace ProjectMarkdown.CustomControls
                 }
             }), null));
 
-        public LimitedStack<UndoableCommand> History
+        public ObservableCollection<UndoableCommand> History
         {
-            get { return (LimitedStack<UndoableCommand>) GetValue(HistoryProperty);}
+            get { return (ObservableCollection<UndoableCommand>) GetValue(HistoryProperty);}
             set { SetValue(HistoryProperty, value);}
         }
 
-        public Stack<UndoableCommand> RedoStack
+        public ObservableCollection<UndoableCommand> RedoStack
         {
-            get { return (Stack<UndoableCommand>) GetValue(RedoStackProperty); }
+            get { return (ObservableCollection<UndoableCommand>) GetValue(RedoStackProperty); }
             set { SetValue(RedoStackProperty, value);}
         }
 
@@ -105,19 +105,9 @@ namespace ProjectMarkdown.CustomControls
 
         private void _innerTextbox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            SetValue(TextProperty, _innerTextbox.Text);
-            History = _innerTextbox.TextSource.Manager.History;
-            RedoStack = _innerTextbox.TextSource.Manager.RedoStack;
-        }
-
-        public LimitedStack<UndoableCommand> GetHistory()
-        {
-            return _innerTextbox.TextSource.Manager.History;
-        }
-
-        public Stack<UndoableCommand> GetRedoStack()
-        {
-            return _innerTextbox.TextSource.Manager.RedoStack;
+            Text = _innerTextbox.Text;
+            History = _innerTextbox.TextSource.Manager.History.ToOveObservableCollection();
+            RedoStack = _innerTextbox.TextSource.Manager.RedoStack.ToObservableCollection();
         }
 
         public void Undo()

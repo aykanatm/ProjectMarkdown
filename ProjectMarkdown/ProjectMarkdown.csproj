@@ -114,6 +114,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CustomControls\CodeTextboxManager.cs" />
+    <Compile Include="ExtensionMethods\LimitedStackExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\ObservableCollectionExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\StackExtensionMethods.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="Views\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
