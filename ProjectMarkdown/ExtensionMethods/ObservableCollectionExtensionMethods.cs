@@ -12,7 +12,7 @@ namespace ProjectMarkdown.ExtensionMethods
 
             if (input.Count > 0)
             {
-                for (var i = input.Count - 1; i < 0; i--)
+                for (var i = input.Count - 1; i >= 0; i--)
                 {
                     limitedStack.Push(input[i]);
                 }
@@ -27,7 +27,7 @@ namespace ProjectMarkdown.ExtensionMethods
 
             if (input.Count > 0)
             {
-                for (var i = input.Count - 1; i < 0; i--)
+                for (var i = input.Count - 1; i >= 0; i--)
                 {
                     stack.Push(input[i]);
                 }
