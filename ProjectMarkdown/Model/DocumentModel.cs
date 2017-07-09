@@ -84,7 +84,7 @@ namespace ProjectMarkdown.Model
             set
             {
                 _history = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(History));
             }
         }
 
@@ -94,7 +94,7 @@ namespace ProjectMarkdown.Model
             set
             {
                 _redoStack = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(RedoStack));
             }
         }
 
@@ -122,6 +122,8 @@ namespace ProjectMarkdown.Model
             Markdown = "";
             Html = new Uri("C:\\");
             IsSaved = false;
+            History = new ObservableCollection<UndoableCommand>();
+            RedoStack = new ObservableCollection<UndoableCommand>();
         }
 
         private void LoadCommands()
