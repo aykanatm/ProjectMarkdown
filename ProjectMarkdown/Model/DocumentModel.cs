@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
+using FastColoredTextBoxNS;
 using ProjectMarkdown.Annotations;
 using ProjectMarkdown.ViewModels;
 
@@ -75,12 +78,33 @@ namespace ProjectMarkdown.Model
             }
         }
 
-        
+        public ObservableCollection<UndoableCommand> History
+        {
+            get { return _history; }
+            set
+            {
+                _history = value;
+                OnPropertyChanged(nameof(History));
+            }
+        }
+
+        public ObservableCollection<UndoableCommand> RedoStack
+        {
+            get { return _redoStack; }
+            set
+            {
+                _redoStack = value;
+                OnPropertyChanged(nameof(RedoStack));
+            }
+        }
+
         private DocumentMetadata _metadata;
         private string _markdown;
         private Uri _html;
         private bool _isOpen;
         private bool _isSaved;
+        private ObservableCollection<UndoableCommand> _history;
+        private ObservableCollection<UndoableCommand> _redoStack;
 
         public ICommand CloseDocumentButtonCommand { get; set; }
 
@@ -98,6 +122,8 @@ namespace ProjectMarkdown.Model
             Markdown = "";
             Html = new Uri("C:\\");
             IsSaved = false;
+            History = new ObservableCollection<UndoableCommand>();
+            RedoStack = new ObservableCollection<UndoableCommand>();
         }
 
         private void LoadCommands()

@@ -61,7 +61,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FastColoredTextBox, Version=2.16.21.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
-      <HintPath>..\packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\FastColoredTextBox\FastColoredTextBox\bin\Release\FastColoredTextBox.dll</HintPath>
     </Reference>
     <Reference Include="IOUtils">
       <HintPath>..\..\MyLibrary\IOUtils\bin\Release\IOUtils.dll</HintPath>
@@ -113,6 +114,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CustomControls\CodeTextboxManager.cs" />
+    <Compile Include="ExtensionMethods\LimitedStackExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\ObservableCollectionExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\StackExtensionMethods.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="Views\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
