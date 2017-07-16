@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Forms.Integration;
@@ -10,6 +11,19 @@ namespace ProjectMarkdown.CustomControls
     public class CodeTextboxHost : WindowsFormsHost
     {
         private readonly FastColoredTextBox _innerTextbox = new FastColoredTextBox();
+        private string _oldFilePath;
+        private string _newFilePath;
+
+        public static readonly DependencyProperty FilePathProperty = DependencyProperty.Register("FilePath", typeof(string), typeof(CodeTextboxHost), new PropertyMetadata("", new PropertyChangedCallback(
+            (d, e) =>
+            {
+                var textBoxHost = d as CodeTextboxHost;
+                if (textBoxHost != null && textBoxHost._innerTextbox != null)
+                {
+                    textBoxHost._oldFilePath = textBoxHost._newFilePath;
+                    textBoxHost._newFilePath = textBoxHost.GetValue(e.Property) as string;
+                }
+            }), null));
 
         public static readonly DependencyProperty WordWrapProperty = DependencyProperty.Register("WordWrap", typeof(bool), typeof(CodeTextboxHost), new PropertyMetadata(false, new PropertyChangedCallback(
             (d, e) =>
@@ -31,7 +45,7 @@ namespace ProjectMarkdown.CustomControls
                 }
             }), null));
 
-        public static readonly DependencyProperty HistoryProperty = DependencyProperty.Register("History", typeof(ObservableCollection<UndoableCommand>), typeof(CodeTextboxHost), new PropertyMetadata(new ObservableCollection<UndoableCommand>(), new PropertyChangedCallback(
+        public static readonly DependencyProperty HistoryProperty = DependencyProperty.Register("History", typeof(IEnumerable<UndoableCommand>), typeof(CodeTextboxHost), new FrameworkPropertyMetadata(new ObservableCollection<UndoableCommand>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, new PropertyChangedCallback(
             (d, e) =>
             {
                 var textBoxHost = d as CodeTextboxHost;
@@ -50,7 +64,7 @@ namespace ProjectMarkdown.CustomControls
                 }
             }), null));
 
-        public static readonly DependencyProperty RedoStackProperty = DependencyProperty.Register("RedoStack", typeof(ObservableCollection<UndoableCommand>), typeof(CodeTextboxHost), new PropertyMetadata(new ObservableCollection<UndoableCommand>(), new PropertyChangedCallback(
+        public static readonly DependencyProperty RedoStackProperty = DependencyProperty.Register("RedoStack", typeof(IEnumerable<UndoableCommand>), typeof(CodeTextboxHost), new FrameworkPropertyMetadata(new ObservableCollection<UndoableCommand>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, new PropertyChangedCallback(
             (d, e) =>
             {
                 var textBoxHost = d as CodeTextboxHost;
@@ -69,16 +83,22 @@ namespace ProjectMarkdown.CustomControls
                 }
             }), null));
 
+        public string FilePath
+        {
+            get { return (string) GetValue(FilePathProperty); }
+            set { SetValue(FilePathProperty, value);}
+        }
+
         public ObservableCollection<UndoableCommand> History
         {
             get { return (ObservableCollection<UndoableCommand>) GetValue(HistoryProperty);}
-            set { SetValue(HistoryProperty, value);}
+            set { SetCurrentValue(HistoryProperty, new ObservableCollection<UndoableCommand>(value));}
         }
 
         public ObservableCollection<UndoableCommand> RedoStack
         {
             get { return (ObservableCollection<UndoableCommand>) GetValue(RedoStackProperty); }
-            set { SetValue(RedoStackProperty, value);}
+            set { SetCurrentValue(RedoStackProperty, new ObservableCollection<UndoableCommand>(value));}
         }
 
         public string Text
@@ -105,8 +125,20 @@ namespace ProjectMarkdown.CustomControls
         private void _innerTextbox_TextChanged(object sender, TextChangedEventArgs e)
         {
             Text = _innerTextbox.Text;
+
+            if (_oldFilePath == null)
+            {
+                _innerTextbox.ClearUndo();
+                _oldFilePath = _newFilePath;
+            }
+
             History = _innerTextbox.TextSource.Manager.History.ToOveObservableCollection();
             RedoStack = _innerTextbox.TextSource.Manager.RedoStack.ToObservableCollection();
+
+            if (_oldFilePath != _newFilePath)
+            {
+                _innerTextbox.ClearUndo();
+            }
         }
 
         public void Undo()
