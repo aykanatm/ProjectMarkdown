@@ -135,6 +135,8 @@ namespace ProjectMarkdown.CustomControls
             
             if (_oldFilePath != _newFilePath)
             {
+                // If _oldFilePath is null, it means we opened a new document for the first time
+                // When a new document is open there is no need for us to look for the empty string and the document loaded cases
                 if (_oldFilePath != null)
                 {
                     _textBoxLoadedWithEmptyString = true;
