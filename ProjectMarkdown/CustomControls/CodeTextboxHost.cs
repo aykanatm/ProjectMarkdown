@@ -135,8 +135,17 @@ namespace ProjectMarkdown.CustomControls
             
             if (_oldFilePath != _newFilePath)
             {
-                _textBoxLoadedWithEmptyString = true;
-                _textBoxLoadedWithNewDocumentText = true;
+                if (_oldFilePath != null)
+                {
+                    _textBoxLoadedWithEmptyString = true;
+                    _textBoxLoadedWithNewDocumentText = true;
+                }
+                else
+                {
+                    _textBoxLoadedWithEmptyString = false;
+                    _textBoxLoadedWithNewDocumentText = false;
+                }
+                
                 _innerTextbox.ClearUndo();
                 _oldFilePath = _newFilePath;
             }
