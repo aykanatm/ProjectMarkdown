@@ -14,6 +14,13 @@ namespace ProjectMarkdown.CustomControls
         private string _oldFilePath;
         private string _newFilePath;
 
+        // This is true when user switches from one tab to the other and the TextBox is cleared inserting an empty string ("")
+        // If this is true then the textbox will clear its undo and redo stacks to prevent user to undo to an empty textbox
+        private bool _textBoxLoadedWithEmptyString;
+        // This is true when user switches from one tab to the other and the textbox is loaded with new content that is fetched from the document
+        // If this is true then the textbox will clear its undo and redo stacks to prevent previous document's undo and redo stacks to load into the new document
+        private bool _textBoxLoadedWithNewDocumentText;
+
         public static readonly DependencyProperty FilePathProperty = DependencyProperty.Register("FilePath", typeof(string), typeof(CodeTextboxHost), new PropertyMetadata("", new PropertyChangedCallback(
             (d, e) =>
             {
@@ -125,19 +132,33 @@ namespace ProjectMarkdown.CustomControls
         private void _innerTextbox_TextChanged(object sender, TextChangedEventArgs e)
         {
             Text = _innerTextbox.Text;
-
-            if (_oldFilePath == null)
+            
+            if (_oldFilePath != _newFilePath)
             {
+                _textBoxLoadedWithEmptyString = true;
+                _textBoxLoadedWithNewDocumentText = true;
                 _innerTextbox.ClearUndo();
                 _oldFilePath = _newFilePath;
             }
-
-            History = _innerTextbox.TextSource.Manager.History.ToOveObservableCollection();
-            RedoStack = _innerTextbox.TextSource.Manager.RedoStack.ToObservableCollection();
-
-            if (_oldFilePath != _newFilePath)
+            else
             {
-                _innerTextbox.ClearUndo();
+                if (!_textBoxLoadedWithEmptyString && !_textBoxLoadedWithNewDocumentText)
+                {
+                    History = _innerTextbox.TextSource.Manager.History.ToOveObservableCollection();
+                    RedoStack = _innerTextbox.TextSource.Manager.RedoStack.ToObservableCollection();
+                }
+                else
+                {
+                    if (!_textBoxLoadedWithEmptyString)
+                    {
+                        _textBoxLoadedWithNewDocumentText = false;
+                    }
+                    else
+                    {
+                        _textBoxLoadedWithEmptyString = false;
+                    }
+                    _innerTextbox.ClearUndo();
+                }
             }
         }
 
