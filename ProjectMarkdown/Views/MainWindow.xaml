@@ -47,7 +47,7 @@
                 <MenuItem Header="Undo" InputGestureText="Ctrl + Z" Command="{Binding UndoCommand}"/>
                 <MenuItem Header="Redo" InputGestureText="Ctrl + Y" Command="{Binding RedoCommand}"/>
                 <Separator/>
-                <MenuItem Header="Cut" InputGestureText="Ctrl + X"/>
+                <MenuItem Header="Cut" InputGestureText="Ctrl + X" Command="{Binding CutCommand}"/>
                 <MenuItem Header="Copy" InputGestureText="Ctrl + C"/>
                 <MenuItem Header="Paste" InputGestureText="Ctrl + V"/>
                 <MenuItem Header="Delete" InputGestureText="DEL"/>

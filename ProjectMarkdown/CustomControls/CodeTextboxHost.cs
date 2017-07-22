@@ -178,6 +178,11 @@ namespace ProjectMarkdown.CustomControls
             }
         }
 
+        public void Cut()
+        {
+            _innerTextbox.Cut();
+        }
+
         public void ClearUndoRedo()
         {
             _innerTextbox.ClearUndo();

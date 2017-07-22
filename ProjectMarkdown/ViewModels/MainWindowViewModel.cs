@@ -71,9 +71,9 @@ namespace ProjectMarkdown.ViewModels
         public ICommand CloseAllButActiveDocumentCommand { get; set; }
 
         // Edit
-
         public ICommand UndoCommand { get; set; }
         public ICommand RedoCommand { get; set; }
+        public ICommand CutCommand { get; set; }
 
         // Help
         public ICommand OpenAboutWindowCommand { get; set; }
@@ -119,6 +119,7 @@ namespace ProjectMarkdown.ViewModels
             // Edit
             UndoCommand = new RelayCommand(Undo, CanUndo);
             RedoCommand = new RelayCommand(Redo, CanRedo);
+            CutCommand = new RelayCommand(Cut, CanCut);
 
             // Help
             OpenAboutWindowCommand = new RelayCommand(OpenAboutWindow, CanOpenAboutWindow);
@@ -654,6 +655,21 @@ namespace ProjectMarkdown.ViewModels
         public void Redo(object obj)
         {
             CodeTextboxManager.GetInstance().Redo(CurrentDocument);
+        }
+
+        public bool CanCut(object obj)
+        {
+            if (CurrentDocument != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public void Cut(object obj)
+        {
+            CodeTextboxManager.GetInstance().Cut(CurrentDocument);
         }
 
         // HELP
