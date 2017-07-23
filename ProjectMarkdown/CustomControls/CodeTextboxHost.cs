@@ -204,6 +204,11 @@ namespace ProjectMarkdown.CustomControls
             _innerTextbox.Paste();
         }
 
+        public void Delete()
+        {
+            _innerTextbox.ClearSelected();
+        }
+
         public void ClearUndoRedo()
         {
             _innerTextbox.ClearUndo();

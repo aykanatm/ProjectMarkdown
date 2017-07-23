@@ -76,6 +76,7 @@ namespace ProjectMarkdown.ViewModels
         public ICommand CutCommand { get; set; }
         public ICommand CopyCommand { get; set; }
         public ICommand PasteCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
 
         // Help
         public ICommand OpenAboutWindowCommand { get; set; }
@@ -124,6 +125,7 @@ namespace ProjectMarkdown.ViewModels
             CutCommand = new RelayCommand(Cut, CanCut);
             CopyCommand = new RelayCommand(Copy, CanCopy);
             PasteCommand = new RelayCommand(Paste, CanPaste);
+            DeleteCommand = new RelayCommand(Delete, CanDelete);
 
             // Help
             OpenAboutWindowCommand = new RelayCommand(OpenAboutWindow, CanOpenAboutWindow);
@@ -704,6 +706,21 @@ namespace ProjectMarkdown.ViewModels
         public void Paste(object obj)
         {
             CodeTextboxManager.GetInstance().Paste(CurrentDocument);
+        }
+
+        public bool CanDelete(object obj)
+        {
+            if (CurrentDocument != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public void Delete(object obj)
+        {
+            CodeTextboxManager.GetInstance().Delete(CurrentDocument);
         }
 
         // HELP

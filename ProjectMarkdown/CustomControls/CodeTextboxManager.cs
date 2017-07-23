@@ -77,6 +77,16 @@ namespace ProjectMarkdown.CustomControls
             }
         }
 
+        public void Delete(DocumentModel document)
+        {
+            var codeTextboxHost = GetCurrentCodeTextbox(document);
+
+            if (codeTextboxHost != null)
+            {
+                codeTextboxHost.Delete();
+            }
+        }
+
         public void ClearUndoRedo(DocumentModel document)
         {
             var codeTextboxHost = GetCurrentCodeTextbox(document);
