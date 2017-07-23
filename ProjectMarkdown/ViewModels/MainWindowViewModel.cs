@@ -669,7 +669,7 @@ namespace ProjectMarkdown.ViewModels
         {
             if (CurrentDocument != null)
             {
-                return true;
+                return CodeTextboxManager.GetInstance().HasSelectedText(CurrentDocument);
             }
 
             return false;
@@ -684,7 +684,7 @@ namespace ProjectMarkdown.ViewModels
         {
             if (CurrentDocument != null)
             {
-                return true;
+                return CodeTextboxManager.GetInstance().HasSelectedText(CurrentDocument);
             }
 
             return false;
@@ -714,7 +714,7 @@ namespace ProjectMarkdown.ViewModels
         {
             if (CurrentDocument != null)
             {
-                return true;
+                return CodeTextboxManager.GetInstance().HasSelectedText(CurrentDocument);
             }
 
             return false;

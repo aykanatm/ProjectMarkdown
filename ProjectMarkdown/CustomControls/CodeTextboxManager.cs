@@ -107,6 +107,18 @@ namespace ProjectMarkdown.CustomControls
             }
         }
 
+        public bool HasSelectedText(DocumentModel document)
+        {
+            var codeTextboxHost = GetCurrentCodeTextbox(document);
+
+            if (codeTextboxHost != null)
+            {
+                return codeTextboxHost.HasSelectedText();
+            }
+
+            return false;
+        }
+
         private CodeTextboxHost GetCurrentCodeTextbox(DocumentModel document)
         {
             CodeTextboxHost codeTextbox = null;

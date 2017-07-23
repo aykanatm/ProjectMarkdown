@@ -218,5 +218,15 @@ namespace ProjectMarkdown.CustomControls
         {
             _innerTextbox.ClearUndo();
         }
+
+        public bool HasSelectedText()
+        {
+            if (!string.IsNullOrEmpty(_innerTextbox.SelectedText))
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }
