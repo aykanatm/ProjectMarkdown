@@ -699,7 +699,10 @@ namespace ProjectMarkdown.ViewModels
         {
             if (CurrentDocument != null)
             {
-                return true;
+                if(!string.IsNullOrEmpty(Clipboard.GetText()))
+                {
+                    return true;
+                }
             }
 
             return false;
