@@ -49,7 +49,7 @@
                 <Separator/>
                 <MenuItem Header="Cut" InputGestureText="Ctrl + X" Command="{Binding CutCommand}"/>
                 <MenuItem Header="Copy" InputGestureText="Ctrl + C" Command="{Binding CopyCommand}"/>
-                <MenuItem Header="Paste" InputGestureText="Ctrl + V"/>
+                <MenuItem Header="Paste" InputGestureText="Ctrl + V" Command="{Binding PasteCommand}"/>
                 <MenuItem Header="Delete" InputGestureText="DEL"/>
                 <MenuItem Header="Select All" InputGestureText="Ctrl + A"/>
             </MenuItem>
