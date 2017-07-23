@@ -51,7 +51,7 @@
                 <MenuItem Header="Copy" InputGestureText="Ctrl + C" Command="{Binding CopyCommand}"/>
                 <MenuItem Header="Paste" InputGestureText="Ctrl + V" Command="{Binding PasteCommand}"/>
                 <MenuItem Header="Delete" InputGestureText="Delete" Command="{Binding DeleteCommand}"/>
-                <MenuItem Header="Select All" InputGestureText="Ctrl + A"/>
+                <MenuItem Header="Select All" InputGestureText="Ctrl + A" Command="{Binding SelectAllCommand}"/>
             </MenuItem>
             <MenuItem Header="Search">
                 <MenuItem Header="Find..." InputGestureText="Ctrl + F"/>
