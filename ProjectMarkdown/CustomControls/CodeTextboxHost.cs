@@ -194,6 +194,11 @@ namespace ProjectMarkdown.CustomControls
             _innerTextbox.Cut();
         }
 
+        public void Copy()
+        {
+            _innerTextbox.Copy();
+        }
+
         public void ClearUndoRedo()
         {
             _innerTextbox.ClearUndo();
