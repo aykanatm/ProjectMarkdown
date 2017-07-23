@@ -97,6 +97,26 @@ namespace ProjectMarkdown.CustomControls
             }
         }
 
+        public void ShowFindDialog(DocumentModel document)
+        {
+            var codeTextboxHost = GetCurrentCodeTextbox(document);
+
+            if (codeTextboxHost != null)
+            {
+                codeTextboxHost.ShowFindDialog();
+            }
+        }
+
+        public void ShowReplaceDialog(DocumentModel document)
+        {
+            var codeTextboxHost = GetCurrentCodeTextbox(document);
+
+            if (codeTextboxHost != null)
+            {
+                codeTextboxHost.ShowReplaceDialog();
+            }
+        }
+
         public void ClearUndoRedo(DocumentModel document)
         {
             var codeTextboxHost = GetCurrentCodeTextbox(document);

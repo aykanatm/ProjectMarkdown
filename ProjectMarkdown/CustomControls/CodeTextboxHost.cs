@@ -214,6 +214,16 @@ namespace ProjectMarkdown.CustomControls
             _innerTextbox.SelectAll();
         }
 
+        public void ShowFindDialog()
+        {
+            _innerTextbox.ShowFindDialog();
+        }
+
+        public void ShowReplaceDialog()
+        {
+            _innerTextbox.ShowReplaceDialog();
+        }
+
         public void ClearUndoRedo()
         {
             _innerTextbox.ClearUndo();

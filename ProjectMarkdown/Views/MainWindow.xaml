@@ -54,10 +54,8 @@
                 <MenuItem Header="Select All" InputGestureText="Ctrl + A" Command="{Binding SelectAllCommand}"/>
             </MenuItem>
             <MenuItem Header="Search">
-                <MenuItem Header="Find..." InputGestureText="Ctrl + F"/>
-                <MenuItem Header="Find Next" InputGestureText="F3"/>
-                <MenuItem Header="Find Previous" InputGestureText="Shift + F3"/>
-                <MenuItem Header="Replace..." InputGestureText="Ctrl + H"/>
+                <MenuItem Header="Find..." InputGestureText="Ctrl + F" Command="{Binding FindCommmand}"/>
+                <MenuItem Header="Replace..." InputGestureText="Ctrl + H" Command="{Binding ReplaceCommand}"/>
             </MenuItem>
             <MenuItem Header="Settings">
                 <MenuItem Header="Preferences..."/>

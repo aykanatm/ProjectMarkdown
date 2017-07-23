@@ -79,6 +79,10 @@ namespace ProjectMarkdown.ViewModels
         public ICommand DeleteCommand { get; set; }
         public ICommand SelectAllCommand { get; set; }
 
+        // Search
+        public ICommand FindCommmand { get; set; }
+        public ICommand ReplaceCommand { get; set; }
+
         // Help
         public ICommand OpenAboutWindowCommand { get; set; }
 
@@ -128,6 +132,10 @@ namespace ProjectMarkdown.ViewModels
             PasteCommand = new RelayCommand(Paste, CanPaste);
             DeleteCommand = new RelayCommand(Delete, CanDelete);
             SelectAllCommand = new RelayCommand(SelectAll, CanSelectAll);
+
+            // Search
+            FindCommmand = new RelayCommand(Find, CanFind);
+            ReplaceCommand = new RelayCommand(Replace, CanReplace);
 
             // Help
             OpenAboutWindowCommand = new RelayCommand(OpenAboutWindow, CanOpenAboutWindow);
@@ -741,6 +749,37 @@ namespace ProjectMarkdown.ViewModels
         public void SelectAll(object obj)
         {
             CodeTextboxManager.GetInstance().SelectAll(CurrentDocument);
+        }
+
+        // SEARCH
+        public bool CanFind(object obj)
+        {
+            if (CurrentDocument != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public void Find(object obj)
+        {
+            CodeTextboxManager.GetInstance().ShowFindDialog(CurrentDocument);
+        }
+
+        public bool CanReplace(object obj)
+        {
+            if (CurrentDocument != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public void Replace(object obj)
+        {
+            CodeTextboxManager.GetInstance().ShowReplaceDialog(CurrentDocument);
         }
 
         // HELP
