@@ -127,10 +127,10 @@ namespace ProjectMarkdown.ViewModels
             // Edit
             UndoCommand = new RelayCommand(Undo, CanUndo);
             RedoCommand = new RelayCommand(Redo, CanRedo);
-            CutCommand = new RelayCommand(Cut, CanCut);
-            CopyCommand = new RelayCommand(Copy, CanCopy);
+            CutCommand = new RelayCommand(Cut, CanCutCopyDelete);
+            CopyCommand = new RelayCommand(Copy, CanCutCopyDelete);
             PasteCommand = new RelayCommand(Paste, CanPaste);
-            DeleteCommand = new RelayCommand(Delete, CanDelete);
+            DeleteCommand = new RelayCommand(Delete, CanCutCopyDelete);
             SelectAllCommand = new RelayCommand(SelectAll, CanSelectAll);
 
             // Search
@@ -673,7 +673,7 @@ namespace ProjectMarkdown.ViewModels
             CodeTextboxManager.GetInstance().Redo(CurrentDocument);
         }
 
-        public bool CanCut(object obj)
+        public bool CanCutCopyDelete(object obj)
         {
             if (CurrentDocument != null)
             {
@@ -688,19 +688,14 @@ namespace ProjectMarkdown.ViewModels
             CodeTextboxManager.GetInstance().Cut(CurrentDocument);
         }
 
-        public bool CanCopy(object obj)
-        {
-            if (CurrentDocument != null)
-            {
-                return CodeTextboxManager.GetInstance().HasSelectedText(CurrentDocument);
-            }
-
-            return false;
-        }
-
         public void Copy(object obj)
         {
             CodeTextboxManager.GetInstance().Copy(CurrentDocument);
+        }
+
+        public void Delete(object obj)
+        {
+            CodeTextboxManager.GetInstance().Delete(CurrentDocument);
         }
 
         public bool CanPaste(object obj)
@@ -719,21 +714,6 @@ namespace ProjectMarkdown.ViewModels
         public void Paste(object obj)
         {
             CodeTextboxManager.GetInstance().Paste(CurrentDocument);
-        }
-
-        public bool CanDelete(object obj)
-        {
-            if (CurrentDocument != null)
-            {
-                return CodeTextboxManager.GetInstance().HasSelectedText(CurrentDocument);
-            }
-
-            return false;
-        }
-
-        public void Delete(object obj)
-        {
-            CodeTextboxManager.GetInstance().Delete(CurrentDocument);
         }
 
         public bool CanSelectAll(object obj)
