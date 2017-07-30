@@ -8,7 +8,7 @@
         xmlns:wpf="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
         xmlns:customControls="clr-namespace:ProjectMarkdown.CustomControls"
         mc:Ignorable="d"
-        Title="{Binding CurrentDocument.Metadata.FilePath, Mode=OneWay}" Height="600" Width="800"
+        Title="{Binding Title, Mode=OneWay}" Height="600" Width="800"
         Name="MWindow"
         WindowStartupLocation="CenterScreen">
     <Window.DataContext>

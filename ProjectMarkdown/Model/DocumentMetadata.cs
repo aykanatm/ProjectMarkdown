@@ -62,6 +62,7 @@ namespace ProjectMarkdown.Model
         {
             FileName = fileName;
             IsNew = true;
+            Author = Environment.UserName;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

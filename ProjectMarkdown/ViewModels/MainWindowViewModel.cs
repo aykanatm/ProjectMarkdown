@@ -23,6 +23,17 @@ namespace ProjectMarkdown.ViewModels
     {
         private ObservableCollection<DocumentModel> _documents;
         private DocumentModel _currentDocument;
+        private string _title;
+
+        public string Title
+        {
+            get { return _title; }
+            set
+            {
+                _title = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ObservableCollection<DocumentModel> Documents
         {
@@ -46,6 +57,19 @@ namespace ProjectMarkdown.ViewModels
                     _currentDocument.IsOpen = true;
                     ResetDocumentsOpenState();
                     RefreshCurrentHtmlView();
+
+                    var filePath = _currentDocument.Metadata.FilePath;
+                    var author = _currentDocument.Metadata.Author;
+                    if (string.IsNullOrEmpty(author))
+                    {
+                        author = "Unknown";
+                    }
+
+                    Title = filePath + " by " + author;
+                }
+                else
+                {
+                    Title = "";
                 }
 
                 OnPropertyChanged(nameof(CurrentDocument));
