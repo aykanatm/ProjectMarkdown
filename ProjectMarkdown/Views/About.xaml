@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ProjectMarkdown.Views"
         xmlns:viewModels="clr-namespace:ProjectMarkdown.ViewModels"
         mc:Ignorable="d"
-        Height="450" Width="500"
+        Height="470" Width="500"
         WindowStartupLocation="CenterOwner"
         WindowStyle="ToolWindow"
         ResizeMode="NoResize">
@@ -56,6 +56,7 @@
                     <RowDefinition Height="25"></RowDefinition>
                     <RowDefinition Height="25"></RowDefinition>
                     <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition Height="25"></RowDefinition>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="5,0,0,0">
                     <Hyperlink NavigateUri="https://github.com/sindresorhus/github-markdown-css">GitHub Markdown CSS</Hyperlink>
@@ -64,11 +65,15 @@
                 <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="5,0,0,0">
                     <Hyperlink NavigateUri="https://github.com/aykanatm/FastColoredTextBox">Fast Colored Text Box</Hyperlink>
                 </TextBlock>
-                <TextBlock Text="Copyright (c) Pavel Torgashov (Modified by Murat Aykanat)" Grid.Row="1" Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Text="Copyright (c) Pavel Torgashov (Forked by Murat Aykanat)" Grid.Row="1" Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center"></TextBlock>
                 <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="5,0,0,0">
                     <Hyperlink NavigateUri="https://github.com/cefsharp/CefSharp">CefSharp</Hyperlink>
                 </TextBlock>
                 <TextBlock Text="Copyright © 2010-2017 The CefSharp Authors (BSD)" Grid.Row="2" Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="5,0,0,0">
+                    <Hyperlink NavigateUri="https://github.com/nancyeiceblue/Free-Spire.PDF-for-.NET">Freespire PDF</Hyperlink>
+                </TextBlock>
+                <TextBlock Text="Copyright © E-iceblue Co., Ltd." Grid.Row="3" Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center"></TextBlock>
             </Grid>
         </ScrollViewer>
     </DockPanel>
