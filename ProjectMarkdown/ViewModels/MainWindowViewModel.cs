@@ -108,6 +108,7 @@ namespace ProjectMarkdown.ViewModels
         public ICommand ReplaceCommand { get; set; }
 
         // Help
+        public ICommand OpenUserGuideCommand { get; set; }
         public ICommand OpenAboutWindowCommand { get; set; }
 
         // Events
@@ -162,7 +163,9 @@ namespace ProjectMarkdown.ViewModels
             ReplaceCommand = new RelayCommand(Replace, CanReplace);
 
             // Help
+            OpenUserGuideCommand = new RelayCommand(OpenUserGuide, CanOpenUserGuide);
             OpenAboutWindowCommand = new RelayCommand(OpenAboutWindow, CanOpenAboutWindow);
+
             // Events
             MainWindowClosingEventCommand = new RelayCommand(MainWindowClosingEvent, CanMainWindowClosingEvent);
 
@@ -787,6 +790,24 @@ namespace ProjectMarkdown.ViewModels
         }
 
         // HELP
+        public bool CanOpenUserGuide(object obj)
+        {
+            return true;
+        }
+
+        public void OpenUserGuide(object obj)
+        {
+            try
+            {
+                Process.Start(AppDomain.CurrentDomain.BaseDirectory + "Documentation\\Project Markdown User Guide.pdf");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "An error occured while opening the documentation", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+        }
+
         public bool CanOpenAboutWindow(object obj)
         {
             return true;

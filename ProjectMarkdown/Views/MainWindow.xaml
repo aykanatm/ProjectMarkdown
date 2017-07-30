@@ -66,6 +66,7 @@
             </MenuItem>
             <MenuItem Header="Window"/>
             <MenuItem Header="Help">
+                <MenuItem Header="User Guide" Command="{Binding OpenUserGuideCommand}"></MenuItem>
                 <MenuItem Header="About" Command="{Binding OpenAboutWindowCommand}"></MenuItem>
             </MenuItem>
         </Menu>
