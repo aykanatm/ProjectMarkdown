@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
-using System.Windows;
 using IOUtils;
 using LogUtils;
 using Microsoft.Win32;
