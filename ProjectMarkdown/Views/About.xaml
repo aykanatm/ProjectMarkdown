@@ -62,9 +62,9 @@
                 </TextBlock>
                 <TextBlock Text="Copyright (c) Sindre Sorhus (MIT)" Grid.Row="0" Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center"></TextBlock>
                 <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="5,0,0,0">
-                    <Hyperlink NavigateUri="https://github.com/PavelTorgashov/FastColoredTextBox">Fast Colored Text Box</Hyperlink>
+                    <Hyperlink NavigateUri="https://github.com/aykanatm/FastColoredTextBox">Fast Colored Text Box</Hyperlink>
                 </TextBlock>
-                <TextBlock Text="Copyright (c) Pavel Torgashov" Grid.Row="1" Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Text="Copyright (c) Pavel Torgashov (Modified by Murat Aykanat)" Grid.Row="1" Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center"></TextBlock>
                 <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="5,0,0,0">
                     <Hyperlink NavigateUri="https://github.com/cefsharp/CefSharp">CefSharp</Hyperlink>
                 </TextBlock>
