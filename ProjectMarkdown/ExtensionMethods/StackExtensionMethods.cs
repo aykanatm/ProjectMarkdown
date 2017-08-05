@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace ProjectMarkdown.ExtensionMethods
@@ -7,14 +8,21 @@ namespace ProjectMarkdown.ExtensionMethods
     {
         public static ObservableCollection<T> ToObservableCollection<T>(this Stack<T> input)
         {
-            var observableCollection = new ObservableCollection<T>();
-
-            while (input.Count > 0)
+            try
             {
-                observableCollection.Add(input.Pop());
-            }
+                var observableCollection = new ObservableCollection<T>();
 
-            return observableCollection;
+                while (input.Count > 0)
+                {
+                    observableCollection.Add(input.Pop());
+                }
+
+                return observableCollection;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

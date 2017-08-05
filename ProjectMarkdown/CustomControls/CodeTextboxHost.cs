@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Forms.Integration;
 using FastColoredTextBoxNS;
+using LogUtils;
 using ProjectMarkdown.ExtensionMethods;
 
 namespace ProjectMarkdown.CustomControls
@@ -122,121 +123,255 @@ namespace ProjectMarkdown.CustomControls
 
         public CodeTextboxHost()
         {
-            Child = _innerTextbox;
-            _innerTextbox.Language = FastColoredTextBoxNS.Language.Custom;
-            _innerTextbox.DescriptionFile = AppDomain.CurrentDomain.BaseDirectory + "SyntaxConfig\\MarkdownSyntaxHighlighting.xml";
-            _innerTextbox.HighlightingRangeType = HighlightingRangeType.AllTextRange;
-            _innerTextbox.TextChanged += _innerTextbox_TextChanged;
+            Logger.GetInstance().Debug("CodeTextboxHost() >>");
+            try
+            {
+                Child = _innerTextbox;
+                _innerTextbox.Language = FastColoredTextBoxNS.Language.Custom;
+                _innerTextbox.DescriptionFile = AppDomain.CurrentDomain.BaseDirectory + "SyntaxConfig\\MarkdownSyntaxHighlighting.xml";
+                _innerTextbox.HighlightingRangeType = HighlightingRangeType.AllTextRange;
+                _innerTextbox.TextChanged += _innerTextbox_TextChanged;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            Logger.GetInstance().Debug("<< CodeTextboxHost()");
         }
 
         private void _innerTextbox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Text = _innerTextbox.Text;
-            
-            if (_oldFilePath != _newFilePath)
+            try
             {
-                // If _oldFilePath is null, it means we opened a new document for the first time
-                // When a new document is open there is no need for us to look for the empty string and the document loaded cases
-                if (_oldFilePath != null)
+                Text = _innerTextbox.Text;
+
+                if (_oldFilePath != _newFilePath)
                 {
-                    _textBoxLoadedWithEmptyString = true;
-                    _textBoxLoadedWithNewDocumentText = true;
-                }
-                else
-                {
-                    _textBoxLoadedWithEmptyString = false;
-                    _textBoxLoadedWithNewDocumentText = false;
-                }
-                
-                _innerTextbox.ClearUndo();
-                _oldFilePath = _newFilePath;
-            }
-            else
-            {
-                if (!_textBoxLoadedWithEmptyString && !_textBoxLoadedWithNewDocumentText)
-                {
-                    History = _innerTextbox.TextSource.Manager.History.ToOveObservableCollection();
-                    RedoStack = _innerTextbox.TextSource.Manager.RedoStack.ToObservableCollection();
-                }
-                else
-                {
-                    if (!_textBoxLoadedWithEmptyString)
+                    // If _oldFilePath is null, it means we opened a new document for the first time
+                    // When a new document is open there is no need for us to look for the empty string and the document loaded cases
+                    if (_oldFilePath != null)
                     {
-                        _textBoxLoadedWithNewDocumentText = false;
+                        _textBoxLoadedWithEmptyString = true;
+                        _textBoxLoadedWithNewDocumentText = true;
                     }
                     else
                     {
                         _textBoxLoadedWithEmptyString = false;
+                        _textBoxLoadedWithNewDocumentText = false;
                     }
+
                     _innerTextbox.ClearUndo();
+                    _oldFilePath = _newFilePath;
                 }
+                else
+                {
+                    if (!_textBoxLoadedWithEmptyString && !_textBoxLoadedWithNewDocumentText)
+                    {
+                        History = _innerTextbox.TextSource.Manager.History.ToOveObservableCollection();
+                        RedoStack = _innerTextbox.TextSource.Manager.RedoStack.ToObservableCollection();
+                    }
+                    else
+                    {
+                        if (!_textBoxLoadedWithEmptyString)
+                        {
+                            _textBoxLoadedWithNewDocumentText = false;
+                        }
+                        else
+                        {
+                            _textBoxLoadedWithEmptyString = false;
+                        }
+                        _innerTextbox.ClearUndo();
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                throw exception;
             }
         }
 
         public void Undo()
         {
-            if (_innerTextbox.UndoEnabled)
+            Logger.GetInstance().Debug("Undo() >>");
+
+            try
             {
-                _innerTextbox.Undo();
+                if (_innerTextbox.UndoEnabled)
+                {
+                    _innerTextbox.Undo();
+                }
             }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            
+            Logger.GetInstance().Debug("<< Undo()");
         }
 
         public void Redo()
         {
-            if (_innerTextbox.RedoEnabled)
+            Logger.GetInstance().Debug("Redo() >>");
+
+            try
             {
-                _innerTextbox.Redo();
+                if (_innerTextbox.RedoEnabled)
+                {
+                    _innerTextbox.Redo();
+                }
             }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            
+            Logger.GetInstance().Debug("<< Redo()");
         }
 
         public void Cut()
         {
-            _innerTextbox.Cut();
+            Logger.GetInstance().Debug("Cut() >>");
+
+            try
+            {
+                _innerTextbox.Cut();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            
+            Logger.GetInstance().Debug("<< Cut()");
         }
 
         public void Copy()
         {
-            _innerTextbox.Copy();
+            Logger.GetInstance().Debug("Copy() >>");
+
+            try
+            {
+                _innerTextbox.Copy();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            
+            Logger.GetInstance().Debug("<< Copy()");
         }
 
         public void Paste()
         {
-            _innerTextbox.Paste();
+            Logger.GetInstance().Debug("Paste() >>");
+
+            try
+            {
+                _innerTextbox.Paste();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            
+            Logger.GetInstance().Debug("<< Paste()");
         }
 
         public void Delete()
         {
-            _innerTextbox.ClearSelected();
+            Logger.GetInstance().Debug("Delete() >>");
+
+            try
+            {
+                _innerTextbox.ClearSelected();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            
+            Logger.GetInstance().Debug("<< Delete()");
         }
 
         public void SelectAll()
         {
-            _innerTextbox.SelectAll();
+            Logger.GetInstance().Debug("SelectAll() >>");
+
+            try
+            {
+                _innerTextbox.SelectAll();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            
+            Logger.GetInstance().Debug("<< SelectAll()");
         }
 
         public void ShowFindDialog()
         {
-            _innerTextbox.ShowFindDialog();
+            Logger.GetInstance().Debug("ShowFindDialog() >>");
+
+            try
+            {
+                _innerTextbox.ShowFindDialog();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            
+            Logger.GetInstance().Debug("<< ShowFindDialog()");
         }
 
         public void ShowReplaceDialog()
         {
-            _innerTextbox.ShowReplaceDialog();
+            Logger.GetInstance().Debug("ShowReplaceDialog() >>");
+
+            try
+            {
+                _innerTextbox.ShowReplaceDialog();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            
+            Logger.GetInstance().Debug("<< ShowReplaceDialog()");
         }
 
         public void ClearUndoRedo()
         {
-            _innerTextbox.ClearUndo();
+            Logger.GetInstance().Debug("ClearUndoRedo() >>");
+
+            try
+            {
+                _innerTextbox.ClearUndo();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            
+            Logger.GetInstance().Debug("<< ClearUndoRedo()");
         }
 
         public bool HasSelectedText()
         {
-            if (!string.IsNullOrEmpty(_innerTextbox.SelectedText))
+            try
             {
-                return true;
-            }
+                if (!string.IsNullOrEmpty(_innerTextbox.SelectedText))
+                {
+                    return true;
+                }
 
-            return false;
+                return false;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

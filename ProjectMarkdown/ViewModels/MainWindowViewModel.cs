@@ -682,7 +682,19 @@ namespace ProjectMarkdown.ViewModels
 
         public void Undo(object obj)
         {
-            CodeTextboxManager.GetInstance().Undo(CurrentDocument);
+            Logger.GetInstance().Debug("Undo() >>");
+
+            try
+            {
+                CodeTextboxManager.GetInstance().Undo(CurrentDocument);
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured during undo operation", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            Logger.GetInstance().Debug("<< Undo()");
         }
 
         public bool CanRedo(object obj)
@@ -697,7 +709,19 @@ namespace ProjectMarkdown.ViewModels
 
         public void Redo(object obj)
         {
-            CodeTextboxManager.GetInstance().Redo(CurrentDocument);
+            Logger.GetInstance().Debug("Redo() >>");
+
+            try
+            {
+                CodeTextboxManager.GetInstance().Redo(CurrentDocument);
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured during redo operation", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            Logger.GetInstance().Debug("<< Redo()");
         }
 
         public bool CanCutCopyDelete(object obj)
@@ -712,17 +736,54 @@ namespace ProjectMarkdown.ViewModels
 
         public void Cut(object obj)
         {
-            CodeTextboxManager.GetInstance().Cut(CurrentDocument);
+            Logger.GetInstance().Debug("Cut() >>");
+
+            try
+            {
+                CodeTextboxManager.GetInstance().Cut(CurrentDocument);
+            }
+            catch (Exception e)
+            {
+
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured during cut operation", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
+            Logger.GetInstance().Debug("<< Cut()");
         }
 
         public void Copy(object obj)
         {
-            CodeTextboxManager.GetInstance().Copy(CurrentDocument);
+            Logger.GetInstance().Debug("Copy() >>");
+
+            try
+            {
+                CodeTextboxManager.GetInstance().Copy(CurrentDocument);
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured during copy operation", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
+            Logger.GetInstance().Debug("<< Copy()");
         }
 
         public void Delete(object obj)
         {
-            CodeTextboxManager.GetInstance().Delete(CurrentDocument);
+            Logger.GetInstance().Debug("Delete() >>");
+
+            try
+            {
+                CodeTextboxManager.GetInstance().Delete(CurrentDocument);
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured during delete operation", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
+            Logger.GetInstance().Debug("<< Delete()");
         }
 
         public bool CanPaste(object obj)
@@ -740,7 +801,19 @@ namespace ProjectMarkdown.ViewModels
 
         public void Paste(object obj)
         {
-            CodeTextboxManager.GetInstance().Paste(CurrentDocument);
+            Logger.GetInstance().Debug("Paste() >>");
+
+            try
+            {
+                CodeTextboxManager.GetInstance().Paste(CurrentDocument);
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured during paste operation", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
+            Logger.GetInstance().Debug("<< Paste()");
         }
 
         public bool CanSelectAll(object obj)
@@ -755,7 +828,19 @@ namespace ProjectMarkdown.ViewModels
 
         public void SelectAll(object obj)
         {
-            CodeTextboxManager.GetInstance().SelectAll(CurrentDocument);
+            Logger.GetInstance().Debug("SelectAll() >>");
+
+            try
+            {
+                CodeTextboxManager.GetInstance().SelectAll(CurrentDocument);
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured during select all operation", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
+            Logger.GetInstance().Debug("<< SelectAll()");
         }
 
         // SEARCH
@@ -771,7 +856,19 @@ namespace ProjectMarkdown.ViewModels
 
         public void Find(object obj)
         {
-            CodeTextboxManager.GetInstance().ShowFindDialog(CurrentDocument);
+            Logger.GetInstance().Debug("Find() >>");
+
+            try
+            {
+                CodeTextboxManager.GetInstance().ShowFindDialog(CurrentDocument);
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while opening find window", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
+            Logger.GetInstance().Debug("<< Find()");
         }
 
         public bool CanReplace(object obj)
@@ -786,7 +883,19 @@ namespace ProjectMarkdown.ViewModels
 
         public void Replace(object obj)
         {
-            CodeTextboxManager.GetInstance().ShowReplaceDialog(CurrentDocument);
+            Logger.GetInstance().Debug("Replace() >>");
+
+            try
+            {
+                CodeTextboxManager.GetInstance().ShowReplaceDialog(CurrentDocument);
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while opening replace window", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
+            Logger.GetInstance().Debug("<< Replace()");
         }
 
         // HELP
@@ -797,15 +906,19 @@ namespace ProjectMarkdown.ViewModels
 
         public void OpenUserGuide(object obj)
         {
+            Logger.GetInstance().Debug("OpenUserGuide() >>");
+
             try
             {
                 Process.Start(AppDomain.CurrentDomain.BaseDirectory + "Documentation\\Project Markdown User Guide.pdf");
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message, "An error occured while opening the documentation", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while opening the documentation", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
+            Logger.GetInstance().Debug("<< OpenUserGuide()");
         }
 
         public bool CanOpenAboutWindow(object obj)
@@ -815,8 +928,19 @@ namespace ProjectMarkdown.ViewModels
 
         public void OpenAboutWindow(object obj)
         {
-            var windowFactory = new ProductionWindowFactory();
-            windowFactory.CreateWindow(ProductionWindowFactory.WindowTypes.About);
+            Logger.GetInstance().Debug("OpenAboutWindow() >>");
+            try
+            {
+                var windowFactory = new ProductionWindowFactory();
+                windowFactory.CreateWindow(ProductionWindowFactory.WindowTypes.About);
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while opening the about window", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
+            Logger.GetInstance().Debug("<< OpenAboutWindow()");
         }
 
         // EVENTS

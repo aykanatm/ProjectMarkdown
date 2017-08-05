@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
+using LogUtils;
 using ProjectMarkdown.Model;
 using WPFUtils.ExtensionMethods;
 
@@ -13,156 +15,286 @@ namespace ProjectMarkdown.CustomControls
 
         public static CodeTextboxManager GetInstance()
         {
-            if (_codeTextboxManager == null)
+            try
             {
-                lock (LockObject)
+                if (_codeTextboxManager == null)
                 {
-                    if (_codeTextboxManager == null)
+                    lock (LockObject)
                     {
-                        _codeTextboxManager = new CodeTextboxManager();
+                        if (_codeTextboxManager == null)
+                        {
+                            _codeTextboxManager = new CodeTextboxManager();
+                        }
                     }
                 }
+                
+                return _codeTextboxManager;
             }
-
-            return _codeTextboxManager;
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public void Undo(DocumentModel document)
         {
-            var codeTextboxHost = GetCurrentCodeTextbox(document);
+            Logger.GetInstance().Debug("Undo() >>");
 
-            if (codeTextboxHost != null)
+            try
             {
-                codeTextboxHost.Undo();
+                var codeTextboxHost = GetCurrentCodeTextbox(document);
+
+                if (codeTextboxHost != null)
+                {
+                    codeTextboxHost.Undo();
+                }
             }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            
+            Logger.GetInstance().Debug("Undo() >>");
         }
 
         public void Redo(DocumentModel document)
         {
-            var codeTextboxHost = GetCurrentCodeTextbox(document);
+            Logger.GetInstance().Debug("Redo() >>");
 
-            if (codeTextboxHost != null)
+            try
             {
-                codeTextboxHost.Redo();
+                var codeTextboxHost = GetCurrentCodeTextbox(document);
+
+                if (codeTextboxHost != null)
+                {
+                    codeTextboxHost.Redo();
+                }
             }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            
+            Logger.GetInstance().Debug("<< Redo()");
         }
 
         public void Cut(DocumentModel document)
         {
-            var codeTextboxHost = GetCurrentCodeTextbox(document);
+            Logger.GetInstance().Debug("Cut() >>");
 
-            if (codeTextboxHost != null)
+            try
             {
-                codeTextboxHost.Cut();
+                var codeTextboxHost = GetCurrentCodeTextbox(document);
+
+                if (codeTextboxHost != null)
+                {
+                    codeTextboxHost.Cut();
+                }
             }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            
+            Logger.GetInstance().Debug("<< Cut()");
         }
 
         public void Copy(DocumentModel document)
         {
-            var codeTextboxHost = GetCurrentCodeTextbox(document);
+            Logger.GetInstance().Debug("Copy() >>");
 
-            if (codeTextboxHost != null)
+            try
             {
-                codeTextboxHost.Copy();
+                var codeTextboxHost = GetCurrentCodeTextbox(document);
+
+                if (codeTextboxHost != null)
+                {
+                    codeTextboxHost.Copy();
+                }
             }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            Logger.GetInstance().Debug("<< Copy()");
         }
 
         public void Paste(DocumentModel document)
         {
-            var codeTextboxHost = GetCurrentCodeTextbox(document);
+            Logger.GetInstance().Debug("Paste() >>");
 
-            if (codeTextboxHost != null)
+            try
             {
-                codeTextboxHost.Paste();
+                var codeTextboxHost = GetCurrentCodeTextbox(document);
+
+                if (codeTextboxHost != null)
+                {
+                    codeTextboxHost.Paste();
+                }
             }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            
+            Logger.GetInstance().Debug("Paste() >>");
         }
 
         public void Delete(DocumentModel document)
         {
-            var codeTextboxHost = GetCurrentCodeTextbox(document);
+            Logger.GetInstance().Debug("Delete() >>");
 
-            if (codeTextboxHost != null)
+            try
             {
-                codeTextboxHost.Delete();
+                var codeTextboxHost = GetCurrentCodeTextbox(document);
+
+                if (codeTextboxHost != null)
+                {
+                    codeTextboxHost.Delete();
+                }
             }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            Logger.GetInstance().Debug("Delete() >>");
         }
 
         public void SelectAll(DocumentModel document)
         {
-            var codeTextboxHost = GetCurrentCodeTextbox(document);
+            Logger.GetInstance().Debug("SelectAll() >>");
 
-            if (codeTextboxHost != null)
+            try
             {
-                codeTextboxHost.SelectAll();
+                var codeTextboxHost = GetCurrentCodeTextbox(document);
+
+                if (codeTextboxHost != null)
+                {
+                    codeTextboxHost.SelectAll();
+                }
             }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            
+            Logger.GetInstance().Debug("<< SelectAll()");
         }
 
         public void ShowFindDialog(DocumentModel document)
         {
-            var codeTextboxHost = GetCurrentCodeTextbox(document);
+            Logger.GetInstance().Debug("ShowFindDialog() >>");
 
-            if (codeTextboxHost != null)
+            try
             {
-                codeTextboxHost.ShowFindDialog();
+                var codeTextboxHost = GetCurrentCodeTextbox(document);
+
+                if (codeTextboxHost != null)
+                {
+                    codeTextboxHost.ShowFindDialog();
+                }
             }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            Logger.GetInstance().Debug("<< ShowFindDialog()");
         }
 
         public void ShowReplaceDialog(DocumentModel document)
         {
-            var codeTextboxHost = GetCurrentCodeTextbox(document);
+            Logger.GetInstance().Debug("ShowReplaceDialog() >>");
 
-            if (codeTextboxHost != null)
+            try
             {
-                codeTextboxHost.ShowReplaceDialog();
+                var codeTextboxHost = GetCurrentCodeTextbox(document);
+
+                if (codeTextboxHost != null)
+                {
+                    codeTextboxHost.ShowReplaceDialog();
+                }
             }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            
+            Logger.GetInstance().Debug("<< ShowReplaceDialog()");
         }
 
         public void ClearUndoRedo(DocumentModel document)
         {
-            var codeTextboxHost = GetCurrentCodeTextbox(document);
+            Logger.GetInstance().Debug("ClearUndoRedo() >>");
 
-            if (codeTextboxHost != null)
+            try
             {
-                codeTextboxHost.ClearUndoRedo();
+                var codeTextboxHost = GetCurrentCodeTextbox(document);
+
+                if (codeTextboxHost != null)
+                {
+                    codeTextboxHost.ClearUndoRedo();
+                }
             }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            
+            Logger.GetInstance().Debug("<< ClearUndoRedo()");
         }
 
         public bool HasSelectedText(DocumentModel document)
         {
-            var codeTextboxHost = GetCurrentCodeTextbox(document);
-
-            if (codeTextboxHost != null)
+            try
             {
-                return codeTextboxHost.HasSelectedText();
-            }
+                var codeTextboxHost = GetCurrentCodeTextbox(document);
 
-            return false;
+                if (codeTextboxHost != null)
+                {
+                    return codeTextboxHost.HasSelectedText();
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         private CodeTextboxHost GetCurrentCodeTextbox(DocumentModel document)
         {
-            CodeTextboxHost codeTextbox = null;
-
-            var tabControl = (TabControl)Application.Current.MainWindow.FindName("TabDocuments");
-
-            if (tabControl != null)
+            try
             {
-                var contentPresenters = tabControl.GetVisualChildren<ContentPresenter>();
+                CodeTextboxHost codeTextbox = null;
 
-                foreach (var contentPresenter in contentPresenters)
+                var tabControl = (TabControl)Application.Current.MainWindow.FindName("TabDocuments");
+
+                if (tabControl != null)
                 {
-                    var parent = contentPresenter.TemplatedParent;
-                    if (parent.Equals(tabControl))
+                    var contentPresenters = tabControl.GetVisualChildren<ContentPresenter>();
+
+                    foreach (var contentPresenter in contentPresenters)
                     {
-                        if (tabControl.SelectedItem == document)
+                        var parent = contentPresenter.TemplatedParent;
+                        if (parent.Equals(tabControl))
                         {
-                            codeTextbox = (CodeTextboxHost)tabControl.ContentTemplate.FindName("CodeTextboxHost", contentPresenter);
+                            if (tabControl.SelectedItem == document)
+                            {
+                                codeTextbox = (CodeTextboxHost)tabControl.ContentTemplate.FindName("CodeTextboxHost", contentPresenter);
+                            }
                         }
                     }
                 }
-            }
 
-            return codeTextbox;
+                return codeTextbox;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         private CodeTextboxManager() { }

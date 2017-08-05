@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using FastColoredTextBoxNS;
 
 namespace ProjectMarkdown.ExtensionMethods
@@ -7,14 +8,21 @@ namespace ProjectMarkdown.ExtensionMethods
     {
         public static ObservableCollection<T> ToOveObservableCollection<T>(this LimitedStack<T> input) where T : class
         {
-            var observableCollection = new ObservableCollection<T>();
-
-            while (input.Count > 0)
+            try
             {
-                observableCollection.Add(input.Pop());
+                var observableCollection = new ObservableCollection<T>();
+
+                while (input.Count > 0)
+                {
+                    observableCollection.Add(input.Pop());
+                }
+
+                return observableCollection;
             }
-            
-            return observableCollection;
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

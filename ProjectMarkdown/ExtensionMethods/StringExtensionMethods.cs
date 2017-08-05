@@ -6,14 +6,21 @@ namespace ProjectMarkdown.ExtensionMethods
     {
         public static Uri ToUri(this string input)
         {
-            Uri output;
-
-            if (Uri.TryCreate(input, UriKind.RelativeOrAbsolute, out output))
+            try
             {
-                return output;
-            }
+                Uri output;
 
-            throw new Exception("Unable to create URI from input '" + input + "'");
+                if (Uri.TryCreate(input, UriKind.RelativeOrAbsolute, out output))
+                {
+                    return output;
+                }
+
+                throw new Exception("Unable to create URI from input '" + input + "'");
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }
