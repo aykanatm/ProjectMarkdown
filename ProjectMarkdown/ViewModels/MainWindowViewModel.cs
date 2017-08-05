@@ -54,8 +54,8 @@ namespace ProjectMarkdown.ViewModels
                 // if value is null, it means the last document is being closed
                 if (value != null)
                 {
-                    _currentDocument.IsOpen = true;
                     ResetDocumentsOpenState();
+                    _currentDocument.IsOpen = true;
                     RefreshCurrentHtmlView();
 
                     var filePath = _currentDocument.Metadata.FilePath;

@@ -64,8 +64,20 @@
                     <MenuItem Header="Dark"/>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="Window"/>
-            <MenuItem Header="Help">
+            <MenuItem Header="Window" ItemsSource="{Binding Documents}">
+                <MenuItem.ItemTemplate>
+                    <DataTemplate>
+                        <MenuItem Header="{Binding Metadata.FileName, Mode=OneWay}" IsCheckable="True" IsChecked="{Binding IsOpen, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding SwitchToThisDocumentCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </MenuItem>
+                    </DataTemplate>
+                </MenuItem.ItemTemplate>
+            </MenuItem>
+                <MenuItem Header="Help">
                 <MenuItem Header="User Guide" Command="{Binding OpenUserGuideCommand}"></MenuItem>
                 <MenuItem Header="About" Command="{Binding OpenAboutWindowCommand}"></MenuItem>
             </MenuItem>
