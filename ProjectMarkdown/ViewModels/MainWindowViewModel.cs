@@ -107,6 +107,9 @@ namespace ProjectMarkdown.ViewModels
         public ICommand FindCommmand { get; set; }
         public ICommand ReplaceCommand { get; set; }
 
+        // Settings
+        public ICommand OpenPreferencesWindowCommand { get; set; }
+
         // Help
         public ICommand OpenUserGuideCommand { get; set; }
         public ICommand OpenAboutWindowCommand { get; set; }
@@ -161,6 +164,9 @@ namespace ProjectMarkdown.ViewModels
             // Search
             FindCommmand = new RelayCommand(Find, CanFind);
             ReplaceCommand = new RelayCommand(Replace, CanReplace);
+
+            // Settings
+            OpenPreferencesWindowCommand = new RelayCommand(OpenPreferencesWindow, CanOpenPreferencesWindow);
 
             // Help
             OpenUserGuideCommand = new RelayCommand(OpenUserGuide, CanOpenUserGuide);
@@ -896,6 +902,29 @@ namespace ProjectMarkdown.ViewModels
             }
             
             Logger.GetInstance().Debug("<< Replace()");
+        }
+
+        // SETTINGS
+        public bool CanOpenPreferencesWindow(object obj)
+        {
+            return true;
+        }
+
+        public void OpenPreferencesWindow(object obj)
+        {
+            Logger.GetInstance().Debug("OpenPreferencesWindow() >>");
+            try
+            {
+                var windowFactory = new ProductionWindowFactory();
+                windowFactory.CreateWindow(ProductionWindowFactory.WindowTypes.Preferences);
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while opening the preferences window", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            Logger.GetInstance().Debug("<< OpenPreferencesWindow()");
         }
 
         // HELP

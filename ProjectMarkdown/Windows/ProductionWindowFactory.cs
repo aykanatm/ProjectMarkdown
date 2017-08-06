@@ -7,7 +7,7 @@ namespace ProjectMarkdown.Windows
         public enum WindowTypes
         {
             About,
-            Settings
+            Preferences
         }
 
         public void CreateWindow(WindowTypes windowType)
@@ -16,6 +16,11 @@ namespace ProjectMarkdown.Windows
             {
                 var aboutWindow = new About();
                 aboutWindow.Show();
+            }
+            else if (windowType == WindowTypes.Preferences)
+            {
+                var preferencesWindow = new Preferences();
+                preferencesWindow.Show();
             }
         }
     }

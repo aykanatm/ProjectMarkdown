@@ -58,11 +58,7 @@
                 <MenuItem Header="Replace..." InputGestureText="Ctrl + H" Command="{Binding ReplaceCommand}"/>
             </MenuItem>
             <MenuItem Header="Settings">
-                <MenuItem Header="Preferences..."/>
-                <MenuItem Header="Theme">
-                    <MenuItem Header="Default"/>
-                    <MenuItem Header="Dark"/>
-                </MenuItem>
+                <MenuItem Header="Preferences..." Command="{Binding OpenPreferencesWindowCommand}"/>
             </MenuItem>
             <MenuItem Header="Window" ItemsSource="{Binding Documents}">
                 <MenuItem.ItemTemplate>
