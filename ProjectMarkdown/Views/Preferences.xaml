@@ -26,26 +26,17 @@
             <DockPanel LastChildFill="True" Grid.Row="0" Grid.Column="0" Margin="2">
                 <GroupBox Header="Localization" DockPanel.Dock="Top">
                     <Grid Margin="5">
-                        <ComboBox ItemsSource="{Binding Languages}"/>
+                        <ComboBox ItemsSource="{Binding Languages}" SelectedItem="{Binding CurrentLanguage, Mode=TwoWay}"/>
                     </Grid>
                 </GroupBox>
                 <GroupBox Header="Toolbar" DockPanel.Dock="Top">
                     <Grid Margin="10">
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="20" MaxWidth="20" MinWidth="20"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <CheckBox Grid.Row="0" Grid.Column="0" IsChecked="{Binding IsToolbarHidden}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <CheckBox Grid.Row="0" Grid.Column="0" IsChecked="{Binding IsToolbarHidden, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <TextBlock Grid.Row="0" Grid.Column="1" Text="Hide" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <RadioButton Grid.Row="1" Grid.Column="0" IsChecked="{Binding ToolbarHasSmallIcons}" GroupName="IconSizeGroup" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Text="Small Icons" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <RadioButton Grid.Row="2" Grid.Column="0" IsChecked="{Binding ToolbarHasBigIcons}" GroupName="IconSizeGroup" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Text="Big Icons" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </Grid>
                 </GroupBox>
                 <GroupBox Header="Logging" DockPanel.Dock="Top">
@@ -60,9 +51,9 @@
                             <ColumnDefinition Width="60"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Log Level" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <ComboBox Grid.Row="0" Grid.Column="1" Margin="2" ItemsSource="{Binding CurrentLogLevel}"/>
+                        <ComboBox Grid.Row="0" Grid.Column="1" Margin="2" ItemsSource="{Binding LogLevels}" SelectedItem="{Binding CurrentLogLevel, Mode=TwoWay}"/>
                         <TextBlock Text="Log File" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <TextBox Text="{Binding LogFilePath}" Grid.Row="1" Grid.Column="1" Margin="2"/>
+                        <TextBox Text="{Binding LogFilePath, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" Margin="2"/>
                         <Button Grid.Row="1" Grid.Column="2" Command="{Binding SelectLogFileCommand}" Margin="2">
                             <TextBlock Text="Browse..." HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Button>
@@ -75,7 +66,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Author" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0"/>
-                        <TextBox Margin="2" Grid.Column="1" Text="{Binding Author}"/>
+                        <TextBox Margin="2" Grid.Column="1" Text="{Binding Author, Mode=TwoWay}"/>
                     </Grid>
                 </GroupBox>
                 <Grid>
@@ -94,17 +85,17 @@
                             <ColumnDefinition Width="20" MaxWidth="20" MinWidth="20"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <CheckBox Grid.Row="0" Grid.Column="0" IsChecked="{Binding IsTabBarLocked}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <CheckBox Grid.Row="0" Grid.Column="0" IsChecked="{Binding IsTabBarLocked, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <TextBlock Grid.Row="0" Grid.Column="1" Text="Lock" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <CheckBox Grid.Row="1" Grid.Column="0" IsChecked="{Binding IsDoubleClickToCloseDocument}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <CheckBox Grid.Row="1" Grid.Column="0" IsChecked="{Binding IsDoubleClickToCloseDocument, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <TextBlock Grid.Row="1" Grid.Column="1" Text="Double click to close document" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <CheckBox Grid.Row="2" Grid.Column="0" IsChecked="{Binding IsExitOnCloseTheLastTab}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <CheckBox Grid.Row="2" Grid.Column="0" IsChecked="{Binding IsExitOnCloseTheLastTab, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <TextBlock Grid.Row="2" Grid.Column="1" Text="Exit on close the last tab" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </Grid>
                 </GroupBox>
                 <GroupBox Header="Theme" DockPanel.Dock="Top">
                     <Grid Margin="10">
-                        <ComboBox ItemsSource="{Binding Themes}"></ComboBox>
+                        <ComboBox ItemsSource="{Binding Themes}" SelectedItem="{Binding CurrentTheme, Mode=TwoWay}"></ComboBox>
                     </Grid>
                 </GroupBox>
                 <GroupBox Header="Editor" DockPanel.Dock="Top">
@@ -122,9 +113,9 @@
                                 <ColumnDefinition Width="20" MaxWidth="20" MinWidth="20"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <CheckBox Grid.Row="0" Grid.Column="0" IsChecked="{Binding IsWordWrap}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <CheckBox Grid.Row="0" Grid.Column="0" IsChecked="{Binding IsWordWrap, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             <TextBlock Grid.Row="0" Grid.Column="1" Text="Word Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <CheckBox Grid.Row="1" Grid.Column="0" IsChecked="{Binding IsSyncTextAndHtml}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <CheckBox Grid.Row="1" Grid.Column="0" IsChecked="{Binding IsSyncTextAndHtml, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             <TextBlock Grid.Row="1" Grid.Column="1" Text="Sync text editor and HTML view in real time" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         </Grid>
                         <Grid Grid.Row="1" Margin="0,2,0,0">
@@ -137,9 +128,9 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="Font" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <ComboBox ItemsSource="{Binding Fonts}" Grid.Row="0" Grid.Column="1" Margin="2"/>
+                            <ComboBox ItemsSource="{Binding Fonts}" Grid.Row="0" Grid.Column="1" Margin="2" SelectedItem="{Binding CurrentFont, Mode=TwoWay}"/>
                             <TextBlock Text="Font Size" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <ComboBox ItemsSource="{Binding FontSizes}" Grid.Row="1" Grid.Column="1" Margin="2"/>
+                            <ComboBox ItemsSource="{Binding FontSizes}" Grid.Row="1" Grid.Column="1" Margin="2" SelectedItem="{Binding CurrentFontSize, Mode=TwoWay}"/>
                         </Grid>
                     </Grid>
                 </GroupBox>
@@ -157,7 +148,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="4" Margin="2" Command="{Binding ClosePreferenceWindowCommand}">
+            <Button Grid.Column="4" Margin="2" Command="{Binding CancelPreferenceChangesCommand}">
                 <TextBlock Text="Cancel" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Button>
             <Button Grid.Column="5" Margin="2" Command="{Binding SavePreferencesCommand}">
