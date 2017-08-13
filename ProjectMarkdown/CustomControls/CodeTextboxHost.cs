@@ -6,6 +6,7 @@ using System.Windows.Forms.Integration;
 using FastColoredTextBoxNS;
 using LogUtils;
 using ProjectMarkdown.ExtensionMethods;
+using ProjectMarkdown.Statics;
 
 namespace ProjectMarkdown.CustomControls
 {
@@ -128,7 +129,7 @@ namespace ProjectMarkdown.CustomControls
             {
                 Child = _innerTextbox;
                 _innerTextbox.Language = FastColoredTextBoxNS.Language.Custom;
-                _innerTextbox.DescriptionFile = AppDomain.CurrentDomain.BaseDirectory + "SyntaxConfig\\MarkdownSyntaxHighlighting.xml";
+                _innerTextbox.DescriptionFile = FilePaths.MarkdownSyntaxDescriptionFilePath;
                 _innerTextbox.HighlightingRangeType = HighlightingRangeType.AllTextRange;
                 _innerTextbox.TextChanged += _innerTextbox_TextChanged;
             }

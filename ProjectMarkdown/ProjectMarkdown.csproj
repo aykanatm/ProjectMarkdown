@@ -198,9 +198,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="SyntaxConfig\MarkdownSyntaxHighlighting.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <Resource Include="Images\new.png" />
     <Resource Include="Images\save.png" />
     <Resource Include="Images\copy.png" />
@@ -214,6 +211,9 @@
     <Resource Include="Images\findreplace.png" />
     <Resource Include="Images\paste.png" />
     <Resource Include="Images\print.png" />
+    <Resource Include="Configuration\MarkdownSyntaxHighlighting.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Styles\github-markdown.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
