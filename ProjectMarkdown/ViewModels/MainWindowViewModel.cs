@@ -2,12 +2,14 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
+using IOUtils;
 using LogUtils;
 using ProjectMarkdown.Annotations;
 using ProjectMarkdown.CustomControls;
@@ -25,6 +27,7 @@ namespace ProjectMarkdown.ViewModels
         private ObservableCollection<DocumentModel> _documents;
         private DocumentModel _currentDocument;
         private string _title;
+        private PreferencesModel _currentPreferences;
 
         public string Title
         {
@@ -74,6 +77,16 @@ namespace ProjectMarkdown.ViewModels
                 }
 
                 OnPropertyChanged(nameof(CurrentDocument));
+            }
+        }
+
+        public PreferencesModel CurrentPreferences
+        {
+            get { return _currentPreferences; }
+            set
+            {
+                _currentPreferences = value;
+                OnPropertyChanged();
             }
         }
 
@@ -129,6 +142,9 @@ namespace ProjectMarkdown.ViewModels
 
             GenerateFolders();
             LoadCommands();
+            LoadPreferences();
+
+            SharedEventHandler.GetInstance().OnPreferecesSaved += OnPreferecesSaved;
 
             Documents = new ObservableCollection<DocumentModel>();
 
@@ -179,6 +195,74 @@ namespace ProjectMarkdown.ViewModels
             MainWindowClosingEventCommand = new RelayCommand(MainWindowClosingEvent, CanMainWindowClosingEvent);
 
             Logger.GetInstance().Debug("<< LoadCommands()");
+        }
+
+        private void LoadPreferences()
+        {
+            Logger.GetInstance().Debug("LoadPreferences() >>");
+            try
+            {
+                var gxs = new GenericXmlSerializer<PreferencesModel>();
+
+                if (!File.Exists(FilePaths.PreferencesFilePath))
+                {
+                    var fonts = new ObservableCollection<string>();
+                    foreach (var fontFamily in FontFamily.Families)
+                    {
+                        fonts.Add(fontFamily.Name);
+                    }
+
+                    CurrentPreferences = new PreferencesModel
+                    {
+                        Author = Environment.UserName,
+                        LogLevels = new ObservableCollection<string> { "DEBUG", "INFO", "ERROR" },
+                        CurrentLogLevel = "DEBUG",
+                        LogFilePath = AppDomain.CurrentDomain.BaseDirectory + "Log\\app.log",
+                        CurrentFont = "Consolas",
+                        Fonts = fonts,
+                        CurrentFontSize = "11",
+                        FontSizes =
+                            new ObservableCollection<string> { "8", "9", "10", "11", "12", "14", "18", "24", "30", "36", "48", "60", "72" },
+                        IsDoubleClickToCloseDocument = true,
+                        IsExitOnCloseTheLastTab = false,
+                        IsSyncTextAndHtml = false,
+                        IsTabBarLocked = false,
+                        IsToolbarHidden = false,
+                        IsWordWrap = true,
+                        CurrentLanguage = "English",
+                        Languages = new ObservableCollection<string> { "English" },
+                        CurrentTheme = "Default",
+                        Themes = new ObservableCollection<string> { "Default" }
+                    };
+
+                    gxs.Serialize(CurrentPreferences, FilePaths.PreferencesFilePath);
+                }
+                else
+                {
+                    CurrentPreferences = gxs.DeSerialize(FilePaths.PreferencesFilePath);
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while retrieving preferences", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            Logger.GetInstance().Debug("<< LoadPreferences()");
+        }
+
+        private void LoadPreferences(PreferencesModel preferences)
+        {
+            Logger.GetInstance().Debug("LoadPreferences() >>");
+            CurrentPreferences = preferences;
+            Logger.GetInstance().Debug("<< LoadPreferences()");
+        }
+        
+        private void OnPreferecesSaved(PreferencesModel preferences)
+        {
+            Logger.GetInstance().Debug("OnPreferencesSaved() >>");
+            LoadPreferences(preferences);
+            Logger.GetInstance().Debug("<< OnPreferencesSaved()");
         }
 
         // FILE
@@ -1213,9 +1297,9 @@ namespace ProjectMarkdown.ViewModels
 
             try
             {
-                if (!Directory.Exists(FolderPaths.SettingsFolderPath))
+                if (!Directory.Exists(FolderPaths.PreferencesFolderPath))
                 {
-                    Directory.CreateDirectory(FolderPaths.SettingsFolderPath);
+                    Directory.CreateDirectory(FolderPaths.PreferencesFolderPath);
                 }
 
                 if (!Directory.Exists(FolderPaths.DefaultLogFolderPath))

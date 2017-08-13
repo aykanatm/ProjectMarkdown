@@ -115,10 +115,11 @@
     </ApplicationDefinition>
     <Compile Include="CustomControls\CodeTextboxManager.cs" />
     <Compile Include="ExtensionMethods\LimitedStackExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\ListExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\ObservableCollectionExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\StackExtensionMethods.cs" />
-    <Compile Include="Model\SettingsModel.cs" />
+    <Compile Include="Model\PreferencesModel.cs" />
+    <Compile Include="Services\SharedEventHandler.cs" />
+    <Compile Include="Statics\FilePaths.cs" />
     <Compile Include="Statics\FolderPaths.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\PreferencesViewModel.cs" />
