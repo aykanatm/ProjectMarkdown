@@ -150,7 +150,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0" Margin="5">
-                            <customControls:CodeTextboxHost Text="{Binding Markdown, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" History="{Binding History, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" RedoStack="{Binding RedoStack, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FilePath="{Binding Metadata.FilePath}" WordWrap="True" x:Name="CodeTextboxHost"/>
+                            <customControls:CodeTextboxHost Text="{Binding Markdown, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" History="{Binding History, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" RedoStack="{Binding RedoStack, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FilePath="{Binding Metadata.FilePath}" WordWrap="{Binding IsWordWrap, UpdateSourceTrigger=PropertyChanged}" x:Name="CodeTextboxHost"/>
                         </Border>
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" Margin="5">
                             <wpf:ChromiumWebBrowser Address="{Binding Html, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ChromiumWebBrowser"/>    

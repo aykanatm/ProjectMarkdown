@@ -235,10 +235,26 @@ namespace ProjectMarkdown.ViewModels
                     };
 
                     gxs.Serialize(CurrentPreferences, FilePaths.PreferencesFilePath);
+
+                    if (Documents != null)
+                    {
+                        foreach (var document in Documents)
+                        {
+                            document.IsWordWrap = CurrentPreferences.IsWordWrap;
+                        }
+                    }
                 }
                 else
                 {
                     CurrentPreferences = gxs.DeSerialize(FilePaths.PreferencesFilePath);
+
+                    if (Documents != null)
+                    {
+                        foreach (var document in Documents)
+                        {
+                            document.IsWordWrap = CurrentPreferences.IsWordWrap;
+                        }
+                    }
                 }
             }
             catch (Exception e)
@@ -254,6 +270,15 @@ namespace ProjectMarkdown.ViewModels
         {
             Logger.GetInstance().Debug("LoadPreferences() >>");
             CurrentPreferences = preferences;
+
+            if (Documents != null)
+            {
+                foreach (var document in Documents)
+                {
+                    document.IsWordWrap = CurrentPreferences.IsWordWrap;
+                }
+            }
+
             Logger.GetInstance().Debug("<< LoadPreferences()");
         }
         
@@ -294,6 +319,7 @@ namespace ProjectMarkdown.ViewModels
                 ResetDocumentsOpenState();
                 CurrentDocument.IsOpen = true;
                 CurrentDocument.IsSaved = false;
+                CurrentDocument.IsWordWrap = CurrentPreferences.IsWordWrap;
             }
             catch (Exception e)
             {
@@ -445,6 +471,7 @@ namespace ProjectMarkdown.ViewModels
                         CurrentDocument.IsOpen = true;
                         CurrentDocument.IsOpenedFromMenu = true;
                         CurrentDocument.IsSaved = true;
+                        CurrentDocument.IsWordWrap = CurrentPreferences.IsWordWrap;
                     }
                 }
             }

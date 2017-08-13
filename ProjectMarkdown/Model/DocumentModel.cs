@@ -14,6 +14,16 @@ namespace ProjectMarkdown.Model
     {
         public bool IsOpenedFromMenu { get; set; }
 
+        public bool IsWordWrap
+        {
+            get { return _isWordWrap; }
+            set
+            {
+                _isWordWrap = value;
+                OnPropertyChanged();
+            }
+        }
+
         public bool IsSaved
         {
             get { return _isSaved; }
@@ -109,6 +119,7 @@ namespace ProjectMarkdown.Model
         public ICommand SwitchToThisDocumentCommand { get; set; }
 
         private readonly MainWindowViewModel _mainWindowViewModel;
+        private bool _isWordWrap;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
