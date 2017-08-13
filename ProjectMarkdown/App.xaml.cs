@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows;
-// using Awesomium.Core;
+using IOUtils;
+using LogUtils;
+using ProjectMarkdown.Model;
+using ProjectMarkdown.Statics;
 
 namespace ProjectMarkdown
 {
@@ -14,6 +13,63 @@ namespace ProjectMarkdown
     /// </summary>
     public partial class App : Application
     {
-        
+        public App()
+        {
+            InitializeLogger();
+            GenerateFolders();
+        }
+
+        private static void InitializeLogger()
+        {
+            try
+            {
+                if (File.Exists(FilePaths.PreferencesFilePath))
+                {
+                    var gxs = new GenericXmlSerializer<PreferencesModel>();
+                    var preferences = gxs.DeSerialize(FilePaths.PreferencesFilePath);
+                    var logLevel = preferences.CurrentLogLevel;
+                    if (logLevel == "DEBUG")
+                    {
+                        Logger.Initialize(preferences.LogFilePath, Logger.LogLevels.Debug);
+                    }
+                    else if (logLevel == "INFO")
+                    {
+                        Logger.Initialize(preferences.LogFilePath, Logger.LogLevels.Info);
+                    }
+                    else if (logLevel == "ERROR")
+                    {
+                        Logger.Initialize(preferences.LogFilePath, Logger.LogLevels.Error);
+                    }
+                }
+                else
+                {
+                    Logger.Initialize(FilePaths.DefaultLogFilePath, Logger.LogLevels.Info);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "An error occured while initializing the logger", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private static void GenerateFolders()
+        {
+            try
+            {
+                if (!Directory.Exists(FolderPaths.PreferencesFolderPath))
+                {
+                    Directory.CreateDirectory(FolderPaths.PreferencesFolderPath);
+                }
+
+                if (!Directory.Exists(FolderPaths.DefaultLogFolderPath))
+                {
+                    Directory.CreateDirectory(FolderPaths.DefaultLogFolderPath);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Unable to generate application folders", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }

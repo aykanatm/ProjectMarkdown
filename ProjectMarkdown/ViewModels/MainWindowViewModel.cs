@@ -139,8 +139,7 @@ namespace ProjectMarkdown.ViewModels
             {
                 return;
             }
-
-            GenerateFolders();
+            
             LoadCommands();
             LoadPreferences();
 
@@ -1289,30 +1288,6 @@ namespace ProjectMarkdown.ViewModels
             }
 
             Logger.GetInstance().Debug("<< ResetDocumentsOpenState()");
-        }
-
-        private void GenerateFolders()
-        {
-            Logger.GetInstance().Debug("GenerateFolders() >>");
-
-            try
-            {
-                if (!Directory.Exists(FolderPaths.PreferencesFolderPath))
-                {
-                    Directory.CreateDirectory(FolderPaths.PreferencesFolderPath);
-                }
-
-                if (!Directory.Exists(FolderPaths.DefaultLogFolderPath))
-                {
-                    Directory.CreateDirectory(FolderPaths.DefaultLogFolderPath);
-                }
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Unable to generate application folders. " + e.Message);
-            }
-
-            Logger.GetInstance().Debug("<< GenerateFolders()");
         }
 
         [NotifyPropertyChangedInvocator]

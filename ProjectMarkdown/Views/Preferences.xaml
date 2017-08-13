@@ -152,7 +152,7 @@
             <Button Grid.Column="4" Margin="2" Command="{Binding CancelPreferenceChangesCommand}" CommandParameter="{Binding ElementName=PreferencesWindow}">
                 <TextBlock Text="Cancel" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Button>
-            <Button Grid.Column="5" Margin="2" Command="{Binding SavePreferencesCommand}">
+            <Button Grid.Column="5" Margin="2" Command="{Binding SavePreferencesCommand}" CommandParameter="{Binding ElementName=PreferencesWindow}">
                 <TextBlock Text="Apply" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Button>
         </Grid>

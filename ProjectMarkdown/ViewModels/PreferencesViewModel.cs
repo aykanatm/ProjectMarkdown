@@ -6,11 +6,11 @@ using System.Windows;
 using System.Windows.Input;
 using IOUtils;
 using LogUtils;
+using Microsoft.Win32;
 using ProjectMarkdown.Annotations;
 using ProjectMarkdown.Model;
 using ProjectMarkdown.Services;
 using ProjectMarkdown.Statics;
-using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace ProjectMarkdown.ViewModels
 {
@@ -78,16 +78,17 @@ namespace ProjectMarkdown.ViewModels
 
             try
             {
-                var openFileDialog = new OpenFileDialog();
-                openFileDialog.Title = "Select a LOG file";
-                openFileDialog.Filter = "LOG file | *.log";
-                var result = openFileDialog.ShowDialog();
+                var saveFileDialog = new SaveFileDialog();
+                saveFileDialog.CreatePrompt = true;
+                saveFileDialog.Title = "Select a LOG file";
+                saveFileDialog.Filter = "LOG file | *.log";
+                var result = saveFileDialog.ShowDialog();
 
                 if (result != null)
                 {
                     if (result == true)
                     {
-                        CurrentPreferences.LogFilePath = openFileDialog.FileName;
+                        CurrentPreferences.LogFilePath = saveFileDialog.FileName;
                     }
                 }
             }
@@ -134,7 +135,22 @@ namespace ProjectMarkdown.ViewModels
         {
             Logger.GetInstance().Debug("SavePreferences() >>");
 
-            SharedEventHandler.GetInstance().RaiseOnPreferencesSaved(CurrentPreferences);
+            try
+            {
+                var gxs = new GenericXmlSerializer<PreferencesModel>();
+
+                gxs.Serialize(CurrentPreferences, FilePaths.PreferencesFilePath);
+
+                SharedEventHandler.GetInstance().RaiseOnPreferencesSaved(CurrentPreferences);
+
+                var window = (Window)obj;
+                window.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "An error occured while saving preferences", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
 
             Logger.GetInstance().Debug("<< SavePreferences()");
         }
