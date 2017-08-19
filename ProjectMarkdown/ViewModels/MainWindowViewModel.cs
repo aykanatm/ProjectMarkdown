@@ -321,6 +321,7 @@ namespace ProjectMarkdown.ViewModels
                 CurrentDocument.IsOpen = true;
                 CurrentDocument.IsSaved = false;
                 CurrentDocument.IsWordWrap = CurrentPreferences.IsWordWrap;
+                CurrentDocument.Metadata.Author = CurrentPreferences.Author;
             }
             catch (Exception e)
             {
