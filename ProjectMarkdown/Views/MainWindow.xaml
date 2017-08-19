@@ -78,7 +78,7 @@
                 <MenuItem Header="About" Command="{Binding OpenAboutWindowCommand}"></MenuItem>
             </MenuItem>
         </Menu>
-        <ToolBarTray DockPanel.Dock="Top" Height="30">
+        <ToolBarTray DockPanel.Dock="Top" Height="{Binding CurrentPreferences.IsToolbarHidden, Converter={StaticResource ToolbarVisibilityConverter}}">
             <ToolBar>
                 <Button Name="BtnNewDocument">
                     <Image Source="../Images/new.png" Height="24" Width="24"></Image>
