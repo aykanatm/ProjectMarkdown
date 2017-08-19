@@ -126,7 +126,7 @@
             </ToolBar>
         </ToolBarTray>
         <StatusBar DockPanel.Dock="Bottom" VerticalAlignment="Bottom" Height="30"/>
-        <dragablz:TabablzControl TabStripPlacement="Top" Margin="5" ItemsSource="{Binding Documents}" SelectedItem="{Binding CurrentDocument, Mode=TwoWay}" x:Name="TabDocuments">
+        <dragablz:TabablzControl TabStripPlacement="Top" Margin="5" ItemsSource="{Binding Documents}" SelectedItem="{Binding CurrentDocument, Mode=TwoWay}" x:Name="TabDocuments" FixedHeaderCount="{Binding CurrentPreferences.IsTabBarLocked, Converter={StaticResource LockTabBarConverter}}">
             <dragablz:TabablzControl.HeaderItemTemplate>
                 <DataTemplate>
                     <Grid>

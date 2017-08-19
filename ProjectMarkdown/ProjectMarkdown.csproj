@@ -116,6 +116,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\LockTabBarConverter.cs" />
     <Compile Include="Converters\ToolbarVisibilityConverter.cs" />
     <Compile Include="CustomControls\CodeTextboxManager.cs" />
     <Compile Include="ExtensionMethods\LimitedStackExtensionMethods.cs" />

@@ -6,6 +6,7 @@
     <Application.Resources>
         <converters:VisibilityConverter x:Key="VisibilityConverter"/>
         <converters:ToolbarVisibilityConverter x:Key="ToolbarVisibilityConverter"/>
+        <converters:LockTabBarConverter x:Key="LockTabBarConverter"/>
 
         <Style TargetType="{x:Type Thumb}" x:Key="InvisibleThumbStyle">
             <Setter Property="Background" Value="Transparent" />
