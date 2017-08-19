@@ -116,6 +116,7 @@ namespace ProjectMarkdown.Model
         private ObservableCollection<UndoableCommand> _redoStack;
 
         public ICommand CloseDocumentButtonCommand { get; set; }
+        public ICommand CloseDocumentOnDoubleClickCommand { get; set; }
         public ICommand SwitchToThisDocumentCommand { get; set; }
 
         private readonly MainWindowViewModel _mainWindowViewModel;
@@ -139,11 +140,16 @@ namespace ProjectMarkdown.Model
         {
             CloseDocumentButtonCommand = new RelayCommand(CloseDocumentButton, CanCloseDocumentButton);
             SwitchToThisDocumentCommand = new RelayCommand(SwitchToThisDocument, CanSwitchToThisDocument);
+            CloseDocumentOnDoubleClickCommand = new RelayCommand(CloseDocumentButton, CanCloseDocumentOnDoubleClick);
         }
 
         public bool CanSwitchToThisDocument(object obj)
         {
-            return true;
+            if (_mainWindowViewModel.CurrentPreferences.IsDoubleClickToCloseDocument)
+            {
+                return true;
+            }
+            return false;
         }
 
         public void SwitchToThisDocument(object obj)
@@ -156,6 +162,11 @@ namespace ProjectMarkdown.Model
             {
                 MessageBox.Show(e.Message, "An error occured while switching to '" + _metadata.FilePath + "'", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        public bool CanCloseDocumentOnDoubleClick(object obj)
+        {
+            return true;
         }
 
         public void CloseDocumentButton(object obj)

@@ -136,7 +136,13 @@
                             <ColumnDefinition Width="10" MaxWidth="10" MinWidth="10"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="{Binding Metadata.FileName}"/>
-                        <Thumb Grid.Column="0" Style="{DynamicResource InvisibleThumbStyle}" dragablz:DragablzItem.IsCustomThumb="True"/>
+                        <Thumb Grid.Column="0" Style="{DynamicResource InvisibleThumbStyle}" dragablz:DragablzItem.IsCustomThumb="True">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseDoubleClick">
+                                    <i:InvokeCommandAction Command="{Binding CloseDocumentButtonCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Thumb>
                         <TextBlock Grid.Column="1" Text="*" Visibility="{Binding IsSaved, Converter={StaticResource VisibilityConverter}}"/>
                         <Button Grid.Column="2" Width="10" Height="10" MaxWidth="10" MaxHeight="10" MinWidth="10" MinHeight="10" VerticalAlignment="Center" HorizontalAlignment="Right" Command="{Binding CloseDocumentButtonCommand}">
                             <TextBlock Text="X" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="8" FontWeight="Bold"/>
