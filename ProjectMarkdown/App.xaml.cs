@@ -28,22 +28,25 @@ namespace ProjectMarkdown
                     var gxs = new GenericXmlSerializer<PreferencesModel>();
                     var preferences = gxs.DeSerialize(FilePaths.PreferencesFilePath);
                     var logLevel = preferences.CurrentLogLevel;
+                    var logFilePath = preferences.LogFilePath;
+                    var isLoggingEnabled = preferences.IsLoggingEnabled;
+
                     if (logLevel == "DEBUG")
                     {
-                        Logger.Initialize(preferences.LogFilePath, Logger.LogLevels.Debug);
+                        Logger.Initialize(logFilePath, Logger.LogLevels.Debug, isLoggingEnabled);
                     }
                     else if (logLevel == "INFO")
                     {
-                        Logger.Initialize(preferences.LogFilePath, Logger.LogLevels.Info);
+                        Logger.Initialize(logFilePath, Logger.LogLevels.Info, isLoggingEnabled);
                     }
                     else if (logLevel == "ERROR")
                     {
-                        Logger.Initialize(preferences.LogFilePath, Logger.LogLevels.Error);
+                        Logger.Initialize(logFilePath, Logger.LogLevels.Error, isLoggingEnabled);
                     }
                 }
                 else
                 {
-                    Logger.Initialize(FilePaths.DefaultLogFilePath, Logger.LogLevels.Info);
+                    Logger.Initialize(FilePaths.DefaultLogFilePath, Logger.LogLevels.Info, true);
                 }
             }
             catch (Exception e)

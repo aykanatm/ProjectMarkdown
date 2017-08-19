@@ -231,7 +231,8 @@ namespace ProjectMarkdown.ViewModels
                         CurrentLanguage = "English",
                         Languages = new ObservableCollection<string> { "English" },
                         CurrentTheme = "Default",
-                        Themes = new ObservableCollection<string> { "Default" }
+                        Themes = new ObservableCollection<string> { "Default" },
+                        IsLoggingEnabled = true
                     };
 
                     gxs.Serialize(CurrentPreferences, FilePaths.PreferencesFilePath);

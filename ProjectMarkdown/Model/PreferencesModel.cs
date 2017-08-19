@@ -27,6 +27,17 @@ namespace ProjectMarkdown.Model
         private ObservableCollection<string> _fontSizes;
         private string _currentTheme;
         private ObservableCollection<string> _themes;
+        private bool _isLoggingEnabled;
+
+        public bool IsLoggingEnabled
+        {
+            get { return _isLoggingEnabled; }
+            set
+            {
+                _isLoggingEnabled = value;
+                OnPropertyChanged();
+            }
+        }
 
         public bool IsToolbarHidden
         {
