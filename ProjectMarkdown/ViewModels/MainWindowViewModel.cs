@@ -705,6 +705,11 @@ namespace ProjectMarkdown.ViewModels
                 {
                     Documents.Clear();
                 }
+
+                if (CurrentPreferences.IsExitOnCloseTheLastTab)
+                {
+                    Application.Current.Shutdown();
+                }
             }
             catch (Exception e)
             {
@@ -1289,8 +1294,15 @@ namespace ProjectMarkdown.ViewModels
                         }
                         else
                         {
-                            Documents.Clear();
-                            CurrentDocument = null;
+                            if (CurrentPreferences.IsExitOnCloseTheLastTab)
+                            {
+                                Application.Current.Shutdown();
+                            }
+                            else
+                            {
+                                Documents.Clear();
+                                CurrentDocument = null;
+                            }
                         }
                     }
                     else
