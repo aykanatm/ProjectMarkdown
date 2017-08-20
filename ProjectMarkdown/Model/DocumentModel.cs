@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
@@ -13,6 +14,16 @@ namespace ProjectMarkdown.Model
     public class DocumentModel : INotifyPropertyChanged
     {
         public bool IsOpenedFromMenu { get; set; }
+
+        public Font CurrentFont
+        {
+            get { return _currentFont; }
+            set
+            {
+                _currentFont = value;
+                OnPropertyChanged();
+            }
+        }
 
         public bool IsWordWrap
         {
@@ -121,6 +132,7 @@ namespace ProjectMarkdown.Model
 
         private readonly MainWindowViewModel _mainWindowViewModel;
         private bool _isWordWrap;
+        private Font _currentFont;
 
         public event PropertyChangedEventHandler PropertyChanged;
 

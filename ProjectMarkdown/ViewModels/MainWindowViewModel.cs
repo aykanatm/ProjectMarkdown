@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -19,6 +18,8 @@ using ProjectMarkdown.Model;
 using ProjectMarkdown.Services;
 using ProjectMarkdown.Statics;
 using ProjectMarkdown.Windows;
+using System.Drawing;
+using FontFamily = System.Drawing.FontFamily;
 
 namespace ProjectMarkdown.ViewModels
 {
@@ -242,6 +243,7 @@ namespace ProjectMarkdown.ViewModels
                         foreach (var document in Documents)
                         {
                             document.IsWordWrap = CurrentPreferences.IsWordWrap;
+                            document.CurrentFont =  new Font(new FontFamily(CurrentPreferences.CurrentFont), float.Parse(CurrentPreferences.CurrentFontSize));
                         }
                     }
                 }
@@ -254,6 +256,7 @@ namespace ProjectMarkdown.ViewModels
                         foreach (var document in Documents)
                         {
                             document.IsWordWrap = CurrentPreferences.IsWordWrap;
+                            document.CurrentFont = new Font(new FontFamily(CurrentPreferences.CurrentFont), float.Parse(CurrentPreferences.CurrentFontSize));
                         }
                     }
                 }
@@ -277,6 +280,7 @@ namespace ProjectMarkdown.ViewModels
                 foreach (var document in Documents)
                 {
                     document.IsWordWrap = CurrentPreferences.IsWordWrap;
+                    document.CurrentFont = new Font(new FontFamily(CurrentPreferences.CurrentFont), float.Parse(CurrentPreferences.CurrentFontSize));
                 }
             }
 
@@ -322,6 +326,7 @@ namespace ProjectMarkdown.ViewModels
                 CurrentDocument.IsSaved = false;
                 CurrentDocument.IsWordWrap = CurrentPreferences.IsWordWrap;
                 CurrentDocument.Metadata.Author = CurrentPreferences.Author;
+                CurrentDocument.CurrentFont = new Font(new FontFamily(CurrentPreferences.CurrentFont), float.Parse(CurrentPreferences.CurrentFontSize));
             }
             catch (Exception e)
             {
@@ -474,6 +479,7 @@ namespace ProjectMarkdown.ViewModels
                         CurrentDocument.IsOpenedFromMenu = true;
                         CurrentDocument.IsSaved = true;
                         CurrentDocument.IsWordWrap = CurrentPreferences.IsWordWrap;
+                        CurrentDocument.CurrentFont = new Font(new FontFamily(CurrentPreferences.CurrentFont), float.Parse(CurrentPreferences.CurrentFontSize));
                     }
                 }
             }

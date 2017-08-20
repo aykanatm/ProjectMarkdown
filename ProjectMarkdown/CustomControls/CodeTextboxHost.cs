@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Forms.Integration;
 using FastColoredTextBoxNS;
@@ -22,6 +23,17 @@ namespace ProjectMarkdown.CustomControls
         // This is true when user switches from one tab to the other and the textbox is loaded with new content that is fetched from the document
         // If this is true then the textbox will clear its undo and redo stacks to prevent previous document's undo and redo stacks to load into the new document
         private bool _textBoxLoadedWithNewDocumentText;
+
+        public static readonly DependencyProperty FontProperty = DependencyProperty.Register("Font", typeof(Font), typeof(CodeTextboxHost), new PropertyMetadata(new Font(new System.Drawing.FontFamily("Consolas"), 11), new PropertyChangedCallback(
+            (d, e) =>
+            {
+                var textBoxHost = d as CodeTextboxHost;
+                if (textBoxHost != null && textBoxHost._innerTextbox != null)
+                {
+                    var font = (Font) textBoxHost.GetValue(e.Property);
+                    textBoxHost._innerTextbox.Font = font;
+                }
+            }), null));
 
         public static readonly DependencyProperty FilePathProperty = DependencyProperty.Register("FilePath", typeof(string), typeof(CodeTextboxHost), new PropertyMetadata("", new PropertyChangedCallback(
             (d, e) =>
@@ -92,6 +104,12 @@ namespace ProjectMarkdown.CustomControls
                 }
             }), null));
 
+        public Font Font
+        {
+            get { return (Font) GetValue(FontProperty); }
+            set { SetValue(FontProperty, value);}
+        }
+
         public string FilePath
         {
             get { return (string) GetValue(FilePathProperty); }
@@ -125,6 +143,7 @@ namespace ProjectMarkdown.CustomControls
         public CodeTextboxHost()
         {
             Logger.GetInstance().Debug("CodeTextboxHost() >>");
+
             try
             {
                 Child = _innerTextbox;
