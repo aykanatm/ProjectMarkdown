@@ -148,6 +148,7 @@ namespace ProjectMarkdown.ViewModels
             }
             catch (Exception e)
             {
+                Logger.GetInstance().Error(e.ToString());
                 MessageBox.Show(e.Message, "An error occured while saving preferences", MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
