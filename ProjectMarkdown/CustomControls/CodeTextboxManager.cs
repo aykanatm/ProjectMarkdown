@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Dragablz;
 using LogUtils;
 using ProjectMarkdown.Model;
 using WPFUtils.ExtensionMethods;
@@ -270,20 +273,19 @@ namespace ProjectMarkdown.CustomControls
             {
                 CodeTextboxHost codeTextbox = null;
 
-                var tabControl = (TabControl)Application.Current.MainWindow.FindName("TabDocuments");
+                var tabControl = (TabablzControl)Application.Current.MainWindow.FindName("TabDocuments");
 
                 if (tabControl != null)
                 {
-                    var contentPresenters = tabControl.GetVisualChildren<ContentPresenter>();
-
-                    foreach (var contentPresenter in contentPresenters)
+                    var codeTextboxes = tabControl.GetVisualChildren<CodeTextboxHost>();
+                    var codeTextboxHosts = codeTextboxes as IList<CodeTextboxHost> ?? codeTextboxes.ToList();
+                    if (codeTextboxHosts.Any())
                     {
-                        var parent = contentPresenter.TemplatedParent;
-                        if (parent.Equals(tabControl))
+                        foreach (var codeTextboxHost in codeTextboxHosts)
                         {
-                            if (tabControl.SelectedItem == document)
+                            if (((ContentPresenter)codeTextboxHost.TemplatedParent).Content == document)
                             {
-                                codeTextbox = (CodeTextboxHost)tabControl.ContentTemplate.FindName("CodeTextboxHost", contentPresenter);
+                                codeTextbox = codeTextboxHost;
                             }
                         }
                     }
