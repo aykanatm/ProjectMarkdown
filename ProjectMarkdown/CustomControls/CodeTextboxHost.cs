@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using FastColoredTextBoxNS;
 using LogUtils;
 using ProjectMarkdown.ExtensionMethods;
+using ProjectMarkdown.Services;
 using ProjectMarkdown.Statics;
 
 namespace ProjectMarkdown.CustomControls
@@ -151,6 +153,7 @@ namespace ProjectMarkdown.CustomControls
                 _innerTextbox.DescriptionFile = FilePaths.MarkdownSyntaxDescriptionFilePath;
                 _innerTextbox.HighlightingRangeType = HighlightingRangeType.AllTextRange;
                 _innerTextbox.TextChanged += _innerTextbox_TextChanged;
+                _innerTextbox.Scroll += _innerTextbox_Scroll;
             }
             catch (Exception e)
             {
@@ -158,6 +161,24 @@ namespace ProjectMarkdown.CustomControls
             }
 
             Logger.GetInstance().Debug("<< CodeTextboxHost()");
+        }
+
+        private void _innerTextbox_Scroll(object sender, ScrollEventArgs e)
+        {
+            var maximum = _innerTextbox.VerticalScroll.Maximum;
+
+            var viewableRatio = (double)_innerTextbox.Height / (double)maximum;
+
+            var scrollBarArea = (double) maximum;
+
+            var thumbHeight = scrollBarArea * viewableRatio;
+
+            SharedEventHandler.GetInstance().RaiseOnCodeTextboxScrollChanged(new ScrollResult
+                {
+                    MaxValue = maximum - Convert.ToInt32(thumbHeight),
+                    MinValue = _innerTextbox.VerticalScroll.Minimum,
+                    Value = _innerTextbox.VerticalScroll.Value
+                });
         }
 
         private void _innerTextbox_TextChanged(object sender, TextChangedEventArgs e)

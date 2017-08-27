@@ -73,6 +73,9 @@
     <Reference Include="LogUtils">
       <HintPath>..\..\MyLibrary\LogUtils\bin\Release\LogUtils.dll</HintPath>
     </Reference>
+    <Reference Include="MathUtils">
+      <HintPath>..\..\MyLibrary\MathUtils\bin\Release\MathUtils.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Expression\Blend\.NETFramework\v4.5\Libraries\Microsoft.Expression.Interactions.dll</HintPath>
@@ -118,11 +121,13 @@
     </ApplicationDefinition>
     <Compile Include="Converters\LockTabBarConverter.cs" />
     <Compile Include="Converters\ToolbarVisibilityConverter.cs" />
+    <Compile Include="CustomControls\CefChromiumBrowserManager.cs" />
     <Compile Include="CustomControls\CodeTextboxManager.cs" />
     <Compile Include="ExtensionMethods\LimitedStackExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\ObservableCollectionExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\StackExtensionMethods.cs" />
     <Compile Include="Model\PreferencesModel.cs" />
+    <Compile Include="Services\ScrollResult.cs" />
     <Compile Include="Services\SharedEventHandler.cs" />
     <Compile Include="Statics\FilePaths.cs" />
     <Compile Include="Statics\FolderPaths.cs" />

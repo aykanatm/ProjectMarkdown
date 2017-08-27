@@ -19,7 +19,10 @@ using ProjectMarkdown.Services;
 using ProjectMarkdown.Statics;
 using ProjectMarkdown.Windows;
 using System.Drawing;
+using Application = System.Windows.Application;
+using Clipboard = System.Windows.Clipboard;
 using FontFamily = System.Drawing.FontFamily;
+using MessageBox = System.Windows.MessageBox;
 
 namespace ProjectMarkdown.ViewModels
 {
@@ -145,10 +148,16 @@ namespace ProjectMarkdown.ViewModels
             LoadPreferences();
 
             SharedEventHandler.GetInstance().OnPreferecesSaved += OnPreferecesSaved;
+            SharedEventHandler.GetInstance().OnCodeTextboxScrollChanged += OnCodeTextboxScrollChanged;
 
             Documents = new ObservableCollection<DocumentModel>();
 
             Logger.GetInstance().Debug("<< MainWindowViewModel()");
+        }
+
+        private void OnCodeTextboxScrollChanged(ScrollResult scrollResult)
+        {
+            CefChromiumBrowserManager.GetInstance().Scroll(CurrentDocument, scrollResult);
         }
 
         private void LoadCommands()

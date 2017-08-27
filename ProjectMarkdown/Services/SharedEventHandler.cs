@@ -10,6 +10,7 @@ namespace ProjectMarkdown.Services
         private static readonly object LockObject = new object();
 
         public Action<PreferencesModel> OnPreferecesSaved;
+        public Action<ScrollResult> OnCodeTextboxScrollChanged;
 
         public static SharedEventHandler GetInstance()
         {
@@ -25,6 +26,11 @@ namespace ProjectMarkdown.Services
         }
 
         private SharedEventHandler() { }
+
+        public void RaiseOnCodeTextboxScrollChanged(ScrollResult scrollResult)
+        {
+            OnCodeTextboxScrollChanged(scrollResult);
+        }
 
         public void RaiseOnPreferencesSaved(PreferencesModel preferences)
         {
