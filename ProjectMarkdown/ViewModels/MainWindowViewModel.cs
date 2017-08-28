@@ -133,6 +133,7 @@ namespace ProjectMarkdown.ViewModels
         public ICommand OpenAboutWindowCommand { get; set; }
 
         // Events
+        public ICommand MainWindowResizedCommand { get; set; }
         public ICommand MainWindowClosingEventCommand { get; set; }
 
         public MainWindowViewModel()
@@ -202,6 +203,7 @@ namespace ProjectMarkdown.ViewModels
 
             // Events
             MainWindowClosingEventCommand = new RelayCommand(MainWindowClosingEvent, CanMainWindowClosingEvent);
+            MainWindowResizedCommand = new RelayCommand(MainWindowResizedEvent, CanMainWindowResizedEvent);
 
             Logger.GetInstance().Debug("<< LoadCommands()");
         }
@@ -1114,6 +1116,16 @@ namespace ProjectMarkdown.ViewModels
         }
 
         public bool CanMainWindowClosingEvent(object obj)
+        {
+            return true;
+        }
+
+        public void MainWindowResizedEvent(object obj)
+        {
+            CodeTextboxManager.GetInstance().RefreshScrollPosition(CurrentDocument);
+        }
+
+        public bool CanMainWindowResizedEvent(object obj)
         {
             return true;
         }

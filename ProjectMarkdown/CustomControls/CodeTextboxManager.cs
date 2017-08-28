@@ -267,6 +267,23 @@ namespace ProjectMarkdown.CustomControls
             }
         }
 
+        public void RefreshScrollPosition(DocumentModel document)
+        {
+            try
+            {
+                var codeTextboxHost = GetCurrentCodeTextbox(document);
+
+                if (codeTextboxHost != null)
+                {
+                    codeTextboxHost.RefreshScrollPosition();
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         private CodeTextboxHost GetCurrentCodeTextbox(DocumentModel document)
         {
             try

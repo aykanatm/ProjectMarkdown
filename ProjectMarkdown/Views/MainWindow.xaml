@@ -19,6 +19,9 @@
         <i:EventTrigger EventName="Closed">
             <i:InvokeCommandAction Command="{Binding MainWindowClosingEventCommand}"/>
         </i:EventTrigger>
+        <i:EventTrigger EventName="SizeChanged">
+            <i:InvokeCommandAction Command="{Binding MainWindowResizedCommand}"/>
+        </i:EventTrigger>
     </i:Interaction.Triggers>
     <DockPanel LastChildFill="True" >
         <Menu DockPanel.Dock="Top">
