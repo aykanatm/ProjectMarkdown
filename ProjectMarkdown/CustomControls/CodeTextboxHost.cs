@@ -165,20 +165,7 @@ namespace ProjectMarkdown.CustomControls
 
         private void _innerTextbox_Scroll(object sender, ScrollEventArgs e)
         {
-            var maximum = _innerTextbox.VerticalScroll.Maximum;
-
-            var viewableRatio = (double)_innerTextbox.Height / (double)maximum;
-
-            var scrollBarArea = (double) maximum;
-
-            var thumbHeight = scrollBarArea * viewableRatio;
-
-            SharedEventHandler.GetInstance().RaiseOnCodeTextboxScrollChanged(new ScrollResult
-                {
-                    MaxValue = maximum - Convert.ToInt32(thumbHeight),
-                    MinValue = _innerTextbox.VerticalScroll.Minimum,
-                    Value = _innerTextbox.VerticalScroll.Value
-                });
+            RefreshScrollPosition();
         }
 
         public void RefreshScrollPosition()
