@@ -1112,7 +1112,7 @@ namespace ProjectMarkdown.ViewModels
         // EVENTS
         public void MainWindowClosingEvent(object obj)
         {
-            
+            CloseAllDocuments(obj);
         }
 
         public bool CanMainWindowClosingEvent(object obj)
