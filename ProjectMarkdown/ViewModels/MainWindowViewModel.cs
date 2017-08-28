@@ -1124,8 +1124,8 @@ namespace ProjectMarkdown.ViewModels
             try
             {
                 string css;
-                var cssPath = AppDomain.CurrentDomain.BaseDirectory + "Styles\\github-markdown.css";
-                using (var sr = new StreamReader(cssPath))
+
+                using (var sr = new StreamReader(FilePaths.GithubStyleFilePath))
                 {
                     css = sr.ReadToEnd();
                 }
