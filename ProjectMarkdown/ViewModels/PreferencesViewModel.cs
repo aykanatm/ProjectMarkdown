@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Drawing;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -17,6 +19,61 @@ namespace ProjectMarkdown.ViewModels
     public class PreferencesViewModel : INotifyPropertyChanged
     {
         private PreferencesModel _currentPreferences;
+        private ObservableCollection<string> _logLevels;
+        private ObservableCollection<string> _themes;
+        private ObservableCollection<string> _fontSizes;
+        private ObservableCollection<string> _fonts;
+        private ObservableCollection<string> _languages;
+
+        public ObservableCollection<string> Languages
+        {
+            get { return _languages; }
+            set
+            {
+                _languages = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<string> Fonts
+        {
+            get { return _fonts; }
+            set
+            {
+                _fonts = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<string> FontSizes
+        {
+            get { return _fontSizes; }
+            set
+            {
+                _fontSizes = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<string> Themes
+        {
+            get { return _themes; }
+            set
+            {
+                _themes = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<string> LogLevels
+        {
+            get { return _logLevels; }
+            set
+            {
+                _logLevels = value;
+                OnPropertyChanged();
+            }
+        }
 
         public PreferencesModel CurrentPreferences
         {
@@ -52,6 +109,35 @@ namespace ProjectMarkdown.ViewModels
             {
                 throw new Exception(FilePaths.PreferencesFilePath + " file does not exist!");
             }
+
+            LogLevels = new ObservableCollection<string> {"DEBUG", "INFO", "ERROR"};
+
+            var fonts = new ObservableCollection<string>();
+            foreach (var fontFamily in FontFamily.Families)
+            {
+                fonts.Add(fontFamily.Name);
+            }
+            Fonts = fonts;
+
+            FontSizes = new ObservableCollection<string>
+            {
+                "8",
+                "9",
+                "10",
+                "11",
+                "12",
+                "14",
+                "18",
+                "24",
+                "30",
+                "36",
+                "48",
+                "60",
+                "72"
+            };
+
+            Languages = new ObservableCollection<string> {"English"};
+            Themes = new ObservableCollection<string> {"Default"};
 
             Logger.GetInstance().Debug("<< PreferencesViewModel()");
         }

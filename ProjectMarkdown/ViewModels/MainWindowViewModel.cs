@@ -220,23 +220,13 @@ namespace ProjectMarkdown.ViewModels
 
                 if (!File.Exists(FilePaths.PreferencesFilePath))
                 {
-                    var fonts = new ObservableCollection<string>();
-                    foreach (var fontFamily in FontFamily.Families)
-                    {
-                        fonts.Add(fontFamily.Name);
-                    }
-
                     CurrentPreferences = new PreferencesModel
                     {
                         Author = Environment.UserName,
-                        LogLevels = new ObservableCollection<string> { "DEBUG", "INFO", "ERROR" },
                         CurrentLogLevel = "DEBUG",
-                        LogFilePath = AppDomain.CurrentDomain.BaseDirectory + "Log\\app.log",
+                        LogFilePath = FilePaths.DefaultLogFilePath,
                         CurrentFont = "Consolas",
-                        Fonts = fonts,
                         CurrentFontSize = "11",
-                        FontSizes =
-                            new ObservableCollection<string> { "8", "9", "10", "11", "12", "14", "18", "24", "30", "36", "48", "60", "72" },
                         IsDoubleClickToCloseDocument = true,
                         IsExitOnCloseTheLastTab = false,
                         IsSyncTextAndHtml = false,
@@ -245,9 +235,7 @@ namespace ProjectMarkdown.ViewModels
                         IsToolbarHidden = false,
                         IsWordWrap = true,
                         CurrentLanguage = "English",
-                        Languages = new ObservableCollection<string> { "English" },
                         CurrentTheme = "Default",
-                        Themes = new ObservableCollection<string> { "Default" },
                         IsLoggingEnabled = true
                     };
 

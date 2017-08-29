@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using ProjectMarkdown.Annotations;
@@ -18,15 +17,10 @@ namespace ProjectMarkdown.Model
         private bool _isWordWrap;
         private bool _isSyncTextAndHtml;
         private string _currentLogLevel;
-        private ObservableCollection<string> _logLevels;
         private string _currentLanguage;
-        private ObservableCollection<string> _languages;
         private string _currentFont;
-        private ObservableCollection<string> _fonts;
         private string _currentFontSize;
-        private ObservableCollection<string> _fontSizes;
         private string _currentTheme;
-        private ObservableCollection<string> _themes;
         private bool _isLoggingEnabled;
         private bool _isScrollBarsSynced;
 
@@ -140,32 +134,12 @@ namespace ProjectMarkdown.Model
             }
         }
 
-        public ObservableCollection<string> LogLevels
-        {
-            get { return _logLevels; }
-            set
-            {
-                _logLevels = value;
-                OnPropertyChanged();
-            }
-        }
-
         public string CurrentLanguage
         {
             get { return _currentLanguage; }
             set
             {
                 _currentLanguage = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public ObservableCollection<string> Languages
-        {
-            get { return _languages; }
-            set
-            {
-                _languages = value;
                 OnPropertyChanged();
             }
         }
@@ -180,16 +154,6 @@ namespace ProjectMarkdown.Model
             }
         }
 
-        public ObservableCollection<string> Fonts
-        {
-            get { return _fonts; }
-            set
-            {
-                _fonts = value;
-                OnPropertyChanged();
-            }
-        }
-
         public string CurrentFontSize
         {
             get { return _currentFontSize; }
@@ -200,32 +164,12 @@ namespace ProjectMarkdown.Model
             }
         }
 
-        public ObservableCollection<string> FontSizes
-        {
-            get { return _fontSizes; }
-            set
-            {
-                _fontSizes = value;
-                OnPropertyChanged();
-            }
-        }
-
         public string CurrentTheme
         {
             get { return _currentTheme; }
             set
             {
                 _currentTheme = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public ObservableCollection<string> Themes
-        {
-            get { return _themes; }
-            set
-            {
-                _themes = value;
                 OnPropertyChanged();
             }
         }
