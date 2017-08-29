@@ -11,6 +11,7 @@ namespace ProjectMarkdown.Services
 
         public Action<PreferencesModel> OnPreferecesSaved;
         public Action<ScrollResult> OnCodeTextboxScrollChanged;
+        public Action OnTextboxTextChanged;
 
         public static SharedEventHandler GetInstance()
         {
@@ -35,6 +36,11 @@ namespace ProjectMarkdown.Services
         public void RaiseOnPreferencesSaved(PreferencesModel preferences)
         {
             OnPreferecesSaved(preferences);
+        }
+
+        public void RaiseOnTextboxTextChanged()
+        {
+            OnTextboxTextChanged();
         }
     }
 }

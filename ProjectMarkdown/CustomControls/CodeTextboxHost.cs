@@ -191,6 +191,7 @@ namespace ProjectMarkdown.CustomControls
             try
             {
                 Text = _innerTextbox.Text;
+                SharedEventHandler.GetInstance().RaiseOnTextboxTextChanged();
 
                 if (_oldFilePath != _newFilePath)
                 {

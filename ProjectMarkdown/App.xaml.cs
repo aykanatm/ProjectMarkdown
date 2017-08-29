@@ -68,6 +68,11 @@ namespace ProjectMarkdown
                 {
                     Directory.CreateDirectory(FolderPaths.DefaultLogFolderPath);
                 }
+
+                if (!Directory.Exists(FolderPaths.TempFolderPath))
+                {
+                    Directory.CreateDirectory(FolderPaths.TempFolderPath);
+                }
             }
             catch (Exception e)
             {

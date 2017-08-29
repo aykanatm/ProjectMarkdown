@@ -150,10 +150,21 @@ namespace ProjectMarkdown.ViewModels
 
             SharedEventHandler.GetInstance().OnPreferecesSaved += OnPreferecesSaved;
             SharedEventHandler.GetInstance().OnCodeTextboxScrollChanged += OnCodeTextboxScrollChanged;
+            SharedEventHandler.GetInstance().OnTextboxTextChanged += OnTextboxTextChanged;
 
             Documents = new ObservableCollection<DocumentModel>();
 
             Logger.GetInstance().Debug("<< MainWindowViewModel()");
+        }
+
+        private void OnTextboxTextChanged()
+        {
+            if (CurrentPreferences.IsSyncTextAndHtml)
+            {
+                var style = GetCss();
+                var htmlFilePath = DocumentSynchronizer.Sync(CurrentDocument, style);
+                CurrentDocument.Html = new Uri(htmlFilePath);
+            }
         }
 
         private void OnCodeTextboxScrollChanged(ScrollResult scrollResult)

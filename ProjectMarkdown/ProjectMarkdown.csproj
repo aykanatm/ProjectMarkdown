@@ -127,6 +127,7 @@
     <Compile Include="ExtensionMethods\ObservableCollectionExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\StackExtensionMethods.cs" />
     <Compile Include="Model\PreferencesModel.cs" />
+    <Compile Include="Services\DocumentSynchronizer.cs" />
     <Compile Include="Services\ScrollResult.cs" />
     <Compile Include="Services\SharedEventHandler.cs" />
     <Compile Include="Statics\FilePaths.cs" />
