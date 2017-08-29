@@ -709,7 +709,7 @@ namespace ProjectMarkdown.ViewModels
 
                 if (notSavedDocuments.Any())
                 {
-                    var result = MessageBox.Show("Do you want to save your documents before closimg all documents?", "Document not saved warning",
+                    var result = MessageBox.Show("Do you want to save your documents before closing all documents?", "Document not saved warning",
                         MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
 
                     if (result == MessageBoxResult.Yes)
