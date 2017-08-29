@@ -83,7 +83,7 @@
             </MenuItem>
         </Menu>
         <ToolBarTray DockPanel.Dock="Top" Height="{Binding CurrentPreferences.IsToolbarHidden, Converter={StaticResource ToolbarVisibilityConverter}}">
-            <ToolBar>
+            <ToolBar OverflowMode="Never" Band="0">
                 <Button Command="{Binding CreateNewDocumentCommand}">
                     <TextBlock Text="New Document"/>
                 </Button>
@@ -106,7 +106,7 @@
                     <TextBlock Text="Print Document"/>
                 </Button>
             </ToolBar>
-            <ToolBar>
+            <ToolBar OverflowMode="Never" Band="1">
                 <Button Command="{Binding CutCommand}">
                     <TextBlock Text="Cut"/>
                 </Button>
@@ -117,7 +117,7 @@
                     <TextBlock Text="Paste"/>
                 </Button>
             </ToolBar>
-            <ToolBar>
+            <ToolBar OverflowMode="Never" Band="1">
                 <Button Command="{Binding UndoCommand}">
                     <TextBlock Text="Undo"/>
                 </Button>
@@ -125,12 +125,68 @@
                     <TextBlock Text="Redo"/>
                 </Button>
             </ToolBar>
-            <ToolBar>
+            <ToolBar OverflowMode="Never" Band="1">
                 <Button Command="{Binding FindCommmand}">
                     <TextBlock Text="Find..."/>
                 </Button>
                 <Button Command="{Binding ReplaceCommand}">
                     <TextBlock Text="Replace..."/>
+                </Button>
+            </ToolBar>
+            <ToolBar OverflowMode="Never" Band="2">
+                <Button Command="{Binding BlockCodeCommand}">
+                    <TextBlock Text="BlockCode"/>
+                </Button>
+                <Button Command="{Binding BlockQuoteCommand}">
+                    <TextBlock Text="BlockQuote"/>
+                </Button>
+                <Button Command="{Binding BoldCommand}">
+                    <TextBlock Text="Bold"/>
+                </Button>
+                <Button Command="{Binding Header1Command}">
+                    <TextBlock Text="Header 1"/>
+                </Button>
+                <Button Command="{Binding Header2Command}">
+                    <TextBlock Text="Header 2"/>
+                </Button>
+                <Button Command="{Binding Header3Command}">
+                    <TextBlock Text="Header 3"/>
+                </Button>
+                <Button Command="{Binding Header4Command}">
+                    <TextBlock Text="Header 4"/>
+                </Button>
+                <Button Command="{Binding Header5Command}">
+                    <TextBlock Text="Header 5"/>
+                </Button>
+                <Button Command="{Binding Header6Command}">
+                    <TextBlock Text="Header 6"/>
+                </Button>
+                <Button Command="{Binding HorizontalRuleCommand}">
+                    <TextBlock Text="Horizontal Rule"/>
+                </Button>
+                <Button Command="{Binding ImageCommand}">
+                    <TextBlock Text="Image"/>
+                </Button>
+                <Button Command="{Binding InlineCodeCommand}">
+                    <TextBlock Text="Inline Code"/>
+                </Button>
+                <Button Command="{Binding ItalicCommand}">
+                    <TextBlock Text="Italic"/>
+                </Button>
+                <Button Command="{Binding LinkCommand}">
+                    <TextBlock Text="Link"/>
+                </Button>
+                <Button Command="{Binding OrderedList}">
+                    <TextBlock Text="Ordered List"/>
+                </Button>
+                <Button Command="{Binding UnorderedCommand}">
+                    <TextBlock Text="Unordered List"/>
+                </Button>
+                <Button Command="{Binding StrikeThroughCommand}">
+                    <TextBlock Text="Strike Through"/>
+                </Button>
+                <Button Command="{Binding TableCommand}">
+                    <TextBlock Text="Table"/>
                 </Button>
             </ToolBar>
         </ToolBarTray>
