@@ -84,47 +84,53 @@
         </Menu>
         <ToolBarTray DockPanel.Dock="Top" Height="{Binding CurrentPreferences.IsToolbarHidden, Converter={StaticResource ToolbarVisibilityConverter}}">
             <ToolBar>
-                <Button Name="BtnNewDocument">
-                    <Image Source="../Images/new.png" Height="24" Width="24"></Image>
+                <Button Command="{Binding CreateNewDocumentCommand}">
+                    <TextBlock Text="New Document"/>
                 </Button>
-                <Button Name="BtnOpenDocument">
-                    <Image Source="../Images/open.png" Height="24" Width="24"></Image>
+                <Button Command="{Binding OpenDocumentCommand}">
+                    <TextBlock Text="Open Document"/>
                 </Button>
-                <Button Name="BtnSaveDocument">
-                    <Image Source="../Images/save.png" Height="24" Width="24"></Image>
+                <Button Command="{Binding SaveDocumentCommand}">
+                    <TextBlock Text="Save Document"/>
                 </Button>
-                <Button Name="BtnSaveAllDocuments">
-                    <TextBlock Text="Save All"></TextBlock>
+                <Button Command="{Binding SaveAllDocumentsCommand}">
+                    <TextBlock Text="Save All Documents"></TextBlock>
                 </Button>
-                <Button Name="BtnCloseDocument">
-                    <Image Source="../Images/close.png" Height="24" Width="24"></Image>
+                <Button Command="{Binding CloseActiveDocumentCommand}">
+                    <TextBlock Text="Close Document"/>
                 </Button>
-                <Button Name="BtnCloseAllDocuments">
-                    <TextBlock Text="Close All"></TextBlock>
+                <Button Command="{Binding CloseAllDocumentsCommand}">
+                    <TextBlock Text="Close All Documents"></TextBlock>
                 </Button>
-                <Button Name="BtnPrintDocument">
-                    <Image Source="../Images/print.png" Height="24" Width="24"></Image>
+                <Button Command="{Binding PrintCommand}">
+                    <TextBlock Text="Print Document"/>
                 </Button>
-                <Button Name="BtnCut">
-                    <Image Source="../Images/cut.png" Height="24" Width="24"></Image>
+            </ToolBar>
+            <ToolBar>
+                <Button Command="{Binding CutCommand}">
+                    <TextBlock Text="Cut"/>
                 </Button>
-                <Button Name="BtnCopy">
-                    <Image Source="../Images/copy.png" Height="24" Width="24"></Image>
+                <Button Command="{Binding CopyCommand}">
+                    <TextBlock Text="Copy"></TextBlock>
                 </Button>
-                <Button Name="BtnPaste">
-                    <Image Source="../Images/paste.png" Height="24" Width="24"></Image>
+                <Button Command="{Binding PasteCommand}">
+                    <TextBlock Text="Paste"/>
                 </Button>
-                <Button Name="BtnUndo">
-                    <Image Source="../Images/undo.png" Height="24" Width="24"></Image>
+            </ToolBar>
+            <ToolBar>
+                <Button Command="{Binding UndoCommand}">
+                    <TextBlock Text="Undo"/>
                 </Button>
-                <Button Name="BtnRedo">
-                    <Image Source="../Images/redo.png" Height="24" Width="24"></Image>
+                <Button Command="{Binding RedoCommand}">
+                    <TextBlock Text="Redo"/>
                 </Button>
-                <Button Name="BtnFind">
-                    <Image Source="../Images/find.png" Height="24" Width="24"></Image>
+            </ToolBar>
+            <ToolBar>
+                <Button Command="{Binding FindCommmand}">
+                    <TextBlock Text="Find..."/>
                 </Button>
-                <Button Name="BtnFindReplace">
-                    <Image Source="../Images/findreplace.png" Height="24" Width="24"></Image>
+                <Button Command="{Binding ReplaceCommand}">
+                    <TextBlock Text="Replace..."/>
                 </Button>
             </ToolBar>
         </ToolBarTray>
