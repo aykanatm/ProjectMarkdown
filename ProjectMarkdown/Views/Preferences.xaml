@@ -136,7 +136,7 @@
                             <CheckBox Grid.Row="0" Grid.Column="0" IsChecked="{Binding CurrentPreferences.IsWordWrap, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             <TextBlock Grid.Row="0" Grid.Column="1" Text="Word Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                             <CheckBox Grid.Row="1" Grid.Column="0" IsChecked="{Binding CurrentPreferences.IsSyncTextAndHtml, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <TextBlock Grid.Row="1" Grid.Column="1" Text="Sync text editor and HTML view in real time" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="Sync text editor and HTML views in real time" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                             <CheckBox Grid.Row="2" Grid.Column="0" IsChecked="{Binding CurrentPreferences.IsScrollBarsSynced, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             <TextBlock Grid.Row="2" Grid.Column="1" Text="Sync text editor and HTML scrollbars" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         </Grid>
