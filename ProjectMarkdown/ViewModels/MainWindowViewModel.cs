@@ -158,7 +158,10 @@ namespace ProjectMarkdown.ViewModels
 
         private void OnCodeTextboxScrollChanged(ScrollResult scrollResult)
         {
-            CefChromiumBrowserManager.GetInstance().Scroll(CurrentDocument, scrollResult);
+            if (CurrentPreferences.IsScrollBarsSynced)
+            {
+                CefChromiumBrowserManager.GetInstance().Scroll(CurrentDocument, scrollResult);
+            }
         }
 
         private void LoadCommands()
@@ -237,6 +240,7 @@ namespace ProjectMarkdown.ViewModels
                         IsDoubleClickToCloseDocument = true,
                         IsExitOnCloseTheLastTab = false,
                         IsSyncTextAndHtml = false,
+                        IsScrollBarsSynced = true,
                         IsTabBarLocked = false,
                         IsToolbarHidden = false,
                         IsWordWrap = true,

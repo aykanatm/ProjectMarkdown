@@ -28,6 +28,7 @@ namespace ProjectMarkdown.Model
         private string _currentTheme;
         private ObservableCollection<string> _themes;
         private bool _isLoggingEnabled;
+        private bool _isScrollBarsSynced;
 
         public bool IsLoggingEnabled
         {
@@ -105,6 +106,16 @@ namespace ProjectMarkdown.Model
             set
             {
                 _isWordWrap = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsScrollBarsSynced
+        {
+            get { return _isScrollBarsSynced; }
+            set
+            {
+                _isScrollBarsSynced = value;
                 OnPropertyChanged();
             }
         }
