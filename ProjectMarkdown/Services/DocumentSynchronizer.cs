@@ -13,7 +13,7 @@ namespace ProjectMarkdown.Services
             var html = mp.Parse(document.Markdown, style);
             var htmlFileName = "SyncTemp.html";
             // Generate HTML file
-            var htmlFilePath = FolderPaths.TempFolderPath + htmlFileName;
+            var htmlFilePath = FolderPaths.TempFolderPath + "\\" + htmlFileName;
             using (var sw = new StreamWriter(htmlFilePath))
             {
                 sw.Write(html);
