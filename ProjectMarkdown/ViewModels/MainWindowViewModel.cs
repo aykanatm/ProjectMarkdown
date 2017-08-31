@@ -32,6 +32,28 @@ namespace ProjectMarkdown.ViewModels
         private DocumentModel _currentDocument;
         private string _title;
         private PreferencesModel _currentPreferences;
+        private string _selectedHeadingFormatting;
+        private ObservableCollection<string> _headingFormats;
+
+        public ObservableCollection<string> HeadingFormats
+        {
+            get { return _headingFormats; }
+            set
+            {
+                _headingFormats = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string SelectedHeadingFormatting
+        {
+            get { return _selectedHeadingFormatting; }
+            set
+            {
+                _selectedHeadingFormatting = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string Title
         {
@@ -132,9 +154,24 @@ namespace ProjectMarkdown.ViewModels
         public ICommand OpenUserGuideCommand { get; set; }
         public ICommand OpenAboutWindowCommand { get; set; }
 
+        // Formatting
+        public ICommand FormatBlockCodeCommand { get; set; }
+        public ICommand FormatBlockQuoteCommand { get; set; }
+        public ICommand FormatBoldCommand { get; set; }
+        public ICommand InsertHorizontalRuleCommand { get; set; }
+        public ICommand InsertImageCommand { get; set; }
+        public ICommand FormatInlineCodeCommand { get; set; }
+        public ICommand FormatItalicCommand { get; set; }
+        public ICommand ApplyLinkCommand { get; set; }
+        public ICommand FormatOrderedListCommand { get; set; }
+        public ICommand FormatUnorderedListCommand { get; set; }
+        public ICommand FormatStrikeThroughCommand { get; set; }
+        public ICommand InsertTableCommand { get; set; }
+
         // Events
         public ICommand MainWindowResizedCommand { get; set; }
         public ICommand MainWindowClosingEventCommand { get; set; }
+        public ICommand HeaderChangedEventCommand { get; set; }
 
         public MainWindowViewModel()
         {
@@ -153,6 +190,8 @@ namespace ProjectMarkdown.ViewModels
             SharedEventHandler.GetInstance().OnTextboxTextChanged += OnTextboxTextChanged;
 
             Documents = new ObservableCollection<DocumentModel>();
+            HeadingFormats = new ObservableCollection<string>{"Heading 1", "Heading 2", "Heading 3", "Heading 4", "Heading 5", "Heading 6"};
+            SelectedHeadingFormatting = "Heading 1";
 
             Logger.GetInstance().Debug("<< MainWindowViewModel()");
         }
@@ -215,9 +254,24 @@ namespace ProjectMarkdown.ViewModels
             OpenUserGuideCommand = new RelayCommand(OpenUserGuide, CanOpenUserGuide);
             OpenAboutWindowCommand = new RelayCommand(OpenAboutWindow, CanOpenAboutWindow);
 
+            // Formatting
+            FormatBlockCodeCommand = new RelayCommand(FormatText, CanFormatText);
+            FormatBlockQuoteCommand = new RelayCommand(FormatText, CanFormatText);
+            FormatBoldCommand = new RelayCommand(FormatText, CanFormatText);
+            InsertHorizontalRuleCommand = new RelayCommand(InsertHorizontalRule, CanInsertHorizontalRule);
+            InsertImageCommand = new RelayCommand(InsertImage, CanInsertImage);
+            FormatInlineCodeCommand = new RelayCommand(FormatText, CanFormatText);
+            FormatItalicCommand = new RelayCommand(FormatText, CanFormatText);
+            ApplyLinkCommand = new RelayCommand(ApplyLink, CanFormatText);
+            FormatOrderedListCommand = new RelayCommand(FormatText, CanFormatText);
+            FormatUnorderedListCommand = new RelayCommand(FormatText, CanFormatText);
+            FormatStrikeThroughCommand = new RelayCommand(FormatText, CanFormatText);
+            InsertTableCommand = new RelayCommand(InsertTable, CanInsertTable);
+
             // Events
             MainWindowClosingEventCommand = new RelayCommand(MainWindowClosingEvent, CanMainWindowClosingEvent);
             MainWindowResizedCommand = new RelayCommand(MainWindowResizedEvent, CanMainWindowResizedEvent);
+            HeaderChangedEventCommand = new RelayCommand(HeaderFormattingChangedEvent, CanFormatText);
 
             Logger.GetInstance().Debug("<< LoadCommands()");
         }
@@ -1112,6 +1166,143 @@ namespace ProjectMarkdown.ViewModels
             Logger.GetInstance().Debug("<< OpenAboutWindow()");
         }
 
+        // FORMATTING
+
+        public void FormatText(object obj)
+        {
+            Logger.GetInstance().Debug("FormatText() >>");
+
+            try
+            {
+                var buttonName = (string)obj;
+                var selectedText = CodeTextboxManager.GetInstance().GetSelectedText(CurrentDocument);
+                var formattedText = "";
+                if (buttonName == FormatTextButtons.BlockCode)
+                {
+                    formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.BlockCode);
+                }
+                else if (buttonName == FormatTextButtons.BlockQuote)
+                {
+                    formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.BlockQuote);
+                }
+                else if (buttonName == FormatTextButtons.Heading1)
+                {
+                    formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Heading1);
+                }
+                else if (buttonName == FormatTextButtons.Heading2)
+                {
+                    formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Heading2);
+                }
+                else if (buttonName == FormatTextButtons.Heading3)
+                {
+                    formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Heading3);
+                }
+                else if (buttonName == FormatTextButtons.Heading4)
+                {
+                    formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Heading4);
+                }
+                else if (buttonName == FormatTextButtons.Heading5)
+                {
+                    formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Heading5);
+                }
+                else if (buttonName == FormatTextButtons.Heading6)
+                {
+                    formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Heading6);
+                }
+                else if (buttonName == FormatTextButtons.InlineCode)
+                {
+                    formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.InlineCode);
+                }
+                else if (buttonName == FormatTextButtons.Italic)
+                {
+                    formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Italic);
+                }
+                else if (buttonName == FormatTextButtons.OrderedList)
+                {
+                    formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.OrderedList);
+                }
+                else if (buttonName == FormatTextButtons.UnorderedList)
+                {
+                    formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.UnorderedList);
+                }
+                else if (buttonName == FormatTextButtons.StrikeThrough)
+                {
+                    formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.StrikeThrough);
+                }
+                else if (buttonName == FormatTextButtons.Bold)
+                {
+                    formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Bold);
+                }
+                
+                CodeTextboxManager.GetInstance().ReplaceText(CurrentDocument, formattedText);
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while formatting the selected text", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            Logger.GetInstance().Debug("<< FormatText()");
+        }
+
+        public bool CanFormatText(object obj)
+        {
+            if (CurrentDocument != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public void ApplyLink(object obj)
+        {
+            
+        }
+
+        public void InsertHorizontalRule(object obj)
+        {
+            
+        }
+
+        public bool CanInsertHorizontalRule(object obj)
+        {
+            if (CurrentDocument != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public void InsertImage(object obj)
+        {
+            
+        }
+
+        public bool CanInsertImage(object obj)
+        {
+            if (CurrentDocument != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public void InsertTable(object obj)
+        {
+            
+        }
+
+        public bool CanInsertTable(object obj)
+        {
+            if (CurrentDocument != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        
+
         // EVENTS
         public void MainWindowClosingEvent(object obj)
         {
@@ -1132,6 +1323,13 @@ namespace ProjectMarkdown.ViewModels
         {
             return true;
         }
+
+        public void HeaderFormattingChangedEvent(object obj)
+        {
+            
+        }
+
+        // UTILITIES
 
         private string GetCss()
         {

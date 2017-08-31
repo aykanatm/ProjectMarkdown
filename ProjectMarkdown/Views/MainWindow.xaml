@@ -134,58 +134,47 @@
                 </Button>
             </ToolBar>
             <ToolBar OverflowMode="Never" Band="2">
-                <Button Command="{Binding BlockCodeCommand}">
+                <Button x:Name="FormatBlockCode" Command="{Binding FormatBlockCodeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Name}">
                     <TextBlock Text="BlockCode"/>
                 </Button>
-                <Button Command="{Binding BlockQuoteCommand}">
+                <Button x:Name="FormatBlockQuote" Command="{Binding FormatBlockQuoteCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Name}">
                     <TextBlock Text="BlockQuote"/>
                 </Button>
-                <Button Command="{Binding BoldCommand}">
+                <Button x:Name="FormatBoldButton" Command="{Binding FormatBoldCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Name}">
                     <TextBlock Text="Bold"/>
                 </Button>
-                <Button Command="{Binding Header1Command}">
-                    <TextBlock Text="Header 1"/>
-                </Button>
-                <Button Command="{Binding Header2Command}">
-                    <TextBlock Text="Header 2"/>
-                </Button>
-                <Button Command="{Binding Header3Command}">
-                    <TextBlock Text="Header 3"/>
-                </Button>
-                <Button Command="{Binding Header4Command}">
-                    <TextBlock Text="Header 4"/>
-                </Button>
-                <Button Command="{Binding Header5Command}">
-                    <TextBlock Text="Header 5"/>
-                </Button>
-                <Button Command="{Binding Header6Command}">
-                    <TextBlock Text="Header 6"/>
-                </Button>
-                <Button Command="{Binding HorizontalRuleCommand}">
+                <ComboBox ItemsSource="{Binding HeadingFormats}" SelectedItem="{Binding SelectedHeadingFormatting}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding HeaderChangedEventCommand}" CommandParameter="{Binding SelectedHeadingFormatting}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+                <Button Command="{Binding InsertHorizontalRuleCommand}">
                     <TextBlock Text="Horizontal Rule"/>
                 </Button>
-                <Button Command="{Binding ImageCommand}">
+                <Button Command="{Binding InsertImageCommand}">
                     <TextBlock Text="Image"/>
                 </Button>
-                <Button Command="{Binding InlineCodeCommand}">
+                <Button x:Name="FormatInlineCodeButton" Command="{Binding FormatInlineCodeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Name}">
                     <TextBlock Text="Inline Code"/>
                 </Button>
-                <Button Command="{Binding ItalicCommand}">
+                <Button x:Name="FormatItalicButton" Command="{Binding FormatItalicCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Name}">
                     <TextBlock Text="Italic"/>
                 </Button>
-                <Button Command="{Binding LinkCommand}">
+                <Button Command="{Binding ApplyLinkCommand}">
                     <TextBlock Text="Link"/>
                 </Button>
-                <Button Command="{Binding OrderedList}">
+                <Button x:Name="FormatOrderedListButton" Command="{Binding FormatOrderedListCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Name}">
                     <TextBlock Text="Ordered List"/>
                 </Button>
-                <Button Command="{Binding UnorderedCommand}">
+                <Button x:Name="FormatUnorderedListButton" Command="{Binding FormatUnorderedListCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Name}">
                     <TextBlock Text="Unordered List"/>
                 </Button>
-                <Button Command="{Binding StrikeThroughCommand}">
+                <Button x:Name="FormatStrikeThroughButton" Command="{Binding FormatStrikeThroughCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Name}">
                     <TextBlock Text="Strike Through"/>
                 </Button>
-                <Button Command="{Binding TableCommand}">
+                <Button Command="{Binding InsertTableCommand}">
                     <TextBlock Text="Table"/>
                 </Button>
             </ToolBar>

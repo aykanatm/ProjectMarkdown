@@ -420,5 +420,30 @@ namespace ProjectMarkdown.CustomControls
                 throw e;
             }
         }
+
+        public string GetSelectedText()
+        {
+            Logger.GetInstance().Debug("GetSelectedText() >>");
+            Logger.GetInstance().Debug("<< GetSelectedText()");
+            return _innerTextbox.SelectedText;
+        }
+
+        public void ReplaceText(string text)
+        {
+            Logger.GetInstance().Debug("ReplaceText() >>");
+
+            try
+            {
+                _innerTextbox.ClearSelected();
+                _innerTextbox.InsertText(text);
+                _innerTextbox.Focus();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            Logger.GetInstance().Debug("<< ReplaceText() >>");
+        }
     }
 }

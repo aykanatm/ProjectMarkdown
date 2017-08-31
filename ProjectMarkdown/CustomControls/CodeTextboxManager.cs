@@ -39,6 +39,49 @@ namespace ProjectMarkdown.CustomControls
             }
         }
 
+        public string GetSelectedText(DocumentModel document)
+        {
+            Logger.GetInstance().Debug("GetSelectedText() >>");
+
+            try
+            {
+                var codeTextboxHost = GetCurrentCodeTextbox(document);
+
+                if (codeTextboxHost != null)
+                {
+                    Logger.GetInstance().Debug("<< GetSelectedText()");
+                    return codeTextboxHost.GetSelectedText();
+                }
+                Logger.GetInstance().Debug("<< GetSelectedText()");
+                return null;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public void ReplaceText(DocumentModel document, string text)
+        {
+            Logger.GetInstance().Debug("ReplaceText() >>");
+
+            try
+            {
+                var codeTextboxHost = GetCurrentCodeTextbox(document);
+
+                if (codeTextboxHost != null)
+                {
+                    codeTextboxHost.ReplaceText(text);
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            Logger.GetInstance().Debug("<< ReplaceText()");
+        }
+
         public void Undo(DocumentModel document)
         {
             Logger.GetInstance().Debug("Undo() >>");

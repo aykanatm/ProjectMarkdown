@@ -130,8 +130,10 @@
     <Compile Include="Services\DocumentSynchronizer.cs" />
     <Compile Include="Services\ScrollResult.cs" />
     <Compile Include="Services\SharedEventHandler.cs" />
+    <Compile Include="Services\TextFormatter.cs" />
     <Compile Include="Statics\FilePaths.cs" />
     <Compile Include="Statics\FolderPaths.cs" />
+    <Compile Include="Statics\FormatTextButtons.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\PreferencesViewModel.cs" />
     <Compile Include="Views\About.xaml.cs">
