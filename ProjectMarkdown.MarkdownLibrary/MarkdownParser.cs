@@ -180,7 +180,7 @@ namespace ProjectMarkdown.MarkdownLibrary
         {
             var output = string.Empty;
             int nbLines = 0;
-            while (lines[currentIndex].StartsWith("> "))
+            while (currentIndex < lines.Length && lines[currentIndex].StartsWith("> "))
             {
                 output += lines[currentIndex].Substring(1).Trim();
                 if (string.IsNullOrEmpty(lines[currentIndex]))
