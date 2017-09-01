@@ -183,6 +183,43 @@ namespace ProjectMarkdown.Services
 
                         break;
                     }
+                    case TextFormats.InlineCode:
+                    {
+                        if (input.StartsWith("`") && input.EndsWith("`"))
+                        {
+                            formattedText = input.Substring(1, input.Length - 2).Trim();
+                        }
+                        else
+                        {
+                            formattedText = "`" + input + "`";
+                        }
+                        break;
+                    }
+                    case TextFormats.Italic:
+                    {
+                        if (input.StartsWith("*") && input.EndsWith("*"))
+                        {
+                            formattedText = input.Substring(1, input.Length - 2).Trim();
+                        }
+                        else
+                        {
+                            formattedText = "*" + input + "*";
+                        }
+                        break;
+                    }
+                    case TextFormats.StrikeThrough:
+                    {
+                        if (input.StartsWith("~~") && input.EndsWith("~~"))
+                        {
+                            formattedText = input.Substring(2, input.Length - 4);
+                        }
+                        else
+                        {
+                            formattedText = "~~" + input + "~~";
+                        }
+
+                        break;
+                    }
                     default:
                     {
                         break;
