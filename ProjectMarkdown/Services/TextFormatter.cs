@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace ProjectMarkdown.Services
 {
@@ -204,6 +205,42 @@ namespace ProjectMarkdown.Services
                         else
                         {
                             formattedText = "*" + input + "*";
+                        }
+                        break;
+                    }
+                    case TextFormats.OrderedList:
+                    {
+                        input = input.Replace("\r", "");
+                        var lines = input.Split('\n');
+                        for (var i = 0; i < lines.Length; i++)
+                        {
+                            var line = lines[i];
+                            if (!string.IsNullOrEmpty(line))
+                            {
+                                // If the line starts with a number, followed by a dot and a space
+                                if (Regex.IsMatch(line, @"^\d+\. "))
+                                {
+                                    if (i != lines.Length - 1)
+                                    {
+                                        formattedText += line.Substring(2, line.Length - 2).Trim() + "\r\n";
+                                    }
+                                    else
+                                    {
+                                        formattedText += line.Substring(2, line.Length - 2).Trim();
+                                    }
+                                }
+                                else
+                                {
+                                    if (i != lines.Length - 1)
+                                    {
+                                        formattedText += (i + 1) + ". " + line.Trim() + "\r\n";
+                                    }
+                                    else
+                                    {
+                                        formattedText += (i + 1) + ". " + line.Trim();
+                                    }
+                                }
+                            }
                         }
                         break;
                     }
