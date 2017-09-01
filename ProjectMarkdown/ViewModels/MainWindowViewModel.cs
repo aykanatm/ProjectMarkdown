@@ -1264,7 +1264,7 @@ namespace ProjectMarkdown.ViewModels
 
         public void InsertHorizontalRule(object obj)
         {
-            
+            CodeTextboxManager.GetInstance().InsertText(CurrentDocument, "---");
         }
 
         public bool CanInsertHorizontalRule(object obj)
