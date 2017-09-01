@@ -101,8 +101,86 @@ namespace ProjectMarkdown.Services
                         else
                         {
                             formattedText = "**" + input + "**";
-
                         }
+
+                        break;
+                    }
+                    case TextFormats.Heading1:
+                    {
+                        if (input.StartsWith("# "))
+                        {
+                            formattedText = input.Substring(1, input.Length - 1).Trim();
+                        }
+                        else
+                        {
+                            formattedText = "# " + input;
+                        }
+
+                        break;
+                    }
+                    case TextFormats.Heading2:
+                    {
+                        if (input.StartsWith("## "))
+                        {
+                            formattedText = input.Substring(2, input.Length - 2).Trim();
+                        }
+                        else
+                        {
+                            formattedText = "## " + input;
+                        }
+
+                        break;
+                    }
+                    case TextFormats.Heading3:
+                    {
+                        if (input.StartsWith("### "))
+                        {
+                            formattedText = input.Substring(3, input.Length - 3).Trim();
+                        }
+                        else
+                        {
+                            formattedText = "### " + input;
+                        }
+
+                        break;
+                    }
+                    case TextFormats.Heading4:
+                    {
+                        if (input.StartsWith("#### "))
+                        {
+                            formattedText = input.Substring(4, input.Length - 4).Trim();
+                        }
+                        else
+                        {
+                            formattedText = "#### " + input;
+                        }
+
+                        break;
+                    }
+                    case TextFormats.Heading5:
+                    {
+                        if (input.StartsWith("##### "))
+                        {
+                            formattedText = input.Substring(5, input.Length - 5).Trim();
+                        }
+                        else
+                        {
+                            formattedText = "##### " + input;
+                        }
+
+                        break;
+                    }
+                    case TextFormats.Heading6:
+                    {
+                        if (input.StartsWith("###### "))
+                        {
+                            formattedText = input.Substring(6, input.Length - 6).Trim();
+                        }
+                        else
+                        {
+                            formattedText = "###### " + input;
+                        }
+
                         break;
                     }
                     default:

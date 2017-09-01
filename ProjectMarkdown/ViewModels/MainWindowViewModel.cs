@@ -1176,65 +1176,68 @@ namespace ProjectMarkdown.ViewModels
             {
                 var buttonName = (string)obj;
                 var selectedText = CodeTextboxManager.GetInstance().GetSelectedText(CurrentDocument);
-                var formattedText = "";
-                if (buttonName == FormatTextButtons.BlockCode)
+                if (!string.IsNullOrEmpty(selectedText))
                 {
-                    formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.BlockCode);
+                    var formattedText = "";
+                    if (buttonName == FormatTextButtons.BlockCode)
+                    {
+                        formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.BlockCode);
+                    }
+                    else if (buttonName == FormatTextButtons.BlockQuote)
+                    {
+                        formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.BlockQuote);
+                    }
+                    else if (buttonName == FormatTextButtons.Heading1)
+                    {
+                        formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Heading1);
+                    }
+                    else if (buttonName == FormatTextButtons.Heading2)
+                    {
+                        formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Heading2);
+                    }
+                    else if (buttonName == FormatTextButtons.Heading3)
+                    {
+                        formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Heading3);
+                    }
+                    else if (buttonName == FormatTextButtons.Heading4)
+                    {
+                        formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Heading4);
+                    }
+                    else if (buttonName == FormatTextButtons.Heading5)
+                    {
+                        formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Heading5);
+                    }
+                    else if (buttonName == FormatTextButtons.Heading6)
+                    {
+                        formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Heading6);
+                    }
+                    else if (buttonName == FormatTextButtons.InlineCode)
+                    {
+                        formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.InlineCode);
+                    }
+                    else if (buttonName == FormatTextButtons.Italic)
+                    {
+                        formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Italic);
+                    }
+                    else if (buttonName == FormatTextButtons.OrderedList)
+                    {
+                        formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.OrderedList);
+                    }
+                    else if (buttonName == FormatTextButtons.UnorderedList)
+                    {
+                        formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.UnorderedList);
+                    }
+                    else if (buttonName == FormatTextButtons.StrikeThrough)
+                    {
+                        formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.StrikeThrough);
+                    }
+                    else if (buttonName == FormatTextButtons.Bold)
+                    {
+                        formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Bold);
+                    }
+
+                    CodeTextboxManager.GetInstance().ReplaceText(CurrentDocument, formattedText);
                 }
-                else if (buttonName == FormatTextButtons.BlockQuote)
-                {
-                    formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.BlockQuote);
-                }
-                else if (buttonName == FormatTextButtons.Heading1)
-                {
-                    formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Heading1);
-                }
-                else if (buttonName == FormatTextButtons.Heading2)
-                {
-                    formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Heading2);
-                }
-                else if (buttonName == FormatTextButtons.Heading3)
-                {
-                    formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Heading3);
-                }
-                else if (buttonName == FormatTextButtons.Heading4)
-                {
-                    formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Heading4);
-                }
-                else if (buttonName == FormatTextButtons.Heading5)
-                {
-                    formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Heading5);
-                }
-                else if (buttonName == FormatTextButtons.Heading6)
-                {
-                    formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Heading6);
-                }
-                else if (buttonName == FormatTextButtons.InlineCode)
-                {
-                    formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.InlineCode);
-                }
-                else if (buttonName == FormatTextButtons.Italic)
-                {
-                    formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Italic);
-                }
-                else if (buttonName == FormatTextButtons.OrderedList)
-                {
-                    formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.OrderedList);
-                }
-                else if (buttonName == FormatTextButtons.UnorderedList)
-                {
-                    formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.UnorderedList);
-                }
-                else if (buttonName == FormatTextButtons.StrikeThrough)
-                {
-                    formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.StrikeThrough);
-                }
-                else if (buttonName == FormatTextButtons.Bold)
-                {
-                    formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Bold);
-                }
-                
-                CodeTextboxManager.GetInstance().ReplaceText(CurrentDocument, formattedText);
             }
             catch (Exception e)
             {
@@ -1326,7 +1329,56 @@ namespace ProjectMarkdown.ViewModels
 
         public void HeaderFormattingChangedEvent(object obj)
         {
-            
+            Logger.GetInstance().Debug("HeaderFormattingChangedEvent() >>");
+
+            try
+            {
+                var headingValue = (string)obj;
+                var selectedText = CodeTextboxManager.GetInstance().GetSelectedText(CurrentDocument);
+
+                if (!string.IsNullOrEmpty(selectedText))
+                {
+                    var formattedText = "";
+
+                    if (headingValue == "Heading 1")
+                    {
+                        formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Heading1);
+                    }
+                    else if (headingValue == "Heading 2")
+                    {
+                        formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Heading2);
+                    }
+                    else if (headingValue == "Heading 3")
+                    {
+                        formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Heading3);
+                    }
+                    else if (headingValue == "Heading 4")
+                    {
+                        formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Heading4);
+                    }
+                    else if (headingValue == "Heading 5")
+                    {
+                        formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Heading5);
+                    }
+                    else if (headingValue == "Heading 6")
+                    {
+                        formattedText = TextFormatter.Format(selectedText, TextFormatter.TextFormats.Heading6);
+                    }
+                    else
+                    {
+                        throw new Exception("Object returned as as unexpected value '" + headingValue + "'.");
+                    }
+
+                    CodeTextboxManager.GetInstance().ReplaceText(CurrentDocument, formattedText);
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while formatting the selected text", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            Logger.GetInstance().Debug("<< HeaderFormattingChangedEvent()");
         }
 
         // UTILITIES
