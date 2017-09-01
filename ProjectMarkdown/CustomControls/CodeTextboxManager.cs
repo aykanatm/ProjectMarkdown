@@ -39,6 +39,27 @@ namespace ProjectMarkdown.CustomControls
             }
         }
 
+        public void InsertText(DocumentModel document, string text)
+        {
+            Logger.GetInstance().Debug("InsertText() >>");
+
+            try
+            {
+                var codeTextboxHost = GetCurrentCodeTextbox(document);
+
+                if (codeTextboxHost != null)
+                {
+                    codeTextboxHost.InsertText(text);
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            Logger.GetInstance().Debug("<< InsertText()");
+        }
+
         public string GetSelectedText(DocumentModel document)
         {
             Logger.GetInstance().Debug("GetSelectedText() >>");

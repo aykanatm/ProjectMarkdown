@@ -445,5 +445,20 @@ namespace ProjectMarkdown.CustomControls
 
             Logger.GetInstance().Debug("<< ReplaceText() >>");
         }
+
+        public void InsertText(string text)
+        {
+            Logger.GetInstance().Debug("InsertText() >>");
+            try
+            {
+                _innerTextbox.InsertText(text);
+                _innerTextbox.Focus();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            Logger.GetInstance().Debug("<< InsertText()");
+        }
     }
 }
