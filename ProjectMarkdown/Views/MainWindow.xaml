@@ -145,7 +145,7 @@
                 </Button>
                 <ComboBox ItemsSource="{Binding HeadingFormats}" SelectedItem="{Binding SelectedHeadingFormatting}">
                     <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="SelectionChanged">
+                        <i:EventTrigger EventName="DropDownClosed">
                             <i:InvokeCommandAction Command="{Binding HeaderChangedEventCommand}" CommandParameter="{Binding SelectedHeadingFormatting}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
