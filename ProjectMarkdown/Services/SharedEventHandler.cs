@@ -12,6 +12,7 @@ namespace ProjectMarkdown.Services
         public Action<PreferencesModel> OnPreferecesSaved;
         public Action<string> OnApplyLinkUrlSelected;
         public Action<string, string> OnInsertImageUrlSelected;
+        public Action<int, int> OnInsertTableDimensionsSelected;
         public Action<ScrollResult> OnCodeTextboxScrollChanged;
         public Action OnTextboxTextChanged;
 
@@ -29,6 +30,11 @@ namespace ProjectMarkdown.Services
         }
 
         private SharedEventHandler() { }
+
+        public void RaiseOnInsertTableDimensionsSelected(int rows, int columns)
+        {
+            OnInsertTableDimensionsSelected(rows, columns);
+        }
 
         public void RaiseOnApplyLinkUrlSelected(string url)
         {

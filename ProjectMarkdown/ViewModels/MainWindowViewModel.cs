@@ -188,6 +188,7 @@ namespace ProjectMarkdown.ViewModels
             SharedEventHandler.GetInstance().OnPreferecesSaved += OnPreferecesSaved;
             SharedEventHandler.GetInstance().OnApplyLinkUrlSelected += OnApplyLinkUrlSelected;
             SharedEventHandler.GetInstance().OnInsertImageUrlSelected += OnInsertImageUrlSelected;
+            SharedEventHandler.GetInstance().OnInsertTableDimensionsSelected += OnInsertTableDimensionsSelected;
             SharedEventHandler.GetInstance().OnCodeTextboxScrollChanged += OnCodeTextboxScrollChanged;
             SharedEventHandler.GetInstance().OnTextboxTextChanged += OnTextboxTextChanged;
 
@@ -196,6 +197,44 @@ namespace ProjectMarkdown.ViewModels
             SelectedHeadingFormatting = "Heading 1";
 
             Logger.GetInstance().Debug("<< MainWindowViewModel()");
+        }
+
+        private void OnInsertTableDimensionsSelected(int rows, int columns)
+        {
+            Logger.GetInstance().Debug("OnInsertTableDimensionsSelected() >>");
+
+            try
+            {
+                var table = "";
+                for (var i = 0; i < rows; i++)
+                {
+                    for (var j = 0; j < columns; j++)
+                    {
+                        // Write header
+                        if (i == 0)
+                        {
+                            table += "| Header " + (j + 1) + " |";
+                        }
+                        else
+                        {
+                            table += "| Element (" + (i+1) + "/" + (j+1) + ") |";
+                        }
+                    }
+                    if (i != rows - 1)
+                    {
+                        table += "\r\n";
+                    }
+                }
+
+                CodeTextboxManager.GetInstance().InsertText(CurrentDocument, table);
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while formatting the selected text", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            Logger.GetInstance().Debug("<< OnInsertTableDimensionsSelected()");
         }
 
         private void OnInsertImageUrlSelected(string url, string alt)
@@ -1369,7 +1408,19 @@ namespace ProjectMarkdown.ViewModels
 
         public void InsertTable(object obj)
         {
-            
+            Logger.GetInstance().Debug("InsertTable() >>");
+
+            try
+            {
+                WindowManager.GetInstance().OpenWindow(WindowManager.WindowTypes.TableInserter);
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while formatting the selected text", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            Logger.GetInstance().Debug("<< InsertTable()");
         }
 
         public bool CanInsertTable(object obj)

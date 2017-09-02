@@ -137,6 +137,7 @@
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\ImageInserterViewModel.cs" />
     <Compile Include="ViewModels\PreferencesViewModel.cs" />
+    <Compile Include="ViewModels\TableInserterViewModel.cs" />
     <Compile Include="ViewModels\UrlSelectorViewModel.cs" />
     <Compile Include="Views\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
@@ -146,6 +147,9 @@
     </Compile>
     <Compile Include="Views\Preferences.xaml.cs">
       <DependentUpon>Preferences.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TableInserter.xaml.cs">
+      <DependentUpon>TableInserter.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UrlSelector.xaml.cs">
       <DependentUpon>UrlSelector.xaml</DependentUpon>
@@ -186,6 +190,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\Preferences.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TableInserter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

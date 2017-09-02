@@ -15,7 +15,8 @@ namespace ProjectMarkdown.Windows
             About,
             Preferences,
             UrlSelector,
-            ImageInserter
+            ImageInserter,
+            TableInserter
         }
 
         public static WindowManager GetInstance()
@@ -52,6 +53,11 @@ namespace ProjectMarkdown.Windows
             {
                 var imageInserterWindow = new ImageInserter();
                 imageInserterWindow.Show();
+            }
+            else if (windowType == WindowTypes.TableInserter)
+            {
+                var tableInserterWindow = new TableInserter();
+                tableInserterWindow.Show();
             }
         }
 
