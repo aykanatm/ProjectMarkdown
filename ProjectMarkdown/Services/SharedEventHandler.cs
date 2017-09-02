@@ -10,6 +10,7 @@ namespace ProjectMarkdown.Services
         private static readonly object LockObject = new object();
 
         public Action<PreferencesModel> OnPreferecesSaved;
+        public Action<string> OnApplyLinkUrlSelected;
         public Action<ScrollResult> OnCodeTextboxScrollChanged;
         public Action OnTextboxTextChanged;
 
@@ -28,14 +29,19 @@ namespace ProjectMarkdown.Services
 
         private SharedEventHandler() { }
 
-        public void RaiseOnCodeTextboxScrollChanged(ScrollResult scrollResult)
+        public void RaiseOnApplyLinkUrlSelected(string url)
         {
-            OnCodeTextboxScrollChanged(scrollResult);
+            OnApplyLinkUrlSelected(url);
         }
 
         public void RaiseOnPreferencesSaved(PreferencesModel preferences)
         {
             OnPreferecesSaved(preferences);
+        }
+
+        public void RaiseOnCodeTextboxScrollChanged(ScrollResult scrollResult)
+        {
+            OnCodeTextboxScrollChanged(scrollResult);
         }
 
         public void RaiseOnTextboxTextChanged()

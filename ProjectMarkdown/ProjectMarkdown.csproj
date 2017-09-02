@@ -136,14 +136,20 @@
     <Compile Include="Statics\FormatTextButtons.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\PreferencesViewModel.cs" />
+    <Compile Include="ViewModels\UrlSelectorViewModel.cs" />
     <Compile Include="Views\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Preferences.xaml.cs">
       <DependentUpon>Preferences.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UrlSelector.xaml.cs">
+      <DependentUpon>UrlSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\IRequireViewIdentification.cs" />
     <Compile Include="Windows\IWindowFactory.cs" />
     <Compile Include="Windows\ProductionWindowFactory.cs" />
+    <Compile Include="Windows\WindowManager.cs" />
     <Page Include="Views\About.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -174,6 +180,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\Preferences.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UrlSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

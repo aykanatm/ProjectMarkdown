@@ -186,6 +186,7 @@ namespace ProjectMarkdown.ViewModels
             LoadPreferences();
 
             SharedEventHandler.GetInstance().OnPreferecesSaved += OnPreferecesSaved;
+            SharedEventHandler.GetInstance().OnApplyLinkUrlSelected += OnApplyLinkUrlSelected;
             SharedEventHandler.GetInstance().OnCodeTextboxScrollChanged += OnCodeTextboxScrollChanged;
             SharedEventHandler.GetInstance().OnTextboxTextChanged += OnTextboxTextChanged;
 
@@ -194,6 +195,25 @@ namespace ProjectMarkdown.ViewModels
             SelectedHeadingFormatting = "Heading 1";
 
             Logger.GetInstance().Debug("<< MainWindowViewModel()");
+        }
+
+        private void OnApplyLinkUrlSelected(string url)
+        {
+            Logger.GetInstance().Debug("OnApplyLinkUrlSelected() >>");
+
+            try
+            {
+                var selectedText = CodeTextboxManager.GetInstance().GetSelectedText(CurrentDocument);
+                var formattedText = "[" + selectedText + "](" + url + ")";
+                CodeTextboxManager.GetInstance().ReplaceText(CurrentDocument, formattedText);
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while formatting the selected text", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            Logger.GetInstance().Debug("<< OnApplyLinkUrlSelected()");
         }
 
         private void OnTextboxTextChanged()
@@ -212,6 +232,13 @@ namespace ProjectMarkdown.ViewModels
             {
                 CefChromiumBrowserManager.GetInstance().Scroll(CurrentDocument, scrollResult);
             }
+        }
+
+        private void OnPreferecesSaved(PreferencesModel preferences)
+        {
+            Logger.GetInstance().Debug("OnPreferencesSaved() >>");
+            LoadPreferences(preferences);
+            Logger.GetInstance().Debug("<< OnPreferencesSaved()");
         }
 
         private void LoadCommands()
@@ -355,13 +382,6 @@ namespace ProjectMarkdown.ViewModels
             Logger.GetInstance().Debug("<< LoadPreferences()");
         }
         
-        private void OnPreferecesSaved(PreferencesModel preferences)
-        {
-            Logger.GetInstance().Debug("OnPreferencesSaved() >>");
-            LoadPreferences(preferences);
-            Logger.GetInstance().Debug("<< OnPreferencesSaved()");
-        }
-
         // FILE
         public void CreateNewDocument(object obj)
         {
@@ -1259,12 +1279,41 @@ namespace ProjectMarkdown.ViewModels
 
         public void ApplyLink(object obj)
         {
+            Logger.GetInstance().Debug("ApplyLink() >>");
+
+            try
+            {
+                var selectedText = CodeTextboxManager.GetInstance().GetSelectedText(CurrentDocument);
+                if (!string.IsNullOrEmpty(selectedText))
+                {
+                    var windowFactory = new ProductionWindowFactory();
+                    windowFactory.CreateWindow(ProductionWindowFactory.WindowTypes.UrlSelector);
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while formatting the selected text", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             
+            Logger.GetInstance().Debug("<< ApplyLink()");
         }
 
         public void InsertHorizontalRule(object obj)
         {
-            CodeTextboxManager.GetInstance().InsertText(CurrentDocument, "---");
+            Logger.GetInstance().Debug("InsertHorizontalRule() >>");
+
+            try
+            {
+                CodeTextboxManager.GetInstance().InsertText(CurrentDocument, "---");
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while formatting the selected text", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            Logger.GetInstance().Debug("<< InsertHorizontalRule()");
         }
 
         public bool CanInsertHorizontalRule(object obj)

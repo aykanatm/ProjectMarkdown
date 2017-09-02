@@ -7,7 +7,8 @@ namespace ProjectMarkdown.Windows
         public enum WindowTypes
         {
             About,
-            Preferences
+            Preferences,
+            UrlSelector
         }
 
         public void CreateWindow(WindowTypes windowType)
@@ -21,6 +22,11 @@ namespace ProjectMarkdown.Windows
             {
                 var preferencesWindow = new Preferences();
                 preferencesWindow.Show();
+            }
+            else if (windowType == WindowTypes.UrlSelector)
+            {
+                var urlSelectorWindow = new UrlSelector();
+                urlSelectorWindow.Show();
             }
         }
     }
