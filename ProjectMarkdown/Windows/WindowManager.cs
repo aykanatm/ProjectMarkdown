@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using ProjectMarkdown.Views;
 
 namespace ProjectMarkdown.Windows
 {
@@ -8,6 +9,13 @@ namespace ProjectMarkdown.Windows
         private static WindowManager _windowManager;
 
         private static readonly object LockObject = new object();
+
+        public enum WindowTypes
+        {
+            About,
+            Preferences,
+            UrlSelector
+        }
 
         public static WindowManager GetInstance()
         {
@@ -20,6 +28,25 @@ namespace ProjectMarkdown.Windows
             }
 
             return _windowManager;
+        }
+
+        public void OpenWindow(WindowTypes windowType)
+        {
+            if (windowType == WindowTypes.About)
+            {
+                var aboutWindow = new About();
+                aboutWindow.Show();
+            }
+            else if (windowType == WindowTypes.Preferences)
+            {
+                var preferencesWindow = new Preferences();
+                preferencesWindow.Show();
+            }
+            else if (windowType == WindowTypes.UrlSelector)
+            {
+                var urlSelectorWindow = new UrlSelector();
+                urlSelectorWindow.Show();
+            }
         }
 
         public void CloseWindow(Guid id)

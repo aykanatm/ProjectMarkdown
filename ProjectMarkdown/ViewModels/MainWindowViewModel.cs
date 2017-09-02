@@ -1129,8 +1129,7 @@ namespace ProjectMarkdown.ViewModels
             Logger.GetInstance().Debug("OpenPreferencesWindow() >>");
             try
             {
-                var windowFactory = new ProductionWindowFactory();
-                windowFactory.CreateWindow(ProductionWindowFactory.WindowTypes.Preferences);
+                WindowManager.GetInstance().OpenWindow(WindowManager.WindowTypes.Preferences);
             }
             catch (Exception e)
             {
@@ -1174,8 +1173,7 @@ namespace ProjectMarkdown.ViewModels
             Logger.GetInstance().Debug("OpenAboutWindow() >>");
             try
             {
-                var windowFactory = new ProductionWindowFactory();
-                windowFactory.CreateWindow(ProductionWindowFactory.WindowTypes.About);
+                WindowManager.GetInstance().OpenWindow(WindowManager.WindowTypes.About);
             }
             catch (Exception e)
             {
@@ -1286,8 +1284,7 @@ namespace ProjectMarkdown.ViewModels
                 var selectedText = CodeTextboxManager.GetInstance().GetSelectedText(CurrentDocument);
                 if (!string.IsNullOrEmpty(selectedText))
                 {
-                    var windowFactory = new ProductionWindowFactory();
-                    windowFactory.CreateWindow(ProductionWindowFactory.WindowTypes.UrlSelector);
+                    WindowManager.GetInstance().OpenWindow(WindowManager.WindowTypes.UrlSelector);
                 }
             }
             catch (Exception e)

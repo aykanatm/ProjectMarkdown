@@ -147,8 +147,6 @@
       <DependentUpon>UrlSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\IRequireViewIdentification.cs" />
-    <Compile Include="Windows\IWindowFactory.cs" />
-    <Compile Include="Windows\ProductionWindowFactory.cs" />
     <Compile Include="Windows\WindowManager.cs" />
     <Page Include="Views\About.xaml">
       <SubType>Designer</SubType>
