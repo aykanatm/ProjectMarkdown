@@ -14,6 +14,9 @@
         <viewModels:UrlSelectorViewModel/>
     </Window.DataContext>
     <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" MaxHeight="30" MinHeight="30"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30" MaxWidth="30" MinWidth="30"/>
             <ColumnDefinition Width="200" MaxWidth="200" MinWidth="200"/>
@@ -22,7 +25,7 @@
         <TextBlock Grid.Column="0" Text="URL:" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <TextBox Grid.Column="1" Margin="2" Text="{Binding SelectedUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"/>
         <Button Grid.Column="2" Margin="2" Command="{Binding SelectUrlCommand}">
-            <TextBlock Text="Select"/>
+            <TextBlock Text="Select" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Button>
     </Grid>
 </Window>
