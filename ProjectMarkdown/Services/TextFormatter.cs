@@ -244,6 +244,41 @@ namespace ProjectMarkdown.Services
                         }
                         break;
                     }
+                    case TextFormats.UnorderedList:
+                    {
+                        input = input.Replace("\r", "");
+                        var lines = input.Split('\n');
+                        for (var i = 0; i < lines.Length; i++)
+                        {
+                            var line = lines[i];
+                            if (!string.IsNullOrEmpty(line))
+                            {
+                                if (line.StartsWith("* ") || line.StartsWith("- "))
+                                {
+                                    if (i != lines.Length - 1)
+                                    {
+                                        formattedText += line.Substring(2, line.Length - 2).Trim() + "\r\n";
+                                    }
+                                    else
+                                    {
+                                        formattedText += line.Substring(2, line.Length - 2).Trim();
+                                    }
+                                }
+                                else
+                                {
+                                    if (i != lines.Length - 1)
+                                    {
+                                        formattedText += "* " + line.Trim() + "\r\n";
+                                    }
+                                    else
+                                    {
+                                        formattedText += "* " + line.Trim();
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    }
                     case TextFormats.StrikeThrough:
                     {
                         if (input.StartsWith("~~") && input.EndsWith("~~"))
