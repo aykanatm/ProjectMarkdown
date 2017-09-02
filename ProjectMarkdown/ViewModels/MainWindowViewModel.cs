@@ -187,6 +187,7 @@ namespace ProjectMarkdown.ViewModels
 
             SharedEventHandler.GetInstance().OnPreferecesSaved += OnPreferecesSaved;
             SharedEventHandler.GetInstance().OnApplyLinkUrlSelected += OnApplyLinkUrlSelected;
+            SharedEventHandler.GetInstance().OnInsertImageUrlSelected += OnInsertImageUrlSelected;
             SharedEventHandler.GetInstance().OnCodeTextboxScrollChanged += OnCodeTextboxScrollChanged;
             SharedEventHandler.GetInstance().OnTextboxTextChanged += OnTextboxTextChanged;
 
@@ -195,6 +196,24 @@ namespace ProjectMarkdown.ViewModels
             SelectedHeadingFormatting = "Heading 1";
 
             Logger.GetInstance().Debug("<< MainWindowViewModel()");
+        }
+
+        private void OnInsertImageUrlSelected(string url, string alt)
+        {
+            Logger.GetInstance().Debug("OnInsertImageUrlSelected() >>");
+
+            try
+            {
+                var image = "![" + (string.IsNullOrEmpty(alt) ? "Image Alternate Text" : alt) + "](" + url + ")";
+                CodeTextboxManager.GetInstance().InsertText(CurrentDocument, image);
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while formatting the selected text", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            Logger.GetInstance().Debug("<< OnInsertImageUrlSelected()");
         }
 
         private void OnApplyLinkUrlSelected(string url)
@@ -1324,7 +1343,19 @@ namespace ProjectMarkdown.ViewModels
 
         public void InsertImage(object obj)
         {
-            
+            Logger.GetInstance().Debug("InsertImage() >>");
+
+            try
+            {
+                WindowManager.GetInstance().OpenWindow(WindowManager.WindowTypes.ImageInserter);
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while formatting the selected text", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            Logger.GetInstance().Debug("<< InsertImage()");
         }
 
         public bool CanInsertImage(object obj)

@@ -135,10 +135,14 @@
     <Compile Include="Statics\FolderPaths.cs" />
     <Compile Include="Statics\FormatTextButtons.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
+    <Compile Include="ViewModels\ImageInserterViewModel.cs" />
     <Compile Include="ViewModels\PreferencesViewModel.cs" />
     <Compile Include="ViewModels\UrlSelectorViewModel.cs" />
     <Compile Include="Views\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ImageInserter.xaml.cs">
+      <DependentUpon>ImageInserter.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Preferences.xaml.cs">
       <DependentUpon>Preferences.xaml</DependentUpon>
@@ -149,6 +153,10 @@
     <Compile Include="Windows\IRequireViewIdentification.cs" />
     <Compile Include="Windows\WindowManager.cs" />
     <Page Include="Views\About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ImageInserter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

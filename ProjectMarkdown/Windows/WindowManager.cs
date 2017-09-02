@@ -14,7 +14,8 @@ namespace ProjectMarkdown.Windows
         {
             About,
             Preferences,
-            UrlSelector
+            UrlSelector,
+            ImageInserter
         }
 
         public static WindowManager GetInstance()
@@ -46,6 +47,11 @@ namespace ProjectMarkdown.Windows
             {
                 var urlSelectorWindow = new UrlSelector();
                 urlSelectorWindow.Show();
+            }
+            else if (windowType == WindowTypes.ImageInserter)
+            {
+                var imageInserterWindow = new ImageInserter();
+                imageInserterWindow.Show();
             }
         }
 
