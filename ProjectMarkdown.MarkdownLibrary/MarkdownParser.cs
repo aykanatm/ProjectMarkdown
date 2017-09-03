@@ -190,7 +190,7 @@ namespace ProjectMarkdown.MarkdownLibrary
                 currentIndex += 1;
                 nbLines += 1;
             }
-            return new BlockquoteOutput(output,nbLines);
+            return new BlockquoteOutput(output,nbLines - 1);
         }
 
         private List<HtmlComponent> GetListItems(int currentIndex, string[] lines, bool isCallerSublist)
