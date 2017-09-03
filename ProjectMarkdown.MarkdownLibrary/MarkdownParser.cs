@@ -276,18 +276,21 @@ namespace ProjectMarkdown.MarkdownLibrary
                 string code = string.Empty;
                 currentIndex += 1;
 
-                while (lines[currentIndex] != "```")
+                if (currentIndex < lines.Length)
                 {
-                    if (lines[currentIndex + 1] != "```")
+                    while (currentIndex < lines.Length && lines[currentIndex] != "```")
                     {
-                        code += lines[currentIndex] + "\r\n";
-                    }
-                    else
-                    {
-                        code += lines[currentIndex];
-                    }
+                        if ((currentIndex + 1) < lines.Length && lines[currentIndex + 1] != "```")
+                        {
+                            code += lines[currentIndex] + "\r\n";
+                        }
+                        else
+                        {
+                            code += lines[currentIndex];
+                        }
 
-                    currentIndex += 1;
+                        currentIndex += 1;
+                    }
                 }
 
                 return new CodeBlock(code, currentIndex);
