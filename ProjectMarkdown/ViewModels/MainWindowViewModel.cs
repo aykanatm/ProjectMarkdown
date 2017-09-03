@@ -307,59 +307,59 @@ namespace ProjectMarkdown.ViewModels
             Logger.GetInstance().Debug("LoadCommands() >>");
 
             // File
-            CreateNewDocumentCommand = new RelayCommand(CreateNewDocument, CanCreateNewDocument);
-            SaveDocumentCommand = new RelayCommand(SaveDocument, CanSaveDocument);
+            CreateNewDocumentCommand = new RelayCommand(CreateNewDocument, CanAlwaysBeDone);
+            SaveDocumentCommand = new RelayCommand(SaveDocument, IsCurrentDocumentAvailable);
             SaveAllDocumentsCommand = new RelayCommand(SaveAllDocuments, CanSaveAllDocuments);
-            SaveAsDocumentCommand = new RelayCommand(SaveAsDocument, CanSaveAsDocument);
-            OpenDocumentCommand = new RelayCommand(OpenDocument, CanOpenDocument);
-            OpenContainingFolderCommand = new RelayCommand(OpenContainingFolder, CanOpenContainingFolder);
-            ExportHtmlCommand = new RelayCommand(ExportHtml, CanExportHtml);
-            ExportMarkdownCommand = new RelayCommand(ExportMarkdown, CanExportMarkdown);
-            ExportPdfCommand = new RelayCommand(ExportPdf, CanExportPdf);
-            PrintCommand = new RelayCommand(Print, CanPrint);
-            ExitCommand = new RelayCommand(Exit, CanExit);
-            CloseActiveDocumentCommand = new RelayCommand(CloseActiveDocument, CanCloseActiveDocument);
+            SaveAsDocumentCommand = new RelayCommand(SaveAsDocument, IsCurrentDocumentAvailable);
+            OpenDocumentCommand = new RelayCommand(OpenDocument, CanAlwaysBeDone);
+            OpenContainingFolderCommand = new RelayCommand(OpenContainingFolder, IsCurrentDocumentAvailable);
+            ExportHtmlCommand = new RelayCommand(ExportHtml, IsCurrentDocumentAvailable);
+            ExportMarkdownCommand = new RelayCommand(ExportMarkdown, IsCurrentDocumentAvailable);
+            ExportPdfCommand = new RelayCommand(ExportPdf, IsCurrentDocumentAvailable);
+            PrintCommand = new RelayCommand(Print, IsCurrentDocumentAvailable);
+            ExitCommand = new RelayCommand(Exit, CanAlwaysBeDone);
+            CloseActiveDocumentCommand = new RelayCommand(CloseActiveDocument, IsCurrentDocumentAvailable);
             CloseAllDocumentsCommand = new RelayCommand(CloseAllDocuments, CanCloseAllDocuments);
             CloseAllButActiveDocumentCommand = new RelayCommand(CloseAllButActiveDocument, CanCloseAllButActiveDocument);
 
             // Edit
-            UndoCommand = new RelayCommand(Undo, CanUndo);
-            RedoCommand = new RelayCommand(Redo, CanRedo);
+            UndoCommand = new RelayCommand(Undo, IsCurrentDocumentAvailable);
+            RedoCommand = new RelayCommand(Redo, IsCurrentDocumentAvailable);
             CutCommand = new RelayCommand(Cut, CanCutCopyDelete);
             CopyCommand = new RelayCommand(Copy, CanCutCopyDelete);
             PasteCommand = new RelayCommand(Paste, CanPaste);
             DeleteCommand = new RelayCommand(Delete, CanCutCopyDelete);
-            SelectAllCommand = new RelayCommand(SelectAll, CanSelectAll);
+            SelectAllCommand = new RelayCommand(SelectAll, IsCurrentDocumentAvailable);
 
             // Search
-            FindCommmand = new RelayCommand(Find, CanFind);
-            ReplaceCommand = new RelayCommand(Replace, CanReplace);
+            FindCommmand = new RelayCommand(Find, IsCurrentDocumentAvailable);
+            ReplaceCommand = new RelayCommand(Replace, IsCurrentDocumentAvailable);
 
             // Settings
-            OpenPreferencesWindowCommand = new RelayCommand(OpenPreferencesWindow, CanOpenPreferencesWindow);
+            OpenPreferencesWindowCommand = new RelayCommand(OpenPreferencesWindow, CanAlwaysBeDone);
 
             // Help
-            OpenUserGuideCommand = new RelayCommand(OpenUserGuide, CanOpenUserGuide);
-            OpenAboutWindowCommand = new RelayCommand(OpenAboutWindow, CanOpenAboutWindow);
+            OpenUserGuideCommand = new RelayCommand(OpenUserGuide, CanAlwaysBeDone);
+            OpenAboutWindowCommand = new RelayCommand(OpenAboutWindow, CanAlwaysBeDone);
 
             // Formatting
-            FormatBlockCodeCommand = new RelayCommand(FormatText, CanFormatText);
-            FormatBlockQuoteCommand = new RelayCommand(FormatText, CanFormatText);
-            FormatBoldCommand = new RelayCommand(FormatText, CanFormatText);
-            InsertHorizontalRuleCommand = new RelayCommand(InsertHorizontalRule, CanInsertHorizontalRule);
-            InsertImageCommand = new RelayCommand(InsertImage, CanInsertImage);
-            FormatInlineCodeCommand = new RelayCommand(FormatText, CanFormatText);
-            FormatItalicCommand = new RelayCommand(FormatText, CanFormatText);
-            ApplyLinkCommand = new RelayCommand(ApplyLink, CanFormatText);
-            FormatOrderedListCommand = new RelayCommand(FormatText, CanFormatText);
-            FormatUnorderedListCommand = new RelayCommand(FormatText, CanFormatText);
-            FormatStrikeThroughCommand = new RelayCommand(FormatText, CanFormatText);
-            InsertTableCommand = new RelayCommand(InsertTable, CanInsertTable);
+            FormatBlockCodeCommand = new RelayCommand(FormatText, IsCurrentDocumentAvailable);
+            FormatBlockQuoteCommand = new RelayCommand(FormatText, IsCurrentDocumentAvailable);
+            FormatBoldCommand = new RelayCommand(FormatText, IsCurrentDocumentAvailable);
+            InsertHorizontalRuleCommand = new RelayCommand(InsertHorizontalRule, IsCurrentDocumentAvailable);
+            InsertImageCommand = new RelayCommand(InsertImage, IsCurrentDocumentAvailable);
+            FormatInlineCodeCommand = new RelayCommand(FormatText, IsCurrentDocumentAvailable);
+            FormatItalicCommand = new RelayCommand(FormatText, IsCurrentDocumentAvailable);
+            ApplyLinkCommand = new RelayCommand(ApplyLink, IsCurrentDocumentAvailable);
+            FormatOrderedListCommand = new RelayCommand(FormatText, IsCurrentDocumentAvailable);
+            FormatUnorderedListCommand = new RelayCommand(FormatText, IsCurrentDocumentAvailable);
+            FormatStrikeThroughCommand = new RelayCommand(FormatText, IsCurrentDocumentAvailable);
+            InsertTableCommand = new RelayCommand(InsertTable, IsCurrentDocumentAvailable);
 
             // Events
-            MainWindowClosingEventCommand = new RelayCommand(MainWindowClosingEvent, CanMainWindowClosingEvent);
-            MainWindowResizedCommand = new RelayCommand(MainWindowResizedEvent, CanMainWindowResizedEvent);
-            HeaderChangedEventCommand = new RelayCommand(HeaderFormattingChangedEvent, CanFormatText);
+            MainWindowClosingEventCommand = new RelayCommand(MainWindowClosingEvent, CanAlwaysBeDone);
+            MainWindowResizedCommand = new RelayCommand(MainWindowResizedEvent, CanAlwaysBeDone);
+            HeaderChangedEventCommand = new RelayCommand(HeaderFormattingChangedEvent, IsCurrentDocumentAvailable);
 
             Logger.GetInstance().Debug("<< LoadCommands()");
         }
@@ -485,10 +485,6 @@ namespace ProjectMarkdown.ViewModels
 
             Logger.GetInstance().Debug("<< CreateNewDocument()");
         }
-        public bool CanCreateNewDocument(object obj)
-        {
-            return true;
-        }
 
         public void OpenContainingFolder(object obj)
         {
@@ -508,15 +504,6 @@ namespace ProjectMarkdown.ViewModels
             Logger.GetInstance().Debug("<< OpenContainingFolder()");
         }
 
-        public bool CanOpenContainingFolder(object obj)
-        {
-            if (CurrentDocument != null)
-            {
-                return true;
-            }
-            return false;
-        }
-
         public void SaveDocument(object obj)
         {
             Logger.GetInstance().Debug("SaveDocument() >>");
@@ -534,16 +521,7 @@ namespace ProjectMarkdown.ViewModels
 
             Logger.GetInstance().Debug("<< SaveDocument()");
         }
-
-        public bool CanSaveDocument(object obj)
-        {
-            if (CurrentDocument != null)
-            {
-                return true;
-            }
-            return false;
-        }
-
+        
         public void SaveAllDocuments(object obj)
         {
             Logger.GetInstance().Debug("SaveAllDocuments() >>");
@@ -591,15 +569,6 @@ namespace ProjectMarkdown.ViewModels
             Logger.GetInstance().Debug("<< SaveAsDocument()");
         }
 
-        public bool CanSaveAsDocument(object obj)
-        {
-            if (CurrentDocument != null)
-            {
-                return true;
-            }
-            return false;
-        }
-
         public void OpenDocument(object obj)
         {
             Logger.GetInstance().Debug("OpenDocument() >>");
@@ -642,11 +611,6 @@ namespace ProjectMarkdown.ViewModels
             Logger.GetInstance().Debug("<< OpenDocument()");
         }
 
-        public bool CanOpenDocument(object obj)
-        {
-            return true;
-        }
-
         public void ExportMarkdown(object obj)
         {
             Logger.GetInstance().Debug("ExportMarkdown() >>");
@@ -663,15 +627,6 @@ namespace ProjectMarkdown.ViewModels
             }
 
             Logger.GetInstance().Debug("<< ExportMarkdown()");
-        }
-
-        public bool CanExportMarkdown(object obj)
-        {
-            if (CurrentDocument != null)
-            {
-                return true;
-            }
-            return false;
         }
 
         public void ExportHtml(object obj)
@@ -692,15 +647,6 @@ namespace ProjectMarkdown.ViewModels
             Logger.GetInstance().Debug("<< ExportHtml()");
         }
 
-        public bool CanExportHtml(object obj)
-        {
-            if (CurrentDocument != null)
-            {
-                return true;
-            }
-            return false;
-        }
-
         public void ExportPdf(object obj)
         {
             Logger.GetInstance().Debug("ExportPdf() >>");
@@ -718,16 +664,7 @@ namespace ProjectMarkdown.ViewModels
 
             Logger.GetInstance().Debug("<< ExportPdf()");
         }
-
-        public bool CanExportPdf(object obj)
-        {
-            if (CurrentDocument != null)
-            {
-                return true;
-            }
-            return false;
-        }
-
+        
         public void Print(object obj)
         {
             Logger.GetInstance().Debug("Print() >>");
@@ -746,15 +683,6 @@ namespace ProjectMarkdown.ViewModels
             }
 
             Logger.GetInstance().Debug("<< Print()");
-        }
-
-        public bool CanPrint(object obj)
-        {
-            if (CurrentDocument != null)
-            {
-                return true;
-            }
-            return false;
         }
 
         public void Exit(object obj)
@@ -796,11 +724,6 @@ namespace ProjectMarkdown.ViewModels
             Logger.GetInstance().Debug("<< Exit()");
         }
 
-        public bool CanExit(object obj)
-        {
-            return true;
-        }
-
         public void CloseActiveDocument(object obj)
         {
             Logger.GetInstance().Debug("CloseActiveDocument() >>");
@@ -818,17 +741,7 @@ namespace ProjectMarkdown.ViewModels
 
             Logger.GetInstance().Debug("<< CloseActiveDocument()");
         }
-
-        public bool CanCloseActiveDocument(object obj)
-        {
-            if (CurrentDocument != null)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
+        
         public void CloseAllDocuments(object obj)
         {
             Logger.GetInstance().Debug("CloseAllDocuments() >>");
@@ -957,17 +870,7 @@ namespace ProjectMarkdown.ViewModels
         }
 
         // EDIT
-
-        public bool CanUndo(object obj)
-        {
-            if (CurrentDocument != null)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
+        
         public void Undo(object obj)
         {
             Logger.GetInstance().Debug("Undo() >>");
@@ -984,17 +887,7 @@ namespace ProjectMarkdown.ViewModels
 
             Logger.GetInstance().Debug("<< Undo()");
         }
-
-        public bool CanRedo(object obj)
-        {
-            if (CurrentDocument != null)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
+        
         public void Redo(object obj)
         {
             Logger.GetInstance().Debug("Redo() >>");
@@ -1104,16 +997,6 @@ namespace ProjectMarkdown.ViewModels
             Logger.GetInstance().Debug("<< Paste()");
         }
 
-        public bool CanSelectAll(object obj)
-        {
-            if (CurrentDocument != null)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
         public void SelectAll(object obj)
         {
             Logger.GetInstance().Debug("SelectAll() >>");
@@ -1132,16 +1015,6 @@ namespace ProjectMarkdown.ViewModels
         }
 
         // SEARCH
-        public bool CanFind(object obj)
-        {
-            if (CurrentDocument != null)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
         public void Find(object obj)
         {
             Logger.GetInstance().Debug("Find() >>");
@@ -1157,16 +1030,6 @@ namespace ProjectMarkdown.ViewModels
             }
             
             Logger.GetInstance().Debug("<< Find()");
-        }
-
-        public bool CanReplace(object obj)
-        {
-            if (CurrentDocument != null)
-            {
-                return true;
-            }
-
-            return false;
         }
 
         public void Replace(object obj)
@@ -1187,11 +1050,6 @@ namespace ProjectMarkdown.ViewModels
         }
 
         // SETTINGS
-        public bool CanOpenPreferencesWindow(object obj)
-        {
-            return true;
-        }
-
         public void OpenPreferencesWindow(object obj)
         {
             Logger.GetInstance().Debug("OpenPreferencesWindow() >>");
@@ -1209,11 +1067,6 @@ namespace ProjectMarkdown.ViewModels
         }
 
         // HELP
-        public bool CanOpenUserGuide(object obj)
-        {
-            return true;
-        }
-
         public void OpenUserGuide(object obj)
         {
             Logger.GetInstance().Debug("OpenUserGuide() >>");
@@ -1229,11 +1082,6 @@ namespace ProjectMarkdown.ViewModels
             }
 
             Logger.GetInstance().Debug("<< OpenUserGuide()");
-        }
-
-        public bool CanOpenAboutWindow(object obj)
-        {
-            return true;
         }
 
         public void OpenAboutWindow(object obj)
@@ -1334,15 +1182,6 @@ namespace ProjectMarkdown.ViewModels
             Logger.GetInstance().Debug("<< FormatText()");
         }
 
-        public bool CanFormatText(object obj)
-        {
-            if (CurrentDocument != null)
-            {
-                return true;
-            }
-            return false;
-        }
-
         public void ApplyLink(object obj)
         {
             Logger.GetInstance().Debug("ApplyLink() >>");
@@ -1380,16 +1219,7 @@ namespace ProjectMarkdown.ViewModels
 
             Logger.GetInstance().Debug("<< InsertHorizontalRule()");
         }
-
-        public bool CanInsertHorizontalRule(object obj)
-        {
-            if (CurrentDocument != null)
-            {
-                return true;
-            }
-            return false;
-        }
-
+        
         public void InsertImage(object obj)
         {
             Logger.GetInstance().Debug("InsertImage() >>");
@@ -1406,16 +1236,7 @@ namespace ProjectMarkdown.ViewModels
 
             Logger.GetInstance().Debug("<< InsertImage()");
         }
-
-        public bool CanInsertImage(object obj)
-        {
-            if (CurrentDocument != null)
-            {
-                return true;
-            }
-            return false;
-        }
-
+        
         public void InsertTable(object obj)
         {
             Logger.GetInstance().Debug("InsertTable() >>");
@@ -1433,37 +1254,18 @@ namespace ProjectMarkdown.ViewModels
             Logger.GetInstance().Debug("<< InsertTable()");
         }
 
-        public bool CanInsertTable(object obj)
-        {
-            if (CurrentDocument != null)
-            {
-                return true;
-            }
-            return false;
-        }
-        
         // EVENTS
         public void MainWindowClosingEvent(object obj)
         {
             _isQuitting = true;
             CloseAllDocuments(obj);
         }
-
-        public bool CanMainWindowClosingEvent(object obj)
-        {
-            return true;
-        }
-
+        
         public void MainWindowResizedEvent(object obj)
         {
             CodeTextboxManager.GetInstance().RefreshScrollPosition(CurrentDocument);
         }
-
-        public bool CanMainWindowResizedEvent(object obj)
-        {
-            return true;
-        }
-
+        
         public void HeaderFormattingChangedEvent(object obj)
         {
             Logger.GetInstance().Debug("HeaderFormattingChangedEvent() >>");
@@ -1519,6 +1321,20 @@ namespace ProjectMarkdown.ViewModels
         }
 
         // UTILITIES
+        public bool CanAlwaysBeDone(object obj)
+        {
+            return true;
+        }
+
+        public bool IsCurrentDocumentAvailable(object obj)
+        {
+            if (CurrentDocument != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
 
         private string GetCss()
         {
