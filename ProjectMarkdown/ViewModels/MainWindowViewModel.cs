@@ -28,6 +28,8 @@ namespace ProjectMarkdown.ViewModels
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
+        private bool _isQuitting = false;
+
         private ObservableCollection<DocumentModel> _documents;
         private DocumentModel _currentDocument;
         private string _title;
@@ -841,8 +843,18 @@ namespace ProjectMarkdown.ViewModels
 
                 if (notSavedDocuments.Any())
                 {
-                    var result = MessageBox.Show("Do you want to save your documents before closing all documents?", "Document not saved warning",
+                    MessageBoxResult result = MessageBoxResult.None;
+
+                    if (_isQuitting)
+                    {
+                        result = MessageBox.Show("Do you want to save your documents before quitting?", "Document not saved warning",
+                        MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    }
+                    else
+                    {
+                        result = MessageBox.Show("Do you want to save your documents before closing all documents?", "Document not saved warning",
                         MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
+                    }
 
                     if (result == MessageBoxResult.Yes)
                     {
@@ -1431,12 +1443,11 @@ namespace ProjectMarkdown.ViewModels
             }
             return false;
         }
-
         
-
         // EVENTS
         public void MainWindowClosingEvent(object obj)
         {
+            _isQuitting = true;
             CloseAllDocuments(obj);
         }
 
