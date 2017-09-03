@@ -13,10 +13,11 @@ using ProjectMarkdown.Annotations;
 using ProjectMarkdown.Model;
 using ProjectMarkdown.Services;
 using ProjectMarkdown.Statics;
+using ProjectMarkdown.Windows;
 
 namespace ProjectMarkdown.ViewModels
 {
-    public class PreferencesViewModel : INotifyPropertyChanged
+    public class PreferencesViewModel : INotifyPropertyChanged, IRequireViewIdentification
     {
         private PreferencesModel _currentPreferences;
         private ObservableCollection<string> _logLevels;
@@ -24,6 +25,8 @@ namespace ProjectMarkdown.ViewModels
         private ObservableCollection<string> _fontSizes;
         private ObservableCollection<string> _fonts;
         private ObservableCollection<string> _languages;
+
+        public Guid ViewID { get; }
 
         public ObservableCollection<string> Languages
         {
@@ -92,6 +95,8 @@ namespace ProjectMarkdown.ViewModels
         public PreferencesViewModel()
         {
             Logger.GetInstance().Debug("PreferencesViewModel() >>");
+
+            ViewID = Guid.NewGuid();
 
             if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
             {
@@ -199,8 +204,7 @@ namespace ProjectMarkdown.ViewModels
 
             try
             {
-                var window = (Window)obj;
-                window.Close();
+                WindowManager.GetInstance().CloseWindow(ViewID);
             }
             catch (Exception e)
             {
@@ -229,8 +233,7 @@ namespace ProjectMarkdown.ViewModels
 
                 SharedEventHandler.GetInstance().RaiseOnPreferencesSaved(CurrentPreferences);
 
-                var window = (Window)obj;
-                window.Close();
+                WindowManager.GetInstance().CloseWindow(ViewID);
             }
             catch (Exception e)
             {

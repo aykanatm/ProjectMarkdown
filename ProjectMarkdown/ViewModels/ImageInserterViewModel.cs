@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
 using LogUtils;
 using ProjectMarkdown.Annotations;
@@ -39,6 +40,11 @@ namespace ProjectMarkdown.ViewModels
 
         public ImageInserterViewModel()
         {
+            if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
+            {
+                return;
+            }
+
             ViewID = Guid.NewGuid();
             LoadCommands();
         }

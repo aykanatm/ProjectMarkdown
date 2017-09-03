@@ -5,14 +5,17 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using LogUtils;
 using ProjectMarkdown.Annotations;
+using ProjectMarkdown.Windows;
 
 namespace ProjectMarkdown.ViewModels
 {
-    public class AboutViewModel : INotifyPropertyChanged
+    public class AboutViewModel : INotifyPropertyChanged, IRequireViewIdentification
     {
         private readonly string _licenseFilePath = AppDomain.CurrentDomain.BaseDirectory + "License.txt";
         private string _currentVersion;
         private string _licenseText;
+
+        public Guid ViewID { get; }
 
         public string CurrentVersion
         {
@@ -42,6 +45,8 @@ namespace ProjectMarkdown.ViewModels
                 return;
             }
 
+            ViewID = Guid.NewGuid();
+            
             CurrentVersion = "Project Markdown v1.0.0";
 
             LicenseText = ReadLicense();

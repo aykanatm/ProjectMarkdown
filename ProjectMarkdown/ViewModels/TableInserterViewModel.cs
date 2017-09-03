@@ -40,6 +40,11 @@ namespace ProjectMarkdown.ViewModels
 
         public TableInserterViewModel()
         {
+            if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
+            {
+                return;
+            }
+
             ViewID = Guid.NewGuid();
             LoadCommands();
         }
