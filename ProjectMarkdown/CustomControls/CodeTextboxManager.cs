@@ -354,19 +354,22 @@ namespace ProjectMarkdown.CustomControls
             {
                 CodeTextboxHost codeTextbox = null;
 
-                var tabControl = (TabablzControl)Application.Current.MainWindow.FindName("TabDocuments");
-
-                if (tabControl != null)
+                if (Application.Current.MainWindow != null)
                 {
-                    var codeTextboxes = tabControl.GetVisualChildren<CodeTextboxHost>();
-                    var codeTextboxHosts = codeTextboxes as IList<CodeTextboxHost> ?? codeTextboxes.ToList();
-                    if (codeTextboxHosts.Any())
+                    var tabControl = (TabablzControl)Application.Current.MainWindow.FindName("TabDocuments");
+
+                    if (tabControl != null)
                     {
-                        foreach (var codeTextboxHost in codeTextboxHosts)
+                        var codeTextboxes = tabControl.GetVisualChildren<CodeTextboxHost>();
+                        var codeTextboxHosts = codeTextboxes as IList<CodeTextboxHost> ?? codeTextboxes.ToList();
+                        if (codeTextboxHosts.Any())
                         {
-                            if (((ContentPresenter)codeTextboxHost.TemplatedParent).Content == document)
+                            foreach (var codeTextboxHost in codeTextboxHosts)
                             {
-                                codeTextbox = codeTextboxHost;
+                                if (((ContentPresenter)codeTextboxHost.TemplatedParent).Content == document)
+                                {
+                                    codeTextbox = codeTextboxHost;
+                                }
                             }
                         }
                     }
