@@ -28,6 +28,7 @@ namespace ProjectMarkdown.ViewModels
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
+        private string _markdownStyle;
         private bool _isQuitting = false;
 
         private ObservableCollection<DocumentModel> _documents;
@@ -186,6 +187,7 @@ namespace ProjectMarkdown.ViewModels
             
             LoadCommands();
             LoadPreferences();
+            _markdownStyle = GetCss();
 
             SharedEventHandler.GetInstance().OnPreferecesSaved += OnPreferecesSaved;
             SharedEventHandler.GetInstance().OnApplyLinkUrlSelected += OnApplyLinkUrlSelected;
@@ -280,8 +282,7 @@ namespace ProjectMarkdown.ViewModels
         {
             if (CurrentPreferences.IsSyncTextAndHtml)
             {
-                var style = GetCss();
-                var htmlFilePath = DocumentSynchronizer.Sync(CurrentDocument, style);
+                var htmlFilePath = DocumentSynchronizer.Sync(CurrentDocument, _markdownStyle);
                 CurrentDocument.Html = new Uri(htmlFilePath);
             }
         }
@@ -679,8 +680,7 @@ namespace ProjectMarkdown.ViewModels
 
             try
             {
-                var css = GetCss();
-                DocumentExporter.ExportHtml(CurrentDocument, css);
+                DocumentExporter.ExportHtml(CurrentDocument, _markdownStyle);
             }
             catch (Exception e)
             {
@@ -707,8 +707,7 @@ namespace ProjectMarkdown.ViewModels
 
             try
             {
-                var css = GetCss();
-                DocumentExporter.ExportPdf(CurrentDocument, css);
+                DocumentExporter.ExportPdf(CurrentDocument, _markdownStyle);
             }
             catch (Exception e)
             {
@@ -735,8 +734,7 @@ namespace ProjectMarkdown.ViewModels
 
             try
             {
-                var css = GetCss();
-                var tempFile = DocumentExporter.ExportPdfTemp(CurrentDocument, css);
+                var tempFile = DocumentExporter.ExportPdfTemp(CurrentDocument, _markdownStyle);
                 DocumentPrinter.Print(tempFile);
                 // Delete temp file
                 File.Delete(tempFile);
@@ -1549,10 +1547,8 @@ namespace ProjectMarkdown.ViewModels
 
             try
             {
-                var css = GetCss();
-
                 var mp = new MarkdownParser();
-                var html = mp.Parse(_currentDocument.Markdown, css);
+                var html = mp.Parse(_currentDocument.Markdown, _markdownStyle);
                 var tempSourceFilePath = AppDomain.CurrentDomain.BaseDirectory + "Temp\\tempsource.html";
                 using (var sw = new StreamWriter(tempSourceFilePath))
                 {
@@ -1613,9 +1609,7 @@ namespace ProjectMarkdown.ViewModels
 
             try
             {
-                var css = GetCss();
-
-                var result = DocumentSaver.SaveAs(document, css);
+                var result = DocumentSaver.SaveAs(document, _markdownStyle);
 
                 if (result != null)
                 {
@@ -1653,9 +1647,7 @@ namespace ProjectMarkdown.ViewModels
                 }
                 else
                 {
-                    var css = GetCss();
-
-                    var result = DocumentSaver.Save(document, css);
+                    var result = DocumentSaver.Save(document, _markdownStyle);
 
                     if (result != null)
                     {
