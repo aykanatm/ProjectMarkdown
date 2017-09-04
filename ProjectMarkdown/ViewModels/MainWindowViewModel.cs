@@ -1257,6 +1257,12 @@ namespace ProjectMarkdown.ViewModels
         // EVENTS
         public void MainWindowClosingEvent(object obj)
         {
+            var tempFilePaths = Directory.GetFiles(FolderPaths.TempFolderPath);
+            foreach (var tempFilePath in tempFilePaths)
+            {
+                File.Delete(tempFilePath);
+            }
+
             _isQuitting = true;
             CloseAllDocuments(obj);
         }
