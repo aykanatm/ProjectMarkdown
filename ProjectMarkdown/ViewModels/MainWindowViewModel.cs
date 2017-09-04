@@ -359,7 +359,7 @@ namespace ProjectMarkdown.ViewModels
             // Events
             MainWindowClosingEventCommand = new RelayCommand(MainWindowClosingEvent, obj => true);
             MainWindowResizedCommand = new RelayCommand(MainWindowResizedEvent, obj => true);
-            HeaderChangedEventCommand = new RelayCommand(HeaderFormattingChangedEvent, IsCurrentDocumentAvailable);
+            HeaderChangedEventCommand = new RelayCommand(HeaderFormattingChangedEvent, obj => true);
 
             Logger.GetInstance().Debug("<< LoadCommands()");
         }
@@ -1315,7 +1315,10 @@ namespace ProjectMarkdown.ViewModels
                     }
 
                     CodeTextboxManager.GetInstance().ReplaceText(CurrentDocument, formattedText);
+
+                    SelectedHeadingFormatting = "Heading 1";
                 }
+                SelectedHeadingFormatting = "Heading 1";
             }
             catch (Exception e)
             {
