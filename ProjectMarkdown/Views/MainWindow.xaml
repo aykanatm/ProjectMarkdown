@@ -23,6 +23,21 @@
             <i:InvokeCommandAction Command="{Binding MainWindowResizedCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    <Window.InputBindings>
+        <!-- Menu Shortcuts -->
+        <KeyBinding Key="N" Modifiers="Control" Command="{Binding CreateNewDocumentCommand}"/>
+        <KeyBinding Key="O" Modifiers="Control" Command="{Binding OpenDocumentCommand}"/>
+        <KeyBinding Key="S" Modifiers="Control" Command="{Binding SaveDocumentCommand}"/>
+        <KeyBinding Key="S" Modifiers="Control+Shift" Command="{Binding SaveAllDocumentsCommand}"/>
+        <KeyBinding Key="S" Modifiers="Control+Alt" Command="{Binding SaveAsDocumentCommand}"/>
+        <KeyBinding Key="M" Modifiers="Control+Alt" Command="{Binding ExportMarkdownCommand}"/>
+        <KeyBinding Key="H" Modifiers="Control+Alt" Command="{Binding ExportHtmlCommand}"/>
+        <KeyBinding Key="P" Modifiers="Control+Alt" Command="{Binding ExportPdfCommand}"/>
+        <KeyBinding Key="W" Modifiers="Control+Shift" Command="{Binding CloseAllDocumentsCommand}"/>
+        <KeyBinding Key="W" Modifiers="Control" Command="{Binding CloseActiveDocumentCommand}"/>
+        <KeyBinding Key="W" Modifiers="Control+Alt" Command="{Binding CloseAllButActiveDocumentCommand}"/>
+        <KeyBinding Key="P" Modifiers="Control" Command="{Binding PrintCommand}"/>
+    </Window.InputBindings>
     <DockPanel LastChildFill="True" >
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
@@ -33,9 +48,9 @@
                 <MenuItem Header="Save All" InputGestureText="Ctrl + Shift + S" Command="{Binding SaveAllDocumentsCommand}"/>
                 <MenuItem Header="Save As..." InputGestureText="Ctrl + Alt + S" Command="{Binding SaveAsDocumentCommand}"/>
                 <MenuItem Header="Export">
-                    <MenuItem Header="Markdown" Command="{Binding ExportMarkdownCommand}"></MenuItem>
-                    <MenuItem Header="Html" Command="{Binding ExportHtmlCommand}"></MenuItem>
-                    <MenuItem Header="PDF" Command="{Binding ExportPdfCommand}"></MenuItem>
+                    <MenuItem Header="Markdown" Command="{Binding ExportMarkdownCommand}" InputGestureText="Ctrl + Alt + M"/>
+                    <MenuItem Header="Html" Command="{Binding ExportHtmlCommand}" InputGestureText="Ctrl + Alt + H"/>
+                    <MenuItem Header="PDF" Command="{Binding ExportPdfCommand}" InputGestureText="Ctrl + Alt + P"/>
                 </MenuItem>
                 <MenuItem Header="Close">
                     <MenuItem Header="All" InputGestureText="Ctrl + Shift + W" Command="{Binding CloseAllDocumentsCommand}"></MenuItem>
