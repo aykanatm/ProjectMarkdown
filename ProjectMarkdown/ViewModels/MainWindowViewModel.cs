@@ -28,7 +28,7 @@ namespace ProjectMarkdown.ViewModels
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
-        private string _markdownStyle;
+        private readonly string _markdownStyle;
         private bool _isQuitting = false;
 
         private ObservableCollection<DocumentModel> _documents;
@@ -307,17 +307,17 @@ namespace ProjectMarkdown.ViewModels
             Logger.GetInstance().Debug("LoadCommands() >>");
 
             // File
-            CreateNewDocumentCommand = new RelayCommand(CreateNewDocument, CanAlwaysBeDone);
+            CreateNewDocumentCommand = new RelayCommand(CreateNewDocument, obj => true);
             SaveDocumentCommand = new RelayCommand(SaveDocument, IsCurrentDocumentAvailable);
             SaveAllDocumentsCommand = new RelayCommand(SaveAllDocuments, CanSaveAllDocuments);
             SaveAsDocumentCommand = new RelayCommand(SaveAsDocument, IsCurrentDocumentAvailable);
-            OpenDocumentCommand = new RelayCommand(OpenDocument, CanAlwaysBeDone);
+            OpenDocumentCommand = new RelayCommand(OpenDocument, obj => true);
             OpenContainingFolderCommand = new RelayCommand(OpenContainingFolder, IsCurrentDocumentAvailable);
             ExportHtmlCommand = new RelayCommand(ExportHtml, IsCurrentDocumentAvailable);
             ExportMarkdownCommand = new RelayCommand(ExportMarkdown, IsCurrentDocumentAvailable);
             ExportPdfCommand = new RelayCommand(ExportPdf, IsCurrentDocumentAvailable);
             PrintCommand = new RelayCommand(Print, IsCurrentDocumentAvailable);
-            ExitCommand = new RelayCommand(Exit, CanAlwaysBeDone);
+            ExitCommand = new RelayCommand(Exit, obj => true);
             CloseActiveDocumentCommand = new RelayCommand(CloseActiveDocument, IsCurrentDocumentAvailable);
             CloseAllDocumentsCommand = new RelayCommand(CloseAllDocuments, CanCloseAllDocuments);
             CloseAllButActiveDocumentCommand = new RelayCommand(CloseAllButActiveDocument, CanCloseAllButActiveDocument);
@@ -336,11 +336,11 @@ namespace ProjectMarkdown.ViewModels
             ReplaceCommand = new RelayCommand(Replace, IsCurrentDocumentAvailable);
 
             // Settings
-            OpenPreferencesWindowCommand = new RelayCommand(OpenPreferencesWindow, CanAlwaysBeDone);
+            OpenPreferencesWindowCommand = new RelayCommand(OpenPreferencesWindow, obj => true);
 
             // Help
-            OpenUserGuideCommand = new RelayCommand(OpenUserGuide, CanAlwaysBeDone);
-            OpenAboutWindowCommand = new RelayCommand(OpenAboutWindow, CanAlwaysBeDone);
+            OpenUserGuideCommand = new RelayCommand(OpenUserGuide, obj => true);
+            OpenAboutWindowCommand = new RelayCommand(OpenAboutWindow, obj => true);
 
             // Formatting
             FormatBlockCodeCommand = new RelayCommand(FormatText, IsCurrentDocumentAvailable);
@@ -357,8 +357,8 @@ namespace ProjectMarkdown.ViewModels
             InsertTableCommand = new RelayCommand(InsertTable, IsCurrentDocumentAvailable);
 
             // Events
-            MainWindowClosingEventCommand = new RelayCommand(MainWindowClosingEvent, CanAlwaysBeDone);
-            MainWindowResizedCommand = new RelayCommand(MainWindowResizedEvent, CanAlwaysBeDone);
+            MainWindowClosingEventCommand = new RelayCommand(MainWindowClosingEvent, obj => true);
+            MainWindowResizedCommand = new RelayCommand(MainWindowResizedEvent, obj => true);
             HeaderChangedEventCommand = new RelayCommand(HeaderFormattingChangedEvent, IsCurrentDocumentAvailable);
 
             Logger.GetInstance().Debug("<< LoadCommands()");
@@ -1321,10 +1321,6 @@ namespace ProjectMarkdown.ViewModels
         }
 
         // UTILITIES
-        public bool CanAlwaysBeDone(object obj)
-        {
-            return true;
-        }
 
         public bool IsCurrentDocumentAvailable(object obj)
         {
