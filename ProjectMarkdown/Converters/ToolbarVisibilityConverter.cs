@@ -9,7 +9,7 @@ namespace ProjectMarkdown.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var toolbarHeight = 90;
+            var toolbarHeight = 70;
 
             if (value != null)
             {

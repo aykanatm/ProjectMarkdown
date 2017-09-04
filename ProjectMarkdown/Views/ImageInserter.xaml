@@ -9,15 +9,20 @@
         Height="140" Width="350"
         WindowStartupLocation="CenterOwner"
         WindowStyle="ToolWindow"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="11"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto">
     <Window.DataContext>
         <viewModels:ImageInserterViewModel/>
     </Window.DataContext>
-    <Grid Margin="5">
+    <Grid Margin="5" VerticalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="30" MaxHeight="30" MinHeight="30"/>
             <RowDefinition Height="30" MaxHeight="30" MinHeight="30"/>
-            <RowDefinition Height="30" MaxHeight="30" MinHeight="30"/>
+            <RowDefinition Height="40" MaxHeight="40" MinHeight="40"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30" MaxWidth="30" MinWidth="30"/>

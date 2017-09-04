@@ -6,18 +6,23 @@
         xmlns:local="clr-namespace:ProjectMarkdown.Views"
         xmlns:viewModels="clr-namespace:ProjectMarkdown.ViewModels"
         mc:Ignorable="d"
-        Title="Preferences" Height="390" Width="600"
+        Title="Preferences" Height="550" Width="600"
         WindowStartupLocation="CenterOwner"
         WindowStyle="ToolWindow"
         ResizeMode="NoResize"
-        x:Name="PreferencesWindow">
+        x:Name="PreferencesWindow"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="11"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto">
     <Window.DataContext>
         <viewModels:PreferencesViewModel/>
     </Window.DataContext>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
@@ -76,10 +81,10 @@
                             <TextBlock Text="Log File" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                             <TextBox Text="{Binding CurrentPreferences.LogFilePath, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" Margin="2"/>
                             <Button Grid.Row="1" Grid.Column="2" Command="{Binding SelectLogFileCommand}" Margin="2">
-                                <TextBlock Text="Browse..." HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <TextBlock Text="..." HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Button>
                         </Grid>
-                        <Grid Grid.Row="3">
+                        <Grid Grid.Row="2">
                             <TextBlock Text="Changes in logging requires restart of the application." FontSize="10"/>
                         </Grid>
                     </Grid>
