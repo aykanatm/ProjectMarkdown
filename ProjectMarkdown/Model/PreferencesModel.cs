@@ -20,9 +20,30 @@ namespace ProjectMarkdown.Model
         private string _currentLanguage;
         private string _currentFont;
         private string _currentFontSize;
-        private string _currentTheme;
         private bool _isLoggingEnabled;
         private bool _isScrollBarsSynced;
+        private string _primaryColor;
+        private string _accentColor;
+
+        public string AccentColor
+        {
+            get { return _accentColor; }
+            set
+            {
+                _accentColor = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string PrimaryColor
+        {
+            get { return _primaryColor; }
+            set
+            {
+                _primaryColor = value;
+                OnPropertyChanged();
+            }
+        }
 
         public bool IsLoggingEnabled
         {
@@ -160,16 +181,6 @@ namespace ProjectMarkdown.Model
             set
             {
                 _currentFontSize = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string CurrentTheme
-        {
-            get { return _currentTheme; }
-            set
-            {
-                _currentTheme = value;
                 OnPropertyChanged();
             }
         }

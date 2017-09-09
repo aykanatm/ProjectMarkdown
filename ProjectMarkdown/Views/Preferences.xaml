@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ProjectMarkdown.Views"
         xmlns:viewModels="clr-namespace:ProjectMarkdown.ViewModels"
         mc:Ignorable="d"
-        Title="Preferences" Height="550" Width="600"
+        Title="Preferences" Height="560" Width="600"
         WindowStartupLocation="CenterOwner"
         WindowStyle="ToolWindow"
         ResizeMode="NoResize"
@@ -70,11 +70,11 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition Width="60"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="Log Level" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            <TextBlock Text="Log Level" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,2,0"/>
                             <ComboBox Grid.Row="0" Grid.Column="1" Margin="2" ItemsSource="{Binding LogLevels}" SelectedItem="{Binding CurrentPreferences.CurrentLogLevel, Mode=TwoWay}"/>
-                            <TextBlock Text="Log File" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            <TextBlock Text="Log File" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,2,0"/>
                             <TextBox Text="{Binding CurrentPreferences.LogFilePath, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" Margin="2"/>
-                            <Button Grid.Row="1" Grid.Column="2" Command="{Binding SelectLogFileCommand}" Margin="2">
+                            <Button Grid.Row="1" Grid.Column="2" Command="{Binding SelectLogFileCommand}" Margin="2" Style="{DynamicResource MaterialDesignRaisedAccentButton}" Height="20" VerticalAlignment="Center">
                                 <TextBlock Text="..." HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Button>
                         </Grid>
@@ -93,9 +93,6 @@
                         <TextBox Margin="2" Grid.Column="1" Text="{Binding CurrentPreferences.Author, Mode=TwoWay}"/>
                     </Grid>
                 </GroupBox>
-                <Grid>
-
-                </Grid>
             </DockPanel>
             <DockPanel LastChildFill="True" Grid.Row="0" Grid.Column="1" Margin="2">
                 <GroupBox DockPanel.Dock="Top" Margin="2" Header="Tab Bar">
@@ -119,7 +116,18 @@
                 </GroupBox>
                 <GroupBox DockPanel.Dock="Top" Margin="2" Header="Theme">
                     <Grid Margin="10">
-                        <ComboBox ItemsSource="{Binding Themes}" SelectedItem="{Binding CurrentPreferences.CurrentTheme, Mode=TwoWay}"></ComboBox>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="75"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Primary Color" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,2,0"/>
+                        <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Colors}" SelectedItem="{Binding CurrentPreferences.PrimaryColor, Mode=TwoWay}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Accent Color" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,2,0"/>
+                        <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Colors}" SelectedItem="{Binding CurrentPreferences.AccentColor, Mode=TwoWay}"/>
                     </Grid>
                 </GroupBox>
                 <GroupBox DockPanel.Dock="Top" Margin="2" Header="Editor">
@@ -154,16 +162,13 @@
                                 <ColumnDefinition Width="50"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="Font" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            <TextBlock Text="Font" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,2,0"/>
                             <ComboBox ItemsSource="{Binding Fonts}" Grid.Row="0" Grid.Column="1" Margin="2" SelectedItem="{Binding CurrentPreferences.CurrentFont, Mode=TwoWay}"/>
-                            <TextBlock Text="Font Size" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            <TextBlock Text="Font Size" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,2,0"/>
                             <ComboBox ItemsSource="{Binding FontSizes}" Grid.Row="1" Grid.Column="1" Margin="2" SelectedItem="{Binding CurrentPreferences.CurrentFontSize, Mode=TwoWay}"/>
                         </Grid>
                     </Grid>
                 </GroupBox>
-                <Grid>
-                    
-                </Grid>
             </DockPanel>
         </Grid>
         <Grid Grid.Row="1">
@@ -175,10 +180,10 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="4" Margin="2" Command="{Binding CancelPreferenceChangesCommand}">
+            <Button Grid.Column="4" Margin="2" Command="{Binding CancelPreferenceChangesCommand}" Style="{DynamicResource MaterialDesignRaisedAccentButton}">
                 <TextBlock Text="Cancel" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Button>
-            <Button Grid.Column="5" Margin="2" Command="{Binding SavePreferencesCommand}">
+            <Button Grid.Column="5" Margin="2" Command="{Binding SavePreferencesCommand}" Style="{DynamicResource MaterialDesignRaisedButton}">
                 <TextBlock Text="Apply" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Button>
         </Grid>

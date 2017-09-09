@@ -21,10 +21,10 @@ namespace ProjectMarkdown.ViewModels
     {
         private PreferencesModel _currentPreferences;
         private ObservableCollection<string> _logLevels;
-        private ObservableCollection<string> _themes;
         private ObservableCollection<string> _fontSizes;
         private ObservableCollection<string> _fonts;
         private ObservableCollection<string> _languages;
+        private ObservableCollection<string> _colors;
 
         public Guid ViewID { get; }
 
@@ -58,12 +58,12 @@ namespace ProjectMarkdown.ViewModels
             }
         }
 
-        public ObservableCollection<string> Themes
+        public ObservableCollection<string> Colors
         {
-            get { return _themes; }
+            get { return _colors; }
             set
             {
-                _themes = value;
+                _colors = value;
                 OnPropertyChanged();
             }
         }
@@ -142,7 +142,8 @@ namespace ProjectMarkdown.ViewModels
             };
 
             Languages = new ObservableCollection<string> {"English"};
-            Themes = new ObservableCollection<string> {"Default"};
+            Colors = new ObservableCollection<string> {"Amber", "Blue", "BlueGrey", "Brown", "Cyan", "DeepOrange", "DeepPurple", "Green", "Grey", "Indigo", "LightBlue", "LightGreen", "Lime",
+                "Orange", "Pink", "Purple", "Red", "Teal", "Yellow"};
 
             Logger.GetInstance().Debug("<< PreferencesViewModel()");
         }

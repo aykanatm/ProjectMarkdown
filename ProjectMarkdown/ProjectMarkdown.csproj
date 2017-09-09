@@ -137,6 +137,7 @@
     <Compile Include="Services\ScrollResult.cs" />
     <Compile Include="Services\SharedEventHandler.cs" />
     <Compile Include="Services\TextFormatter.cs" />
+    <Compile Include="Services\ThemeSetter.cs" />
     <Compile Include="Statics\FilePaths.cs" />
     <Compile Include="Statics\FolderPaths.cs" />
     <Compile Include="Statics\FormatTextButtons.cs" />

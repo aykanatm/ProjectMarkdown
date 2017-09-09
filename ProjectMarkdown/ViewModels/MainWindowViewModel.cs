@@ -200,6 +200,8 @@ namespace ProjectMarkdown.ViewModels
             HeadingFormats = new ObservableCollection<string>{"Heading 1", "Heading 2", "Heading 3", "Heading 4", "Heading 5", "Heading 6"};
             SelectedHeadingFormatting = "Heading 1";
 
+            ThemeSetter.Set(CurrentPreferences.PrimaryColor, CurrentPreferences.AccentColor);
+
             Logger.GetInstance().Debug("<< MainWindowViewModel()");
         }
 
@@ -298,7 +300,10 @@ namespace ProjectMarkdown.ViewModels
         private void OnPreferecesSaved(PreferencesModel preferences)
         {
             Logger.GetInstance().Debug("OnPreferencesSaved() >>");
+
             LoadPreferences(preferences);
+            ThemeSetter.Set(CurrentPreferences.PrimaryColor, CurrentPreferences.AccentColor);
+
             Logger.GetInstance().Debug("<< OnPreferencesSaved()");
         }
 
@@ -388,7 +393,8 @@ namespace ProjectMarkdown.ViewModels
                         IsToolbarHidden = false,
                         IsWordWrap = true,
                         CurrentLanguage = "English",
-                        CurrentTheme = "Default",
+                        PrimaryColor = "DeepPurple",
+                        AccentColor = "Lime",
                         IsLoggingEnabled = true
                     };
 

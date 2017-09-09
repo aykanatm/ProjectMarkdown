@@ -33,7 +33,7 @@
         <TextBox Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="1" Margin="2" Text="{Binding NumberOfRows, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"/>
         <TextBlock Grid.Row="1" Grid.Column="0" Text="Number of Columns:" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,5,0"/>
         <TextBox Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="1" Margin="2" Text="{Binding NumberOfColumns, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"/>
-        <Button Grid.Row="2" Grid.Column="2" Margin="2" Command="{Binding InsertTableCommand}">
+        <Button Grid.Row="2" Grid.Column="2" Margin="2" Command="{Binding InsertTableCommand}" Style="{DynamicResource MaterialDesignRaisedAccentButton}">
             <TextBlock Text="Select" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Button>
     </Grid>
