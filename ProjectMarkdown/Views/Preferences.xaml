@@ -30,15 +30,12 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <DockPanel LastChildFill="True" Grid.Row="0" Grid.Column="0" Margin="2">
-                <GroupBox DockPanel.Dock="Top">
-                    <GroupBox.Header>
-                        <TextBlock FontWeight="Bold" Text="Localization" FontSize="11"></TextBlock>
-                    </GroupBox.Header>
+                <GroupBox DockPanel.Dock="Top" Margin="2" Header="Localization">
                     <Grid Margin="5">
                         <ComboBox ItemsSource="{Binding Languages}" SelectedItem="{Binding CurrentPreferences.CurrentLanguage, Mode=TwoWay}"/>
                     </Grid>
                 </GroupBox>
-                <GroupBox Header="Toolbar" DockPanel.Dock="Top">
+                <GroupBox Header="Toolbar" DockPanel.Dock="Top" Margin="2">
                     <Grid Margin="10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="20" MaxWidth="20" MinWidth="20"/>
@@ -48,10 +45,7 @@
                         <TextBlock Grid.Row="0" Grid.Column="1" Text="Hide" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </Grid>
                 </GroupBox>
-                <GroupBox DockPanel.Dock="Top">
-                    <GroupBox.Header>
-                        <TextBlock FontWeight="Bold" Text="Logging" FontSize="11"></TextBlock>
-                    </GroupBox.Header>
+                <GroupBox DockPanel.Dock="Top" Margin="2" Header="Logging">
                     <Grid Margin="10">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
@@ -89,10 +83,7 @@
                         </Grid>
                     </Grid>
                 </GroupBox>
-                <GroupBox DockPanel.Dock="Top">
-                    <GroupBox.Header>
-                        <TextBlock FontWeight="Bold" Text="Documents" FontSize="11"></TextBlock>
-                    </GroupBox.Header>
+                <GroupBox DockPanel.Dock="Top" Margin="2" Header="Documents">
                     <Grid Margin="10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="50"/>
@@ -107,10 +98,7 @@
                 </Grid>
             </DockPanel>
             <DockPanel LastChildFill="True" Grid.Row="0" Grid.Column="1" Margin="2">
-                <GroupBox DockPanel.Dock="Top">
-                    <GroupBox.Header>
-                        <TextBlock FontWeight="Bold" Text="Tab Bar" FontSize="11"></TextBlock>
-                    </GroupBox.Header>
+                <GroupBox DockPanel.Dock="Top" Margin="2" Header="Tab Bar">
                     <Grid Margin="10">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
@@ -129,18 +117,12 @@
                         <TextBlock Grid.Row="2" Grid.Column="1" Text="Exit on close the last tab" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </Grid>
                 </GroupBox>
-                <GroupBox DockPanel.Dock="Top">
-                    <GroupBox.Header>
-                        <TextBlock FontWeight="Bold" Text="Theme" FontSize="11"></TextBlock>
-                    </GroupBox.Header>
+                <GroupBox DockPanel.Dock="Top" Margin="2" Header="Theme">
                     <Grid Margin="10">
                         <ComboBox ItemsSource="{Binding Themes}" SelectedItem="{Binding CurrentPreferences.CurrentTheme, Mode=TwoWay}"></ComboBox>
                     </Grid>
                 </GroupBox>
-                <GroupBox DockPanel.Dock="Top">
-                    <GroupBox.Header>
-                        <TextBlock FontWeight="Bold" Text="Editor" FontSize="11"></TextBlock>
-                    </GroupBox.Header>
+                <GroupBox DockPanel.Dock="Top" Margin="2" Header="Editor">
                     <Grid Margin="10">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
