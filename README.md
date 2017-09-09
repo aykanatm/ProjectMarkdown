@@ -8,4 +8,4 @@ Key features include:
 * Export as PDF, HTML and raw markdown.
 * Syntax highlighting to help users write markdown easier.
 * Multi document editing via tabs.
-* Split text and HTML views to see the result of the markdown that is written immediatly.
+* Split text and HTML views to see the result of the markdown that is written immediately.
