@@ -104,49 +104,49 @@
         </Menu>
         <ToolBarTray DockPanel.Dock="Top" Height="{Binding CurrentPreferences.IsToolbarHidden, Converter={StaticResource ToolbarVisibilityConverter}}">
             <ToolBar OverflowMode="Never" Band="0" VerticalContentAlignment="Center" BandIndex="0">
-                <Button Command="{Binding CreateNewDocumentCommand}">
+                <Button Command="{Binding CreateNewDocumentCommand}" ToolTip="Create a new markdown document">
                     <Viewbox Style="{StaticResource ToolbarIconStyle}">
                         <Canvas Width="24" Height="24">
                             <Path Data="M13,9H18.5L13,3.5V9M6,2H14L20,8V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V4C4,2.89 4.89,2 6,2M15,18V16H6V18H15M18,14V12H6V14H18Z" Fill="Black" />
                         </Canvas>
                     </Viewbox>
                 </Button>
-                <Button Command="{Binding OpenDocumentCommand}">
+                <Button Command="{Binding OpenDocumentCommand}" ToolTip="Open an existing markdown document">
                     <Viewbox Style="{StaticResource ToolbarIconStyle}">
                         <Canvas Width="24" Height="24">
                             <Path Data="M19,20H4C2.89,20 2,19.1 2,18V6C2,4.89 2.89,4 4,4H10L12,6H19A2,2 0 0,1 21,8H21L4,8V18L6.14,10H23.21L20.93,18.5C20.7,19.37 19.92,20 19,20Z" Fill="Black" />
                         </Canvas>
                     </Viewbox>
                 </Button>
-                <Button Command="{Binding SaveDocumentCommand}">
+                <Button Command="{Binding SaveDocumentCommand}" ToolTip="Save the current markdown document">
                     <Viewbox Style="{StaticResource ToolbarIconStyle}">
                         <Canvas Width="24" Height="24">
                             <Path Data="M15,9H5V5H15M12,19A3,3 0 0,1 9,16A3,3 0 0,1 12,13A3,3 0 0,1 15,16A3,3 0 0,1 12,19M17,3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V7L17,3Z" Fill="Black" />
                         </Canvas>
                     </Viewbox>
                 </Button>
-                <Button Command="{Binding SaveAllDocumentsCommand}">
+                <Button Command="{Binding SaveAllDocumentsCommand}" ToolTip="Save all opened markdown documents">
                     <Viewbox Style="{StaticResource ToolbarIconStyle}">
                         <Canvas Width="24" Height="24">
                             <Path Data="M17,7V3H7V7H17M14,17A3,3 0 0,0 17,14A3,3 0 0,0 14,11A3,3 0 0,0 11,14A3,3 0 0,0 14,17M19,1L23,5V17A2,2 0 0,1 21,19H7C5.89,19 5,18.1 5,17V3A2,2 0 0,1 7,1H19M1,7H3V21H17V23H3A2,2 0 0,1 1,21V7Z" Fill="Black" />
                         </Canvas>
                     </Viewbox>
                 </Button>
-                <Button Command="{Binding CloseActiveDocumentCommand}">
+                <Button Command="{Binding CloseActiveDocumentCommand}" ToolTip="Close the current markdown document">
                     <Viewbox Style="{StaticResource ToolbarIconStyle}">
                         <Canvas Width="24" Height="24">
                             <Path Data="M12,2C17.53,2 22,6.47 22,12C22,17.53 17.53,22 12,22C6.47,22 2,17.53 2,12C2,6.47 6.47,2 12,2M15.59,7L12,10.59L8.41,7L7,8.41L10.59,12L7,15.59L8.41,17L12,13.41L15.59,17L17,15.59L13.41,12L17,8.41L15.59,7Z" Fill="Black" />
                         </Canvas>
                     </Viewbox>
                 </Button>
-                <Button Command="{Binding CloseAllDocumentsCommand}" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button Command="{Binding CloseAllDocumentsCommand}" ToolTip="Close all opened markdown documents">
                     <Viewbox Style="{StaticResource ToolbarIconStyle}">
                         <Canvas Width="24" Height="24">
                             <Path Data="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22C17.53,22 22,17.53 22,12C22,6.47 17.53,2 12,2M14.59,8L12,10.59L9.41,8L8,9.41L10.59,12L8,14.59L9.41,16L12,13.41L14.59,16L16,14.59L13.41,12L16,9.41L14.59,8Z" Fill="Black" />
                         </Canvas>
                     </Viewbox>
                 </Button>
-                <Button Command="{Binding PrintCommand}">
+                <Button Command="{Binding PrintCommand}" ToolTip="Print the current markdown document">
                     <Viewbox Style="{StaticResource ToolbarIconStyle}">
                         <Canvas Width="24" Height="24">
                             <Path Data="M18,3H6V7H18M19,12A1,1 0 0,1 18,11A1,1 0 0,1 19,10A1,1 0 0,1 20,11A1,1 0 0,1 19,12M16,19H8V14H16M19,8H5A3,3 0 0,0 2,11V17H6V21H18V17H22V11A3,3 0 0,0 19,8Z" Fill="Black" />
@@ -155,21 +155,21 @@
                 </Button>
             </ToolBar>
             <ToolBar OverflowMode="Never" Band="0" BandIndex="1">
-                <Button Command="{Binding CutCommand}">
+                <Button Command="{Binding CutCommand}" ToolTip="Cut">
                     <Viewbox Style="{StaticResource ToolbarIconStyle}">
                         <Canvas Width="24" Height="24">
                             <Path Data="M19,3L13,9L15,11L22,4V3M12,12.5A0.5,0.5 0 0,1 11.5,12A0.5,0.5 0 0,1 12,11.5A0.5,0.5 0 0,1 12.5,12A0.5,0.5 0 0,1 12,12.5M6,20A2,2 0 0,1 4,18C4,16.89 4.9,16 6,16A2,2 0 0,1 8,18C8,19.11 7.1,20 6,20M6,8A2,2 0 0,1 4,6C4,4.89 4.9,4 6,4A2,2 0 0,1 8,6C8,7.11 7.1,8 6,8M9.64,7.64C9.87,7.14 10,6.59 10,6A4,4 0 0,0 6,2A4,4 0 0,0 2,6A4,4 0 0,0 6,10C6.59,10 7.14,9.87 7.64,9.64L10,12L7.64,14.36C7.14,14.13 6.59,14 6,14A4,4 0 0,0 2,18A4,4 0 0,0 6,22A4,4 0 0,0 10,18C10,17.41 9.87,16.86 9.64,16.36L12,14L19,21H22V20L9.64,7.64Z" Fill="Black" />
                         </Canvas>
                     </Viewbox>
                 </Button>
-                <Button Command="{Binding CopyCommand}" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button Command="{Binding CopyCommand}" ToolTip="Copy">
                     <Viewbox Style="{StaticResource ToolbarIconStyle}">
                         <Canvas Width="24" Height="24">
                             <Path Data="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" Fill="Black" />
                         </Canvas>
                     </Viewbox>
                 </Button>
-                <Button Command="{Binding PasteCommand}">
+                <Button Command="{Binding PasteCommand}" ToolTip="Paste">
                     <Viewbox Style="{StaticResource ToolbarIconStyle}">
                         <Canvas Width="24" Height="24">
                             <Path Data="M19,20H5V4H7V7H17V4H19M12,2A1,1 0 0,1 13,3A1,1 0 0,1 12,4A1,1 0 0,1 11,3A1,1 0 0,1 12,2M19,2H14.82C14.4,0.84 13.3,0 12,0C10.7,0 9.6,0.84 9.18,2H5A2,2 0 0,0 3,4V20A2,2 0 0,0 5,22H19A2,2 0 0,0 21,20V4A2,2 0 0,0 19,2Z" Fill="Black" />
@@ -178,14 +178,14 @@
                 </Button>
             </ToolBar>
             <ToolBar OverflowMode="Never" Band="0" BandIndex="2">
-                <Button Command="{Binding UndoCommand}">
+                <Button Command="{Binding UndoCommand}" ToolTip="Undo">
                     <Viewbox Style="{StaticResource ToolbarIconStyle}">
                         <Canvas Width="24" Height="24">
                             <Path Data="M13.5,7A6.5,6.5 0 0,1 20,13.5A6.5,6.5 0 0,1 13.5,20H10V18H13.5C16,18 18,16 18,13.5C18,11 16,9 13.5,9H7.83L10.91,12.09L9.5,13.5L4,8L9.5,2.5L10.92,3.91L7.83,7H13.5M6,18H8V20H6V18Z" Fill="Black" />
                         </Canvas>
                     </Viewbox>
                 </Button>
-                <Button Command="{Binding RedoCommand}">
+                <Button Command="{Binding RedoCommand}" ToolTip="Redo">
                     <Viewbox Style="{StaticResource ToolbarIconStyle}">
                         <Canvas Width="24" Height="24">
                             <Path Data="M10.5,7A6.5,6.5 0 0,0 4,13.5A6.5,6.5 0 0,0 10.5,20H14V18H10.5C8,18 6,16 6,13.5C6,11 8,9 10.5,9H16.17L13.09,12.09L14.5,13.5L20,8L14.5,2.5L13.08,3.91L16.17,7H10.5M18,18H16V20H18V18Z" Fill="Black" />
@@ -194,14 +194,14 @@
                 </Button>
             </ToolBar>
             <ToolBar OverflowMode="Never" Band="0" BandIndex="3">
-                <Button Command="{Binding FindCommmand}">
+                <Button Command="{Binding FindCommmand}" ToolTip="Find">
                     <Viewbox Style="{StaticResource ToolbarIconStyle}">
                         <Canvas Width="24" Height="24">
                             <Path Data="M9,13A3,3 0 0,0 12,16A3,3 0 0,0 15,13A3,3 0 0,0 12,10A3,3 0 0,0 9,13M20,19.59V8L14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18C18.45,22 18.85,21.85 19.19,21.6L14.76,17.17C13.96,17.69 13,18 12,18A5,5 0 0,1 7,13A5,5 0 0,1 12,8A5,5 0 0,1 17,13C17,14 16.69,14.96 16.17,15.75L20,19.59Z" Fill="Black" />
                         </Canvas>
                     </Viewbox>
                 </Button>
-                <Button Command="{Binding ReplaceCommand}">
+                <Button Command="{Binding ReplaceCommand}" ToolTip="Find and Replace">
                     <Viewbox Style="{StaticResource ToolbarIconStyle}">
                         <Canvas Width="24" Height="24">
                             <Path Data="M11,6C12.38,6 13.63,6.56 14.54,7.46L12,10H18V4L15.95,6.05C14.68,4.78 12.93,4 11,4C7.47,4 4.57,6.61 4.08,10H6.1C6.56,7.72 8.58,6 11,6M16.64,15.14C17.3,14.24 17.76,13.17 17.92,12H15.9C15.44,14.28 13.42,16 11,16C9.62,16 8.37,15.44 7.46,14.54L10,12H4V18L6.05,15.95C7.32,17.22 9.07,18 11,18C12.55,18 14,17.5 15.14,16.64L20,21.5L21.5,20L16.64,15.14Z" Fill="Black" />
@@ -210,21 +210,21 @@
                 </Button>
             </ToolBar>
             <ToolBar OverflowMode="Never" Band="2">
-                <Button x:Name="FormatBlockCode" Command="{Binding FormatBlockCodeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Name}">
+                <Button x:Name="FormatBlockCode" Command="{Binding FormatBlockCodeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Name}" ToolTip="Code Block">
                     <Viewbox Style="{StaticResource ToolbarIconStyle}">
                         <Canvas Width="24" Height="24">
                             <Path Data="M8,3A2,2 0 0,0 6,5V9A2,2 0 0,1 4,11H3V13H4A2,2 0 0,1 6,15V19A2,2 0 0,0 8,21H10V19H8V14A2,2 0 0,0 6,12A2,2 0 0,0 8,10V5H10V3M16,3A2,2 0 0,1 18,5V9A2,2 0 0,0 20,11H21V13H20A2,2 0 0,0 18,15V19A2,2 0 0,1 16,21H14V19H16V14A2,2 0 0,1 18,12A2,2 0 0,1 16,10V5H14V3H16Z" Fill="Black" />
                         </Canvas>
                     </Viewbox>
                 </Button>
-                <Button x:Name="FormatBlockQuote" Command="{Binding FormatBlockQuoteCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Name}">
+                <Button x:Name="FormatBlockQuote" Command="{Binding FormatBlockQuoteCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Name}" ToolTip="Block Quote">
                     <Viewbox Style="{StaticResource ToolbarIconStyle}">
                         <Canvas Width="24" Height="24">
                             <Path Data="M14,17H17L19,13V7H13V13H16M6,17H9L11,13V7H5V13H8L6,17Z" Fill="Black" />
                         </Canvas>
                     </Viewbox>
                 </Button>
-                <Button x:Name="FormatBoldButton" Command="{Binding FormatBoldCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Name}">
+                <Button x:Name="FormatBoldButton" Command="{Binding FormatBoldCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Name}" ToolTip="Bold">
                     <Viewbox Style="{StaticResource ToolbarIconStyle}">
                         <Canvas Width="24" Height="24">
                             <Path Data="M13.5,15.5H10V12.5H13.5A1.5,1.5 0 0,1 15,14A1.5,1.5 0 0,1 13.5,15.5M10,6.5H13A1.5,1.5 0 0,1 14.5,8A1.5,1.5 0 0,1 13,9.5H10M15.6,10.79C16.57,10.11 17.25,9 17.25,8C17.25,5.74 15.5,4 13.25,4H7V18H14.04C16.14,18 17.75,16.3 17.75,14.21C17.75,12.69 16.89,11.39 15.6,10.79Z" Fill="Black" />
@@ -238,63 +238,63 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </ComboBox>
-                <Button Command="{Binding InsertHorizontalRuleCommand}">
+                <Button Command="{Binding InsertHorizontalRuleCommand}" ToolTip="Insert Horizontal Rule">
                     <Viewbox Style="{StaticResource ToolbarIconStyle}">
                         <Canvas Width="24" Height="24">
                             <Path Data="M16,12A2,2 0 0,1 18,10A2,2 0 0,1 20,12A2,2 0 0,1 18,14A2,2 0 0,1 16,12M10,12A2,2 0 0,1 12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12M4,12A2,2 0 0,1 6,10A2,2 0 0,1 8,12A2,2 0 0,1 6,14A2,2 0 0,1 4,12Z" Fill="Black" />
                         </Canvas>
                     </Viewbox>
                 </Button>
-                <Button Command="{Binding InsertImageCommand}">
+                <Button Command="{Binding InsertImageCommand}" ToolTip="Insert an image">
                     <Viewbox Style="{StaticResource ToolbarIconStyle}">
                         <Canvas Width="24" Height="24">
                             <Path Data="M8.5,13.5L11,16.5L14.5,12L19,18H5M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19Z" Fill="Black" />
                         </Canvas>
                     </Viewbox>
                 </Button>
-                <Button x:Name="FormatInlineCodeButton" Command="{Binding FormatInlineCodeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Name}">
+                <Button x:Name="FormatInlineCodeButton" Command="{Binding FormatInlineCodeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Name}" ToolTip="Inline Code">
                     <Viewbox Style="{StaticResource ToolbarIconStyle}">
                         <Canvas Width="24" Height="24">
                             <Path Data="M17.62,3C19.13,5.27 20,8.55 20,12C20,15.44 19.13,18.72 17.62,21L16,19.96C17.26,18.07 18,15.13 18,12C18,8.87 17.26,5.92 16,4.03L17.62,3M6.38,3L8,4.04C6.74,5.92 6,8.87 6,12C6,15.13 6.74,18.08 8,19.96L6.38,21C4.87,18.73 4,15.45 4,12C4,8.55 4.87,5.27 6.38,3Z" Fill="Black" />
                         </Canvas>
                     </Viewbox>
                 </Button>
-                <Button x:Name="FormatItalicButton" Command="{Binding FormatItalicCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Name}">
+                <Button x:Name="FormatItalicButton" Command="{Binding FormatItalicCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Name}" ToolTip="Italic">
                     <Viewbox Style="{StaticResource ToolbarIconStyle}">
                         <Canvas Width="24" Height="24">
                             <Path Data="M10,4V7H12.21L8.79,15H6V18H14V15H11.79L15.21,7H18V4H10Z" Fill="Black" />
                         </Canvas>
                     </Viewbox>
                 </Button>
-                <Button Command="{Binding ApplyLinkCommand}">
+                <Button Command="{Binding ApplyLinkCommand}" ToolTip="Apply URL">
                     <Viewbox Style="{StaticResource ToolbarIconStyle}">
                         <Canvas Width="24" Height="24">
                             <Path Data="M9.62,12L12,5.67L14.37,12M11,3L5.5,17H7.75L8.87,14H15.12L16.25,17H18.5L13,3H11Z" Fill="Black" />
                         </Canvas>
                     </Viewbox>
                 </Button>
-                <Button x:Name="FormatOrderedListButton" Command="{Binding FormatOrderedListCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Name}">
+                <Button x:Name="FormatOrderedListButton" Command="{Binding FormatOrderedListCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Name}" ToolTip="Ordered List">
                     <Viewbox Style="{StaticResource ToolbarIconStyle}">
                         <Canvas Width="24" Height="24">
                             <Path Data="M7,13H21V11H7M7,19H21V17H7M7,7H21V5H7M2,11H3.8L2,13.1V14H5V13H3.2L5,10.9V10H2M3,8H4V4H2V5H3M2,17H4V17.5H3V18.5H4V19H2V20H5V16H2V17Z" Fill="Black" />
                         </Canvas>
                     </Viewbox>
                 </Button>
-                <Button x:Name="FormatUnorderedListButton" Command="{Binding FormatUnorderedListCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Name}">
+                <Button x:Name="FormatUnorderedListButton" Command="{Binding FormatUnorderedListCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Name}" ToolTip="Unordered List">
                     <Viewbox Style="{StaticResource ToolbarIconStyle}">
                         <Canvas Width="24" Height="24">
                             <Path Data="M7,5H21V7H7V5M7,13V11H21V13H7M4,4.5A1.5,1.5 0 0,1 5.5,6A1.5,1.5 0 0,1 4,7.5A1.5,1.5 0 0,1 2.5,6A1.5,1.5 0 0,1 4,4.5M4,10.5A1.5,1.5 0 0,1 5.5,12A1.5,1.5 0 0,1 4,13.5A1.5,1.5 0 0,1 2.5,12A1.5,1.5 0 0,1 4,10.5M7,19V17H21V19H7M4,16.5A1.5,1.5 0 0,1 5.5,18A1.5,1.5 0 0,1 4,19.5A1.5,1.5 0 0,1 2.5,18A1.5,1.5 0 0,1 4,16.5Z" Fill="Black" />
                         </Canvas>
                     </Viewbox>
                 </Button>
-                <Button x:Name="FormatStrikeThroughButton" Command="{Binding FormatStrikeThroughCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Name}">
+                <Button x:Name="FormatStrikeThroughButton" Command="{Binding FormatStrikeThroughCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Name}" ToolTip="Strikethrough">
                     <Viewbox Style="{StaticResource ToolbarIconStyle}">
                         <Canvas Width="24" Height="24">
                             <Path Data="M23,12V14H18.61C19.61,16.14 19.56,22 12.38,22C4.05,22.05 4.37,15.5 4.37,15.5L8.34,15.55C8.37,18.92 11.5,18.92 12.12,18.88C12.76,18.83 15.15,18.84 15.34,16.5C15.42,15.41 14.32,14.58 13.12,14H1V12H23M19.41,7.89L15.43,7.86C15.43,7.86 15.6,5.09 12.15,5.08C8.7,5.06 9,7.28 9,7.56C9.04,7.84 9.34,9.22 12,9.88H5.71C5.71,9.88 2.22,3.15 10.74,2C19.45,0.8 19.43,7.91 19.41,7.89Z" Fill="Black" />
                         </Canvas>
                     </Viewbox>
                 </Button>
-                <Button Command="{Binding InsertTableCommand}">
+                <Button Command="{Binding InsertTableCommand}" ToolTip="Insert table">
                     <Viewbox Style="{StaticResource ToolbarIconStyle}">
                         <Canvas Width="24" Height="24">
                             <Path Data="M4,3H20A2,2 0 0,1 22,5V20A2,2 0 0,1 20,22H4A2,2 0 0,1 2,20V5A2,2 0 0,1 4,3M4,7V10H8V7H4M10,7V10H14V7H10M20,10V7H16V10H20M4,12V15H8V12H4M4,20H8V17H4V20M10,12V15H14V12H10M10,20H14V17H10V20M20,20V17H16V20H20M20,12H16V15H20V12Z" Fill="Black" />
