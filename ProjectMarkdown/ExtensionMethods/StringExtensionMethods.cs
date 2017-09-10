@@ -1,9 +1,18 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace ProjectMarkdown.ExtensionMethods
 {
     public static class StringExtensionMethods
     {
+        public static string RemoveScripts(this string input)
+        {
+            var rRemScript = new Regex(@"<script[^>]*>[\s\S]*?</script>");
+            var output = rRemScript.Replace(input, "");
+
+            return output;
+        }
+
         public static Uri ToUri(this string input)
         {
             try

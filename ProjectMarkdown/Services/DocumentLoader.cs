@@ -4,6 +4,7 @@ using System.IO.Compression;
 using IOUtils;
 using LogUtils;
 using Microsoft.Win32;
+using ProjectMarkdown.ExtensionMethods;
 using ProjectMarkdown.Model;
 using ProjectMarkdown.ViewModels;
 
@@ -52,7 +53,7 @@ namespace ProjectMarkdown.Services
                                         {
                                             using (var zipSr = new StreamReader(stream))
                                             {
-                                                currentHtml = zipSr.ReadToEnd();
+                                                currentHtml = zipSr.ReadToEnd().RemoveScripts();
                                             }
                                         }
                                     }
