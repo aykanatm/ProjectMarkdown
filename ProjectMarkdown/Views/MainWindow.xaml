@@ -103,7 +103,7 @@
             </MenuItem>
         </Menu>
         <ToolBarTray DockPanel.Dock="Top" Height="{Binding CurrentPreferences.IsToolbarHidden, Converter={StaticResource ToolbarVisibilityConverter}}">
-            <ToolBar OverflowMode="Never" Band="0" VerticalContentAlignment="Center" BandIndex="0">
+            <ToolBar OverflowMode="Never" Band="0" BandIndex="0">
                 <Button Command="{Binding CreateNewDocumentCommand}" ToolTip="Create a new markdown document">
                     <Viewbox Style="{StaticResource ToolbarIconStyle}">
                         <Canvas Width="24" Height="24">
@@ -209,7 +209,7 @@
                     </Viewbox>
                 </Button>
             </ToolBar>
-            <ToolBar OverflowMode="Never" Band="2">
+            <ToolBar OverflowMode="Never" Band="1" BandIndex="4" x:Name="FormattingToolbar">
                 <Button x:Name="FormatBlockCode" Command="{Binding FormatBlockCodeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Name}" ToolTip="Code Block">
                     <Viewbox Style="{StaticResource ToolbarIconStyle}">
                         <Canvas Width="24" Height="24">

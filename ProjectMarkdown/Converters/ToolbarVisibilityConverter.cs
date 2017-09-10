@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
+using ProjectMarkdown.Windows;
 
 namespace ProjectMarkdown.Converters
 {
@@ -9,7 +10,17 @@ namespace ProjectMarkdown.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var toolbarHeight = 70;
+            var toolbarHeight = 0;
+
+            if (WindowManager.GetInstance().IsSingleBand)
+            {
+                toolbarHeight = WindowManager.GetInstance().ToolbarTrayHeightSingleBand;
+            }
+            else
+            {
+                toolbarHeight = WindowManager.GetInstance().ToolbarTrayHeightDoubleBands;
+            }
+            
 
             if (value != null)
             {

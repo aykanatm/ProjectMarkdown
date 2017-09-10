@@ -26,7 +26,7 @@ using MessageBox = System.Windows.MessageBox;
 
 namespace ProjectMarkdown.ViewModels
 {
-    public class MainWindowViewModel : INotifyPropertyChanged
+    public class MainWindowViewModel : INotifyPropertyChanged, IRequireViewIdentification
     {
         private readonly string _markdownStyle;
         private bool _isQuitting = false;
@@ -119,6 +119,8 @@ namespace ProjectMarkdown.ViewModels
             }
         }
 
+        public Guid ViewID { get; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         // File
@@ -184,6 +186,8 @@ namespace ProjectMarkdown.ViewModels
             {
                 return;
             }
+
+            ViewID = Guid.NewGuid();
             
             LoadCommands();
             LoadPreferences();
@@ -1275,7 +1279,12 @@ namespace ProjectMarkdown.ViewModels
         
         public void MainWindowResizedEvent(object obj)
         {
+            Logger.GetInstance().Debug("MainWindowResizedEvent() >>");
+
             CodeTextboxManager.GetInstance().RefreshScrollPosition(CurrentDocument);
+            WindowManager.GetInstance().RefreshToolbarPositions(ViewID);
+
+            Logger.GetInstance().Debug("<< MainWindowResizedEvent()");
         }
         
         public void HeaderFormattingChangedEvent(object obj)
