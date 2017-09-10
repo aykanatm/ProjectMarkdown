@@ -199,6 +199,7 @@ namespace ProjectMarkdown.ViewModels
             SharedEventHandler.GetInstance().OnInsertTableDimensionsSelected += OnInsertTableDimensionsSelected;
             SharedEventHandler.GetInstance().OnCodeTextboxScrollChanged += OnCodeTextboxScrollChanged;
             SharedEventHandler.GetInstance().OnTextboxTextChanged += OnTextboxTextChanged;
+            SharedEventHandler.GetInstance().OnToolbarPositionsChanged += OnToolbarPositionsChanged;
 
             Documents = new ObservableCollection<DocumentModel>();
             HeadingFormats = new ObservableCollection<string>{"Heading 1", "Heading 2", "Heading 3", "Heading 4", "Heading 5", "Heading 6"};
@@ -207,6 +208,12 @@ namespace ProjectMarkdown.ViewModels
             ThemeSetter.Set(CurrentPreferences.PrimaryColor, CurrentPreferences.AccentColor);
 
             Logger.GetInstance().Debug("<< MainWindowViewModel()");
+        }
+
+        // This ensures that the toolbar tray is resized to correct height after window resize
+        private void OnToolbarPositionsChanged()
+        {
+            CurrentPreferences.IsToolbarHidden = CurrentPreferences.IsToolbarHidden;
         }
 
         private void OnInsertTableDimensionsSelected(int rows, int columns)

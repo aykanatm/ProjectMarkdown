@@ -15,6 +15,7 @@ namespace ProjectMarkdown.Services
         public Action<int, int> OnInsertTableDimensionsSelected;
         public Action<ScrollResult> OnCodeTextboxScrollChanged;
         public Action OnTextboxTextChanged;
+        public Action OnToolbarPositionsChanged;
 
         public static SharedEventHandler GetInstance()
         {
@@ -59,6 +60,11 @@ namespace ProjectMarkdown.Services
         public void RaiseOnTextboxTextChanged()
         {
             OnTextboxTextChanged();
+        }
+
+        public void RaiseOnToolbarPositionsChanged()
+        {
+            OnToolbarPositionsChanged();
         }
     }
 }

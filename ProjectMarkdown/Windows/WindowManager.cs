@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using ProjectMarkdown.Services;
 using ProjectMarkdown.Views;
 using WPFUtils.ExtensionMethods;
 
@@ -86,10 +87,8 @@ namespace ProjectMarkdown.Windows
         {
             var window = GetWindow(id);
             var toolbars = GetControls<ToolBar>(id);
-            var toolbarTrays = GetControls<ToolBarTray>(id);
 
             var dependencyObjects = toolbars as IList<DependencyObject> ?? toolbars.ToList();
-            var toolbarTraysDependencyObject = toolbarTrays as IList<DependencyObject> ?? toolbarTrays.ToList();
 
             if (_totalToolbarWidth <= 0)
             {
@@ -108,9 +107,7 @@ namespace ProjectMarkdown.Windows
                     var toolbar = (ToolBar) dependencyObject;
                     toolbar.Band = 0;
                 }
-
-                var toolbarTray = (ToolBarTray) toolbarTraysDependencyObject[0];
-                toolbarTray.Height = ToolbarTrayHeightSingleBand;
+                
                 IsSingleBand = true;
             }
             else
@@ -127,11 +124,12 @@ namespace ProjectMarkdown.Windows
                         toolbar.Band = 0;
                     }
                 }
-
-                var toolbarTray = (ToolBarTray) toolbarTraysDependencyObject[0];
-                toolbarTray.Height = ToolbarTrayHeightDoubleBands;
+                
                 IsSingleBand = false;
             }
+
+            // This ensures that the toolbar tray is resized to correct height after window resize
+            SharedEventHandler.GetInstance().RaiseOnToolbarPositionsChanged();
         }
 
         private IEnumerable<DependencyObject> GetControls<T>(Guid id) where T : DependencyObject
