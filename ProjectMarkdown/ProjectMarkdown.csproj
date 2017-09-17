@@ -230,6 +230,9 @@
     <None Include="Documentation\Project Markdown User Guide.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="License.rtf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -242,25 +245,15 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Resource Include="Images\new.png" />
-    <Resource Include="Images\save.png" />
-    <Resource Include="Images\copy.png" />
-    <Resource Include="Images\open.png" />
-    <Resource Include="Images\redo.png" />
-    <Resource Include="Images\undo.png" />
-    <Resource Include="Images\close.png" />
-    <Resource Include="Images\converttopdf.png" />
-    <Resource Include="Images\cut.png" />
-    <Resource Include="Images\find.png" />
-    <Resource Include="Images\findreplace.png" />
-    <Resource Include="Images\paste.png" />
-    <Resource Include="Images\print.png" />
-    <Resource Include="Configuration\MarkdownSyntaxHighlighting.xml">
+    <None Include="Configuration\MarkdownSyntaxHighlighting.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Content Include="Styles\github-markdown.css">
+    </None>
+    <None Include="License.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Styles\github-markdown.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProjectMarkdown.HtmlToPdfConverter\ProjectMarkdown.HtmlToPdfConverter.csproj">
@@ -288,6 +281,10 @@
   <Import Project="..\packages\cef.redist.x86.3.2987.1601\build\cef.redist.x86.targets" Condition="Exists('..\packages\cef.redist.x86.3.2987.1601\build\cef.redist.x86.targets')" />
   <Import Project="..\packages\CefSharp.Common.57.0.0\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.57.0.0\build\CefSharp.Common.targets')" />
   <Import Project="..\packages\CefSharp.Wpf.57.0.0\build\CefSharp.Wpf.targets" Condition="Exists('..\packages\CefSharp.Wpf.57.0.0\build\CefSharp.Wpf.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

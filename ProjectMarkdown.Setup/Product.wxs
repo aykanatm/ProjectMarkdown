@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="Project Markdown" Language="1033" Version="1.0.0.0" Manufacturer="Murat Aykanat" UpgradeCode="0b78676c-6967-48e2-9378-577c0b3c52ad">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate EmbedCab="yes"/>
+    
+    <!-- License -->
+    <WixVariable Id="WixUILicense"
+                 Value="..\..\..\ProjectMarkdown\bin\x86\Release\License.rtf"/>
+    <!-- UI Type -->
+    <UIRef Id="WixUI_InstallDir"/>
+    
+    <!-- Application Icon -->
+    <Icon Id="AppIcon"
+          SourceFile="..\..\..\ProjectMarkdown\bin\x86\Release\ProjectMarkdown.ico"/>
+    
+    <!-- Products and Features Window Properties -->
+    <Property Id="ARPPRODUCTICON"
+              Value="AppIcon"/>
+    <Property Id="ARPCOMMENTS"
+              Value="(c) 2017 Murat Aykanat"/>
+    <Property Id="ARPCONTACT"
+              Value="Murat Aykanat"/>
+    <Property Id="ARPURLINFOABOUT"
+              Value="https://github.com/aykanatm/ProjectMarkdown"/>
+    
+    <!-- UI specific properties -->
+    <Property Id="ApplicationFolderName"
+              Value="ProjectMarkdown"/>
+    <Property Id="WixAppFolder"
+              Value="WixPerMachineFolder"/>
+    <Property Id="WIXUI_INSTALLDIR"
+              Value="INSTALLDIR"/>
+    
+    <!-- Directory Structure -->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLDIR" Name="ProjectMarkdown">
+          <Directory Id="ConfigurationFolderId" Name="Configuration"/>
+          <Directory Id="DocumentationFolderId" Name="Documentation"/>
+          <Directory Id="LogFolderId" Name="Log"/>
+          <Directory Id="StylesFolderId" Name="Styles"/>
+          <Directory Id="InteractivityLocalizationFolderId" Name="en"/>
+          <Directory Id="LocalesFolderId" Name="locales"/>
+          <Directory Id="TempFolderId" Name="Temp"/>
+        </Directory>
+      </Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="MyShortcutsDir" Name="ProjectMarkdown"/>
+      </Directory>
+    </Directory>
+    
+    <!-- App Components -->
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="cef.pak">
+        <File Id="cef.pak"
+              Name="cef.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\cef.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="cef_100_percent.pak">
+        <File Id="cef_100_percent.pak"
+              Name="cef_100_percent.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\cef_100_percent.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="cef_200_percent.pak">
+        <File Id="cef_200_percent.pak"
+              Name="cef_200_percent.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\cef_200_percent.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="cef_extensions.pak">
+        <File Id="cef_extensions.pak"
+              Name="cef_extensions.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\cef_extensions.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="CefSharp.BrowserSubprocess.Core.dll">
+        <File Id="CefSharp.BrowserSubprocess.Core.dll"
+              Name="CefSharp.BrowserSubprocess.Core.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\CefSharp.BrowserSubprocess.Core.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="CefSharp.BrowserSubprocess.exe">
+        <File Id="CefSharp.BrowserSubprocess.exe"
+              Name="CefSharp.BrowserSubprocess.exe"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\CefSharp.BrowserSubprocess.exe"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="CefSharp.Core.dll">
+        <File Id="CefSharp.Core.dll"
+              Name="CefSharp.Core.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\CefSharp.Core.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="CefSharp.dll">
+        <File Id="CefSharp.dll"
+              Name="CefSharp.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\CefSharp.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="CefSharp.Wpf.dll">
+        <File Id="CefSharp.Wpf.dll"
+              Name="CefSharp.Wpf.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\CefSharp.Wpf.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="chrome_elf.dll">
+        <File Id="chrome_elf.dll"
+              Name="chrome_elf.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\chrome_elf.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="ClassUtils.dll">
+        <File Id="ClassUtils.dll"
+              Name="ClassUtils.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\ClassUtils.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="Common.Logging.dll">
+        <File Id="Common.Logging.dll"
+              Name="Common.Logging.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\Common.Logging.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="d3dcompiler_47.dll">
+        <File Id="d3dcompiler_47.dll"
+              Name="d3dcompiler_47.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\d3dcompiler_47.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="devtools_resources.pak">
+        <File Id="devtools_resources.pak"
+              Name="devtools_resources.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\devtools_resources.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="Dragablz.dll">
+        <File Id="Dragablz.dll"
+              Name="Dragablz.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\Dragablz.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="FastColoredTextBox.dll">
+        <File Id="FastColoredTextBox.dll"
+              Name="FastColoredTextBox.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\FastColoredTextBox.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="icudtl.dat">
+        <File Id="icudtl.dat"
+              Name="icudtl.dat"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\icudtl.dat"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="IOUtils.dll">
+        <File Id="IOUtils.dll"
+              Name="IOUtils.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\IOUtils.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="libcef.dll">
+        <File Id="libcef.dll"
+              Name="libcef.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\libcef.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="libeay32.dll">
+        <File Id="libeay32.dll"
+              Name="libeay32.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\libeay32.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="libEGL.dll">
+        <File Id="libEGL.dll"
+              Name="libEGL.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\libEGL.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="libgcc_s_dw2_1.dll">
+        <File Id="libgcc_s_dw2_1.dll"
+              Name="libgcc_s_dw2-1.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\libgcc_s_dw2-1.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="libGLESv2.dll">
+        <File Id="libGLESv2.dll"
+              Name="libGLESv2.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\libGLESv2.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="License.txt">
+        <File Id="License.txt"
+              Name="License.txt"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\License.txt"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="LogUtils.dll">
+        <File Id="LogUtils.dll"
+              Name="LogUtils.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\LogUtils.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="MaterialDesignColors.dll">
+        <File Id="MaterialDesignColors.dll"
+              Name="MaterialDesignColors.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\MaterialDesignColors.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="MaterialDesignThemes.Wpf.dll">
+        <File Id="MaterialDesignThemes.Wpf.dll"
+              Name="MaterialDesignThemes.Wpf.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\MaterialDesignThemes.Wpf.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="MathUtils.dll">
+        <File Id="MathUtils.dll"
+              Name="MathUtils.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\MathUtils.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="Microsoft.Expression.Interactions.dll">
+        <File Id="Microsoft.Expression.Interactions.dll"
+              Name="Microsoft.Expression.Interactions.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\Microsoft.Expression.Interactions.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="Microsoft.mshtml.dll">
+        <File Id="Microsoft.mshtml.dll"
+              Name="Microsoft.mshtml.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\Microsoft.mshtml.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="mingwm10.dll">
+        <File Id="mingwm10.dll"
+              Name="mingwm10.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\mingwm10.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="natives_blob.bin">
+        <File Id="natives_blob.bin"
+              Name="natives_blob.bin"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\natives_blob.bin"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="Pechkin.dll">
+        <File Id="Pechkin.dll"
+              Name="Pechkin.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\Pechkin.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="ProjectMarkdown.exe">
+        <File Id="ProjectMarkdown.exe"
+              Name="ProjectMarkdown.exe"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\ProjectMarkdown.exe"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="ProjectMarkdown.exe.config">
+        <File Id="ProjectMarkdown.exe.config"
+              Name="ProjectMarkdown.exe.config"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\ProjectMarkdown.exe.config"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="ProjectMarkdown.HtmlToPdfConverter.dll">
+        <File Id="ProjectMarkdown.HtmlToPdfConverter.dll"
+              Name="ProjectMarkdown.HtmlToPdfConverter.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\ProjectMarkdown.HtmlToPdfConverter.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="ProjectMarkdown.MarkdownLibrary.dll">
+        <File Id="ProjectMarkdown.MarkdownLibrary.dll"
+              Name="ProjectMarkdown.MarkdownLibrary.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\ProjectMarkdown.MarkdownLibrary.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="snapshot_blob.bin">
+        <File Id="snapshot_blob.bin"
+              Name="snapshot_blob.bin"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\snapshot_blob.bin"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="Spire.License.dll">
+        <File Id="Spire.License.dll"
+              Name="Spire.License.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\Spire.License.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="Spire.Pdf.dll">
+        <File Id="Spire.Pdf.dll"
+              Name="Spire.Pdf.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\Spire.Pdf.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="ssleay32.dll">
+        <File Id="ssleay32.dll"
+              Name="ssleay32.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\ssleay32.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="StringUtils.dll">
+        <File Id="StringUtils.dll"
+              Name="StringUtils.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\StringUtils.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="System.Windows.Interactivity.dll">
+        <File Id="System.Windows.Interactivity.dll"
+              Name="System.Windows.Interactivity.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\System.Windows.Interactivity.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="widevinecdmadapter.dll">
+        <File Id="widevinecdmadapter.dll"
+              Name="widevinecdmadapter.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\widevinecdmadapter.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="wkhtmltox0.dll">
+        <File Id="wkhtmltox0.dll"
+              Name="wkhtmltox0.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\wkhtmltox0.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="WPFUtils.dll">
+        <File Id="WPFUtils.dll"
+              Name="WPFUtils.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\WPFUtils.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <!-- Configuration Components -->
+    <DirectoryRef Id="ConfigurationFolderId">
+      <Component Id="MarkdownSyntaxHighlighting.xml">
+        <File Id="MarkdownSyntaxHighlighting.xml"
+              Name="MarkdownSyntaxHighlighting.xml"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\Configuration\MarkdownSyntaxHighlighting.xml"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <!-- Localization Components -->
+    <DirectoryRef Id="InteractivityLocalizationFolderId">
+      <Component Id="Microsoft.Expression.Interactions.resources.dll">
+        <File Id="Microsoft.Expression.Interactions.resources.dll"
+              Name="Microsoft.Expression.Interactions.resources.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\en\Microsoft.Expression.Interactions.resources.dll"
+              KeyPath="yes"/>
+      </Component>
+      <Component Id="System.Windows.Interactivity.resources.dll">
+        <File Id="System.Windows.Interactivity.resources.dll"
+              Name="System.Windows.Interactivity.resources.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\en\System.Windows.Interactivity.resources.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="en-US.pak">
+        <File Id="en-US.pak"
+              Name="en-US.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\en-US.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <!-- Documentation Component-->
+    <DirectoryRef Id="DocumentationFolderId">
+      <Component Id="DocumentationComponent">
+        <File Id="DocumentationPdf"
+              Name="Project Markdown User Guide.pdf"
+              Source ="..\..\..\ProjectMarkdown\bin\x86\Release\Documentation\Project Markdown User Guide.pdf"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <!-- Styles Component -->
+    <DirectoryRef Id="StylesFolderId">
+      <Component Id="StylesComponent">
+        <File Id="github_markdown.css"
+              Name="github-markdown.css"
+              Source ="..\..\..\ProjectMarkdown\bin\x86\Release\Documentation\github-markdown.css"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <!-- Start Menu Shortcuts and Registry-->
+    <DirectoryRef Id="MyShortcutsDir">
+      <Component Id="StartMenuShortcuts">
+        <Shortcut Id="ApplicationExecutableShortcut"
+                  Name="ProjectMarkdown"
+                  Description="Start Project Markdown"
+                  Target="[INSTALLFOLDER]ProjectMarkdown.exe"/>
+        <Shortcut Id="DocumentationShortcut"
+                  Name="Project Markdown User Guide"
+                  Description="Project Markdown Documentation"
+                  Target="[DocumentationFolderId]Project Markdown User Guide.pdf"/>
+        <Shortcut Id="UninstallShortcut"
+                  Name="Uninstall Project Markdown"
+                  Target="[System64Folder]msiexec.exe"
+                  Arguments="/x [ProductCode]"/>
+        <RemoveFolder Id="MyShortcutsDir"
+                      On="uninstall"/>
+        <RegistryValue Root="HKCU"
+                       Key="Software\Murat Aykanat\Project Markdown"
+                       Name="installed"
+                       Type="integer"
+                       Value="1"
+                       KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+
+		<Feature Id="ProductFeature" 
+             Title="Project Markdown" 
+             Level="1">
+			<ComponentGroupRef Id="ProjectMarkdown.exe" />
+      <ComponentGroupRef Id="Microsoft.Expression.Interactions.resources.dll" />
+      <ComponentGroupRef Id="System.Windows.Interactivity.resources.dll" />
+      <ComponentGroupRef Id="DocumentationComponent" />
+      <ComponentGroupRef Id="StylesComponent" />
+		</Feature>
+	</Product>
+</Wix>
