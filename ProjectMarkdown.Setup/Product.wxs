@@ -325,6 +325,22 @@
       </Component>
     </DirectoryRef>
     <DirectoryRef Id="INSTALLDIR">
+      <Component Id="ProjectMarkdown.ico">
+        <File Id="ProjectMarkdown.ico"
+              Name="ProjectMarkdown.ico"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\ProjectMarkdown.ico"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="ProjectMarkdownDocument.ico">
+        <File Id="ProjectMarkdownDocument.ico"
+              Name="ProjectMarkdownDocument.ico"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\ProjectMarkdownDocument.ico"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
       <Component Id="ProjectMarkdown.exe.config">
         <File Id="ProjectMarkdown.exe.config"
               Name="ProjectMarkdown.exe.config"
