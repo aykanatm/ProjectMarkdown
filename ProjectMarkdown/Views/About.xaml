@@ -14,7 +14,8 @@
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="11"
-        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto">
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        Title="About Project Markdown">
     <Window.DataContext>
         <viewModels:AboutViewModel/>
     </Window.DataContext>
@@ -24,8 +25,8 @@
                 <ColumnDefinition Width="50" MaxWidth="50" MinWidth="50"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="0" Margin="5"/>
-            <TextBlock Grid.Column="1" Text="{Binding CurrentVersion}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"></TextBlock>
+            <Image Grid.Column="0" Margin="5" Source="../Resources/Images/Application/ProjectMarkdownIcon_100.png"/>
+            <TextBlock Grid.Column="1" Text="{Binding CurrentVersion}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontWeight="Bold" FontSize="20"></TextBlock>
         </Grid>
         <Grid DockPanel.Dock="Top" Height="50">
             <Grid.ColumnDefinitions>
@@ -37,9 +38,9 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Author:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="5,0,0,0"/>
-            <TextBlock Text="Home Page:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="5,0,0,0"/>
-            <TextBlock Text="License" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="5,0,0,0"/>
+            <TextBlock Text="Author:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,5,0" FontWeight="Bold" HorizontalAlignment="Right"/>
+            <TextBlock Text="Home Page:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,5,0" FontWeight="Bold" HorizontalAlignment="Right"/>
+            <TextBlock Text="License" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,5,0" FontWeight="Bold" HorizontalAlignment="Right"/>
             <TextBlock Text="Murat Aykanat" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,0,0"/>
             <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,0,0">
                 <Hyperlink NavigateUri="https://github.com/aykanatm/ProjectMarkdown">https://github.com/aykanatm/ProjectMarkdown</Hyperlink>
@@ -49,7 +50,7 @@
             <TextBox Text="{Binding LicenseText}"  Margin="5" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" FontSize="9"></TextBox>
         </Grid>
         <Grid DockPanel.Dock="Top" Height="25" MaxHeight="25" MinHeight="25">
-            <TextBlock Text="Open Source Components / Libraries" VerticalAlignment="Center" Margin="5,0,0,0"/>
+            <TextBlock Text="Open Source Components / Libraries" VerticalAlignment="Center" Margin="5,0,0,0" FontWeight="Bold"/>
         </Grid>
         <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="5">
             <Grid>
@@ -77,7 +78,7 @@
                 <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="5,0,0,0">
                     <Hyperlink NavigateUri="https://github.com/cefsharp/CefSharp">CefSharp</Hyperlink>
                 </TextBlock>
-                <TextBlock Text="Copyright © 2010-2017 The CefSharp Authors" Grid.Row="2" Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                <TextBlock Text="Copyright © The CefSharp Authors" Grid.Row="2" Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center"/>
                 <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="5,0,0,0">
                     <Hyperlink NavigateUri="https://github.com/nancyeiceblue/Free-Spire.PDF-for-.NET">Freespire PDF</Hyperlink>
                 </TextBlock>
@@ -93,7 +94,7 @@
                 <TextBlock Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="5,0,0,0">
                     <Hyperlink NavigateUri="https://github.com/aykanatm/MyLibrary">My C# Library</Hyperlink>
                 </TextBlock>
-                <TextBlock Text="Copyright © 2016 Murat Aykanat" Grid.Row="6" Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                <TextBlock Text="Copyright © Murat Aykanat" Grid.Row="6" Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center"/>
             </Grid>
         </ScrollViewer>
     </DockPanel>
