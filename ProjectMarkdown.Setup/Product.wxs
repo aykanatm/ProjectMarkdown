@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="Project Markdown" Language="1033" Version="1.0.0.0" Manufacturer="Murat Aykanat" UpgradeCode="0b78676c-6967-48e2-9378-577c0b3c52ad">
+	<Product Id="*" Name="Project Markdown" Language="1033" Version="1.0.0" Manufacturer="Murat Aykanat" UpgradeCode="0b78676c-6967-48e2-9378-577c0b3c52ad">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 		<MediaTemplate EmbedCab="yes"/>
-    
-    <!-- License -->
-    <WixVariable Id="WixUILicense"
-                 Value="..\..\..\ProjectMarkdown\bin\x86\Release\License.rtf"/>
+
     <!-- UI Type -->
     <UIRef Id="WixUI_InstallDir"/>
     
+    <!-- License -->
+    <WixVariable Id="WixUILicenseRtf"
+                 Value="..\..\..\ProjectMarkdown\bin\x86\Release\License.rtf"/>
+    <!-- Installer UI Images-->
+    <WixVariable Id="WixUIDialogBmp"
+                 Value="..\..\..\ProjectMarkdown\bin\x86\Release\Resources\Images\Installer\InstallerLeftBanner.bmp"/>
+    <WixVariable Id="WixUIBannerBmp"
+                 Value="..\..\..\ProjectMarkdown\bin\x86\Release\Resources\Images\Installer\InstallerTopBanner.bmp"/>
+    
     <!-- Application Icon -->
     <Icon Id="AppIcon"
-          SourceFile="..\..\..\ProjectMarkdown\bin\x86\Release\ProjectMarkdown.ico"/>
+          SourceFile="..\..\..\ProjectMarkdown\bin\x86\Release\Resources\Images\Icons\ProjectMarkdownIcon.ico"/>
     
     <!-- Products and Features Window Properties -->
     <Property Id="ARPPRODUCTICON"
               Value="AppIcon"/>
     <Property Id="ARPCOMMENTS"
-              Value="(c) 2017 Murat Aykanat"/>
+              Value="(c) Murat Aykanat"/>
     <Property Id="ARPCONTACT"
               Value="Murat Aykanat"/>
     <Property Id="ARPURLINFOABOUT"
@@ -322,21 +328,26 @@
               Name="ProjectMarkdown.exe"
               Source="..\..\..\ProjectMarkdown\bin\x86\Release\ProjectMarkdown.exe"
               KeyPath="yes"/>
+        <ProgId Id="ProjectMarkdownProgID" Description="Project Markdown Document Files" Icon="ProjectMarkdownDocumentIcon.ico">
+          <Extension Id="pmd" ContentType="application/pmd">
+            <Verb Id="open" Command="open" TargetFile="ProjectMarkdown.exe" Argument="&quot;%1&quot;"/>
+          </Extension>
+        </ProgId>
       </Component>
     </DirectoryRef>
     <DirectoryRef Id="INSTALLDIR">
-      <Component Id="ProjectMarkdown.ico">
-        <File Id="ProjectMarkdown.ico"
-              Name="ProjectMarkdown.ico"
-              Source="..\..\..\ProjectMarkdown\bin\x86\Release\ProjectMarkdown.ico"
+      <Component Id="ProjectMarkdownIcon.ico">
+        <File Id="ProjectMarkdownIcon.ico"
+              Name="ProjectMarkdownIcon.ico"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\Resources\Images\Icons\ProjectMarkdownIcon.ico"
               KeyPath="yes"/>
       </Component>
     </DirectoryRef>
     <DirectoryRef Id="INSTALLDIR">
-      <Component Id="ProjectMarkdownDocument.ico">
-        <File Id="ProjectMarkdownDocument.ico"
-              Name="ProjectMarkdownDocument.ico"
-              Source="..\..\..\ProjectMarkdown\bin\x86\Release\ProjectMarkdownDocument.ico"
+      <Component Id="ProjectMarkdownDocumentIcon.ico">
+        <File Id="ProjectMarkdownDocumentIcon.ico"
+              Name="ProjectMarkdownDocumentIcon.ico"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\Resources\Images\Icons\ProjectMarkdownDocumentIcon.ico"
               KeyPath="yes"/>
       </Component>
     </DirectoryRef>
@@ -447,13 +458,13 @@
     </DirectoryRef>
     <!-- Localization Components -->
     <DirectoryRef Id="InteractivityLocalizationFolderId">
-      <Component Id="Microsoft.Expression.Interactions.resources.dll">
+      <Component Id="Localization_Microsoft.Expression.Interactions.resources.dll">
         <File Id="Microsoft.Expression.Interactions.resources.dll"
               Name="Microsoft.Expression.Interactions.resources.dll"
               Source="..\..\..\ProjectMarkdown\bin\x86\Release\en\Microsoft.Expression.Interactions.resources.dll"
               KeyPath="yes"/>
       </Component>
-      <Component Id="System.Windows.Interactivity.resources.dll">
+      <Component Id="Localization_System.Windows.Interactivity.resources.dll">
         <File Id="System.Windows.Interactivity.resources.dll"
               Name="System.Windows.Interactivity.resources.dll"
               Source="..\..\..\ProjectMarkdown\bin\x86\Release\en\System.Windows.Interactivity.resources.dll"
@@ -461,9 +472,9 @@
       </Component>
     </DirectoryRef>
     <DirectoryRef Id="LocalesFolderId">
-      <Component Id="en-US.pak">
-        <File Id="en-US.pak"
-              Name="en-US.pak"
+      <Component Id="en_US.pak">
+        <File Id="en_US.pak"
+              Name="en_US.pak"
               Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\en-US.pak"
               KeyPath="yes"/>
       </Component>
@@ -482,7 +493,7 @@
       <Component Id="StylesComponent">
         <File Id="github_markdown.css"
               Name="github-markdown.css"
-              Source ="..\..\..\ProjectMarkdown\bin\x86\Release\Documentation\github-markdown.css"
+              Source ="..\..\..\ProjectMarkdown\bin\x86\Release\Styles\github-markdown.css"
               KeyPath="yes"/>
       </Component>
     </DirectoryRef>
@@ -515,11 +526,67 @@
 		<Feature Id="ProductFeature" 
              Title="Project Markdown" 
              Level="1">
-			<ComponentGroupRef Id="ProjectMarkdown.exe" />
-      <ComponentGroupRef Id="Microsoft.Expression.Interactions.resources.dll" />
-      <ComponentGroupRef Id="System.Windows.Interactivity.resources.dll" />
-      <ComponentGroupRef Id="DocumentationComponent" />
-      <ComponentGroupRef Id="StylesComponent" />
+      <!-- App Components -->
+      <ComponentRef Id="cef.pak"/>
+      <ComponentRef Id="cef_100_percent.pak"/>
+      <ComponentRef Id="cef_200_percent.pak"/>
+      <ComponentRef Id="cef_extensions.pak"/>
+      <ComponentRef Id="CefSharp.BrowserSubprocess.Core.dll"/>
+      <ComponentRef Id="CefSharp.BrowserSubprocess.exe"/>
+      <ComponentRef Id="CefSharp.Core.dll"/>
+      <ComponentRef Id="CefSharp.dll"/>
+      <ComponentRef Id="CefSharp.Wpf.dll"/>
+      <ComponentRef Id="chrome_elf.dll"/>
+      <ComponentRef Id="ClassUtils.dll"/>
+      <ComponentRef Id="Common.Logging.dll"/>
+      <ComponentRef Id="d3dcompiler_47.dll"/>
+      <ComponentRef Id="devtools_resources.pak"/>
+      <ComponentRef Id="Dragablz.dll"/>
+      <ComponentRef Id="FastColoredTextBox.dll"/>
+      <ComponentRef Id="icudtl.dat"/>
+      <ComponentRef Id="IOUtils.dll"/>
+      <ComponentRef Id="libcef.dll"/>
+      <ComponentRef Id="libeay32.dll"/>
+      <ComponentRef Id="libEGL.dll"/>
+      <ComponentRef Id="libgcc_s_dw2_1.dll"/>
+      <ComponentRef Id="libGLESv2.dll"/>
+      <ComponentRef Id="License.txt"/>
+      <ComponentRef Id="LogUtils.dll"/>
+      <ComponentRef Id="MaterialDesignColors.dll"/>
+      <ComponentRef Id="MaterialDesignThemes.Wpf.dll"/>
+      <ComponentRef Id="MathUtils.dll"/>
+      <ComponentRef Id="Microsoft.Expression.Interactions.dll"/>
+      <ComponentRef Id="Microsoft.mshtml.dll"/>
+      <ComponentRef Id="mingwm10.dll"/>
+      <ComponentRef Id="natives_blob.bin"/>
+      <ComponentRef Id="Pechkin.dll"/>
+			<ComponentRef Id="ProjectMarkdown.exe" />
+      <ComponentRef Id="ProjectMarkdownIcon.ico"/>
+      <ComponentRef Id="ProjectMarkdownDocumentIcon.ico"/>
+      <ComponentRef Id="ProjectMarkdown.exe.config"/>
+      <ComponentRef Id="ProjectMarkdown.HtmlToPdfConverter.dll"/>
+      <ComponentRef Id="ProjectMarkdown.MarkdownLibrary.dll"/>
+      <ComponentRef Id="snapshot_blob.bin"/>
+      <ComponentRef Id="Spire.License.dll"/>
+      <ComponentRef Id="Spire.Pdf.dll"/>
+      <ComponentRef Id="ssleay32.dll"/>
+      <ComponentRef Id="StringUtils.dll"/>
+      <ComponentRef Id="System.Windows.Interactivity.dll"/>
+      <ComponentRef Id="widevinecdmadapter.dll"/>
+      <ComponentRef Id="wkhtmltox0.dll"/>
+      <ComponentRef Id="WPFUtils.dll"/>
+      <!-- Configuration Components -->
+      <ComponentRef Id="MarkdownSyntaxHighlighting.xml"/>
+      <!-- Localization Components -->
+      <ComponentRef Id="Localization_Microsoft.Expression.Interactions.resources.dll" />
+      <ComponentRef Id="Localization_System.Windows.Interactivity.resources.dll" />
+      <ComponentRef Id="en_US.pak"/>
+      <!-- Documentation Component-->
+      <ComponentRef Id="DocumentationComponent" />
+      <!-- Styles Component -->
+      <ComponentRef Id="StylesComponent" />
+      <!-- Start Menu Shortcuts and Registry-->
+      <ComponentRef Id="StartMenuShortcuts"/>
 		</Feature>
 	</Product>
 </Wix>
