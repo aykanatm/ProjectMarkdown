@@ -48,7 +48,6 @@ Global
 		{1E39F798-6426-4310-9F54-C42B7A4861A1}.Debug|x86.Build.0 = Debug|x86
 		{1E39F798-6426-4310-9F54-C42B7A4861A1}.Release|Any CPU.ActiveCfg = Release|x86
 		{1E39F798-6426-4310-9F54-C42B7A4861A1}.Release|x86.ActiveCfg = Release|x86
-		{1E39F798-6426-4310-9F54-C42B7A4861A1}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
