@@ -28,12 +28,14 @@ namespace ProjectMarkdown
 
             if (!isNew)
             {
+                _mutex.ReleaseMutex();
                 Current.Shutdown();
             }
 
             InitializeLogger();
             GenerateFolders();
             ProcessCommandLineArgs(commandLineArgs);
+            _mutex.ReleaseMutex();
         }
 
         private void InitializeLogger()
