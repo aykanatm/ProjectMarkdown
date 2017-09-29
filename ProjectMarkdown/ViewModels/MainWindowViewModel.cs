@@ -207,6 +207,16 @@ namespace ProjectMarkdown.ViewModels
 
             ThemeSetter.Set(CurrentPreferences.PrimaryColor, CurrentPreferences.AccentColor);
 
+            var app = Application.Current as App;
+            if (app != null)
+            {
+                var startupFilePath = app.StartupFilePath;
+                if (!string.IsNullOrEmpty(startupFilePath))
+                {
+                    OpenDocumentFromFilePath(startupFilePath);
+                }
+            }
+
             Logger.GetInstance().Debug("<< MainWindowViewModel()");
         }
 
@@ -626,6 +636,48 @@ namespace ProjectMarkdown.ViewModels
             }
 
             Logger.GetInstance().Debug("<< OpenDocument()");
+        }
+
+        private void OpenDocumentFromFilePath(string filePath)
+        {
+            Logger.GetInstance().Debug("OpenDocumentFromFilePath() >>");
+
+            try
+            {
+                var currentDocument = DocumentLoader.Load(this, filePath);
+                if (currentDocument != null)
+                {
+                    var documentsWithCurrentFilePath = (from d in Documents
+                                                        where d.Metadata.FilePath == currentDocument.Metadata.FilePath
+                                                        select d);
+                    if (documentsWithCurrentFilePath.Any())
+                    {
+                        MessageBox.Show("The document '" + currentDocument.Metadata.FilePath + "' is already open.",
+                            "Duplicate File Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else
+                    {
+                        Documents.Add(currentDocument);
+                        CurrentDocument = currentDocument;
+
+                        // Set current document as "open"
+                        ResetDocumentsOpenState();
+                        CurrentDocument.IsOpen = true;
+                        CurrentDocument.IsOpenedFromMenu = true;
+                        CurrentDocument.IsSaved = true;
+                        CurrentDocument.IsWordWrap = CurrentPreferences.IsWordWrap;
+                        CurrentDocument.CurrentFont = new Font(new FontFamily(CurrentPreferences.CurrentFont), float.Parse(CurrentPreferences.CurrentFontSize));
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while opening document", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+
+            Logger.GetInstance().Debug("<< OpenDocumentFromFilePath()");
         }
 
         public void ExportMarkdown(object obj)

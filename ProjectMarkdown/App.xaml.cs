@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 using IOUtils;
@@ -14,12 +15,16 @@ namespace ProjectMarkdown
     /// </summary>
     public partial class App : Application
     {
+        public string StartupFilePath;
+
         private Mutex _mutex;
 
         public App()
         {
             bool isNew;
             _mutex = new Mutex(true, "{DFA6F1D9-7EC8-4557-AA0C-B14BF307AE77}", out isNew);
+
+            var commandLineArgs = Environment.GetCommandLineArgs();
 
             if (!isNew)
             {
@@ -28,9 +33,10 @@ namespace ProjectMarkdown
 
             InitializeLogger();
             GenerateFolders();
+            ProcessCommandLineArgs(commandLineArgs);
         }
 
-        private static void InitializeLogger()
+        private void InitializeLogger()
         {
             try
             {
@@ -66,7 +72,7 @@ namespace ProjectMarkdown
             }
         }
 
-        private static void GenerateFolders()
+        private void GenerateFolders()
         {
             try
             {
@@ -88,6 +94,22 @@ namespace ProjectMarkdown
             catch (Exception e)
             {
                 MessageBox.Show(e.Message, "Unable to generate application folders", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void ProcessCommandLineArgs(string[] commandLineArgs)
+        {
+            if (commandLineArgs.Any())
+            {
+                foreach (var arg in commandLineArgs)
+                {
+                    Logger.GetInstance().Debug(arg);
+                    if (arg.EndsWith(".pmd"))
+                    {
+                        StartupFilePath = arg;
+                        break;
+                    }
+                }
             }
         }
     }
