@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using System.Windows;
 using IOUtils;
 using LogUtils;
@@ -13,8 +14,18 @@ namespace ProjectMarkdown
     /// </summary>
     public partial class App : Application
     {
+        private Mutex _mutex;
+
         public App()
         {
+            bool isNew;
+            _mutex = new Mutex(true, "{DFA6F1D9-7EC8-4557-AA0C-B14BF307AE77}", out isNew);
+
+            if (!isNew)
+            {
+                Current.Shutdown();
+            }
+
             InitializeLogger();
             GenerateFolders();
         }
