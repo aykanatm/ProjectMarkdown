@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.IO.Pipes;
 using System.Linq;
 using System.Threading;
 using System.Windows;
@@ -25,17 +26,32 @@ namespace ProjectMarkdown
             _mutex = new Mutex(true, "{DFA6F1D9-7EC8-4557-AA0C-B14BF307AE77}", out isNew);
 
             var commandLineArgs = Environment.GetCommandLineArgs();
+            ProcessCommandLineArgs(commandLineArgs);
 
             if (!isNew)
             {
+                var writerThread = new Thread(WriterThread);
+                writerThread.Start();
+
                 _mutex.ReleaseMutex();
                 Current.Shutdown();
             }
 
             InitializeLogger();
             GenerateFolders();
-            ProcessCommandLineArgs(commandLineArgs);
+            
             _mutex.ReleaseMutex();
+        }
+
+        private void WriterThread()
+        {
+            var client = new NamedPipeClientStream("{DFA6F1D9-7EC8-4557-AA0C-B14BF307AE77}");
+            client.Connect(Timeout.Infinite);
+
+            using (var writer = new BinaryWriter(client))
+            {
+                writer.Write(StartupFilePath);
+            }
         }
 
         private void InitializeLogger()
@@ -105,7 +121,6 @@ namespace ProjectMarkdown
             {
                 foreach (var arg in commandLineArgs)
                 {
-                    Logger.GetInstance().Debug(arg);
                     if (arg.EndsWith(".pmd"))
                     {
                         StartupFilePath = arg;

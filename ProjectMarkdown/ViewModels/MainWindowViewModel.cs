@@ -19,6 +19,7 @@ using ProjectMarkdown.Services;
 using ProjectMarkdown.Statics;
 using ProjectMarkdown.Windows;
 using System.Drawing;
+using System.IO.Pipes;
 using Application = System.Windows.Application;
 using Clipboard = System.Windows.Clipboard;
 using FontFamily = System.Drawing.FontFamily;
@@ -177,10 +178,14 @@ namespace ProjectMarkdown.ViewModels
         public ICommand MainWindowResizedCommand { get; set; }
         public ICommand MainWindowClosingEventCommand { get; set; }
         public ICommand HeaderChangedEventCommand { get; set; }
+        private Action<string> OnAnotherInstanceOpenedDocument;
 
         public MainWindowViewModel()
         {
             Logger.GetInstance().Debug("MainWindowViewModel() >>");
+
+            var readerThread = new Thread(ReaderThread);
+            readerThread.Start();
 
             if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
             {
@@ -200,6 +205,7 @@ namespace ProjectMarkdown.ViewModels
             SharedEventHandler.GetInstance().OnCodeTextboxScrollChanged += OnCodeTextboxScrollChanged;
             SharedEventHandler.GetInstance().OnTextboxTextChanged += OnTextboxTextChanged;
             SharedEventHandler.GetInstance().OnToolbarPositionsChanged += OnToolbarPositionsChanged;
+            OnAnotherInstanceOpenedDocument += RaiseAnotherInstanceOpenedDocument;
 
             Documents = new ObservableCollection<DocumentModel>();
             HeadingFormats = new ObservableCollection<string>{"Heading 1", "Heading 2", "Heading 3", "Heading 4", "Heading 5", "Heading 6"};
@@ -218,6 +224,26 @@ namespace ProjectMarkdown.ViewModels
             }
 
             Logger.GetInstance().Debug("<< MainWindowViewModel()");
+        }
+
+        private void RaiseAnotherInstanceOpenedDocument(string filePath)
+        {
+            OpenDocumentFromFilePath(filePath);
+        }
+
+        private void ReaderThread()
+        {
+            var server = new NamedPipeServerStream("{DFA6F1D9-7EC8-4557-AA0C-B14BF307AE77}");
+            server.WaitForConnection();
+            using (var reader = new BinaryReader(server))
+            {
+                var arguments = reader.ReadString();
+                Logger.GetInstance().Debug("Received: " +  arguments);
+                RaiseAnotherInstanceOpenedDocument(arguments);
+            }
+
+            var readerThread = new Thread(ReaderThread);
+            readerThread.Start();
         }
 
         // This ensures that the toolbar tray is resized to correct height after window resize
@@ -657,7 +683,7 @@ namespace ProjectMarkdown.ViewModels
                     }
                     else
                     {
-                        Documents.Add(currentDocument);
+                        Application.Current.Dispatcher.BeginInvoke(new Action(() => Documents.Add(currentDocument)));
                         CurrentDocument = currentDocument;
 
                         // Set current document as "open"
