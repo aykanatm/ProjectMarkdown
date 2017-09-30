@@ -281,7 +281,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\Application\ProjectMarkdownIcon_100.png" />
+    <Resource Include="Resources\Images\Application\ProjectMarkdownIcon_100.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Images\Installer\InstallerLeftBanner.bmp">
