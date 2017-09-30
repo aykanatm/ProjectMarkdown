@@ -503,7 +503,8 @@
         <Shortcut Id="ApplicationExecutableShortcut"
                   Name="ProjectMarkdown"
                   Description="Start Project Markdown"
-                  Target="[INSTALLFOLDER]ProjectMarkdown.exe"/>
+                  Target="[INSTALLDIR]ProjectMarkdown.exe"
+                  Icon="AppIcon"/>
         <Shortcut Id="DocumentationShortcut"
                   Name="Project Markdown User Guide"
                   Description="Project Markdown Documentation"
