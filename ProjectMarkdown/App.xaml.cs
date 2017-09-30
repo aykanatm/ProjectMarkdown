@@ -31,6 +31,7 @@ namespace ProjectMarkdown
             if (!isNew)
             {
                 var writerThread = new Thread(WriterThread);
+                writerThread.IsBackground = true;
                 writerThread.Start();
 
                 _mutex.ReleaseMutex();

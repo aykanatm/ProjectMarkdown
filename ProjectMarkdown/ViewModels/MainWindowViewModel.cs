@@ -185,6 +185,7 @@ namespace ProjectMarkdown.ViewModels
             Logger.GetInstance().Debug("MainWindowViewModel() >>");
 
             var readerThread = new Thread(ReaderThread);
+            readerThread.IsBackground = true;
             readerThread.Start();
 
             if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
@@ -243,6 +244,7 @@ namespace ProjectMarkdown.ViewModels
             }
 
             var readerThread = new Thread(ReaderThread);
+            readerThread.IsBackground = true;
             readerThread.Start();
         }
 
