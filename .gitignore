@@ -247,3 +247,4 @@ FeatureTest/
 *.DotSettings
 *.dll
 *.stackdump
+ProjectMarkdown/Resources/Redist/
