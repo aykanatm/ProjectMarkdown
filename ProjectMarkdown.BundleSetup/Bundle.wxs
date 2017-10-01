@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:bal="http://schemas.microsoft.com/wix/BalExtension">
+	<Bundle Name="Project Markdown"
+          Version="1.0.0"
+          Manufacturer="Murat Aykanat"
+          HelpUrl="https://github.com/aykanatm/ProjectMarkdown"
+          UpdateUrl="https://github.com/aykanatm/ProjectMarkdown"
+          AboutUrl="https://github.com/aykanatm/ProjectMarkdown"
+          Copyright="(c) Murat Aykanat"
+          UpgradeCode="1cc6283b-5b4e-42f3-9520-d8807def843f"
+          IconSourceFile="..\..\..\ProjectMarkdown\bin\x86\Release\Resources\Images\Icons\ProjectMarkdownIcon.ico">
+
+    <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense">
+      <bal:WixStandardBootstrapperApplication LicenseFile="..\..\..\ProjectMarkdown\bin\x86\Release\License.rtf"
+                                   LogoFile="..\..\..\ProjectMarkdown\bin\x86\Release\Resources\Images\Installer\ProjectMarkdownBundleInstallerIcon.png"
+                                   SuppressOptionsUI="yes"/>
+    </BootstrapperApplicationRef>
+
+		<Chain>
+       <!--.NET 4.6.1--> 
+      <ExePackage Id="NDP461_KB3102436_x86_x64_AllOS_ENU.exe"
+                  Cache="no"
+                  Compressed="yes"
+                  PerMachine="yes"
+                  Permanent="yes"
+                  Vital="yes"
+                  Name="NDP461-KB3102436-x86-x64-AllOS-ENU.exe"
+                  SourceFile="..\..\..\ProjectMarkdown\bin\x86\Release\Resources\Redist\NDP461-KB3102436-x86-x64-AllOS-ENU.exe"
+                  InstallCommand="/norestart /passive /showrmui"/>
+       <!--Visual C++ 2013 Redistributable (x86)--> 
+      <ExePackage Id="vcredist_x86.exe"
+                  Cache="no"
+                  Compressed="yes"
+                  PerMachine="yes"
+                  Permanent="yes"
+                  Vital="yes"
+                  Name="vcredist_x86.exe"
+                  SourceFile="..\..\..\ProjectMarkdown\bin\x86\Release\Resources\Redist\vcredist_x86.exe"
+                  InstallCommand="/install /quiet /norestart">
+         
+        <ExitCode Value="3010" Behavior="forceReboot"/>
+         <!--Ignore "Newer version installed" error--> 
+        <ExitCode Value="1638" Behavior="success"/>
+      </ExePackage>
+       <!--Visual C++ 2013 Redistributable (x64)--> 
+      <ExePackage Id="vcredist_x64.exe"
+                  Cache="no"
+                  Compressed="yes"
+                  PerMachine="yes"
+                  Permanent="yes"
+                  Vital="yes"
+                  Name="vcredist_x64.exe"
+                  SourceFile="..\..\..\ProjectMarkdown\bin\x86\Release\Resources\Redist\vcredist_x64.exe"
+                  InstallCommand="/install /quiet /norestart">
+         
+        <ExitCode Value="3010" Behavior="forceReboot"/>
+         <!--Ignore "Newer version installed" error--> 
+        <ExitCode Value="1638" Behavior="success"/>
+      </ExePackage>
+      <MsiPackage Id="ProjectMarkdown.Setup.msi"
+                  Cache="no"
+                  Compressed="yes"
+                  Vital="yes"
+                  Name="ProjectMarkdown.Setup.msi"
+                  SourceFile="..\..\..\ProjectMarkdown.Setup\bin\Release\ProjectMarkdown.Setup.msi"
+                  DisplayInternalUI="yes"/>
+		</Chain>
+	</Bundle>
+</Wix>
