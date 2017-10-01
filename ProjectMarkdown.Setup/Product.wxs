@@ -30,6 +30,8 @@
               Value="Murat Aykanat"/>
     <Property Id="ARPURLINFOABOUT"
               Value="https://github.com/aykanatm/ProjectMarkdown"/>
+    <SetProperty Id="ARPNOREPAIR" Value="1" After="InstallValidate" Sequence="execute"/>
+    <SetProperty Id="ARPNOMODIFY" Value="1" After="InstallValidate" Sequence="execute"/>
     
     <!-- UI specific properties -->
     <Property Id="ApplicationFolderName"
