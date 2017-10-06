@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ProjectMarkdown.Views"
         xmlns:viewModels="clr-namespace:ProjectMarkdown.ViewModels"
         mc:Ignorable="d"
-        Title="Preferences" Height="560" Width="600"
+        Title="Preferences" Height="560" Width="630"
         WindowStartupLocation="CenterOwner"
         WindowStyle="ToolWindow"
         ResizeMode="NoResize"
