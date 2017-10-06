@@ -16,7 +16,7 @@ namespace ProjectMarkdown
     /// </summary>
     public partial class App : Application
     {
-        public string StartupFilePath;
+        public string StartupFilePath = "";
 
         private Mutex _mutex;
 
