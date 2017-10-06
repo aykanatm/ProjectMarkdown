@@ -111,7 +111,7 @@
                         <CheckBox Grid.Row="1" Grid.Column="0" IsChecked="{Binding CurrentPreferences.IsDoubleClickToCloseDocument, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <TextBlock Grid.Row="1" Grid.Column="1" Text="Double click to close document" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         <CheckBox Grid.Row="2" Grid.Column="0" IsChecked="{Binding CurrentPreferences.IsExitOnCloseTheLastTab, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Row="2" Grid.Column="1" Text="Exit on close the last tab" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text="Exit on closing the last tab" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </Grid>
                 </GroupBox>
                 <GroupBox DockPanel.Dock="Top" Margin="2" Header="Theme">
@@ -149,9 +149,9 @@
                             <CheckBox Grid.Row="0" Grid.Column="0" IsChecked="{Binding CurrentPreferences.IsWordWrap, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             <TextBlock Grid.Row="0" Grid.Column="1" Text="Word Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                             <CheckBox Grid.Row="1" Grid.Column="0" IsChecked="{Binding CurrentPreferences.IsSyncTextAndHtml, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <TextBlock Grid.Row="1" Grid.Column="1" Text="Sync text editor and HTML views in real time" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="Sync markdown and HTML views in real time" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                             <CheckBox Grid.Row="2" Grid.Column="0" IsChecked="{Binding CurrentPreferences.IsScrollBarsSynced, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <TextBlock Grid.Row="2" Grid.Column="1" Text="Sync text editor and HTML scrollbars" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Row="2" Grid.Column="1" Text="Sync markdown and HTML views' scrollbars" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         </Grid>
                         <Grid Grid.Row="1" Margin="0,2,0,0">
                             <Grid.RowDefinitions>
