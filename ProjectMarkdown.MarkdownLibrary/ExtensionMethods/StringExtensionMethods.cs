@@ -38,21 +38,24 @@ namespace ProjectMarkdown.MarkdownLibrary.ExtensionMethods
                 {
                     if (i != 0 && i != tagSplit.Length - 1)
                     {
-                        if (tag == MarkdownParser.PairedMarkdownTags.Bold)
+                        if (tagSplit[i][0] != ' ' && tagSplit[i][tagSplit[i].Length - 1] != ' ')
                         {
-                            tagSplit[i] = new Bold(tagSplit[i]).ToString();
-                        }
-                        else if (tag == MarkdownParser.PairedMarkdownTags.Italic)
-                        {
-                            tagSplit[i] = new Italic(tagSplit[i]).ToString();
-                        }
-                        else if (tag == MarkdownParser.PairedMarkdownTags.InlineCode)
-                        {
-                            tagSplit[i] = new InlineCode(tagSplit[i]).ToString();
-                        }
-                        else if (tag == MarkdownParser.PairedMarkdownTags.StrikeThrough)
-                        {
-                            tagSplit[i] = new StrikeThrough(tagSplit[i]).ToString();
+                            if (tag == MarkdownParser.PairedMarkdownTags.Bold)
+                            {
+                                tagSplit[i] = new Bold(tagSplit[i]).ToString();
+                            }
+                            else if (tag == MarkdownParser.PairedMarkdownTags.Italic)
+                            {
+                                tagSplit[i] = new Italic(tagSplit[i]).ToString();
+                            }
+                            else if (tag == MarkdownParser.PairedMarkdownTags.InlineCode)
+                            {
+                                tagSplit[i] = new InlineCode(tagSplit[i]).ToString();
+                            }
+                            else if (tag == MarkdownParser.PairedMarkdownTags.StrikeThrough)
+                            {
+                                tagSplit[i] = new StrikeThrough(tagSplit[i]).ToString();
+                            }
                         }
                     }
                     output += tagSplit[i];
