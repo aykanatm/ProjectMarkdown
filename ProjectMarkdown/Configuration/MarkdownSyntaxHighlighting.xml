@@ -16,7 +16,7 @@
   <style name="italic1" color="#0085ca" fontStyle="Italic"/>
   <style name="italic2" color="#0085ca" fontStyle="Italic"/>
   
-  <rule style="headers">[#]{1,6}\s(.*)</rule>
+  <rule style="headers" options="Multiline">^#{1,7}\s(.*)</rule>
   <rule style="quotes">>\s(.*?)\n</rule>
   <rule style="orderedLists">\d+\.\s</rule>
   <rule style="unorderedLists">(\n|\s|^)(\-|\*|\+)\s</rule>
