@@ -17,7 +17,7 @@
   <style name="italic2" color="#0085ca" fontStyle="Italic"/>
   
   <rule style="headers" options="Multiline">^#{1,7}\s(.*)</rule>
-  <rule style="quotes">>\s(.*?)\n</rule>
+  <rule style="quotes" options="Multiline">^>\s(.*?)\n</rule>
   <rule style="orderedLists">\d+\.\s</rule>
   <rule style="unorderedLists">(\n|\s|^)(\-|\*|\+)\s</rule>
   <rule style="scratches">~~(.*?)~~</rule>
