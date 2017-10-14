@@ -7,6 +7,12 @@ namespace ProjectMarkdown.MarkdownLibrary.ExtensionMethods
 {
     public static class StringExtensionMethods
     {
+        public static string ReplaceSpecialCharacters(this string input)
+        {
+            var output = input.Replace("&", "&amp").Replace("<", "&lt;").Replace(">", "&gt;");
+            return output;
+        }
+
         public static string ConvertMarkdownToHtml(this string input)
         {
             // Code should be the last because it strips all html tags from its content

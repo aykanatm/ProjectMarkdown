@@ -1,4 +1,6 @@
-﻿namespace ProjectMarkdown.MarkdownLibrary.HtmlComponents
+﻿using ProjectMarkdown.MarkdownLibrary.ExtensionMethods;
+
+namespace ProjectMarkdown.MarkdownLibrary.HtmlComponents
 {
     public abstract class HtmlComponent
     {
@@ -14,13 +16,6 @@
         protected HtmlComponent(string text, TagTypes tagType)
         {
             Text = text;
-            if (Text != null)
-            {
-                if (this is Header)
-                {
-                    Text = text.Replace("&", "&amp").Replace("<", "&lt;").Replace(">", "&gt;");
-                }
-            }
             TagType = tagType;
         }
     }

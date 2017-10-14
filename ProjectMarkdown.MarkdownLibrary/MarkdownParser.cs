@@ -34,32 +34,32 @@ namespace ProjectMarkdown.MarkdownLibrary
                         }
                         else if (currentLine.StartsWith("###### "))
                         {
-                            currentLine = currentLine.Replace("#", "").Trim();
+                            currentLine = currentLine.Replace("#", "").Trim().ReplaceSpecialCharacters();
                             htmlComponents.Add(new Header(currentLine, Header.HeaderType.H6));
                         }
                         else if (currentLine.StartsWith("##### "))
                         {
-                            currentLine = currentLine.Replace("#", "").Trim();
+                            currentLine = currentLine.Replace("#", "").Trim().ReplaceSpecialCharacters();
                             htmlComponents.Add(new Header(currentLine, Header.HeaderType.H5));
                         }
                         else if (currentLine.StartsWith("#### "))
                         {
-                            currentLine = currentLine.Replace("#", "").Trim();
+                            currentLine = currentLine.Replace("#", "").Trim().ReplaceSpecialCharacters();
                             htmlComponents.Add(new Header(currentLine, Header.HeaderType.H4));
                         }
                         else if (currentLine.StartsWith("### "))
                         {
-                            currentLine = currentLine.Replace("#", "").Trim();
+                            currentLine = currentLine.Replace("#", "").Trim().ReplaceSpecialCharacters();
                             htmlComponents.Add(new Header(currentLine, Header.HeaderType.H3));
                         }
                         else if (currentLine.StartsWith("## "))
                         {
-                            currentLine = currentLine.Replace("#", "").Trim();
+                            currentLine = currentLine.Replace("#", "").Trim().ReplaceSpecialCharacters();
                             htmlComponents.Add(new Header(currentLine, Header.HeaderType.H2));
                         }
                         else if (currentLine.StartsWith("# "))
                         {
-                            currentLine = currentLine.Replace("#", "").Trim();
+                            currentLine = currentLine.Replace("#", "").Trim().ReplaceSpecialCharacters();
                             htmlComponents.Add(new Header(currentLine, Header.HeaderType.H1));
                         }
                         else if (currentLine.StartsWith("> "))
@@ -146,7 +146,7 @@ namespace ProjectMarkdown.MarkdownLibrary
                         }
                         else
                         {
-                            currentLine = currentLine.ConvertMarkdownToHtml();
+                            currentLine = currentLine.ReplaceSpecialCharacters().ConvertMarkdownToHtml();
                             htmlComponents.Add(new Paragraph(currentLine));
                         }
                     }
