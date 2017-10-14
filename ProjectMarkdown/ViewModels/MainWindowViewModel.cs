@@ -566,6 +566,8 @@ namespace ProjectMarkdown.ViewModels
             try
             {
                 CurrentDocument = SaveDocument(CurrentDocument);
+                Thread.Sleep(50);
+                CodeTextboxManager.GetInstance().RefreshScrollPosition(CurrentDocument);
             }
             catch (Exception e)
             {
@@ -587,6 +589,8 @@ namespace ProjectMarkdown.ViewModels
                 {
                     SaveDocument(document);
                 }
+                Thread.Sleep(50);
+                CodeTextboxManager.GetInstance().RefreshScrollPosition(CurrentDocument);
             }
             catch (Exception e)
             {
