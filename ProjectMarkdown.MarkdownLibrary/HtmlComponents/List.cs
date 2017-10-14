@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ProjectMarkdown.MarkdownLibrary.ExtensionMethods;
 
 namespace ProjectMarkdown.MarkdownLibrary.HtmlComponents
 {
@@ -51,7 +52,7 @@ namespace ProjectMarkdown.MarkdownLibrary.HtmlComponents
 
                 for (var i = 0; i < _items.Count; i++)
                 {
-                    output += _items[i] + "\r\n";
+                    output += _items[i].ToString().ConvertMarkdownToHtml() + "\r\n";
                 }
 
                 output += "</ul>";
@@ -62,7 +63,7 @@ namespace ProjectMarkdown.MarkdownLibrary.HtmlComponents
 
                 for (var i = 0; i < _items.Count; i++)
                 {
-                    output += _items[i] + "\r\n";
+                    output += _items[i].ToString().ConvertMarkdownToHtml() + "\r\n";
                 }
 
                 output += "</ol>";
