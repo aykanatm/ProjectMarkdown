@@ -1,6 +1,5 @@
 language: julia
 julia:
-  - release
-  - nightly
+  - release  
   - 0.3
   - 0.3.10
