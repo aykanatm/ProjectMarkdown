@@ -31,6 +31,7 @@ namespace ProjectMarkdown.ViewModels
     {
         private readonly string _markdownStyle;
         private bool _isQuitting = false;
+        private bool _isFirstSync = true;
 
         private ObservableCollection<DocumentModel> _documents;
         private DocumentModel _currentDocument;
@@ -333,8 +334,19 @@ namespace ProjectMarkdown.ViewModels
         {
             if (CurrentPreferences.IsSyncTextAndHtml)
             {
-                var htmlFilePath = DocumentSynchronizer.Sync(CurrentDocument, _markdownStyle);
-                CurrentDocument.Html = new Uri(htmlFilePath);
+                // If a document is loaded for the first time, to prevent the crash, ignore the first sync request
+                if (_isFirstSync)
+                {
+                    _isFirstSync = false;
+                }
+                else
+                {
+                    var htmlFilePath = DocumentSynchronizer.Sync(CurrentDocument, _markdownStyle);
+                    CurrentDocument.Html = new Uri(htmlFilePath);
+
+                    Thread.Sleep(50);
+                    CodeTextboxManager.GetInstance().RefreshScrollPosition(CurrentDocument);
+                }
             }
         }
 
