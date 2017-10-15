@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
 using CefSharp;
+using LogUtils;
 
 namespace ProjectMarkdown.CustomControls.CefHandlers
 {
@@ -8,12 +9,15 @@ namespace ProjectMarkdown.CustomControls.CefHandlers
     {
         public bool OnBeforeBrowse(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, bool isRedirect)
         {
+            Logger.GetInstance().Debug("OnBeforeBrowse() >>");
             // Open in Default browser
             if (!request.Url.StartsWith("file:"))
             {
                 System.Diagnostics.Process.Start(request.Url);
+                Logger.GetInstance().Debug("<< OnBeforeBrowse() [true]");
                 return true;
             }
+            Logger.GetInstance().Debug("<< OnBeforeBrowse() [false]");
             return false;
         }
 

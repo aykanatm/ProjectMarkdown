@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using LogUtils;
 
 namespace ProjectMarkdown.ExtensionMethods
 {
@@ -7,20 +8,32 @@ namespace ProjectMarkdown.ExtensionMethods
     {
         public static string RemoveScripts(this string input)
         {
-            var rRemScript = new Regex(@"<script[^>]*>[\s\S]*?</script>");
-            var output = rRemScript.Replace(input, "");
+            Logger.GetInstance().Debug("RemoveScripts() >>");
 
-            return output;
+            try
+            {
+                var rRemScript = new Regex(@"<script[^>]*>[\s\S]*?</script>");
+                var output = rRemScript.Replace(input, "");
+
+                Logger.GetInstance().Debug("<< RemoveScripts()");
+                return output;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public static Uri ToUri(this string input)
         {
+            Logger.GetInstance().Debug("ToUri() >>");
             try
             {
                 Uri output;
 
                 if (Uri.TryCreate(input, UriKind.RelativeOrAbsolute, out output))
                 {
+                    Logger.GetInstance().Debug("<< ToUri()");
                     return output;
                 }
 

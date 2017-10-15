@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 using CefSharp;
 using CefSharp.Wpf;
 using Dragablz;
+using LogUtils;
 using MathUtils;
 using ProjectMarkdown.CustomControls.CefHandlers;
 using ProjectMarkdown.Model;
@@ -34,7 +36,7 @@ namespace ProjectMarkdown.CustomControls
                         }
                     }
                 }
-
+                
                 return _cefChromiumBrowserManager;
             }
             catch (Exception e)
@@ -45,35 +47,59 @@ namespace ProjectMarkdown.CustomControls
 
         public void Scroll(DocumentModel document, ScrollResult scrollResult)
         {
-            var browser = GetCurrentBrowser(document);
+            Logger.GetInstance().Debug("Scroll >>");
+            try
+            {
+                var browser = GetCurrentBrowser(document);
 
-            var getScrollHeightScript = @"(function(){
+                var getScrollHeightScript = @"(function(){
                                                 return document.getElementsByTagName('body')[0].scrollHeight - document.getElementsByTagName('body')[0].clientHeight;
                                            })();";
 
-            browser.GetMainFrame().EvaluateScriptAsync(getScrollHeightScript).ContinueWith(x =>
-            {
-                var browserMinScrollPosition = 0;
-                var browserMaxScrollPosition = 0;
-
-                var response = x.Result;
-                if (response.Success && response.Result != null)
+                Dispatcher.CurrentDispatcher.BeginInvoke(new Action(() =>
                 {
-                    browserMaxScrollPosition = (int) response.Result;
-                }
+                    if (browser != null)
+                    {
+                        browser.GetMainFrame().EvaluateScriptAsync(getScrollHeightScript).ContinueWith(x =>
+                        {
+                            var browserMinScrollPosition = 0;
+                            var browserMaxScrollPosition = 0;
 
-                var browserScrollPosition = GenericRescaler<int>.Rescale(scrollResult.Value, scrollResult.MinValue, scrollResult.MaxValue, browserMinScrollPosition, browserMaxScrollPosition);
+                            var response = x.Result;
+                            if (response.Success && response.Result != null)
+                            {
+                                browserMaxScrollPosition = (int)response.Result;
+                            }
 
-                var setBrowserScrollPosition = "document.getElementsByTagName('body')[0].scrollTop = " + browserScrollPosition;
+                            var browserScrollPosition = GenericRescaler<int>.Rescale(scrollResult.Value, scrollResult.MinValue, scrollResult.MaxValue, browserMinScrollPosition, browserMaxScrollPosition);
 
-                browser.GetMainFrame().ExecuteJavaScriptAsync(setBrowserScrollPosition);
-            });
+                            var setBrowserScrollPosition = "document.getElementsByTagName('body')[0].scrollTop = " + browserScrollPosition;
+
+                            browser.GetMainFrame().ExecuteJavaScriptAsync(setBrowserScrollPosition);
+                        });
+                    }
+                }));
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            Logger.GetInstance().Debug("<< Scroll");
         }
 
         public void SetCustomRequestHandler(DocumentModel document)
         {
-            var browser = GetCurrentBrowser(document);
-            browser.RequestHandler = new BrowserRequestHandler();
+            Logger.GetInstance().Debug("SetCustomRequestHandler >>");
+            try
+            {
+                var browser = GetCurrentBrowser(document);
+                browser.RequestHandler = new BrowserRequestHandler();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            Logger.GetInstance().Debug("<< SetCustomRequestHandler");
         }
 
         private ChromiumWebBrowser GetCurrentBrowser(DocumentModel document)
@@ -99,7 +125,7 @@ namespace ProjectMarkdown.CustomControls
                         }
                     }
                 }
-
+                
                 return cefChromiumWebBrowser;
             }
             catch (Exception e)

@@ -185,44 +185,52 @@ namespace ProjectMarkdown.ViewModels
         {
             Logger.GetInstance().Debug("MainWindowViewModel() >>");
 
-            var readerThread = new Thread(ReaderThread);
-            readerThread.IsBackground = true;
-            readerThread.Start();
-
-            if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
+            try
             {
-                return;
-            }
+                var readerThread = new Thread(ReaderThread);
+                readerThread.IsBackground = true;
+                readerThread.Start();
 
-            ViewID = Guid.NewGuid();
-            
-            LoadCommands();
-            LoadPreferences();
-            _markdownStyle = GetCss();
-
-            SharedEventHandler.GetInstance().OnPreferecesSaved += OnPreferecesSaved;
-            SharedEventHandler.GetInstance().OnApplyLinkUrlSelected += OnApplyLinkUrlSelected;
-            SharedEventHandler.GetInstance().OnInsertImageUrlSelected += OnInsertImageUrlSelected;
-            SharedEventHandler.GetInstance().OnInsertTableDimensionsSelected += OnInsertTableDimensionsSelected;
-            SharedEventHandler.GetInstance().OnCodeTextboxScrollChanged += OnCodeTextboxScrollChanged;
-            SharedEventHandler.GetInstance().OnTextboxTextChanged += OnTextboxTextChanged;
-            SharedEventHandler.GetInstance().OnToolbarPositionsChanged += OnToolbarPositionsChanged;
-            OnAnotherInstanceOpenedDocument += RaiseAnotherInstanceOpenedDocument;
-
-            Documents = new ObservableCollection<DocumentModel>();
-            HeadingFormats = new ObservableCollection<string>{"Heading 1", "Heading 2", "Heading 3", "Heading 4", "Heading 5", "Heading 6"};
-            SelectedHeadingFormatting = "Heading 1";
-
-            ThemeSetter.Set(CurrentPreferences.PrimaryColor, CurrentPreferences.AccentColor);
-
-            var app = Application.Current as App;
-            if (app != null)
-            {
-                var startupFilePath = app.StartupFilePath;
-                if (!string.IsNullOrEmpty(startupFilePath))
+                if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
                 {
-                    OpenDocumentFromFilePath(startupFilePath);
+                    return;
                 }
+
+                ViewID = Guid.NewGuid();
+
+                LoadCommands();
+                LoadPreferences();
+                _markdownStyle = GetCss();
+
+                SharedEventHandler.GetInstance().OnPreferecesSaved += OnPreferecesSaved;
+                SharedEventHandler.GetInstance().OnApplyLinkUrlSelected += OnApplyLinkUrlSelected;
+                SharedEventHandler.GetInstance().OnInsertImageUrlSelected += OnInsertImageUrlSelected;
+                SharedEventHandler.GetInstance().OnInsertTableDimensionsSelected += OnInsertTableDimensionsSelected;
+                SharedEventHandler.GetInstance().OnCodeTextboxScrollChanged += OnCodeTextboxScrollChanged;
+                SharedEventHandler.GetInstance().OnTextboxTextChanged += OnTextboxTextChanged;
+                SharedEventHandler.GetInstance().OnToolbarPositionsChanged += OnToolbarPositionsChanged;
+                OnAnotherInstanceOpenedDocument += RaiseAnotherInstanceOpenedDocument;
+
+                Documents = new ObservableCollection<DocumentModel>();
+                HeadingFormats = new ObservableCollection<string> { "Heading 1", "Heading 2", "Heading 3", "Heading 4", "Heading 5", "Heading 6" };
+                SelectedHeadingFormatting = "Heading 1";
+
+                ThemeSetter.Set(CurrentPreferences.PrimaryColor, CurrentPreferences.AccentColor);
+
+                var app = Application.Current as App;
+                if (app != null)
+                {
+                    var startupFilePath = app.StartupFilePath;
+                    if (!string.IsNullOrEmpty(startupFilePath))
+                    {
+                        OpenDocumentFromFilePath(startupFilePath);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while initializing the window", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             Logger.GetInstance().Debug("<< MainWindowViewModel()");
@@ -230,29 +238,51 @@ namespace ProjectMarkdown.ViewModels
 
         private void RaiseAnotherInstanceOpenedDocument(string filePath)
         {
-            OpenDocumentFromFilePath(filePath);
+            Logger.GetInstance().Debug("RaiseAnotherInstanceOpenedDocument() >>");
+
+            try
+            {
+                OpenDocumentFromFilePath(filePath);
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while opening file", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
+            Logger.GetInstance().Debug("<< RaiseAnotherInstanceOpenedDocument()");
         }
 
         private void ReaderThread()
         {
-            var server = new NamedPipeServerStream("{DFA6F1D9-7EC8-4557-AA0C-B14BF307AE77}");
-            server.WaitForConnection();
-            using (var reader = new BinaryReader(server))
+            try
             {
-                var arguments = reader.ReadString();
-                Logger.GetInstance().Debug("Received: " +  arguments);
-                RaiseAnotherInstanceOpenedDocument(arguments);
-            }
+                var server = new NamedPipeServerStream("{DFA6F1D9-7EC8-4557-AA0C-B14BF307AE77}");
+                server.WaitForConnection();
+                using (var reader = new BinaryReader(server))
+                {
+                    var arguments = reader.ReadString();
+                    Logger.GetInstance().Debug("Received: " + arguments);
+                    RaiseAnotherInstanceOpenedDocument(arguments);
+                }
 
-            var readerThread = new Thread(ReaderThread);
-            readerThread.IsBackground = true;
-            readerThread.Start();
+                var readerThread = new Thread(ReaderThread);
+                readerThread.IsBackground = true;
+                readerThread.Start();
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while processing the reader thread", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         // This ensures that the toolbar tray is resized to correct height after window resize
         private void OnToolbarPositionsChanged()
         {
+            Logger.GetInstance().Debug("OnToolbarPositionsChanged() >>");
             CurrentPreferences.IsToolbarHidden = CurrentPreferences.IsToolbarHidden;
+            Logger.GetInstance().Debug("<< OnToolbarPositionsChanged()");
         }
 
         private void OnInsertTableDimensionsSelected(int rows, int columns)
@@ -332,29 +362,45 @@ namespace ProjectMarkdown.ViewModels
 
         private void OnTextboxTextChanged()
         {
-            if (CurrentPreferences.IsSyncTextAndHtml)
+            try
             {
-                // If a document is loaded for the first time, to prevent the crash, ignore the first sync request
-                if (_isFirstSync)
+                if (CurrentPreferences.IsSyncTextAndHtml)
                 {
-                    _isFirstSync = false;
-                }
-                else
-                {
-                    var htmlFilePath = DocumentSynchronizer.Sync(CurrentDocument, _markdownStyle);
-                    CurrentDocument.Html = new Uri(htmlFilePath);
+                    // If a document is loaded for the first time, to prevent the crash, ignore the first sync request
+                    if (_isFirstSync)
+                    {
+                        _isFirstSync = false;
+                    }
+                    else
+                    {
+                        var htmlFilePath = DocumentSynchronizer.Sync(CurrentDocument, _markdownStyle);
+                        CurrentDocument.Html = new Uri(htmlFilePath);
 
-                    Thread.Sleep(50);
-                    CodeTextboxManager.GetInstance().RefreshScrollPosition(CurrentDocument);
+                        Thread.Sleep(50);
+                        CodeTextboxManager.GetInstance().RefreshScrollPosition(CurrentDocument);
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while refreshing scrollbar positions", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void OnCodeTextboxScrollChanged(ScrollResult scrollResult)
         {
-            if (CurrentPreferences.IsScrollBarsSynced)
+            try
             {
-                CefChromiumBrowserManager.GetInstance().Scroll(CurrentDocument, scrollResult);
+                if (CurrentPreferences.IsScrollBarsSynced)
+                {
+                    CefChromiumBrowserManager.GetInstance().Scroll(CurrentDocument, scrollResult);
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while scrolling the browser view", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -362,8 +408,16 @@ namespace ProjectMarkdown.ViewModels
         {
             Logger.GetInstance().Debug("OnPreferencesSaved() >>");
 
-            LoadPreferences(preferences);
-            ThemeSetter.Set(CurrentPreferences.PrimaryColor, CurrentPreferences.AccentColor);
+            try
+            {
+                LoadPreferences(preferences);
+                ThemeSetter.Set(CurrentPreferences.PrimaryColor, CurrentPreferences.AccentColor);
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while loading preferences", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
             Logger.GetInstance().Debug("<< OnPreferencesSaved()");
         }
@@ -372,60 +426,68 @@ namespace ProjectMarkdown.ViewModels
         {
             Logger.GetInstance().Debug("LoadCommands() >>");
 
-            // File
-            CreateNewDocumentCommand = new RelayCommand(CreateNewDocument, obj => true);
-            SaveDocumentCommand = new RelayCommand(SaveDocument, IsCurrentDocumentAvailable);
-            SaveAllDocumentsCommand = new RelayCommand(SaveAllDocuments, CanSaveAllDocuments);
-            SaveAsDocumentCommand = new RelayCommand(SaveAsDocument, IsCurrentDocumentAvailable);
-            OpenDocumentCommand = new RelayCommand(OpenDocument, obj => true);
-            OpenContainingFolderCommand = new RelayCommand(OpenContainingFolder, IsCurrentDocumentAvailable);
-            ExportHtmlCommand = new RelayCommand(ExportHtml, IsCurrentDocumentAvailable);
-            ExportMarkdownCommand = new RelayCommand(ExportMarkdown, IsCurrentDocumentAvailable);
-            ExportPdfCommand = new RelayCommand(ExportPdf, IsCurrentDocumentAvailable);
-            PrintCommand = new RelayCommand(Print, IsCurrentDocumentAvailable);
-            ExitCommand = new RelayCommand(Exit, obj => true);
-            CloseActiveDocumentCommand = new RelayCommand(CloseActiveDocument, IsCurrentDocumentAvailable);
-            CloseAllDocumentsCommand = new RelayCommand(CloseAllDocuments, CanCloseAllDocuments);
-            CloseAllButActiveDocumentCommand = new RelayCommand(CloseAllButActiveDocument, CanCloseAllButActiveDocument);
+            try
+            {
+                // File
+                CreateNewDocumentCommand = new RelayCommand(CreateNewDocument, obj => true);
+                SaveDocumentCommand = new RelayCommand(SaveDocument, IsCurrentDocumentAvailable);
+                SaveAllDocumentsCommand = new RelayCommand(SaveAllDocuments, CanSaveAllDocuments);
+                SaveAsDocumentCommand = new RelayCommand(SaveAsDocument, IsCurrentDocumentAvailable);
+                OpenDocumentCommand = new RelayCommand(OpenDocument, obj => true);
+                OpenContainingFolderCommand = new RelayCommand(OpenContainingFolder, IsCurrentDocumentAvailable);
+                ExportHtmlCommand = new RelayCommand(ExportHtml, IsCurrentDocumentAvailable);
+                ExportMarkdownCommand = new RelayCommand(ExportMarkdown, IsCurrentDocumentAvailable);
+                ExportPdfCommand = new RelayCommand(ExportPdf, IsCurrentDocumentAvailable);
+                PrintCommand = new RelayCommand(Print, IsCurrentDocumentAvailable);
+                ExitCommand = new RelayCommand(Exit, obj => true);
+                CloseActiveDocumentCommand = new RelayCommand(CloseActiveDocument, IsCurrentDocumentAvailable);
+                CloseAllDocumentsCommand = new RelayCommand(CloseAllDocuments, CanCloseAllDocuments);
+                CloseAllButActiveDocumentCommand = new RelayCommand(CloseAllButActiveDocument, CanCloseAllButActiveDocument);
 
-            // Edit
-            UndoCommand = new RelayCommand(Undo, IsCurrentDocumentAvailable);
-            RedoCommand = new RelayCommand(Redo, IsCurrentDocumentAvailable);
-            CutCommand = new RelayCommand(Cut, CanCutCopyDelete);
-            CopyCommand = new RelayCommand(Copy, CanCutCopyDelete);
-            PasteCommand = new RelayCommand(Paste, CanPaste);
-            DeleteCommand = new RelayCommand(Delete, CanCutCopyDelete);
-            SelectAllCommand = new RelayCommand(SelectAll, IsCurrentDocumentAvailable);
+                // Edit
+                UndoCommand = new RelayCommand(Undo, IsCurrentDocumentAvailable);
+                RedoCommand = new RelayCommand(Redo, IsCurrentDocumentAvailable);
+                CutCommand = new RelayCommand(Cut, CanCutCopyDelete);
+                CopyCommand = new RelayCommand(Copy, CanCutCopyDelete);
+                PasteCommand = new RelayCommand(Paste, CanPaste);
+                DeleteCommand = new RelayCommand(Delete, CanCutCopyDelete);
+                SelectAllCommand = new RelayCommand(SelectAll, IsCurrentDocumentAvailable);
 
-            // Search
-            FindCommmand = new RelayCommand(Find, IsCurrentDocumentAvailable);
-            ReplaceCommand = new RelayCommand(Replace, IsCurrentDocumentAvailable);
+                // Search
+                FindCommmand = new RelayCommand(Find, IsCurrentDocumentAvailable);
+                ReplaceCommand = new RelayCommand(Replace, IsCurrentDocumentAvailable);
 
-            // Settings
-            OpenPreferencesWindowCommand = new RelayCommand(OpenPreferencesWindow, obj => true);
+                // Settings
+                OpenPreferencesWindowCommand = new RelayCommand(OpenPreferencesWindow, obj => true);
 
-            // Help
-            OpenUserGuideCommand = new RelayCommand(OpenUserGuide, obj => true);
-            OpenAboutWindowCommand = new RelayCommand(OpenAboutWindow, obj => true);
+                // Help
+                OpenUserGuideCommand = new RelayCommand(OpenUserGuide, obj => true);
+                OpenAboutWindowCommand = new RelayCommand(OpenAboutWindow, obj => true);
 
-            // Formatting
-            FormatBlockCodeCommand = new RelayCommand(FormatText, IsCurrentDocumentAvailable);
-            FormatBlockQuoteCommand = new RelayCommand(FormatText, IsCurrentDocumentAvailable);
-            FormatBoldCommand = new RelayCommand(FormatText, IsCurrentDocumentAvailable);
-            InsertHorizontalRuleCommand = new RelayCommand(InsertHorizontalRule, IsCurrentDocumentAvailable);
-            InsertImageCommand = new RelayCommand(InsertImage, IsCurrentDocumentAvailable);
-            FormatInlineCodeCommand = new RelayCommand(FormatText, IsCurrentDocumentAvailable);
-            FormatItalicCommand = new RelayCommand(FormatText, IsCurrentDocumentAvailable);
-            ApplyLinkCommand = new RelayCommand(ApplyLink, IsCurrentDocumentAvailable);
-            FormatOrderedListCommand = new RelayCommand(FormatText, IsCurrentDocumentAvailable);
-            FormatUnorderedListCommand = new RelayCommand(FormatText, IsCurrentDocumentAvailable);
-            FormatStrikeThroughCommand = new RelayCommand(FormatText, IsCurrentDocumentAvailable);
-            InsertTableCommand = new RelayCommand(InsertTable, IsCurrentDocumentAvailable);
+                // Formatting
+                FormatBlockCodeCommand = new RelayCommand(FormatText, IsCurrentDocumentAvailable);
+                FormatBlockQuoteCommand = new RelayCommand(FormatText, IsCurrentDocumentAvailable);
+                FormatBoldCommand = new RelayCommand(FormatText, IsCurrentDocumentAvailable);
+                InsertHorizontalRuleCommand = new RelayCommand(InsertHorizontalRule, IsCurrentDocumentAvailable);
+                InsertImageCommand = new RelayCommand(InsertImage, IsCurrentDocumentAvailable);
+                FormatInlineCodeCommand = new RelayCommand(FormatText, IsCurrentDocumentAvailable);
+                FormatItalicCommand = new RelayCommand(FormatText, IsCurrentDocumentAvailable);
+                ApplyLinkCommand = new RelayCommand(ApplyLink, IsCurrentDocumentAvailable);
+                FormatOrderedListCommand = new RelayCommand(FormatText, IsCurrentDocumentAvailable);
+                FormatUnorderedListCommand = new RelayCommand(FormatText, IsCurrentDocumentAvailable);
+                FormatStrikeThroughCommand = new RelayCommand(FormatText, IsCurrentDocumentAvailable);
+                InsertTableCommand = new RelayCommand(InsertTable, IsCurrentDocumentAvailable);
 
-            // Events
-            MainWindowClosingEventCommand = new RelayCommand(MainWindowClosingEvent, obj => true);
-            MainWindowResizedCommand = new RelayCommand(MainWindowResizedEvent, obj => true);
-            HeaderChangedEventCommand = new RelayCommand(HeaderFormattingChangedEvent, obj => true);
+                // Events
+                MainWindowClosingEventCommand = new RelayCommand(MainWindowClosingEvent, obj => true);
+                MainWindowResizedCommand = new RelayCommand(MainWindowResizedEvent, obj => true);
+                HeaderChangedEventCommand = new RelayCommand(HeaderFormattingChangedEvent, obj => true);
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while loading commands", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
             Logger.GetInstance().Debug("<< LoadCommands()");
         }
@@ -496,17 +558,26 @@ namespace ProjectMarkdown.ViewModels
         private void LoadPreferences(PreferencesModel preferences)
         {
             Logger.GetInstance().Debug("LoadPreferences() >>");
-            CurrentPreferences = preferences;
 
-            if (Documents != null)
+            try
             {
-                foreach (var document in Documents)
+                CurrentPreferences = preferences;
+
+                if (Documents != null)
                 {
-                    document.IsWordWrap = CurrentPreferences.IsWordWrap;
-                    document.CurrentFont = new Font(new FontFamily(CurrentPreferences.CurrentFont), float.Parse(CurrentPreferences.CurrentFontSize));
+                    foreach (var document in Documents)
+                    {
+                        document.IsWordWrap = CurrentPreferences.IsWordWrap;
+                        document.CurrentFont = new Font(new FontFamily(CurrentPreferences.CurrentFont), float.Parse(CurrentPreferences.CurrentFontSize));
+                    }
                 }
             }
-
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while retrieving preferences", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
             Logger.GetInstance().Debug("<< LoadPreferences()");
         }
         
@@ -1673,9 +1744,16 @@ namespace ProjectMarkdown.ViewModels
         {
             Logger.GetInstance().Debug("ResetDocumentsOpenState() >>");
 
-            foreach (var document in Documents)
+            try
             {
-                document.IsOpen = false;
+                foreach (var document in Documents)
+                {
+                    document.IsOpen = false;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
 
             Logger.GetInstance().Debug("<< ResetDocumentsOpenState()");

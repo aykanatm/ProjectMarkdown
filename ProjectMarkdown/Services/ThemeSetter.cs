@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using LogUtils;
 
 namespace ProjectMarkdown.Services
 {
@@ -7,24 +8,33 @@ namespace ProjectMarkdown.Services
     {
         public static void Set(string primaryColor, string accentColor)
         {
-            Application.Current.Resources.MergedDictionaries.Clear();
-            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            Logger.GetInstance().Debug("Set() >>");
+            try
             {
-                Source = new Uri("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml")
-            });
-            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
-            {
-                Source = new Uri("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml")
-            });
-            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
-            {
-                Source = new Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor." + primaryColor + ".xaml")
-            });
+                Application.Current.Resources.MergedDictionaries.Clear();
+                Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+                {
+                    Source = new Uri("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml")
+                });
+                Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+                {
+                    Source = new Uri("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml")
+                });
+                Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+                {
+                    Source = new Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor." + primaryColor + ".xaml")
+                });
 
-            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+                Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+                {
+                    Source = new Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor." + accentColor + ".xaml")
+                });
+            }
+            catch (Exception e)
             {
-                Source = new Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor." + accentColor + ".xaml")
-            });
+                throw e;
+            }
+            Logger.GetInstance().Debug("<< Set()");
         }
     }
 }

@@ -333,6 +333,7 @@ namespace ProjectMarkdown.CustomControls
 
         public void RefreshScrollPosition(DocumentModel document)
         {
+            Logger.GetInstance().Debug("RefreshScrollPosition() >>");
             try
             {
                 var codeTextboxHost = GetCurrentCodeTextbox(document);
@@ -346,6 +347,7 @@ namespace ProjectMarkdown.CustomControls
             {
                 throw e;
             }
+            Logger.GetInstance().Debug("<< RefreshScrollPosition()");
         }
 
         private CodeTextboxHost GetCurrentCodeTextbox(DocumentModel document)
@@ -374,7 +376,7 @@ namespace ProjectMarkdown.CustomControls
                         }
                     }
                 }
-
+                
                 return codeTextbox;
             }
             catch (Exception e)

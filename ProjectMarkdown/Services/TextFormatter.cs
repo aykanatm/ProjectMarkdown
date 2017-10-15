@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using LogUtils;
 
 namespace ProjectMarkdown.Services
 {
@@ -25,6 +26,7 @@ namespace ProjectMarkdown.Services
 
         public static string Format(string input, TextFormats textFormat)
         {
+            Logger.GetInstance().Debug("Format() >>");
             var formattedText = "";
 
             try
@@ -303,6 +305,7 @@ namespace ProjectMarkdown.Services
                 throw e;
             }
 
+            Logger.GetInstance().Debug("<< Format()");
             return formattedText;
         }
     }

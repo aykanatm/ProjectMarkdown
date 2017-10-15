@@ -1,4 +1,5 @@
 ﻿using System;
+using LogUtils;
 using ProjectMarkdown.Model;
 
 namespace ProjectMarkdown.Services
@@ -26,7 +27,7 @@ namespace ProjectMarkdown.Services
                     _sharedEventHandler = new SharedEventHandler();
                 }
             }
-
+            
             return _sharedEventHandler;
         }
 
@@ -34,22 +35,30 @@ namespace ProjectMarkdown.Services
 
         public void RaiseOnInsertTableDimensionsSelected(int rows, int columns)
         {
+            Logger.GetInstance().Debug("RaiseOnInsertTableDimensionsSelected() >>");
             OnInsertTableDimensionsSelected(rows, columns);
+            Logger.GetInstance().Debug("<< RaiseOnInsertTableDimensionsSelected()");
         }
 
         public void RaiseOnApplyLinkUrlSelected(string url)
         {
+            Logger.GetInstance().Debug("RaiseOnApplyLinkUrlSelected() >>");
             OnApplyLinkUrlSelected(url);
+            Logger.GetInstance().Debug("<< RaiseOnApplyLinkUrlSelected()");
         }
 
         public void RaiseOnInsertImageUrlSelected(string url, string alt)
         {
+            Logger.GetInstance().Debug("RaiseOnInsertImageUrlSelected() >>");
             OnInsertImageUrlSelected(url, alt);
+            Logger.GetInstance().Debug("<< RaiseOnInsertImageUrlSelected()");
         }
 
         public void RaiseOnPreferencesSaved(PreferencesModel preferences)
         {
+            Logger.GetInstance().Debug("RaiseOnPreferencesSaved() >>");
             OnPreferecesSaved(preferences);
+            Logger.GetInstance().Debug("<< RaiseOnPreferencesSaved()");
         }
 
         public void RaiseOnCodeTextboxScrollChanged(ScrollResult scrollResult)

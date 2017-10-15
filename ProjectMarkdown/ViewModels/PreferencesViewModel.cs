@@ -96,35 +96,37 @@ namespace ProjectMarkdown.ViewModels
         {
             Logger.GetInstance().Debug("PreferencesViewModel() >>");
 
-            ViewID = Guid.NewGuid();
-
-            if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
+            try
             {
-                return;
-            }
+                ViewID = Guid.NewGuid();
 
-            LoadCommands();
+                if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
+                {
+                    return;
+                }
 
-            if (File.Exists(FilePaths.PreferencesFilePath))
-            {
-                var gxs = new GenericXmlSerializer<PreferencesModel>();
-                CurrentPreferences = gxs.DeSerialize(FilePaths.PreferencesFilePath);
-            }
-            else
-            {
-                throw new Exception(FilePaths.PreferencesFilePath + " file does not exist!");
-            }
+                LoadCommands();
 
-            LogLevels = new ObservableCollection<string> {"DEBUG", "INFO", "ERROR"};
+                if (File.Exists(FilePaths.PreferencesFilePath))
+                {
+                    var gxs = new GenericXmlSerializer<PreferencesModel>();
+                    CurrentPreferences = gxs.DeSerialize(FilePaths.PreferencesFilePath);
+                }
+                else
+                {
+                    throw new Exception(FilePaths.PreferencesFilePath + " file does not exist!");
+                }
 
-            var fonts = new ObservableCollection<string>();
-            foreach (var fontFamily in FontFamily.Families)
-            {
-                fonts.Add(fontFamily.Name);
-            }
-            Fonts = fonts;
+                LogLevels = new ObservableCollection<string> { "DEBUG", "INFO", "ERROR" };
 
-            FontSizes = new ObservableCollection<string>
+                var fonts = new ObservableCollection<string>();
+                foreach (var fontFamily in FontFamily.Families)
+                {
+                    fonts.Add(fontFamily.Name);
+                }
+                Fonts = fonts;
+
+                FontSizes = new ObservableCollection<string>
             {
                 "8",
                 "9",
@@ -141,9 +143,15 @@ namespace ProjectMarkdown.ViewModels
                 "72"
             };
 
-            Languages = new ObservableCollection<string> {"English"};
-            Colors = new ObservableCollection<string> {"Amber", "Blue", "BlueGrey", "Brown", "Cyan", "DeepOrange", "DeepPurple", "Green", "Grey", "Indigo", "LightBlue", "LightGreen", "Lime",
+                Languages = new ObservableCollection<string> { "English" };
+                Colors = new ObservableCollection<string> {"Amber", "Blue", "BlueGrey", "Brown", "Cyan", "DeepOrange", "DeepPurple", "Green", "Grey", "Indigo", "LightBlue", "LightGreen", "Lime",
                 "Orange", "Pink", "Purple", "Red", "Teal", "Yellow"};
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while initializing the window", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
             Logger.GetInstance().Debug("<< PreferencesViewModel()");
         }
@@ -152,9 +160,17 @@ namespace ProjectMarkdown.ViewModels
         {
             Logger.GetInstance().Debug("LoadCommands() >>");
 
-            SelectLogFileCommand = new RelayCommand(SelectLogFile, CanSelectLogFile);
-            CancelPreferenceChangesCommand = new RelayCommand(CancelPreferences, CanCancelPreferences);
-            SavePreferencesCommand = new RelayCommand(SavePreferences, CanSavePreferences);
+            try
+            {
+                SelectLogFileCommand = new RelayCommand(SelectLogFile, CanSelectLogFile);
+                CancelPreferenceChangesCommand = new RelayCommand(CancelPreferences, CanCancelPreferences);
+                SavePreferencesCommand = new RelayCommand(SavePreferences, CanSavePreferences);
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while loading commands", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
             Logger.GetInstance().Debug("<< LoadCommands()");
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using LogUtils;
 using ProjectMarkdown.Services;
 using ProjectMarkdown.Views;
 using WPFUtils.ExtensionMethods;
@@ -44,121 +45,171 @@ namespace ProjectMarkdown.Windows
 
         public void OpenWindow(WindowTypes windowType)
         {
-            if (windowType == WindowTypes.About)
+            Logger.GetInstance().Debug("OpenWindow() >>");
+
+            try
             {
-                var aboutWindow = new About();
-                aboutWindow.Show();
+                if (windowType == WindowTypes.About)
+                {
+                    var aboutWindow = new About();
+                    aboutWindow.Show();
+                }
+                else if (windowType == WindowTypes.Preferences)
+                {
+                    var preferencesWindow = new Preferences();
+                    preferencesWindow.Show();
+                }
+                else if (windowType == WindowTypes.UrlSelector)
+                {
+                    var urlSelectorWindow = new UrlSelector();
+                    urlSelectorWindow.Show();
+                }
+                else if (windowType == WindowTypes.ImageInserter)
+                {
+                    var imageInserterWindow = new ImageInserter();
+                    imageInserterWindow.Show();
+                }
+                else if (windowType == WindowTypes.TableInserter)
+                {
+                    var tableInserterWindow = new TableInserter();
+                    tableInserterWindow.Show();
+                }
             }
-            else if (windowType == WindowTypes.Preferences)
+            catch (Exception e)
             {
-                var preferencesWindow = new Preferences();
-                preferencesWindow.Show();
+                throw e;
             }
-            else if (windowType == WindowTypes.UrlSelector)
-            {
-                var urlSelectorWindow = new UrlSelector();
-                urlSelectorWindow.Show();
-            }
-            else if (windowType == WindowTypes.ImageInserter)
-            {
-                var imageInserterWindow = new ImageInserter();
-                imageInserterWindow.Show();
-            }
-            else if (windowType == WindowTypes.TableInserter)
-            {
-                var tableInserterWindow = new TableInserter();
-                tableInserterWindow.Show();
-            }
+
+            Logger.GetInstance().Debug("OpenWindow() >>");
         }
 
         public void CloseWindow(Guid id)
         {
-            foreach (Window window in Application.Current.Windows)
+            Logger.GetInstance().Debug("CloseWindow() >>");
+
+            try
             {
-                var w_id = window.DataContext as IRequireViewIdentification;
-                if (w_id != null && w_id.ViewID.Equals(id))
+                foreach (Window window in Application.Current.Windows)
                 {
-                    window.Close();
+                    var w_id = window.DataContext as IRequireViewIdentification;
+                    if (w_id != null && w_id.ViewID.Equals(id))
+                    {
+                        window.Close();
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            Logger.GetInstance().Debug("<< CloseWindow()");
         }
 
         public void RefreshToolbarPositions(Guid id)
         {
-            var window = GetWindow(id);
-            var toolbars = GetControls<ToolBar>(id);
-
-            var dependencyObjects = toolbars as IList<DependencyObject> ?? toolbars.ToList();
-
-            if (_totalToolbarWidth <= 0)
+            try
             {
-                foreach (var dependencyObject in dependencyObjects)
-                {
-                    var toolbar = (ToolBar)dependencyObject;
-                    _totalToolbarWidth += toolbar.ActualWidth;
-                }
-            }
-            
+                var window = GetWindow(id);
+                var toolbars = GetControls<ToolBar>(id);
 
-            if (window.ActualWidth > _totalToolbarWidth)
-            {
-                foreach (var dependencyObject in dependencyObjects)
+                var dependencyObjects = toolbars as IList<DependencyObject> ?? toolbars.ToList();
+
+                if (_totalToolbarWidth <= 0)
                 {
-                    var toolbar = (ToolBar) dependencyObject;
-                    toolbar.Band = 0;
-                }
-                
-                IsSingleBand = true;
-            }
-            else
-            {
-                foreach (var dependencyObject in dependencyObjects)
-                {
-                    var toolbar = (ToolBar)dependencyObject;
-                    if (toolbar.Name == "FormattingToolbar")
+                    foreach (var dependencyObject in dependencyObjects)
                     {
-                        toolbar.Band = 1;
+                        var toolbar = (ToolBar)dependencyObject;
+                        _totalToolbarWidth += toolbar.ActualWidth;
                     }
-                    else
+                }
+
+
+                if (window.ActualWidth > _totalToolbarWidth)
+                {
+                    foreach (var dependencyObject in dependencyObjects)
                     {
+                        var toolbar = (ToolBar)dependencyObject;
                         toolbar.Band = 0;
                     }
-                }
-                
-                IsSingleBand = false;
-            }
 
-            // This ensures that the toolbar tray is resized to correct height after window resize
-            SharedEventHandler.GetInstance().RaiseOnToolbarPositionsChanged();
+                    IsSingleBand = true;
+                }
+                else
+                {
+                    foreach (var dependencyObject in dependencyObjects)
+                    {
+                        var toolbar = (ToolBar)dependencyObject;
+                        if (toolbar.Name == "FormattingToolbar")
+                        {
+                            toolbar.Band = 1;
+                        }
+                        else
+                        {
+                            toolbar.Band = 0;
+                        }
+                    }
+
+                    IsSingleBand = false;
+                }
+
+                // This ensures that the toolbar tray is resized to correct height after window resize
+                SharedEventHandler.GetInstance().RaiseOnToolbarPositionsChanged();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         private IEnumerable<DependencyObject> GetControls<T>(Guid id) where T : DependencyObject
         {
-            var window = GetWindow(id);
-            var children = window.GetChildren<T>();
+            try
+            {
+                var window = GetWindow(id);
+                var children = window.GetChildren<T>();
 
-            return children;
+                return children;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         private Window GetWindow(Guid id)
         {
-            foreach (Window window in Application.Current.Windows)
+            try
             {
-                var w_id = window.DataContext as IRequireViewIdentification;
-                if (w_id != null && w_id.ViewID.Equals(id))
+                foreach (Window window in Application.Current.Windows)
                 {
-                    return window;
+                    var w_id = window.DataContext as IRequireViewIdentification;
+                    if (w_id != null && w_id.ViewID.Equals(id))
+                    {
+                        return window;
+                    }
                 }
-            }
 
-            return null;
+                return null;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         private WindowManager()
         {
-            ToolbarTrayHeightDoubleBands = 70;
-            ToolbarTrayHeightSingleBand = 35;
-            IsSingleBand = false;
+            try
+            {
+                ToolbarTrayHeightDoubleBands = 70;
+                ToolbarTrayHeightSingleBand = 35;
+                IsSingleBand = false;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

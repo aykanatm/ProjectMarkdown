@@ -40,18 +40,42 @@ namespace ProjectMarkdown.ViewModels
 
         public ImageInserterViewModel()
         {
-            if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
+            Logger.GetInstance().Debug("ImageInserterViewModel() >>");
+
+            try
             {
-                return;
+                if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
+                {
+                    return;
+                }
+
+                ViewID = Guid.NewGuid();
+                LoadCommands();
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while initializing the window", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            ViewID = Guid.NewGuid();
-            LoadCommands();
+            Logger.GetInstance().Debug("<< ImageInserterViewModel()");
         }
 
         private void LoadCommands()
         {
-            SelectImageUrlCommand = new RelayCommand(SelectImageUrl, CanSelectImageUrl);
+            Logger.GetInstance().Debug("LoadCommands() >>");
+
+            try
+            {
+                SelectImageUrlCommand = new RelayCommand(SelectImageUrl, CanSelectImageUrl);
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while loading the commands", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
+            Logger.GetInstance().Debug("<< LoadCommands()");
         }
 
         public void SelectImageUrl(object obj)

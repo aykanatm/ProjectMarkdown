@@ -9,22 +9,36 @@ namespace ProjectMarkdown.MarkdownLibrary.ExtensionMethods
     {
         public static string ReplaceSpecialCharacters(this string input)
         {
-            var output = input.Replace("&", "&amp").Replace("<", "&lt;").Replace(">", "&gt;");
-            return output;
+            try
+            {
+                var output = input.Replace("&", "&amp").Replace("<", "&lt;").Replace(">", "&gt;");
+                return output;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public static string ConvertMarkdownToHtml(this string input)
         {
-            // Code should be the last because it strips all html tags from its content
-            return input.ConvertPairedMarkdownToHtml("**", MarkdownParser.PairedMarkdownTags.Bold)
-                .ConvertPairedMarkdownToHtml("__", MarkdownParser.PairedMarkdownTags.Bold)
-                .ConvertPairedMarkdownToHtml("*", MarkdownParser.PairedMarkdownTags.Italic)
-                .ConvertPairedMarkdownToHtml("_", MarkdownParser.PairedMarkdownTags.Italic)
-                .ConvertPairedMarkdownToHtml("~~", MarkdownParser.PairedMarkdownTags.StrikeThrough)
-                .ConvertPairedMarkdownToHtml("`", MarkdownParser.PairedMarkdownTags.InlineCode)
-                .GenerateInlineImages()
-                .GenerateHtmlLinks()
-                .GenerateAutomaticLinks();
+            try
+            {
+                // Code should be the last because it strips all html tags from its content
+                return input.ConvertPairedMarkdownToHtml("**", MarkdownParser.PairedMarkdownTags.Bold)
+                    .ConvertPairedMarkdownToHtml("__", MarkdownParser.PairedMarkdownTags.Bold)
+                    .ConvertPairedMarkdownToHtml("*", MarkdownParser.PairedMarkdownTags.Italic)
+                    .ConvertPairedMarkdownToHtml("_", MarkdownParser.PairedMarkdownTags.Italic)
+                    .ConvertPairedMarkdownToHtml("~~", MarkdownParser.PairedMarkdownTags.StrikeThrough)
+                    .ConvertPairedMarkdownToHtml("`", MarkdownParser.PairedMarkdownTags.InlineCode)
+                    .GenerateInlineImages()
+                    .GenerateHtmlLinks()
+                    .GenerateAutomaticLinks();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public static string ConvertPairedMarkdownToHtml(this string input, string markdownTag, MarkdownParser.PairedMarkdownTags tag)

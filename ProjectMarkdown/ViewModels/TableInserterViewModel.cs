@@ -40,18 +40,42 @@ namespace ProjectMarkdown.ViewModels
 
         public TableInserterViewModel()
         {
-            if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
+            Logger.GetInstance().Debug("TableInserterViewModel() >>");
+
+            try
             {
-                return;
+                if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
+                {
+                    return;
+                }
+
+                ViewID = Guid.NewGuid();
+                LoadCommands();
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while initializing the window", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            ViewID = Guid.NewGuid();
-            LoadCommands();
+            Logger.GetInstance().Debug("<< TableInserterViewModel() >>");
         }
 
         private void LoadCommands()
         {
-            InsertTableCommand = new RelayCommand(InsertTable, CanInsertTable);
+            Logger.GetInstance().Debug("LoadCommands() >>");
+
+            try
+            {
+                InsertTableCommand = new RelayCommand(InsertTable, CanInsertTable);
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while loading the commands", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            Logger.GetInstance().Debug("<< LoadCommands()");
         }
 
         public void InsertTable(object obj)

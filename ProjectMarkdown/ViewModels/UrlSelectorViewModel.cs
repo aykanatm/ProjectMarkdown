@@ -29,26 +29,58 @@ namespace ProjectMarkdown.ViewModels
 
         public UrlSelectorViewModel()
         {
-            if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
+            Logger.GetInstance().Debug("UrlSelectorViewModel() >>");
+
+            try
             {
-                return;
+                if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
+                {
+                    return;
+                }
+
+                ViewID = Guid.NewGuid();
+                LoadCommands();
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while initializing the window", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            ViewID = Guid.NewGuid();
-            LoadCommands();
+            Logger.GetInstance().Debug("<< UrlSelectorViewModel()");
         }
 
         private void LoadCommands()
         {
-            SelectUrlCommand = new RelayCommand(SelectUrl, CanSelectUrl);
+            Logger.GetInstance().Debug("LoadCommands() >>");
+
+            try
+            {
+                SelectUrlCommand = new RelayCommand(SelectUrl, CanSelectUrl);
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while loading the commands", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            Logger.GetInstance().Debug("<< LoadCommands()");
         }
 
         public void SelectUrl(object obj)
         {
             Logger.GetInstance().Debug("SelectUrl() >>");
 
-            SharedEventHandler.GetInstance().RaiseOnApplyLinkUrlSelected(SelectedUrl);
-            WindowManager.GetInstance().CloseWindow(ViewID);
+            try
+            {
+                SharedEventHandler.GetInstance().RaiseOnApplyLinkUrlSelected(SelectedUrl);
+                WindowManager.GetInstance().CloseWindow(ViewID);
+            }
+            catch (Exception e)
+            {
+                Logger.GetInstance().Error(e.ToString());
+                MessageBox.Show(e.Message, "An error occured while selecting the URL", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
             Logger.GetInstance().Debug("<< SelectUrl()");
         }
