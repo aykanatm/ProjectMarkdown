@@ -345,7 +345,13 @@
                                                             x:Name="CodeTextboxHost"/>
                         </Border>
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" Margin="5">
-                            <wpf:ChromiumWebBrowser Address="{Binding Html, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ChromiumWebBrowser"/>    
+                            <wpf:ChromiumWebBrowser Address="{Binding Html, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ChromiumWebBrowser">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Loaded">
+                                        <i:InvokeCommandAction Command="{Binding BrowserLoadedCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </wpf:ChromiumWebBrowser>
                         </Border>
                     </Grid>
                 </DataTemplate>

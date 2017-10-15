@@ -134,6 +134,7 @@
     <Compile Include="Converters\LockTabBarConverter.cs" />
     <Compile Include="Converters\ToolbarVisibilityConverter.cs" />
     <Compile Include="CustomControls\CefChromiumBrowserManager.cs" />
+    <Compile Include="CustomControls\CefHandlers\BrowserRequestHandler.cs" />
     <Compile Include="CustomControls\CodeTextboxManager.cs" />
     <Compile Include="ExtensionMethods\LimitedStackExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\ObservableCollectionExtensionMethods.cs" />

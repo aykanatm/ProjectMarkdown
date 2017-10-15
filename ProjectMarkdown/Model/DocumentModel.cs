@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Input;
 using FastColoredTextBoxNS;
 using ProjectMarkdown.Annotations;
+using ProjectMarkdown.CustomControls;
 using ProjectMarkdown.ViewModels;
 
 namespace ProjectMarkdown.Model
@@ -129,6 +130,7 @@ namespace ProjectMarkdown.Model
         public ICommand CloseDocumentButtonCommand { get; set; }
         public ICommand CloseDocumentOnDoubleClickCommand { get; set; }
         public ICommand SwitchToThisDocumentCommand { get; set; }
+        public ICommand BrowserLoadedCommand { get; set; }
 
         private readonly MainWindowViewModel _mainWindowViewModel;
         private bool _isWordWrap;
@@ -153,6 +155,7 @@ namespace ProjectMarkdown.Model
             CloseDocumentButtonCommand = new RelayCommand(CloseDocumentButton, CanCloseDocumentButton);
             SwitchToThisDocumentCommand = new RelayCommand(SwitchToThisDocument, CanSwitchToThisDocument);
             CloseDocumentOnDoubleClickCommand = new RelayCommand(CloseDocumentButton, CanCloseDocumentOnDoubleClick);
+            BrowserLoadedCommand = new RelayCommand(BrowserLoaded, CanBrowserLoaded);
         }
 
         public bool CanSwitchToThisDocument(object obj)
@@ -194,6 +197,16 @@ namespace ProjectMarkdown.Model
         }
 
         public bool CanCloseDocumentButton(object obj)
+        {
+            return true;
+        }
+
+        public void BrowserLoaded(object obj)
+        {
+            CefChromiumBrowserManager.GetInstance().SetCustomRequestHandler(this);
+        }
+
+        public bool CanBrowserLoaded(object obj)
         {
             return true;
         }

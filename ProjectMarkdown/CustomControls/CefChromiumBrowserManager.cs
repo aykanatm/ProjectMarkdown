@@ -7,6 +7,7 @@ using CefSharp;
 using CefSharp.Wpf;
 using Dragablz;
 using MathUtils;
+using ProjectMarkdown.CustomControls.CefHandlers;
 using ProjectMarkdown.Model;
 using ProjectMarkdown.Services;
 using WPFUtils.ExtensionMethods;
@@ -67,6 +68,12 @@ namespace ProjectMarkdown.CustomControls
 
                 browser.GetMainFrame().ExecuteJavaScriptAsync(setBrowserScrollPosition);
             });
+        }
+
+        public void SetCustomRequestHandler(DocumentModel document)
+        {
+            var browser = GetCurrentBrowser(document);
+            browser.RequestHandler = new BrowserRequestHandler();
         }
 
         private ChromiumWebBrowser GetCurrentBrowser(DocumentModel document)
