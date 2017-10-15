@@ -408,7 +408,7 @@ namespace ProjectMarkdown.CustomControls
         {
             try
             {
-                if (!string.IsNullOrEmpty(_innerTextbox.SelectedText))
+                if ( _innerTextbox!= null && !string.IsNullOrEmpty(_innerTextbox.SelectedText))
                 {
                     return true;
                 }
