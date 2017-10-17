@@ -66,6 +66,7 @@
                     <RowDefinition Height="25"/>
                     <RowDefinition Height="25"/>
                     <RowDefinition Height="25"/>
+                    <RowDefinition Height="25"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="5,0,0,0">
                     <Hyperlink NavigateUri="https://github.com/sindresorhus/github-markdown-css">GitHub Markdown CSS</Hyperlink>
@@ -95,6 +96,10 @@
                     <Hyperlink NavigateUri="https://github.com/aykanatm/MyLibrary">My C# Library</Hyperlink>
                 </TextBlock>
                 <TextBlock Text="Copyright © Murat Aykanat" Grid.Row="6" Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" Margin="5,0,0,0">
+                    <Hyperlink NavigateUri="https://github.com/gmanny/Pechkin">Pechkin</Hyperlink>
+                </TextBlock>
+                <TextBlock Text="Copyright 2012 by Slava Kolobaev" Grid.Row="7" Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center"/>
             </Grid>
         </ScrollViewer>
     </DockPanel>
