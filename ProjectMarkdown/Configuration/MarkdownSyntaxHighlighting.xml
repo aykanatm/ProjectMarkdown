@@ -31,5 +31,5 @@
   <rule style="autoLink2">(https://)(.*?)\s</rule>
   <rule style="altText">(\[)(.*?)(\])</rule>
   <rule style="hr">(\n|^)(\-|\*){3,}</rule>
-  <rule style="blockCodes">(```)((?:.|\n)*)(```)</rule>
+  <rule style="blockCodes" options="Multiline">(```)(.|\n)+?(```)</rule>
 </doc>
