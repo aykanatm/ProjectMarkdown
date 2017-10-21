@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using LogUtils;
+using Microsoft.Win32;
 using ProjectMarkdown.Annotations;
 using ProjectMarkdown.Services;
 using ProjectMarkdown.Windows;
@@ -37,6 +38,7 @@ namespace ProjectMarkdown.ViewModels
         }
 
         public ICommand SelectImageUrlCommand { get; set; }
+        public ICommand BrowseCommand { get; set; }
 
         public ImageInserterViewModel()
         {
@@ -68,6 +70,7 @@ namespace ProjectMarkdown.ViewModels
             try
             {
                 SelectImageUrlCommand = new RelayCommand(SelectImageUrl, CanSelectImageUrl);
+                BrowseCommand = new RelayCommand(Browse, CanBrowse);
             }
             catch (Exception e)
             {
@@ -76,6 +79,27 @@ namespace ProjectMarkdown.ViewModels
             }
             
             Logger.GetInstance().Debug("<< LoadCommands()");
+        }
+
+        public void Browse(object obj)
+        {
+            var openFileDialog = new OpenFileDialog();
+            openFileDialog.Title = "Select an Image";
+            openFileDialog.Filter = "Image Files | *.jpg; *.jpeg; *.png; *.gif; *.bmp; *.tif; *.tiff";
+            var result = openFileDialog.ShowDialog();
+
+            if (result != null)
+            {
+                if (result == true)
+                {
+                    SelectedImageUrl = openFileDialog.FileName;
+                }
+            }
+        }
+
+        public bool CanBrowse(object obj)
+        {
+            return true;
         }
 
         public void SelectImageUrl(object obj)

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ProjectMarkdown.Views"
         xmlns:viewModels="clr-namespace:ProjectMarkdown.ViewModels"
         mc:Ignorable="d"
-        Height="140" Width="350"
+        Height="140" Width="420"
         WindowStartupLocation="CenterOwner"
         WindowStyle="ToolWindow"
         ResizeMode="NoResize"
@@ -28,12 +28,16 @@
             <ColumnDefinition Width="30" MaxWidth="30" MinWidth="30"/>
             <ColumnDefinition Width="200" MaxWidth="200" MinWidth="200"/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" Text="ALT:" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <TextBox Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="1" Margin="2" Text="{Binding SelectedAlternateText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"/>
+        <TextBox Grid.ColumnSpan="3" Grid.Row="0" Grid.Column="1" Margin="2" Text="{Binding SelectedAlternateText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"/>
         <TextBlock Grid.Row="1" Grid.Column="0" Text="URL:" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <TextBox Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="1" Margin="2" Text="{Binding SelectedImageUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"/>
-        <Button Grid.Row="2" Grid.Column="2" Margin="2" Command="{Binding SelectImageUrlCommand}" Style="{DynamicResource MaterialDesignRaisedAccentButton}">
+        <TextBox Grid.ColumnSpan="3" Grid.Row="1" Grid.Column="1" Margin="2" Text="{Binding SelectedImageUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"/>
+        <Button Grid.Row="2" Grid.Column="2" Margin="2" Command="{Binding BrowseCommand}" Style="{DynamicResource MaterialDesignRaisedAccentButton}">
+            <TextBlock Text="Browse" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Button>
+        <Button Grid.Row="2" Grid.Column="3" Margin="2" Command="{Binding SelectImageUrlCommand}" Style="{DynamicResource MaterialDesignRaisedButton}">
             <TextBlock Text="Select" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Button>
     </Grid>
