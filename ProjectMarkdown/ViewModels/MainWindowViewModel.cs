@@ -299,11 +299,25 @@ namespace ProjectMarkdown.ViewModels
                         // Write header
                         if (i == 0)
                         {
-                            table += "| Header " + (j + 1) + " |";
+                            if (j == columns - 1)
+                            {
+                                table += "| Header " + (j + 1) + " |";
+                            }
+                            else
+                            {
+                                table += "| Header " + (j + 1) + " ";
+                            }
                         }
                         else
                         {
-                            table += "| Element (" + (i+1) + "/" + (j+1) + ") |";
+                            if (j == columns - 1)
+                            {
+                                table += "| Element (" + (i + 1) + "/" + (j + 1) + ") |";
+                            }
+                            else
+                            {
+                                table += "| Element (" + (i + 1) + "/" + (j + 1) + ") ";
+                            }
                         }
                     }
                     if (i != rows - 1)
