@@ -7,7 +7,6 @@
   <style name="scratches" color="#0085ca" fontStyle="Regular"/>
   <style name="links" color="#0000FF" fontStyle="Regular"/>
   <style name="autoLink1" color="#0000FF" fontStyle="Regular"/>
-  <style name="autoLink2" color="#0000FF" fontStyle="Regular"/>
   <style name="altText" color="#0043b1" fontStyle="Regular"/>
   <style name="orderedLists" color="#0000FF" fontstyle="Bold"/>
   <style name="unorderedLists" color="#0000FF" fontStyle="Bold"/>
@@ -27,8 +26,7 @@
   <rule style="italic2">_(.*?)_</rule>
   <rule style="inlineCodes">`(.*?)`</rule>
   <rule style="links">\(http(.*?)\)</rule>
-  <rule style="autoLink1">(http://)(.*?)\s</rule>
-  <rule style="autoLink2">(https://)(.*?)\s</rule>
+  <rule style="autoLink1">(https|http):\/\/.*?\s+</rule>
   <rule style="altText">(\[)(.*?)(\])</rule>
   <rule style="hr">(\n|^)(\-|\*){3,}</rule>
   <rule style="blockCodes" options="Multiline">(```)(.|\n)+?(```)</rule>
