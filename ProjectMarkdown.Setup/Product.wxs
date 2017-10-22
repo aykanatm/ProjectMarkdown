@@ -149,14 +149,6 @@
       </Component>
     </DirectoryRef>
     <DirectoryRef Id="INSTALLDIR">
-      <Component Id="Common.Logging.dll">
-        <File Id="Common.Logging.dll"
-              Name="Common.Logging.dll"
-              Source="..\..\..\ProjectMarkdown\bin\x86\Release\Common.Logging.dll"
-              KeyPath="yes"/>
-      </Component>
-    </DirectoryRef>
-    <DirectoryRef Id="INSTALLDIR">
       <Component Id="d3dcompiler_47.dll">
         <File Id="d3dcompiler_47.dll"
               Name="d3dcompiler_47.dll"
@@ -213,26 +205,10 @@
       </Component>
     </DirectoryRef>
     <DirectoryRef Id="INSTALLDIR">
-      <Component Id="libeay32.dll">
-        <File Id="libeay32.dll"
-              Name="libeay32.dll"
-              Source="..\..\..\ProjectMarkdown\bin\x86\Release\libeay32.dll"
-              KeyPath="yes"/>
-      </Component>
-    </DirectoryRef>
-    <DirectoryRef Id="INSTALLDIR">
       <Component Id="libEGL.dll">
         <File Id="libEGL.dll"
               Name="libEGL.dll"
               Source="..\..\..\ProjectMarkdown\bin\x86\Release\libEGL.dll"
-              KeyPath="yes"/>
-      </Component>
-    </DirectoryRef>
-    <DirectoryRef Id="INSTALLDIR">
-      <Component Id="libgcc_s_dw2_1.dll">
-        <File Id="libgcc_s_dw2_1.dll"
-              Name="libgcc_s_dw2-1.dll"
-              Source="..\..\..\ProjectMarkdown\bin\x86\Release\libgcc_s_dw2-1.dll"
               KeyPath="yes"/>
       </Component>
     </DirectoryRef>
@@ -293,14 +269,6 @@
       </Component>
     </DirectoryRef>
     <DirectoryRef Id="INSTALLDIR">
-      <Component Id="mingwm10.dll">
-        <File Id="mingwm10.dll"
-              Name="mingwm10.dll"
-              Source="..\..\..\ProjectMarkdown\bin\x86\Release\mingwm10.dll"
-              KeyPath="yes"/>
-      </Component>
-    </DirectoryRef>
-    <DirectoryRef Id="INSTALLDIR">
       <Component Id="natives_blob.bin">
         <File Id="natives_blob.bin"
               Name="natives_blob.bin"
@@ -321,14 +289,6 @@
         <File Id="PdfiumViewer.dll"
               Name="PdfiumViewer.dll"
               Source="..\..\..\ProjectMarkdown\bin\x86\Release\PdfiumViewer.dll"
-              KeyPath="yes"/>
-      </Component>
-    </DirectoryRef>
-    <DirectoryRef Id="INSTALLDIR">
-      <Component Id="Pechkin.dll">
-        <File Id="Pechkin.dll"
-              Name="Pechkin.dll"
-              Source="..\..\..\ProjectMarkdown\bin\x86\Release\Pechkin.dll"
               KeyPath="yes"/>
       </Component>
     </DirectoryRef>
@@ -394,14 +354,6 @@
       </Component>
     </DirectoryRef>
     <DirectoryRef Id="INSTALLDIR">
-      <Component Id="ssleay32.dll">
-        <File Id="ssleay32.dll"
-              Name="ssleay32.dll"
-              Source="..\..\..\ProjectMarkdown\bin\x86\Release\ssleay32.dll"
-              KeyPath="yes"/>
-      </Component>
-    </DirectoryRef>
-    <DirectoryRef Id="INSTALLDIR">
       <Component Id="StringUtils.dll">
         <File Id="StringUtils.dll"
               Name="StringUtils.dll"
@@ -418,18 +370,26 @@
       </Component>
     </DirectoryRef>
     <DirectoryRef Id="INSTALLDIR">
-      <Component Id="widevinecdmadapter.dll">
-        <File Id="widevinecdmadapter.dll"
-              Name="widevinecdmadapter.dll"
-              Source="..\..\..\ProjectMarkdown\bin\x86\Release\widevinecdmadapter.dll"
+      <Component Id="TuesPechkin.dll">
+        <File Id="TuesPechkin.dll"
+              Name="TuesPechkin.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\TuesPechkin.dll"
               KeyPath="yes"/>
       </Component>
     </DirectoryRef>
     <DirectoryRef Id="INSTALLDIR">
-      <Component Id="wkhtmltox0.dll">
-        <File Id="wkhtmltox0.dll"
-              Name="wkhtmltox0.dll"
-              Source="..\..\..\ProjectMarkdown\bin\x86\Release\wkhtmltox0.dll"
+      <Component Id="TuesPechkin.Wkhtmltox.AnyCPU.dll">
+        <File Id="TuesPechkin.Wkhtmltox.AnyCPU.dll"
+              Name="TuesPechkin.Wkhtmltox.AnyCPU.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\TuesPechkin.Wkhtmltox.AnyCPU.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="widevinecdmadapter.dll">
+        <File Id="widevinecdmadapter.dll"
+              Name="widevinecdmadapter.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\widevinecdmadapter.dll"
               KeyPath="yes"/>
       </Component>
     </DirectoryRef>
@@ -533,7 +493,6 @@
       <ComponentRef Id="CefSharp.Wpf.dll"/>
       <ComponentRef Id="chrome_elf.dll"/>
       <ComponentRef Id="ClassUtils.dll"/>
-      <ComponentRef Id="Common.Logging.dll"/>
       <ComponentRef Id="d3dcompiler_47.dll"/>
       <ComponentRef Id="devtools_resources.pak"/>
       <ComponentRef Id="Dragablz.dll"/>
@@ -541,9 +500,7 @@
       <ComponentRef Id="icudtl.dat"/>
       <ComponentRef Id="IOUtils.dll"/>
       <ComponentRef Id="libcef.dll"/>
-      <ComponentRef Id="libeay32.dll"/>
       <ComponentRef Id="libEGL.dll"/>
-      <ComponentRef Id="libgcc_s_dw2_1.dll"/>
       <ComponentRef Id="libGLESv2.dll"/>
       <ComponentRef Id="License.txt"/>
       <ComponentRef Id="LogUtils.dll"/>
@@ -551,11 +508,9 @@
       <ComponentRef Id="MaterialDesignThemes.Wpf.dll"/>
       <ComponentRef Id="MathUtils.dll"/>
       <ComponentRef Id="Microsoft.Expression.Interactions.dll"/>
-      <ComponentRef Id="mingwm10.dll"/>
       <ComponentRef Id="natives_blob.bin"/>
       <ComponentRef Id="pdfium.dll"/>
       <ComponentRef Id="PdfiumViewer.dll"/>
-      <ComponentRef Id="Pechkin.dll"/>
 			<ComponentRef Id="ProjectMarkdown.exe" />
       <ComponentRef Id="ProjectMarkdownIcon.ico"/>
       <ComponentRef Id="ProjectMarkdownDocumentIcon.ico"/>
@@ -563,11 +518,11 @@
       <ComponentRef Id="ProjectMarkdown.HtmlToPdfConverter.dll"/>
       <ComponentRef Id="ProjectMarkdown.MarkdownLibrary.dll"/>
       <ComponentRef Id="snapshot_blob.bin"/>
-      <ComponentRef Id="ssleay32.dll"/>
       <ComponentRef Id="StringUtils.dll"/>
       <ComponentRef Id="System.Windows.Interactivity.dll"/>
+      <ComponentRef Id="TuesPechkin.dll"/>
+      <ComponentRef Id="TuesPechkin.Wkhtmltox.AnyCPU.dll"/>
       <ComponentRef Id="widevinecdmadapter.dll"/>
-      <ComponentRef Id="wkhtmltox0.dll"/>
       <ComponentRef Id="WPFUtils.dll"/>
       <!-- Configuration Components -->
       <ComponentRef Id="MarkdownSyntaxHighlighting.xml"/>
