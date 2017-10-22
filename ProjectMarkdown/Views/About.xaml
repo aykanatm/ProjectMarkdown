@@ -81,9 +81,9 @@
                 </TextBlock>
                 <TextBlock Text="Copyright © The CefSharp Authors" Grid.Row="2" Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center"/>
                 <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="5,0,0,0">
-                    <Hyperlink NavigateUri="https://github.com/nancyeiceblue/Free-Spire.PDF-for-.NET">Freespire PDF</Hyperlink>
+                    <Hyperlink NavigateUri="https://github.com/pvginkel/PdfiumViewer">PdfiumViewer</Hyperlink>
                 </TextBlock>
-                <TextBlock Text="Copyright © E-iceblue Co., Ltd." Grid.Row="3" Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                <TextBlock Text="Copyright © Pieter van Ginkel" Grid.Row="3" Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center"/>
                 <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Margin="5,0,0,0">
                     <Hyperlink NavigateUri="https://github.com/ButchersBoy/Dragablz">Dragablz</Hyperlink>
                 </TextBlock>
