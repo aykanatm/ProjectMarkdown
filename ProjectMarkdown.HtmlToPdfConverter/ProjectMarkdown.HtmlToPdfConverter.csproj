@@ -49,18 +49,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Common.Logging, Version=2.1.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Common.Logging.2.1.1\lib\net40\Common.Logging.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Pechkin, Version=0.5.8.1, Culture=neutral, processorArchitecture=x86">
-      <HintPath>..\packages\Pechkin.0.5.8.1\lib\net40\Pechkin.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Pechkin.Synchronized, Version=0.5.8.1, Culture=neutral, processorArchitecture=x86">
-      <HintPath>..\packages\Pechkin.Synchronized.0.5.8.1\lib\net40\Pechkin.Synchronized.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -69,6 +57,12 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="TuesPechkin, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TuesPechkin.2.1.1\lib\net20\TuesPechkin.dll</HintPath>
+    </Reference>
+    <Reference Include="TuesPechkin.Wkhtmltox.AnyCPU, Version=0.12.4.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TuesPechkin.Wkhtmltox.AnyCPU.0.12.4.1\lib\net20\TuesPechkin.Wkhtmltox.AnyCPU.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HtmlToPdfConverter.cs" />
@@ -76,23 +70,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="libeay32.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="libgcc_s_dw2-1.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mingwm10.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ssleay32.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="wkhtmltox0.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using Pechkin;
+using TuesPechkin;
 
 namespace ProjectMarkdown.HtmlToPdfConverter
 {
@@ -10,8 +10,25 @@ namespace ProjectMarkdown.HtmlToPdfConverter
         {
             try
             {
-                byte[] pdfBuf = new SimplePechkin(new GlobalConfig()).Convert(htmlString);
-                File.WriteAllBytes(filePath, pdfBuf);
+                IConverter converter = new StandardConverter(new PdfToolset(new WinAnyCPUEmbeddedDeployment(new TempFolderDeployment())));
+
+                var document = new HtmlToPdfDocument
+                {
+                    GlobalSettings =
+                    {
+                        ProduceOutline = true
+                    },
+                    Objects =
+                    {
+                        new ObjectSettings
+                        {
+                            HtmlText = htmlString
+                        }
+                    }
+                };
+                
+                byte[] bytes = converter.Convert(document);
+                File.WriteAllBytes(filePath, bytes);
             }
             catch (Exception e)
             {
