@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Drawing.Printing;
 using System.Windows.Forms;
 using LogUtils;
-using Spire.Pdf;
+using PdfiumViewer;
 using PrintDialog = System.Windows.Forms.PrintDialog;
 
 namespace ProjectMarkdown.Services
@@ -12,38 +13,42 @@ namespace ProjectMarkdown.Services
         {
             Logger.GetInstance().Debug("Print() >>");
 
+            var pdfDocument = PdfDocument.Load(tempFilePath);
             try
             {
-                var pdfDocument = new PdfDocument();
-                pdfDocument.LoadFromFile(tempFilePath);
-
                 var printDialog = new PrintDialog
                 {
                     AllowPrintToFile = true,
                     AllowSomePages = true,
                     PrinterSettings =
-                {
-                    MinimumPage = 1,
-                    MaximumPage = pdfDocument.Pages.Count,
-                    FromPage = 1,
-                    ToPage = pdfDocument.Pages.Count
-                }
+                    {
+                        MinimumPage = 1,
+                        MaximumPage = pdfDocument.PageCount,
+                        FromPage = 1,
+                        ToPage = pdfDocument.PageCount
+                    }
                 };
 
                 if (printDialog.ShowDialog() == DialogResult.OK)
                 {
-                    pdfDocument.PrintFromPage = printDialog.PrinterSettings.FromPage;
-                    pdfDocument.PrintToPage = printDialog.PrinterSettings.ToPage;
-                    pdfDocument.PrinterName = printDialog.PrinterSettings.PrinterName;
+                    var pageSettings = new PageSettings {Margins = new Margins(0, 0, 0, 0)};
 
-                    var printDocument = pdfDocument.PrintDocument;
-                    printDialog.Document = printDocument;
+                    var printDocument = pdfDocument.CreatePrintDocument();
+                    printDocument.PrinterSettings = printDialog.PrinterSettings;
+                    printDocument.DefaultPageSettings = pageSettings;
+                    printDocument.PrintController = new StandardPrintController();
                     printDocument.Print();
                 }
+
+                
             }
             catch (Exception e)
             {
                 throw e;
+            }
+            finally
+            {
+                pdfDocument.Dispose();
             }
 
             Logger.GetInstance().Debug("<< Print()");
