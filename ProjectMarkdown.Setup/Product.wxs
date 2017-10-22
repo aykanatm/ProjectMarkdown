@@ -293,14 +293,6 @@
       </Component>
     </DirectoryRef>
     <DirectoryRef Id="INSTALLDIR">
-      <Component Id="Microsoft.mshtml.dll">
-        <File Id="Microsoft.mshtml.dll"
-              Name="Microsoft.mshtml.dll"
-              Source="..\..\..\ProjectMarkdown\bin\x86\Release\Microsoft.mshtml.dll"
-              KeyPath="yes"/>
-      </Component>
-    </DirectoryRef>
-    <DirectoryRef Id="INSTALLDIR">
       <Component Id="mingwm10.dll">
         <File Id="mingwm10.dll"
               Name="mingwm10.dll"
@@ -313,6 +305,22 @@
         <File Id="natives_blob.bin"
               Name="natives_blob.bin"
               Source="..\..\..\ProjectMarkdown\bin\x86\Release\natives_blob.bin"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="pdfium.dll">
+        <File Id="pdfium.dll"
+              Name="pdfium.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\pdfium.dll"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="PdfiumViewer.dll">
+        <File Id="PdfiumViewer.dll"
+              Name="PdfiumViewer.dll"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\PdfiumViewer.dll"
               KeyPath="yes"/>
       </Component>
     </DirectoryRef>
@@ -382,22 +390,6 @@
         <File Id="snapshot_blob.bin"
               Name="snapshot_blob.bin"
               Source="..\..\..\ProjectMarkdown\bin\x86\Release\snapshot_blob.bin"
-              KeyPath="yes"/>
-      </Component>
-    </DirectoryRef>
-    <DirectoryRef Id="INSTALLDIR">
-      <Component Id="Spire.License.dll">
-        <File Id="Spire.License.dll"
-              Name="Spire.License.dll"
-              Source="..\..\..\ProjectMarkdown\bin\x86\Release\Spire.License.dll"
-              KeyPath="yes"/>
-      </Component>
-    </DirectoryRef>
-    <DirectoryRef Id="INSTALLDIR">
-      <Component Id="Spire.Pdf.dll">
-        <File Id="Spire.Pdf.dll"
-              Name="Spire.Pdf.dll"
-              Source="..\..\..\ProjectMarkdown\bin\x86\Release\Spire.Pdf.dll"
               KeyPath="yes"/>
       </Component>
     </DirectoryRef>
@@ -559,9 +551,10 @@
       <ComponentRef Id="MaterialDesignThemes.Wpf.dll"/>
       <ComponentRef Id="MathUtils.dll"/>
       <ComponentRef Id="Microsoft.Expression.Interactions.dll"/>
-      <ComponentRef Id="Microsoft.mshtml.dll"/>
       <ComponentRef Id="mingwm10.dll"/>
       <ComponentRef Id="natives_blob.bin"/>
+      <ComponentRef Id="pdfium.dll"/>
+      <ComponentRef Id="PdfiumViewer.dll"/>
       <ComponentRef Id="Pechkin.dll"/>
 			<ComponentRef Id="ProjectMarkdown.exe" />
       <ComponentRef Id="ProjectMarkdownIcon.ico"/>
@@ -570,8 +563,6 @@
       <ComponentRef Id="ProjectMarkdown.HtmlToPdfConverter.dll"/>
       <ComponentRef Id="ProjectMarkdown.MarkdownLibrary.dll"/>
       <ComponentRef Id="snapshot_blob.bin"/>
-      <ComponentRef Id="Spire.License.dll"/>
-      <ComponentRef Id="Spire.Pdf.dll"/>
       <ComponentRef Id="ssleay32.dll"/>
       <ComponentRef Id="StringUtils.dll"/>
       <ComponentRef Id="System.Windows.Interactivity.dll"/>
