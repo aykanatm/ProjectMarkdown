@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ProjectMarkdown.Views"
         xmlns:viewModels="clr-namespace:ProjectMarkdown.ViewModels"
         mc:Ignorable="d"
-        Height="80" Width="350"
+        Height="120" Width="350"
         WindowStartupLocation="CenterOwner"
         WindowStyle="ToolWindow"
         ResizeMode="NoResize"
@@ -21,15 +21,16 @@
     <Grid Margin="5" VerticalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="40" MaxHeight="40" MinHeight="40"/>
+            <RowDefinition Height="40" MaxHeight="40" MinHeight="40"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30" MaxWidth="30" MinWidth="30"/>
-            <ColumnDefinition Width="200" MaxWidth="200" MinWidth="200"/>
             <ColumnDefinition/>
+            <ColumnDefinition Width="100" MaxWidth="100" MinWidth="100"/>
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Column="0" Text="URL:" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <TextBox Grid.Column="1" Margin="2" Text="{Binding SelectedUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-        <Button Grid.Column="2" Margin="2" Command="{Binding SelectUrlCommand}" VerticalAlignment="Center" Style="{DynamicResource MaterialDesignRaisedAccentButton}">
+        <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="2" Text="{Binding SelectedUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+        <Button Grid.Row="1" Grid.Column="2" Margin="2" Command="{Binding SelectUrlCommand}" VerticalAlignment="Center" Style="{DynamicResource MaterialDesignRaisedButton}">
             <TextBlock Text="Select" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Button>
     </Grid>

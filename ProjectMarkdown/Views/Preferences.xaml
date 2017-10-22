@@ -177,8 +177,8 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="100" MaxWidth="100" MinWidth="100"/>
+                <ColumnDefinition Width="100" MaxWidth="100" MinWidth="100"/>
             </Grid.ColumnDefinitions>
             <Button Grid.Column="4" Margin="2" Command="{Binding CancelPreferenceChangesCommand}" Style="{DynamicResource MaterialDesignRaisedAccentButton}">
                 <TextBlock Text="Cancel" HorizontalAlignment="Center" VerticalAlignment="Center"/>

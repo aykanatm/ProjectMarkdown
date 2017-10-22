@@ -26,9 +26,9 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30" MaxWidth="30" MinWidth="30"/>
-            <ColumnDefinition Width="200" MaxWidth="200" MinWidth="200"/>
             <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="100" MaxWidth="100" MinWidth="100"/>
+            <ColumnDefinition Width="100" MaxWidth="100" MinWidth="100"/>
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" Text="ALT:" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <TextBox Grid.ColumnSpan="3" Grid.Row="0" Grid.Column="1" Margin="2" Text="{Binding SelectedAlternateText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"/>
