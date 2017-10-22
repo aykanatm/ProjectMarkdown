@@ -314,6 +314,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="pdfium.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="x64\pdfium.dll" />
     <Content Include="x86\pdfium.dll" />
   </ItemGroup>
