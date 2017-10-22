@@ -97,9 +97,9 @@
                 </TextBlock>
                 <TextBlock Text="Copyright © Murat Aykanat" Grid.Row="6" Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center"/>
                 <TextBlock Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" Margin="5,0,0,0">
-                    <Hyperlink NavigateUri="https://github.com/gmanny/Pechkin">Pechkin</Hyperlink>
+                    <Hyperlink NavigateUri="https://github.com/tuespetre/TuesPechkin">TuesPechkin</Hyperlink>
                 </TextBlock>
-                <TextBlock Text="Copyright 2012 by Slava Kolobaev" Grid.Row="7" Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                <TextBlock Text="Copyright © Derek Gray" Grid.Row="7" Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center"/>
             </Grid>
         </ScrollViewer>
     </DockPanel>
