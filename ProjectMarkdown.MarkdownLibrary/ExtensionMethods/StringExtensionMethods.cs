@@ -136,7 +136,7 @@ namespace ProjectMarkdown.MarkdownLibrary.ExtensionMethods
                 var words = input.Split(' ');
                 for (int i = 0; i < words.Length; i++)
                 {
-                    if (Regex.IsMatch(words[i], "(https|http):\\/\\/.*?"))
+                    if (Regex.IsMatch(words[i], "^(https|http):\\/\\/.+"))
                     {
                         words[i] = new Link(words[i], words[i]).ToString();
                     }
