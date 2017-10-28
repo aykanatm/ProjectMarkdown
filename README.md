@@ -14,6 +14,7 @@ Key features include:
 Before installing PMD, you need to make sure its prerequisities are installed. It has two prerequisites.
 * .NET Framework version 4.6.1 ([Download](https://www.microsoft.com/en-us/download/details.aspx?id=49982))
 * Visual Studio C++ 2012/2013 redistributables ([Download](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)).
+
 These prerequisites are bundled with the ProjectMarkdown.BundleSetup, however if you want you can install them seperately yourself.
 
 There are three ways you can install PMD.
