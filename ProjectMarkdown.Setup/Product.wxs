@@ -426,10 +426,426 @@
       </Component>
     </DirectoryRef>
     <DirectoryRef Id="LocalesFolderId">
+      <Component Id="am.pak">
+        <File Id="am.pak"
+              Name="am.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\am.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="ar.pak">
+        <File Id="ar.pak"
+              Name="ar.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\ar.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="bg.pak">
+        <File Id="bg.pak"
+              Name="bg.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\bg.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="bn.pak">
+        <File Id="bn.pak"
+              Name="bn.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\bn.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="ca.pak">
+        <File Id="ca.pak"
+              Name="ca.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\ca.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="cs.pak">
+        <File Id="cs.pak"
+              Name="cs.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\cs.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="da.pak">
+        <File Id="da.pak"
+              Name="da.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\da.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="de.pak">
+        <File Id="de.pak"
+              Name="de.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\de.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="el.pak">
+        <File Id="el.pak"
+              Name="el.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\el.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="en_GB.pak">
+        <File Id="en_GB.pak"
+              Name="en_GB.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\en-GB.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
       <Component Id="en_US.pak">
         <File Id="en_US.pak"
               Name="en_US.pak"
               Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\en-US.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="es.pak">
+        <File Id="es.pak"
+              Name="es.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\es.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="es_419.pak">
+        <File Id="es_419.pak"
+              Name="es_419.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\es-419.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="et.pak">
+        <File Id="et.pak"
+              Name="et.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\et.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="fa.pak">
+        <File Id="fa.pak"
+              Name="fa.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\fa.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="fi.pak">
+        <File Id="fi.pak"
+              Name="fi.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\fi.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="fil.pak">
+        <File Id="fil.pak"
+              Name="fil.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\fil.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="fr.pak">
+        <File Id="fr.pak"
+              Name="fr.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\fr.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="gu.pak">
+        <File Id="gu.pak"
+              Name="gu.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\gu.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="he.pak">
+        <File Id="he.pak"
+              Name="he.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\he.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="hi.pak">
+        <File Id="hi.pak"
+              Name="hi.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\hi.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="hr.pak">
+        <File Id="hr.pak"
+              Name="hr.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\hr.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="hu.pak">
+        <File Id="hu.pak"
+              Name="hu.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\hu.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="id.pak">
+        <File Id="id.pak"
+              Name="id.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\id.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="it.pak">
+        <File Id="it.pak"
+              Name="it.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\it.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="ja.pak">
+        <File Id="ja.pak"
+              Name="ja.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\ja.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="kn.pak">
+        <File Id="kn.pak"
+              Name="kn.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\kn.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="ko.pak">
+        <File Id="ko.pak"
+              Name="ko.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\ko.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="lt.pak">
+        <File Id="lt.pak"
+              Name="lt.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\lt.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="lv.pak">
+        <File Id="lv.pak"
+              Name="lv.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\lv.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="ml.pak">
+        <File Id="ml.pak"
+              Name="ml.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\ml.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="mr.pak">
+        <File Id="mr.pak"
+              Name="mr.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\mr.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="ms.pak">
+        <File Id="ms.pak"
+              Name="ms.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\ms.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="nb.pak">
+        <File Id="nb.pak"
+              Name="nb.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\nb.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="nl.pak">
+        <File Id="nl.pak"
+              Name="nl.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\nl.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="pl.pak">
+        <File Id="pl.pak"
+              Name="pl.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\pl.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="pt_BR.pak">
+        <File Id="pt_BR.pak"
+              Name="pt_BR.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\pt-BR.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="pt_PT.pak">
+        <File Id="pt_PT.pak"
+              Name="pt_PT.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\pt-PT.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="ro.pak">
+        <File Id="ro.pak"
+              Name="ro.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\ro.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="ru.pak">
+        <File Id="ru.pak"
+              Name="ru.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\ru.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="sk.pak">
+        <File Id="sk.pak"
+              Name="sk.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\sk.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="sl.pak">
+        <File Id="sl.pak"
+              Name="sl.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\sl.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="sr.pak">
+        <File Id="sr.pak"
+              Name="sr.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\sr.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="sv.pak">
+        <File Id="sv.pak"
+              Name="sv.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\sv.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="sw.pak">
+        <File Id="sw.pak"
+              Name="sw.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\sw.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="ta.pak">
+        <File Id="ta.pak"
+              Name="ta.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\ta.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="te.pak">
+        <File Id="te.pak"
+              Name="te.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\te.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="th.pak">
+        <File Id="th.pak"
+              Name="th.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\th.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="tr.pak">
+        <File Id="tr.pak"
+              Name="tr.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\tr.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="uk.pak">
+        <File Id="uk.pak"
+              Name="uk.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\uk.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="vi.pak">
+        <File Id="vi.pak"
+              Name="vi.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\vi.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="zh_CN.pak">
+        <File Id="zh_CN.pak"
+              Name="zh_CN.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\zh-CN.pak"
+              KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="LocalesFolderId">
+      <Component Id="zh_TW.pak">
+        <File Id="zh_TW.pak"
+              Name="zh_TW.pak"
+              Source="..\..\..\ProjectMarkdown\bin\x86\Release\locales\zh-TW.pak"
               KeyPath="yes"/>
       </Component>
     </DirectoryRef>
@@ -529,7 +945,59 @@
       <!-- Localization Components -->
       <ComponentRef Id="Localization_Microsoft.Expression.Interactions.resources.dll" />
       <ComponentRef Id="Localization_System.Windows.Interactivity.resources.dll" />
+      <ComponentRef Id="am.pak"/>
+      <ComponentRef Id="ar.pak"/>
+      <ComponentRef Id="bg.pak"/>
+      <ComponentRef Id="bn.pak"/>
+      <ComponentRef Id="ca.pak"/>
+      <ComponentRef Id="cs.pak"/>
+      <ComponentRef Id="da.pak"/>
+      <ComponentRef Id="de.pak"/>
+      <ComponentRef Id="el.pak"/>
+      <ComponentRef Id="en_GB.pak"/>
       <ComponentRef Id="en_US.pak"/>
+      <ComponentRef Id="es.pak"/>
+      <ComponentRef Id="es_419.pak"/>
+      <ComponentRef Id="et.pak"/>
+      <ComponentRef Id="fa.pak"/>
+      <ComponentRef Id="fi.pak"/>
+      <ComponentRef Id="fil.pak"/>
+      <ComponentRef Id="fr.pak"/>
+      <ComponentRef Id="gu.pak"/>
+      <ComponentRef Id="he.pak"/>
+      <ComponentRef Id="hi.pak"/>
+      <ComponentRef Id="hr.pak"/>
+      <ComponentRef Id="hu.pak"/>
+      <ComponentRef Id="id.pak"/>
+      <ComponentRef Id="it.pak"/>
+      <ComponentRef Id="ja.pak"/>
+      <ComponentRef Id="kn.pak"/>
+      <ComponentRef Id="ko.pak"/>
+      <ComponentRef Id="lt.pak"/>
+      <ComponentRef Id="lv.pak"/>
+      <ComponentRef Id="ml.pak"/>
+      <ComponentRef Id="mr.pak"/>
+      <ComponentRef Id="ms.pak"/>
+      <ComponentRef Id="nb.pak"/>
+      <ComponentRef Id="nl.pak"/>
+      <ComponentRef Id="pl.pak"/>
+      <ComponentRef Id="pt_BR.pak"/>
+      <ComponentRef Id="pt_PT.pak"/>
+      <ComponentRef Id="ro.pak"/>
+      <ComponentRef Id="ru.pak"/>
+      <ComponentRef Id="sk.pak"/>
+      <ComponentRef Id="sl.pak"/>
+      <ComponentRef Id="sr.pak"/>
+      <ComponentRef Id="sv.pak"/>
+      <ComponentRef Id="sw.pak"/>
+      <ComponentRef Id="ta.pak"/>
+      <ComponentRef Id="te.pak"/>
+      <ComponentRef Id="th.pak"/>
+      <ComponentRef Id="tr.pak"/>
+      <ComponentRef Id="uk.pak"/>
+      <ComponentRef Id="vi.pak"/>
+      <ComponentRef Id="zh_CN.pak"/>
+      <ComponentRef Id="zh_TW.pak"/>
       <!-- Documentation Component-->
       <ComponentRef Id="DocumentationComponent" />
       <!-- Styles Component -->
