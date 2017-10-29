@@ -10,6 +10,8 @@ Key features include:
 * Multi document editing via tabs.
 * Split text and HTML views to see the result of the markdown immediately.
 
+![mainwindow](https://user-images.githubusercontent.com/9140297/32141791-46549e5e-bc9a-11e7-9376-fd83a9a91866.png)
+
 ## Installation
 Before installing PMD, you need to make sure its prerequisities are installed. It has two prerequisites.
 * .NET Framework version 4.6.1 ([Download](https://www.microsoft.com/en-us/download/details.aspx?id=49982))
