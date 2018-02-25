@@ -32,55 +32,57 @@ namespace ProjectMarkdown.Services
                 {
                     if (result == true)
                     {
-                        if (!Directory.Exists(saveDialog.FileName + "_temp"))
+                        if (Directory.Exists(document.FilePath + "_temp"))
                         {
-                            var parentFolder = Directory.CreateDirectory(saveDialog.FileName + "_temp").FullName;
-
-                            var mp = new MarkdownParser();
-                            // Generate HTML
-                            var html = mp.Parse(document.Markdown, style);
-
-                            var markdownFileName = saveDialog.SafeFileName + ".md";
-                            var markdownFilePath = parentFolder + "\\" + markdownFileName;
-                            var htmlFileName = saveDialog.SafeFileName + ".html";
-                            var htmlFilePath = parentFolder + "\\" + htmlFileName;
-                            var xmlFileName = saveDialog.SafeFileName + ".xml";
-                            var metadataFilePath = parentFolder + "\\" + xmlFileName;
-                            // Generate MD file
-                            using (var sw = new StreamWriter(markdownFilePath))
-                            {
-                                sw.Write(document.Markdown);
-                            }
-                            // Generate HTML file
-                            using (var sw = new StreamWriter(htmlFilePath))
-                            {
-                                sw.Write(html);
-                            }
-
-                            document.FilePath = saveDialog.FileName;
-
-                            // Generate XML file
-                            document.Metadata.FileName = saveDialog.SafeFileName;
-                            document.Metadata.IsNew = false;
-                            var gxs = new GenericXmlSerializer<DocumentMetadata>();
-                            gxs.Serialize(document.Metadata, metadataFilePath);
-                            // Generate the package
-                            if (File.Exists(document.FilePath))
-                            {
-                                File.Delete(document.FilePath);
-                            }
-                            ZipFile.CreateFromDirectory(parentFolder, saveDialog.FileName);
-                            // Update the view
-                            var saveResult = new SaveResult
-                            {
-                                FileName = saveDialog.SafeFileName,
-                                Source = htmlFilePath.ToUri(),
-                                TempFile = saveDialog.FileName + "_temp"
-                            };
-
-                            Logger.GetInstance().Debug("<< SaveAs()");
-                            return saveResult;
+                            Directory.Delete(document.FilePath + "_temp", true);
                         }
+
+                        var parentFolder = Directory.CreateDirectory(saveDialog.FileName + "_temp").FullName;
+
+                        var mp = new MarkdownParser();
+                        // Generate HTML
+                        var html = mp.Parse(document.Markdown, style);
+
+                        var markdownFileName = saveDialog.SafeFileName + ".md";
+                        var markdownFilePath = parentFolder + "\\" + markdownFileName;
+                        var htmlFileName = saveDialog.SafeFileName + ".html";
+                        var htmlFilePath = parentFolder + "\\" + htmlFileName;
+                        var xmlFileName = saveDialog.SafeFileName + ".xml";
+                        var metadataFilePath = parentFolder + "\\" + xmlFileName;
+                        // Generate MD file
+                        using (var sw = new StreamWriter(markdownFilePath))
+                        {
+                            sw.Write(document.Markdown);
+                        }
+                        // Generate HTML file
+                        using (var sw = new StreamWriter(htmlFilePath))
+                        {
+                            sw.Write(html);
+                        }
+
+                        document.FilePath = saveDialog.FileName;
+
+                        // Generate XML file
+                        document.Metadata.FileName = saveDialog.SafeFileName;
+                        document.Metadata.IsNew = false;
+                        var gxs = new GenericXmlSerializer<DocumentMetadata>();
+                        gxs.Serialize(document.Metadata, metadataFilePath);
+                        // Generate the package
+                        if (File.Exists(document.FilePath))
+                        {
+                            File.Delete(document.FilePath);
+                        }
+                        ZipFile.CreateFromDirectory(parentFolder, saveDialog.FileName);
+                        // Update the view
+                        var saveResult = new SaveResult
+                        {
+                            FileName = saveDialog.SafeFileName,
+                            Source = htmlFilePath.ToUri(),
+                            TempFile = saveDialog.FileName + "_temp"
+                        };
+
+                        Logger.GetInstance().Debug("<< SaveAs()");
+                        return saveResult;
                     }
                 }
 
