@@ -99,58 +99,60 @@ namespace ProjectMarkdown.Services
 
             try
             {
-                if (!Directory.Exists(document.FilePath + "_temp"))
+                if (Directory.Exists(document.FilePath + "_temp"))
                 {
-                    var parentFolder = Directory.CreateDirectory(document.FilePath + "_temp").FullName;
-
-                    var mp = new MarkdownParser();
-                    // Generate HTML
-                    var html = mp.Parse(document.Markdown, style);
-
-                    var markdownFileName = document.Metadata.FileName + ".md";
-                    var markdownFilePath = parentFolder + "\\" + markdownFileName;
-                    var htmlFileName = document.Metadata.FileName + ".html";
-                    var htmlFilePath = parentFolder + "\\" + htmlFileName;
-                    var xmlFileName = document.Metadata.FileName + ".xml";
-                    var metadataFilePath = parentFolder + "\\" + xmlFileName;
-                    // Generate MD file
-                    using (var sw = new StreamWriter(markdownFilePath))
-                    {
-                        sw.Write(document.Markdown);
-                    }
-                    // Generate HTML file
-                    using (var sw = new StreamWriter(htmlFilePath))
-                    {
-                        sw.Write(html);
-                    }
-
-                    document.FilePath = document.FilePath;
-
-                    // Generate XML file
-                    document.Metadata.FileName = document.Metadata.FileName;
-                    document.Metadata.IsNew = false;
-                    var gxs = new GenericXmlSerializer<DocumentMetadata>();
-                    gxs.Serialize(document.Metadata, metadataFilePath);
-
-                    // Generate the package
-                    if (File.Exists(document.FilePath))
-                    {
-                        File.Delete(document.FilePath);
-                    }
-                    ZipFile.CreateFromDirectory(parentFolder, document.FilePath);
-                    // Update the view
-                    var saveResult = new SaveResult
-                    {
-                        FileName = document.Metadata.FileName,
-                        Source = htmlFilePath.ToUri(),
-                        TempFile = document.FilePath + "_temp"
-                    };
-
-                    Logger.GetInstance().Debug("<< Save()");
-                    return saveResult;
+                    Directory.Delete(document.FilePath + "_temp", true);
                 }
 
-                throw new Exception("Temporary directory already exists");
+                var parentFolder = Directory.CreateDirectory(document.FilePath + "_temp").FullName;
+
+                var mp = new MarkdownParser();
+                // Generate HTML
+                var html = mp.Parse(document.Markdown, style);
+
+                var markdownFileName = document.Metadata.FileName + ".md";
+                var markdownFilePath = parentFolder + "\\" + markdownFileName;
+                var htmlFileName = document.Metadata.FileName + ".html";
+                var htmlFilePath = parentFolder + "\\" + htmlFileName;
+                var xmlFileName = document.Metadata.FileName + ".xml";
+                var metadataFilePath = parentFolder + "\\" + xmlFileName;
+                // Generate MD file
+                using (var sw = new StreamWriter(markdownFilePath))
+                {
+                    sw.Write(document.Markdown);
+                }
+                // Generate HTML file
+                using (var sw = new StreamWriter(htmlFilePath))
+                {
+                    sw.Write(html);
+                }
+
+                document.FilePath = document.FilePath;
+
+                // Generate XML file
+                document.Metadata.FileName = document.Metadata.FileName;
+                document.Metadata.IsNew = false;
+                var gxs = new GenericXmlSerializer<DocumentMetadata>();
+                gxs.Serialize(document.Metadata, metadataFilePath);
+
+                // Generate the package
+                if (File.Exists(document.FilePath))
+                {
+                    File.Delete(document.FilePath);
+                }
+                ZipFile.CreateFromDirectory(parentFolder, document.FilePath);
+                // Update the view
+                var saveResult = new SaveResult
+                {
+                    FileName = document.Metadata.FileName,
+                    Source = htmlFilePath.ToUri(),
+                    TempFile = document.FilePath + "_temp"
+                };
+
+                Logger.GetInstance().Debug("<< Save()");
+                return saveResult;
+
+                // throw new Exception("Temporary directory already exists");
             }
             catch (Exception e)
             {
