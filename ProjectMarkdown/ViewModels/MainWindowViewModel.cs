@@ -93,7 +93,7 @@ namespace ProjectMarkdown.ViewModels
                     _currentDocument.IsOpen = true;
                     RefreshCurrentHtmlView();
 
-                    var filePath = _currentDocument.Metadata.FilePath;
+                    var filePath = _currentDocument.FilePath;
                     var author = _currentDocument.Metadata.Author;
                     if (string.IsNullOrEmpty(author))
                     {
@@ -644,7 +644,7 @@ namespace ProjectMarkdown.ViewModels
 
             try
             {
-                var parent = Directory.GetParent(CurrentDocument.Metadata.FilePath);
+                var parent = Directory.GetParent(CurrentDocument.FilePath);
                 Process.Start("explorer.exe", parent.FullName);
             }
             catch (Exception e)
@@ -735,11 +735,11 @@ namespace ProjectMarkdown.ViewModels
                 if (currentDocument != null)
                 {
                     var documentsWithCurrentFilePath = (from d in Documents
-                                                        where d.Metadata.FilePath == currentDocument.Metadata.FilePath
+                                                        where d.FilePath == currentDocument.FilePath
                                                         select d);
                     if (documentsWithCurrentFilePath.Any())
                     {
-                        MessageBox.Show("The document '" + currentDocument.Metadata.FilePath + "' is already open.",
+                        MessageBox.Show("The document '" + currentDocument.FilePath + "' is already open.",
                             "Duplicate File Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     else
@@ -777,11 +777,11 @@ namespace ProjectMarkdown.ViewModels
                 if (currentDocument != null)
                 {
                     var documentsWithCurrentFilePath = (from d in Documents
-                                                        where d.Metadata.FilePath == currentDocument.Metadata.FilePath
+                                                        where d.FilePath == currentDocument.FilePath
                                                         select d);
                     if (documentsWithCurrentFilePath.Any())
                     {
-                        MessageBox.Show("The document '" + currentDocument.Metadata.FilePath + "' is already open.",
+                        MessageBox.Show("The document '" + currentDocument.FilePath + "' is already open.",
                             "Duplicate File Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     else

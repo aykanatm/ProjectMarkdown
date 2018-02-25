@@ -16,6 +16,16 @@ namespace ProjectMarkdown.Model
     {
         public bool IsOpenedFromMenu { get; set; }
 
+        public string FilePath
+        {
+            get { return _filePath; }
+            set
+            {
+                _filePath = value;
+                OnPropertyChanged(nameof(FilePath));
+            }
+        }
+
         public Font CurrentFont
         {
             get { return _currentFont; }
@@ -135,6 +145,7 @@ namespace ProjectMarkdown.Model
         private readonly MainWindowViewModel _mainWindowViewModel;
         private bool _isWordWrap;
         private Font _currentFont;
+        private string _filePath;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -175,7 +186,7 @@ namespace ProjectMarkdown.Model
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message, "An error occured while switching to '" + _metadata.FilePath + "'", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(e.Message, "An error occured while switching to '" + FilePath + "'", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

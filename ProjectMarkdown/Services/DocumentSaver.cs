@@ -56,16 +56,18 @@ namespace ProjectMarkdown.Services
                             {
                                 sw.Write(html);
                             }
+
+                            document.FilePath = saveDialog.FileName;
+
                             // Generate XML file
-                            document.Metadata.FilePath = saveDialog.FileName;
                             document.Metadata.FileName = saveDialog.SafeFileName;
                             document.Metadata.IsNew = false;
                             var gxs = new GenericXmlSerializer<DocumentMetadata>();
                             gxs.Serialize(document.Metadata, metadataFilePath);
                             // Generate the package
-                            if (File.Exists(document.Metadata.FilePath))
+                            if (File.Exists(document.FilePath))
                             {
-                                File.Delete(document.Metadata.FilePath);
+                                File.Delete(document.FilePath);
                             }
                             ZipFile.CreateFromDirectory(parentFolder, saveDialog.FileName);
                             // Update the view
@@ -97,9 +99,9 @@ namespace ProjectMarkdown.Services
 
             try
             {
-                if (!Directory.Exists(document.Metadata.FilePath + "_temp"))
+                if (!Directory.Exists(document.FilePath + "_temp"))
                 {
-                    var parentFolder = Directory.CreateDirectory(document.Metadata.FilePath + "_temp").FullName;
+                    var parentFolder = Directory.CreateDirectory(document.FilePath + "_temp").FullName;
 
                     var mp = new MarkdownParser();
                     // Generate HTML
@@ -121,25 +123,27 @@ namespace ProjectMarkdown.Services
                     {
                         sw.Write(html);
                     }
+
+                    document.FilePath = document.FilePath;
+
                     // Generate XML file
-                    document.Metadata.FilePath = document.Metadata.FilePath;
                     document.Metadata.FileName = document.Metadata.FileName;
                     document.Metadata.IsNew = false;
                     var gxs = new GenericXmlSerializer<DocumentMetadata>();
                     gxs.Serialize(document.Metadata, metadataFilePath);
 
                     // Generate the package
-                    if (File.Exists(document.Metadata.FilePath))
+                    if (File.Exists(document.FilePath))
                     {
-                        File.Delete(document.Metadata.FilePath);
+                        File.Delete(document.FilePath);
                     }
-                    ZipFile.CreateFromDirectory(parentFolder, document.Metadata.FilePath);
+                    ZipFile.CreateFromDirectory(parentFolder, document.FilePath);
                     // Update the view
                     var saveResult = new SaveResult
                     {
                         FileName = document.Metadata.FileName,
                         Source = htmlFilePath.ToUri(),
-                        TempFile = document.Metadata.FilePath + "_temp"
+                        TempFile = document.FilePath + "_temp"
                     };
 
                     Logger.GetInstance().Debug("<< Save()");

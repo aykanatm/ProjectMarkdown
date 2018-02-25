@@ -11,7 +11,6 @@ namespace ProjectMarkdown.Model
         private string _fileName;
         private string _author;
         private bool _isNew;
-        private string _filePath;
 
         public string Author
         {
@@ -40,16 +39,6 @@ namespace ProjectMarkdown.Model
             {
                 _isNew = value;
                 OnPropertyChanged(nameof(IsNew));
-            }
-        }
-
-        public string FilePath
-        {
-            get { return _filePath; }
-            set
-            {
-                _filePath = value;
-                OnPropertyChanged(nameof(FilePath));
             }
         }
 

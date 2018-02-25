@@ -87,7 +87,8 @@ namespace ProjectMarkdown.Services
                     {
                         Metadata = documentMetadata,
                         Html = documentHtml,
-                        Markdown = documentMarkdown
+                        Markdown = documentMarkdown,
+                        FilePath = filePath
                     };
 
                     Logger.GetInstance().Debug("<< Load()");
@@ -185,7 +186,8 @@ namespace ProjectMarkdown.Services
                         {
                             Metadata = documentMetadata,
                             Html = documentHtml,
-                            Markdown = documentMarkdown
+                            Markdown = documentMarkdown,
+                            FilePath = openFileDialog.FileName
                         };
 
                         Logger.GetInstance().Debug("<< Load()");
