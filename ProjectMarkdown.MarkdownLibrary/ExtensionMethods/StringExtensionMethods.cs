@@ -52,7 +52,7 @@ namespace ProjectMarkdown.MarkdownLibrary.ExtensionMethods
                 {
                     if (i != 0 && i != tagSplit.Length - 1)
                     {
-                        if (tagSplit[i][0] != ' ' && tagSplit[i][tagSplit[i].Length - 1] != ' ')
+                        if (tagSplit[i].Length - 1 > 0 && tagSplit[i][0] != ' ' && tagSplit[i][tagSplit[i].Length - 1] != ' ')
                         {
                             if (!(tagSplit[i][0] == '~' || tagSplit[i][0] == '_' || tagSplit[i][0] == '*' || 
                                 tagSplit[i][tagSplit[i].Length - 1] == '~' || tagSplit[i][tagSplit[i].Length - 1] == '_' || tagSplit[i][tagSplit[i].Length - 1] == '*'))
