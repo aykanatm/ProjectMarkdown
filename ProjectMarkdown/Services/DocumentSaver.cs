@@ -7,6 +7,7 @@ using Microsoft.Win32;
 using ProjectMarkdown.ExtensionMethods;
 using ProjectMarkdown.MarkdownLibrary;
 using ProjectMarkdown.Model;
+using ProjectMarkdown.Statics;
 
 namespace ProjectMarkdown.Services
 {
@@ -32,12 +33,14 @@ namespace ProjectMarkdown.Services
                 {
                     if (result == true)
                     {
-                        if (Directory.Exists(document.FilePath + "_temp"))
+                        var tempFolder = FolderPaths.TempFolderPath + "\\" + saveDialog.SafeFileName + "_temp";
+
+                        if (Directory.Exists(tempFolder))
                         {
-                            Directory.Delete(document.FilePath + "_temp", true);
+                            Directory.Delete(tempFolder, true);
                         }
 
-                        var parentFolder = Directory.CreateDirectory(saveDialog.FileName + "_temp").FullName;
+                        var parentFolder = Directory.CreateDirectory(tempFolder).FullName;
 
                         var mp = new MarkdownParser();
                         // Generate HTML
@@ -78,7 +81,7 @@ namespace ProjectMarkdown.Services
                         {
                             FileName = saveDialog.SafeFileName,
                             Source = htmlFilePath.ToUri(),
-                            TempFile = saveDialog.FileName + "_temp"
+                            TempFile = tempFolder
                         };
 
                         Logger.GetInstance().Debug("<< SaveAs()");
@@ -101,12 +104,14 @@ namespace ProjectMarkdown.Services
 
             try
             {
-                if (Directory.Exists(document.FilePath + "_temp"))
+                var tempFolder = FolderPaths.TempFolderPath + "\\" + document.Metadata.FileName + "_temp";
+
+                if (Directory.Exists(tempFolder))
                 {
-                    Directory.Delete(document.FilePath + "_temp", true);
+                    Directory.Delete(tempFolder, true);
                 }
 
-                var parentFolder = Directory.CreateDirectory(document.FilePath + "_temp").FullName;
+                var parentFolder = Directory.CreateDirectory(tempFolder).FullName;
 
                 var mp = new MarkdownParser();
                 // Generate HTML
@@ -148,13 +153,11 @@ namespace ProjectMarkdown.Services
                 {
                     FileName = document.Metadata.FileName,
                     Source = htmlFilePath.ToUri(),
-                    TempFile = document.FilePath + "_temp"
+                    TempFile = tempFolder
                 };
 
                 Logger.GetInstance().Debug("<< Save()");
                 return saveResult;
-
-                // throw new Exception("Temporary directory already exists");
             }
             catch (Exception e)
             {

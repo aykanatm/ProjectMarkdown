@@ -1614,25 +1614,8 @@ namespace ProjectMarkdown.ViewModels
         {
             Logger.GetInstance().Debug("DeleteTempSaveFile() >>");
 
-            try
-            {
-                Thread.Sleep(100);
-                Directory.Delete(result.TempFile, true);
-            }
-            catch (Exception e)
-            {
-                // When the file is located in a folder that is being processed (e.g. Dropbox), it is possible to get exceptions due to timing of the sync
-                // This code waits 200 milliseconds to give the sync process to complete and tries again.
-                if (e.Message.Contains("because it is being used by another process") || e.Message.Contains("The directory is not empty"))
-                {
-                    Thread.Sleep(200);
-                    DeleteTempSaveFile(result);
-                }
-                else
-                {
-                    throw e;
-                }
-            }
+            Thread.Sleep(100);
+            Directory.Delete(result.TempFile, true);
             
             Logger.GetInstance().Debug("<< DeleteTempSaveFile()");
         }
