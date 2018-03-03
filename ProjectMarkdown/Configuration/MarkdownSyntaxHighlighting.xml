@@ -28,6 +28,6 @@
   <rule style="links">\(http(.*?)\)</rule>
   <rule style="autoLink1">(https|http):\/\/.*?\s+</rule>
   <rule style="altText">(\[)(.*?)(\])</rule>
-  <rule style="hr">(\n|^)(\-|\*){3,}</rule>
+  <rule style="hr">(|^)((\-){3,}|(\*){3,})</rule>
   <rule style="blockCodes" options="Multiline">(^(```))(.|(\s+))+?(^(```))</rule>
 </doc>
