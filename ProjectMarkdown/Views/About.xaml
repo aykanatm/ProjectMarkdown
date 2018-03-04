@@ -25,7 +25,7 @@
                 <ColumnDefinition Width="50" MaxWidth="50" MinWidth="50"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="0" Margin="5" Source="../Resources/Images/Application/ProjectMarkdownIcon_100.png"/>
+            <Image Grid.Column="0" Margin="5" Source="pack://application:,,,/Resources/Images/Application/ProjectMarkdownIcon_100.png"/>
             <TextBlock Grid.Column="1" Text="{Binding CurrentVersion}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontWeight="Bold" FontSize="20"></TextBlock>
         </Grid>
         <Grid DockPanel.Dock="Top" Height="50">
