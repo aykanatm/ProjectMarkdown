@@ -2,7 +2,7 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
      xmlns:bal="http://schemas.microsoft.com/wix/BalExtension">
 	<Bundle Name="Project Markdown"
-          Version="1.0.0"
+          Version="1.0.1"
           Manufacturer="Murat Aykanat"
           HelpUrl="https://github.com/aykanatm/ProjectMarkdown"
           UpdateUrl="https://github.com/aykanatm/ProjectMarkdown"

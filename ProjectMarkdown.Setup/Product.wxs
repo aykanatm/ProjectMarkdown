@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="Project Markdown" Language="1033" Version="1.0.0" Manufacturer="Murat Aykanat" UpgradeCode="0b78676c-6967-48e2-9378-577c0b3c52ad">
+	<Product Id="*" Name="Project Markdown" Language="1033" Version="1.0.1" Manufacturer="Murat Aykanat" UpgradeCode="0b78676c-6967-48e2-9378-577c0b3c52ad">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 		<MediaTemplate EmbedCab="yes"/>
