@@ -47,7 +47,7 @@ namespace ProjectMarkdown.ViewModels
 
             ViewID = Guid.NewGuid();
             
-            CurrentVersion = "Project Markdown v1.0.0";
+            CurrentVersion = "Project Markdown v1.0.1";
 
             LicenseText = ReadLicense();
 
