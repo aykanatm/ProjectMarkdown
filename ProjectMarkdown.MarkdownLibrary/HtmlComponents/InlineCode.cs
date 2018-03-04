@@ -11,7 +11,6 @@ namespace ProjectMarkdown.MarkdownLibrary.HtmlComponents
 
         public override string ToString()
         {
-            Text = Regex.Replace(Text, "<.*?>", string.Empty);
             return "<code>" + Text + "</code>";
         }
     }

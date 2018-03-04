@@ -47,6 +47,10 @@ namespace ProjectMarkdown.MarkdownLibrary.ExtensionMethods
             {
                 string output = string.Empty;
                 var tagSplit = input.Split(new string[] { markdownTag }, StringSplitOptions.None);
+                if (markdownTag.Length == 1 && tag != MarkdownParser.PairedMarkdownTags.InlineCode)
+                {
+                    tagSplit = FillEmptyValues(tagSplit, markdownTag);
+                }
 
                 for (int i = 0; i < tagSplit.Length; i++)
                 {
@@ -54,24 +58,41 @@ namespace ProjectMarkdown.MarkdownLibrary.ExtensionMethods
                     {
                         if (tagSplit[i].Length - 1 > 0 && tagSplit[i][0] != ' ' && tagSplit[i][tagSplit[i].Length - 1] != ' ')
                         {
-                            if (!(tagSplit[i][0] == '~' || tagSplit[i][0] == '_' || tagSplit[i][0] == '*' || 
-                                tagSplit[i][tagSplit[i].Length - 1] == '~' || tagSplit[i][tagSplit[i].Length - 1] == '_' || tagSplit[i][tagSplit[i].Length - 1] == '*'))
+                            if (tag == MarkdownParser.PairedMarkdownTags.InlineCode)
                             {
-                                if (tag == MarkdownParser.PairedMarkdownTags.Bold)
+                                tagSplit[i] = new InlineCode(tagSplit[i]).ToString();
+                            }
+                            else
+                            {
+                                if (!(tagSplit[i][0] == '~' || tagSplit[i][0] == '_' || tagSplit[i][0] == '*' ||
+                                tagSplit[i][tagSplit[i].Length - 1] == '~' || tagSplit[i][tagSplit[i].Length - 1] == '_' || tagSplit[i][tagSplit[i].Length - 1] == '*'))
                                 {
-                                    tagSplit[i] = new Bold(tagSplit[i]).ToString();
-                                }
-                                else if (tag == MarkdownParser.PairedMarkdownTags.Italic)
-                                {
-                                    tagSplit[i] = new Italic(tagSplit[i]).ToString();
-                                }
-                                else if (tag == MarkdownParser.PairedMarkdownTags.InlineCode)
-                                {
-                                    tagSplit[i] = new InlineCode(tagSplit[i]).ToString();
-                                }
-                                else if (tag == MarkdownParser.PairedMarkdownTags.StrikeThrough)
-                                {
-                                    tagSplit[i] = new StrikeThrough(tagSplit[i]).ToString();
+                                    if (tag == MarkdownParser.PairedMarkdownTags.Bold)
+                                    {
+                                        if (!IsInCodeTag(tagSplit, i))
+                                        {
+                                            tagSplit[i] = new Bold(tagSplit[i]).ToString();
+                                        }
+                                        else
+                                        {
+                                            tagSplit[i] = markdownTag + tagSplit[i] + markdownTag;
+                                        }
+                                    }
+                                    else if (tag == MarkdownParser.PairedMarkdownTags.Italic)
+                                    {
+                                        if (!IsInCodeTag(tagSplit, i))
+                                        {
+                                            tagSplit[i] = new Italic(tagSplit[i]).ToString();
+                                        }
+                                        else
+                                        {
+                                            tagSplit[i] = markdownTag + tagSplit[i] + markdownTag;
+                                        }
+                                    }
+                                    else if (tag == MarkdownParser.PairedMarkdownTags.StrikeThrough)
+                                    {
+                                        tagSplit[i] = new StrikeThrough(tagSplit[i]).ToString();
+                                    }
                                 }
                             }
                         }
@@ -87,11 +108,81 @@ namespace ProjectMarkdown.MarkdownLibrary.ExtensionMethods
             }
         }
 
+        private static string[] FillEmptyValues(string[] tagSplit, string markdownTag)
+        {
+            for (var i = 0; i < tagSplit.Length; i++)
+            {
+                if (string.IsNullOrEmpty(tagSplit[i]))
+                {
+                    tagSplit[i] = markdownTag;
+                }
+            }
+
+            return tagSplit;
+        }
+
+        private static bool IsInCodeTag(string input, string match)
+        {
+            var start = input.IndexOf("<code>");
+            var end = input.IndexOf("</code>");
+
+            if (start == -1 || end == -1)
+            {
+                return false;
+            }
+
+            var between = input.Substring(start, end - start);
+            if (between.Contains(match))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private static bool IsInCodeTag(string[] tagSplit, int index)
+        {
+            if (index != 0 && index != tagSplit.Length - 1)
+            {
+                var hasFirstCodeTag = false;
+                var hasLastCodeTag = false;
+
+                var i = index;
+                do
+                {
+                    if (tagSplit[i].Contains("`"))
+                    {
+                        hasFirstCodeTag = true;
+                        break;
+                    }
+                    i--;
+                } while (i > -1);
+
+                i = index;
+                do
+                {
+                    if (tagSplit[i].Contains("`"))
+                    {
+                        hasLastCodeTag = true;
+                        break;
+                    }
+                    i++;
+                } while (i != tagSplit.Length);
+
+                if (hasFirstCodeTag && hasLastCodeTag)
+                {
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
+
         public static string GenerateInlineImages(this string input)
         {
             try
             {
-                var output = Regex.Replace(input, @"!\[.*?\]\(.*?\)", new MatchEvaluator(ConvertToImage));
+                var output = Regex.Replace(input, @"!\[.*?\]\(.*?\)", match => ConvertToImage(match, input));
                 return output;
             }
             catch (Exception e)
@@ -100,13 +191,18 @@ namespace ProjectMarkdown.MarkdownLibrary.ExtensionMethods
             }
         }
 
-        private static string ConvertToImage(Match match)
+        private static string ConvertToImage(Match match, string input)
         {
             try
             {
-                var imageAltText = new string(match.ToString().SkipWhile(s => s != '[').Skip(1).TakeWhile(s => s != ']').ToArray()).Trim();
-                var imageUrl = new string(match.ToString().SkipWhile(s => s != '(').Skip(1).TakeWhile(s => s != ')').ToArray()).Trim();
-                return new Image(imageUrl, imageAltText).ToString();
+                var isInCodeTag = IsInCodeTag(input, match.ToString());
+                if (!isInCodeTag)
+                {
+                    var imageAltText = new string(match.ToString().SkipWhile(s => s != '[').Skip(1).TakeWhile(s => s != ']').ToArray()).Trim();
+                    var imageUrl = new string(match.ToString().SkipWhile(s => s != '(').Skip(1).TakeWhile(s => s != ')').ToArray()).Trim();
+                    return new Image(imageUrl, imageAltText).ToString();
+                }
+                return match.ToString();
             }
             catch (Exception e)
             {
@@ -118,7 +214,7 @@ namespace ProjectMarkdown.MarkdownLibrary.ExtensionMethods
         {
             try
             {
-                var output = Regex.Replace(input, @"\[.*?\]\(.*?\)", new MatchEvaluator(ConvertToLink));
+                var output = Regex.Replace(input, @"\[.*?\]\(.*?\)", match => ConvertToLink(match, input));
                 return output;
             }
             catch (Exception e)
@@ -138,7 +234,11 @@ namespace ProjectMarkdown.MarkdownLibrary.ExtensionMethods
                 {
                     if (Regex.IsMatch(words[i], "^(https|http):\\/\\/.+"))
                     {
-                        words[i] = new Link(words[i], words[i]).ToString();
+                        var isInCodeTag = IsInCodeTag(input, words[i]);
+                        if (!isInCodeTag)
+                        {
+                            words[i] = new Link(words[i], words[i]).ToString();
+                        }
                     }
                     if (i != words.Length - 1)
                     {
@@ -157,13 +257,18 @@ namespace ProjectMarkdown.MarkdownLibrary.ExtensionMethods
             }
         }
 
-        private static string ConvertToLink(Match match)
+        private static string ConvertToLink(Match match, string input)
         {
             try
             {
-                var linkText = new string(match.ToString().SkipWhile(s => s != '[').Skip(1).TakeWhile(s => s != ']').ToArray()).Trim();
-                var urlText = new string(match.ToString().SkipWhile(s => s != '(').Skip(1).TakeWhile(s => s != ')').ToArray()).Trim();
-                return new Link(linkText, urlText).ToString();
+                var isInCodeTag = IsInCodeTag(input, match.ToString());
+                if (!isInCodeTag)
+                {
+                    var linkText = new string(match.ToString().SkipWhile(s => s != '[').Skip(1).TakeWhile(s => s != ']').ToArray()).Trim();
+                    var urlText = new string(match.ToString().SkipWhile(s => s != '(').Skip(1).TakeWhile(s => s != ')').ToArray()).Trim();
+                    return new Link(linkText, urlText).ToString();
+                }
+                return match.ToString();
             }
             catch (Exception e)
             {
